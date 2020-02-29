@@ -58,7 +58,7 @@
                                 <div class="form-secundary w-100 d-block">
                                     <input type="text" name="txtLogin" id="txtLogin" autocomplete="off" required>
                                     <label for="txtLogin" class="label">
-                                        <span class="content-label"> Login </span>
+                                        <span class="content-label"> E-mail </span>
                                     </label>
                                 </div>
                             </div>
