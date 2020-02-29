@@ -142,6 +142,9 @@ div.col-md-8, div.col-md-4, .form-login, div.col-md-12 {
 
 /* Fim ------ tela-login------ */
 
+
+/* ---- Início da home  ---- */
+
 .menu {
     height: 100vh;
     width: 20%;
@@ -197,6 +200,9 @@ nav.top-menu h6 {
 nav.side-menu {
     position: fixed;
     z-index: 1031;
+    top: 0px;
+    left: 0px;
+    height: 100vh;
 }
 
 nav.top-menu img.user-img {
@@ -290,16 +296,25 @@ nav.top-menu img.user-img {
         width: 90px !important;
         
     }
+    nav.side-menu {
+        padding-bottom: 10px;
+        padding-top: 10px;
+    }
+
+    nav.side-menu ul {
+        margin-top: 3px;
+    }
 }
 
 ::-webkit-scrollbar {
     width: 8px;
+
 }
 
 ::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background: rgba(0,0,0,0.1);
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, .1);
 }
 
 ::-webkit-scrollbar-track {
@@ -315,4 +330,34 @@ nav.side-menu img  {
     margin-left: auto;
     margin-right: auto;
     
+}
+
+main {
+
+    height: 80vh;
+    margin-top: 2%;
+    margin-left: 20%;
+}
+
+div.boas-vindas img {
+
+    height: 50px;
+}
+div.boas-vindas {
+ 
+}
+
+/* ---- Fim da home ---- */
+
+
+.form-img {
+    width: 80px;
+    padding: 5px;
+    margin-bottom: 5px;
+    
+}
+
+.form-group {
+    
+    margin-bottom: 0 !important;
 }

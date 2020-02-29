@@ -15,7 +15,7 @@
 
     <nav class="menu side-menu background-default d-flex align-items-center flex-wrap">
 
-      
+
         <h5 class="text-center w-100"> <i class="fas fa-heart"></i> Needy </h5>
 
         <ul class="d-flex flex-wrap">
@@ -23,6 +23,8 @@
             <li class="menu-item d-flex justify-content-start"> <span class=""> <i class="fas fa-home"> </i> </span> <span> Home </span> </li>
 
             <li class="menu-item d-flex justify-content-start"> <span class=""><i class="fas fa-users ali"></i> </span> <span> Doadores </span> </li>
+
+            <li class="menu-item d-flex justify-content-start"> <span class=""><i class="fas fa-tint"></i> </span> <span> Doação </span> </li>
 
             <li class="menu-item d-flex justify-content-start"> <span class=""> <i class="fas fa-stethoscope"></i> </span> <span> Funcionários </span> </li>
 
@@ -41,7 +43,7 @@
 
     </nav>
 
-    <nav class="fixed-top top-menu shadow p-1 bg-white rounded d-block">
+    <nav class="top-menu shadow p-1 bg-white rounded d-block">
 
         <div class="d-flex bd-highlight align-items-center">
             <div class="p-2 flex-fill bd-highlight">
@@ -78,6 +80,23 @@
         </div>
 
     </nav>
+
+    <main class="">
+
+        <div class="container-fluid d-flex justify-content-center align-items-center h-100">
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="boas-vindas text-center">
+                        <img src="../img/love.png" />
+                        <h4 class="mt-3">Facilite a procura por doadores com o needy!</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
 
     <?php
 
