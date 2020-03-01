@@ -187,6 +187,7 @@ nav.top-menu {
     width: 78%;
     padding: 10px;
     margin-left: 21%;
+    z-index: 1032;
 }
 
 nav.top-menu ul button {
@@ -199,7 +200,7 @@ nav.top-menu h6 {
 
 nav.side-menu {
     position: fixed;
-    z-index: 1031;
+    z-index: 1032;
     top: 0px;
     left: 0px;
     height: 100vh;
@@ -360,4 +361,51 @@ div.boas-vindas {
 .form-group {
     
     margin-bottom: 0 !important;
+}
+
+.btn-needy-activated{
+
+    text-align: center;
+    padding: 10px;
+    border: none;
+    border-bottom: solid 2px gray;
+    background-color: rgba(224, 221, 221, 0.4);
+    color: gray;
+    outline: none;
+}
+
+.flat{
+    border-radius: 0 !important;
+}
+
+div.container-fluid {
+    overflow: auto;
+}
+.small-icon{
+    font-size: 30px;
+}
+
+ul.list-telefone{
+
+    height: 350px;
+    width:50%;
+    background-color: rgba(0, 0, 0, .1);
+    overflow: auto;
+}
+
+li.item-telefone {
+
+    position: relative;
+    background-color: rgba(255, 255, 255, .6);
+    list-style: none;
+    width: 100% !important;
+    height: 50px;
+    text-align: center;  
+
+}
+
+.container-item-telefone {
+
+    overflow: auto;
+    height: 89%;
 }
