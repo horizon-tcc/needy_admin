@@ -1,7 +1,7 @@
 {
     "name": "horizon/needy_admin",
     "description": "Painel Administrador para o aplicativo mobile Needy.",
-    "license": "proprietary",
+    "license": "MIT",
     "authors": [{
             "name": "Gabriel Teodoro",
             "email": "gabriel.skywalkerr@gmail.com",
