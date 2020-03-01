@@ -1,27 +1,28 @@
 <?php
-    require('menu.php');
+include_once('menu.php');
 ?>
-    <main class="">
 
-        <div class="container-fluid d-flex justify-content-center align-items-center h-100">
+<main class="">
 
-            <div class="row">
-                <div class="col-md-12">
+    <div class="container-fluid d-flex justify-content-center align-items-center h-100">
 
-                    <div class="boas-vindas text-center">
-                        <img src="../img/love.png" />
-                        <h4 class="mt-3">Facilite a procura por doadores com o needy!</h4>
-                    </div>
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="boas-vindas text-center">
+                    <img src="../img/love.png" />
+                    <h4 class="mt-3">Facilite a procura por doadores com o needy!</h4>
                 </div>
             </div>
         </div>
+    </div>
 
-    </main>
+</main>
 
-    <?php
+<?php
 
-    include_once("imports/imports-js.php");
-    ?>
+include_once("imports/imports-js.php");
+?>
 
 </body>
 

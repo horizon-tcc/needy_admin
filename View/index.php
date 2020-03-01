@@ -48,7 +48,7 @@
 
                             <div class="mb-5">
                                 <img src="../img/user-icon.png" class="mx-auto d-block medium-height great-img mt-2" />
-                                <h3 class="text-center mt-4"> Entre já </h3>
+                                <h3 class="text-center mt-4"> Login</h3>
                             </div>
 
 
