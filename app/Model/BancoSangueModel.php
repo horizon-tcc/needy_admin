@@ -1,89 +1,78 @@
-<?php 
+<?php
 
-class BancoSangue {
+namespace App\Model;
+
+class BancoSangueModel
+{
     private $id;
     private $nome;
-    private $logradouro;
-    private $bairro;
-    private $numero;
-    private $complemento;
-    private $CEP;
-    private $UF;
-    private $cidade;
 
-    public function getId() {
+    # Endereço
+    private $enderecoLogradouro;
+    private $enderecoBairro;
+    private $enderecoNumero;
+    private $enderecoComplemento;
+    private $enderecoCEP;
+    private $enderecoUF;
+    private $enderecoCidade;
+
+    private $telefones;
+    private $pacientes;
+
+    
+    # Getters
+
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function getNome() {
+    public function getNome()
+    {
         return $this->nome;
     }
 
-    public function getLogradouro() {
-        return $this->logradouro;
+    public function getEnderecoLogradouro()
+    {
+        return $this->enderecoLogradouro;
     }
 
-    public function getBairro() {
-        return $this->bairro;
+    public function getEnderecoBairro()
+    {
+        return $this->enderecoBairro;
     }
 
-    public function getNumero() {
-        return $this->numero;
+    public function getEnderecoNumero()
+    {
+        return $this->enderecoNumero;
     }
 
-    public function getComplemento() {
-        return $this->complemento;
+    public function getEnderecoComplemento()
+    {
+        return $this->enderecoComplemento;
     }
 
-    public function getCEP() {
-        return $this->CEP;
+    public function getEnderecoCEP()
+    {
+        return $this->enderecoCEP;
     }
 
-    public function getUF() {
-        return $this->UF;
+    public function getEnderecoUF()
+    {
+        return $this->enderecoUF;
     }
 
-    public function getCidade() {
-        return $this->cidade;
+    public function getEnderecoCidade()
+    {
+        return $this->enderecoCidade;
     }
 
+    
+    # Setters
 
-    #
-
-
-    public function setId($id) {
-        // code
+    public function setId($id)
+    {
+        $this->id = $id;
     }
     
-    public function setNome($nome) {
-        // code
-    }
-    
-    public function setLogradouro($logradouro) {
-        // code
-    }
-    
-    public function setBairro($bairro) {
-        // code
-    }
-    
-    public function setNumero($numero) {
-        // code
-    }
-
-    public function setComplemento($complemento) {
-        // code
-    }
-
-    public function setCEP($CEP) {
-        // code
-    }
-
-    public function setUF($UF) {
-        // code
-    }
-
-    public function setCidade($cidade) {
-        // code
-    }
 }
