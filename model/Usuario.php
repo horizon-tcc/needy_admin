@@ -18,12 +18,12 @@
 
         public function getEmailUsuario()
         {
-            return $this->$emailUsuario;
+            return $this->emailUsuario;
         }
 
         public function setEmailUsuario($email)
         {
-            $this->$emailUsuario = $email;
+            $this->emailUsuario = $email;
         }
 
         public function getSenhaUsuario()
@@ -38,12 +38,12 @@
 
         public function getIdTipoUsuario()
         {
-            return $this->$idTipoUsuario;
+            return $this->idTipoUsuario;
         }
 
         public function setIdTipoUsuario($id)
         {
-            $this->$idTipoUsuario = $id;
+            $this->idTipoUsuario = $id;
         }
 
         public function cadastrarUsuario($usuario)

@@ -16,12 +16,12 @@
 
         public function getDescricaoCargoFunc()
         {
-            return $this->$descricaoCargoFuncionario;
+            return $this->descricaoCargoFuncionario;
         }
 
         public function setDescricaoCargoFunc($descricaoCargo)
         {
-            $this->$descricaoCargoFuncionario = $descricaoCargo;
+            $this->descricaoCargoFuncionario = $descricaoCargo;
         }
 
         public function cadastrarCargoFunc($cargoFunc)

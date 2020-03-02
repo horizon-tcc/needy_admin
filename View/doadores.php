@@ -1,6 +1,6 @@
 <title>Home</title>
 <?php
-    include_once('menu.php');
+    include_once('header.php');
 ?>
 
     <main>
