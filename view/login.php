@@ -43,7 +43,7 @@
                     <div class="col-md-12 d-flex align-items-center justify-content-center">
 
 
-                        <form action="" class="mb-6 form-login " method="post">
+                        <form action="<?php htmlspecialchars("home.php");?>" class="mb-6 form-login " method="post">
 
 
                             <div class="mb-5">

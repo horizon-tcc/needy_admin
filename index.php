@@ -2,4 +2,4 @@
 
 # REDIRECT
 
-header('Location: View/index.php');
+header('Location: view/login.php');

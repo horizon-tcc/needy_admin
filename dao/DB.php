@@ -1,6 +1,7 @@
 <?php
 
-    require_once '../config.php';
+    namespace dao;
+    require_once '../vendor/autoload.php';
 
     class DB 
     {

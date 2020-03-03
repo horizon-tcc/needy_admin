@@ -1,6 +1,6 @@
 <title>Home</title>
 <?php
-    include_once('header.php');
+    include_once('imports/header.php');
 ?>
 
     <main>
