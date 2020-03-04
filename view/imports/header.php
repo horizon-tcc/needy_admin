@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    
     <?php
-    include_once("imports/imports-css.php");
+        include_once("imports/imports-css.php");
     ?>
 </head>
 
@@ -20,9 +20,9 @@
 
         <ul class="d-flex flex-wrap">
 
-            <li class="menu-item d-flex justify-content-start"> <span class=""> <i class="fas fa-home"> </i> </span> <span> Home </span> </li>
+            <a href="home.php" class="menuBtn"> <li class="menu-item d-flex justify-content-start"> <span class=""> <i class="fas fa-home"> </i> </span> <span> Home </span> </li> </a>
 
-            <li class="menu-item d-flex justify-content-start"> <span class=""><i class="fas fa-users ali"></i> </span> <span> Doadores </span> </li>
+            <a href="doadores.php" class="menuBtn"> <li class="menu-item d-flex justify-content-start"> <span class=""><i class="fas fa-users ali"></i> </span> <span> Doadores </span> </li> </a>
 
             <li class="menu-item d-flex justify-content-start"> <span class=""><i class="fas fa-tint"></i> </span> <span> Doação </span> </li>
 

@@ -127,7 +127,7 @@ CREATE TABLE `tbFatorRh` (
 -- Extraindo dados da tabela `tbfatorrh`
 --
 
-INSERT INTO `tbfatorrh` (`idFatorRh`, `descricaoFatorRh`) VALUES
+INSERT INTO `tbFatorRh` (`idFatorRh`, `descricaoFatorRh`) VALUES
 (1, 'Positivo'),
 (2, 'Negativo');
 
@@ -312,7 +312,7 @@ INSERT INTO `tbTipoUsuario` (`idTipoUsuario`, `descricaoTipoUsuario`) VALUES
 
 CREATE TABLE `tbUsuario` (
   `idUsuario` int(12) NOT NULL,
-  `loginUsuario` varchar(40) COLLATE utf8_bin NOT NULL,
+  `emailUsuario` varchar(40) COLLATE utf8_bin NOT NULL,
   `senhaUsuario` char(32) COLLATE utf8_bin NOT NULL,
   `idTipoUsuario` int(12) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;

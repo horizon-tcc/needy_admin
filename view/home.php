@@ -1,5 +1,6 @@
+<title>Home</title>
 <?php
-include_once('menu.php');
+    include_once('imports/header.php');
 ?>
 
 <main class="">
@@ -20,8 +21,7 @@ include_once('menu.php');
 </main>
 
 <?php
-
-include_once("imports/imports-js.php");
+    include_once("imports/imports-js.php");
 ?>
 
 </body>

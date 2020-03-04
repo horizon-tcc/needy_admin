@@ -1,0 +1,29 @@
+{
+    "name": "horizon/needy_admin",
+    "description": "Painel Administrador para o aplicativo mobile Needy.",
+    "license": "MIT",
+    "authors": [{
+            "name": "Gabriel Teodoro",
+            "email": "gabriel.skywalkerr@gmail.com",
+            "role": "Sênior back-end developer"
+        },
+        {
+            "name": "Gustavo Nunes",
+            "email": "exemplo@exemplo.com",
+            "role": "Pleno full stack developer"
+        },
+        {
+            "name": "João Alguma Coisa",
+            "email": "caseiro@pornhub.com",
+            "role": "Junior back-end developer / DBA"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "app\\": "App/"
+        },
+        "files": [
+            "config.php"
+        ]
+    }
+}

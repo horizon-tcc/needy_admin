@@ -3,10 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <?php
-      include_once("imports/imports-css.php");  
+    include_once("imports/imports-css.php");
     ?>
     <title> Login </title>
 </head>
@@ -43,7 +43,7 @@
                     <div class="col-md-12 d-flex align-items-center justify-content-center">
 
 
-                        <form action="" class="mb-6 form-login " method="post">
+                        <form action="<?php htmlspecialchars("home.php");?>" class="mb-6 form-login " method="post">
 
 
                             <div class="mb-5">
@@ -92,7 +92,7 @@
 
 
     <?php
-        include_once("imports/imports-js.php");
+    include_once("imports/imports-js.php");
     ?>
 </body>
 
