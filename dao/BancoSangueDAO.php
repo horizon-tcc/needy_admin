@@ -1,7 +1,7 @@
 <?php
 class BancoSangueDAO
 {
-    public function listar($id = null)
+    public static function listar($id = null)
     {
         $Conn = DB::getConn();
         $query = '';
@@ -14,9 +14,11 @@ class BancoSangueDAO
 
         $result = $Conn->query($query);
         $result = $result->fetchAll();
+
+        return $result;
     }
 
-    public function atualizar($bancoSangue)
+    public static function atualizar($bancoSangue)
     {
         $Conn = DB::getConn();
 
@@ -32,7 +34,7 @@ class BancoSangueDAO
                         cidadeBancoSangue = \'$bancoSangue->endereco->cidade\'
                         
                         WHERE idBancoSangue = \'$bancoSangue->id\'
-                        ";
+                 ";
 
         if ($Conn->exec($query))
             return true;
@@ -40,7 +42,7 @@ class BancoSangueDAO
             return false;
     }
 
-    public function inserir($bancoSangue)
+     public static function inserir($bancoSangue)
     {
         $Conn = DB::getConn();
 
@@ -52,7 +54,14 @@ class BancoSangueDAO
                                             cepBancoSangue,
                                             ufBancoSangue,
                                             cidadeBancoSangue)
-                 ";
+                              VALUES (\'$bancoSangue->getNome()\',
+                                      \'$bancoSangue->getEndereco()->getLogradouro()\',
+                                      \'$bancoSangue->getEndereco()->getBairro()\',
+                                      \'$bancoSangue->getEndereco()->getNumero()\',
+                                      \'$bancoSangue->getEndereco()->getComplemento()\',
+                                      \'$bancoSangue->getEndereco()->getCEP()\',
+                                      \'$bancoSangue->getEndereco()->getUF()\',
+                                      \'$bancoSangue->getEndereco()->getCidade()\')";
 
         if ($Conn->exec($query))
             return true;
@@ -60,14 +69,14 @@ class BancoSangueDAO
             return false;
     }
 
-    public function deletar($id)
+    public static function deletar($id)
     {
         $Conn = DB::getConn();
 
         $query = "DELETE * FROM tbBancoSangue
                     WHERE idBancoSangue = $id";
 
-        if($Conn->exec($query))
+        if ($Conn->exec($query))
             return true;
         else
             return false;

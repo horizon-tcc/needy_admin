@@ -28,7 +28,19 @@ class BancoSangueModel
         return $this->endereco;
     }
 
+    public function getPaciente()
+    {
+        return $this->pacientes;
+    }
+
     # Setters
+
+
+
+    public function setNome($nome)
+    {
+        $this->nome = $nome;
+    }
 
     public function setEndereco($endereco)
     {
@@ -40,8 +52,13 @@ class BancoSangueModel
         $this->id = $id;
     }
 
-    public function setTelefone($tel)   
+    public function setTelefone($tels)
     {
-        $this->telefones = $tel;
+        $this->telefones = $tels;
+    }
+
+    public function setPaciente($pacientes)
+    {
+        $this->pacientes = $pacientes;
     }
 }
