@@ -9,7 +9,7 @@ try {
     $url = "http://viacep.com.br/ws/$cep/xml/";
 
     $endereco = simplexml_load_file($url);
-    
+
     echo json_encode($endereco);
     
 } catch (Exception $ex) {
@@ -17,4 +17,4 @@ try {
     $resultado = array("status" => ERRO);
     echo (json_encode($resultado));
 }
-?>
+?> 

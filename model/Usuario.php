@@ -58,7 +58,7 @@
 
         public static function listarUsuario()
         {
-            $conxao = DB::getConn();
+            $conexao = DB::getConn();
             $select = "select idUsuario, emailUsuario, senhaUsuario, idTipoUsuario FROM tbUsuario";
             $rCargo = $conexao->query($select);
             $rCargo->execute();
@@ -78,7 +78,7 @@
 
         public function editarUsuario($usuario)
         {
-            $conxao = DB::getConn();
+            $conexao = DB::getConn();
             $update = "update tbUsuario
                         set emailUsuario ='".$usuario->getEmailUsuario()."', 
                             senhaUsuario ='".$usuario->getSenhaUsuario()."', 
