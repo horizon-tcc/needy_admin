@@ -67,6 +67,7 @@ class Endereco
 
     public function setCEP($CEP)
     {
+        $this->CEP = $CEP;
     }
 
     public function getUF()
