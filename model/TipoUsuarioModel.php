@@ -1,9 +1,9 @@
 <?php
-    class TipoUsuario 
+    class TipoUsuarioModel
     {
         
         public static function listarTipoUsuario(){
-            $conxao = DB::getConn();
+            $conexao = DB::getConn();
             $select = "select idTipoUsuario, descricaoTipoUsuario FROM tbTipoUsuario";
             $rCargo = $conexao->query($select);
             $rCargo->execute();

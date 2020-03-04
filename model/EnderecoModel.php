@@ -2,7 +2,7 @@
 
 namespace model;
 
-class Endereco
+class EnderecoModel
 {
     private $logradouro;
     private $bairro;
