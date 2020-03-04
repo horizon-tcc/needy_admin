@@ -1,13 +1,10 @@
 <?php
-
-use dao\DB;
-
-    class TipoSanguineo 
+    class TipoUsuarioModel
     {
-
-        public static function listarTipoSanguineo(){
+        
+        public static function listarTipoUsuario(){
             $conexao = DB::getConn();
-            $select = "select idTipoSanguineo, descricaoTipoSanguineo FROM tbTipoSanguineo";
+            $select = "select idTipoUsuario, descricaoTipoUsuario FROM tbTipoUsuario";
             $rCargo = $conexao->query($select);
             $rCargo->execute();
             $lista = $rCargo->fetchAll();

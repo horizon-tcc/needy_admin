@@ -1,5 +1,5 @@
 <?php
-    class Usuario
+    class UsuarioModel
     {
         private $idUsuario;
         private $emailUsuario;

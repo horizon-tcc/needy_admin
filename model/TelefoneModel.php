@@ -2,7 +2,7 @@
 
 namespace model;
 
-class Telefone
+class TelefoneModel
 {
     private $id;
     private $numeroTelefone;

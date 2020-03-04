@@ -1,82 +1,84 @@
 <?php
-    class Paciente
+    namespace model;
+    
+    class  FuncionarioModel
     {
-        private $idPaciente;
-        private $nomePaciente;
-        private $sexoPaciente;
-        private $tipoSanguineoPaciente;
-        private $fatorRhPaciente;
-        private $cpfPaciente;
-        private $rgPaciente;
+        private $idFuncionario;
+        private $nomeFuncionario;
+        private $cpfFuncionario;
+        private $rgFuncionario;
+        private $bancoSangue;
+        private $usuarioFuncionario;
+        private $cargoFuncionario;
 
-        public function getIdPaciente()
+        public function getIdFuncionario()
         {
-            return $this->idPaciente;
+            return $this->idFuncionario;
         }
 
-        public function setIdPaciente($id)
+        public function setIdFuncionario($id)
         {
-            $this->idPaciente = $id;
+            $this->idFuncionario = $id;
         }
 
-        public function getNomePaciente()
+        public function getNomeFuncionario()
         {
-            return $this->nomePaciente;
+            return $this->nomeFuncionario;
         }
 
-        public function setNomePaciente($nome)
+        public function setNomeFuncionario($nome)
         {
-            $this->nomePaciente = $nome;
+            $this->nomeFuncionario = $nome;
         }
 
-        public function getSexoPaciente()
+        public function getCpfFuncionario()
         {
-            return $this->senhaUsuario;
+            return $this->cpfFuncionario;
         }
 
-        public function setSexoPaciente($id)
+        public function setCpfFuncionario($cpf)
         {
-            $this->senhaUsuario = $id;
+            $this->cpfFuncionario = $cpf;
         }
 
-        public function getTipoSanguineoPaciente()
+        public function getRgFuncionario()
         {
-            return $this->tipoSanguineoPaciente;
+            return $this->rgFuncionario;
         }
 
-        public function setTipoSanguineoPaciente($id)
+        public function setRgFuncionario($rg)
         {
-            $this->tipoSanguineoPaciente = $id;
+            $this->rgFuncionario = $rg;
         }
 
-        public function getFatorRhPaciente()
+        public function getBancoSangue()
         {
-            return $this->fatorRhPaciente;
+            return $this->bancoSangue;
         }
 
-        public function setFatorRhPaciente($id)
+        public function setBancoSangue($id)
         {
-            $this->fatorRhPaciente = $id;
+            $this->bancoSangue = $id;
         }
 
-        public function getCpfPaciente()
+        public function getUsuarioFuncionario()
         {
-            return $this->cpfPaciente;
+            return $this->usuarioFuncionario;
         }
 
-        public function setCpfPaciente($cpf)
+        public function setUsuarioFuncionario($user)
         {
-            $this->cpfPaciente = $cpf;
+            $this->usuarioFuncionario = $user;
         }
 
-        public function getRgPaciente()
+        public function getCargoFuncionario()
         {
-            return $this->rgPaciente;
+            return $this->cargoFuncionario;
         }
 
-        public function setRgPaciente($rg)
+        public function setCargoFuncionario($cargo)
         {
-            $this->rgPaciente = $rg;
+            $this->cargoFuncionario = $cargo;
         }
 
         public function cadastrarPaciente($paciente)
@@ -137,7 +139,7 @@
         {
             $conexao = DB::getConn();
             $delete = "delete from tbPaciente
-                       where idPaciente = ".$paciente->getIdPaciente();
+                       where idPacienteS = ".$paciente->getIdPaciente();
             $conexao->exec($delete);
             return 'Exclusão bem sucedida';
         }

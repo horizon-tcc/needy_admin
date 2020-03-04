@@ -2,7 +2,7 @@
 
 namespace model;
 
-class Endereco
+class EnderecoModel
 {
     private $logradouro;
     private $bairro;
@@ -67,6 +67,7 @@ class Endereco
 
     public function setCEP($CEP)
     {
+        $this->CEP = $CEP;
     }
 
     public function getUF()

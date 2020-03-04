@@ -1,6 +1,7 @@
 <?php
 
-namespace model;
+require_once '../model/BancoSangueModel.php';
+require_once '../model/Endereco.php';
 
 class BancoSangueModel
 {
@@ -39,7 +40,7 @@ class BancoSangueModel
         $this->id = $id;
     }
 
-    public function setTelefone(Array $tel)   
+    public function setTelefone($tel)   
     {
         $this->telefones = $tel;
     }
