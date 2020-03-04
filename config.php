@@ -3,8 +3,8 @@
 # DB conf
 
 # COLOQUEM O LOGIN DE VOCÊS AQUI NOS VALORES DESSAS DUAS CONSTANTES
-define('DB_USER', 'tux');
-define('DB_PASS', '@MySQL2001');
+define('DB_USER', '');
+define('DB_PASS', '');
 
 define('DB_SGDB', 'mysql');
 define('DB_HOST', 'localhost');

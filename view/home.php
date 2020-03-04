@@ -1,8 +1,9 @@
 <title>Home</title>
 <?php
     include_once('imports/header.php');
+ 
+    require_once(__DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."global.php");
 ?>
-
 <main class="">
 
     <div class="container-fluid d-flex justify-content-center align-items-center h-100">

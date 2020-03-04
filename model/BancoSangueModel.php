@@ -1,7 +1,6 @@
 <?php
 
-require_once '../model/BancoSangueModel.php';
-require_once '../model/Endereco.php';
+require_once(__DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."global.php");
 
 class BancoSangueModel
 {

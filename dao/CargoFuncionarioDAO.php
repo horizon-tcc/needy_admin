@@ -1,7 +1,5 @@
 <?php
-    namespace dao;
-
-    use model\CargoFuncionarioModel;
+    require_once(__DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."global.php");
 
     class CargoFuncionarioDAO extends CargoFuncionarioModel
     {
@@ -16,7 +14,7 @@
 
         public static function listarCargoFunc()
         {
-            $conxao = DB::getConn();
+            $conexao = DB::getConn();
             $select = "select idCargoFuncionario, descricaoCargoFuncionario FROM tbCargoFuncionario";
             $rCargo = $conexao->query($select);
             $rCargo->execute();
@@ -36,7 +34,7 @@
 
         public function editarCargoFuncionario($cargoFunc)
         {
-            $conxao = DB::getConn();
+            $conexao = DB::getConn();
             $update = "update tbCargoFuncionario
                         set descricaoCargoFuncionario ='".$cargoFunc->getDescricaoCargoFunc()."'
                         where idCargoFuncionario =".$cargoFunc->getIdCargoFunc();

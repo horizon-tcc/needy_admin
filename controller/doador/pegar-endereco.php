@@ -1,4 +1,7 @@
 <?php
+
+require_once __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR ."global.php";
+
 define("SUCESSO", 1);
 define("ERRO", 0);
 try {
@@ -9,7 +12,7 @@ try {
     $url = "http://viacep.com.br/ws/$cep/xml/";
 
     $endereco = simplexml_load_file($url);
-    
+
     echo json_encode($endereco);
     
 } catch (Exception $ex) {
