@@ -1,10 +1,8 @@
 <title>Home</title>
 <?php
     include_once('imports/header.php');
-?>
-<?php 
-
-    require_once __DIR__.DIRECTORY_SEPARATOR."global.php";
+ 
+    require_once(__DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."global.php");
 ?>
 <main class="">
 

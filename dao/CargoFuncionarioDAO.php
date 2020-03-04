@@ -1,8 +1,7 @@
 <?php
-    
-    require_once __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR ."global.php";
+    require_once(__DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."global.php");
 
-    class CargoFuncionarioDAO
+    class CargoFuncionarioDAO extends CargoFuncionarioModel
     {
         public function cadastrarCargoFunc($cargoFunc)
         {
