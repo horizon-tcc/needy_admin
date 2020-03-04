@@ -1,5 +1,6 @@
 <?php
-    namespace model;
+
+    require_once __DIR__.DIRECTORY_SEPARATOR."..". DIRECTORY_SEPARATOR. "global.php";
     
     class  FuncionarioModel
     {
@@ -95,7 +96,7 @@
 
         public static function listarPaciente()
         {
-            $conxao = DB::getConn();
+            $conexao = DB::getConn();
             $select = "select nomePaciente, descricaoSexo, descricaoTipoSanguineo, 
                         descricaoFatorRh, cpfPaciente, rgPaciente FROM tbPaciente
                         inner join tbSexo
@@ -122,7 +123,7 @@
 
         public function editarPaciente($paciente)
         {
-            $conxao = DB::getConn();
+            $conexao = DB::getConn();
             $update = "update tbPaciente
                         set nomePaciente ='".$paciente->getNomePaciente()."', 
                             idSexo ='".$paciente->getSexoPaciente()."',
