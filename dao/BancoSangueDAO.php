@@ -1,8 +1,8 @@
 <?php
 
-namespace App\DAO;
+namespace dao;
 
-use App\Model\BancoSangueModel;
+use Model\BancoSangueModel;
 
 class BancoSangueDAO extends BancoSangueModel
 {

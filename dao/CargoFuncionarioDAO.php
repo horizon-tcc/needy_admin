@@ -1,29 +1,10 @@
 <?php
-    class CargoFuncionario
+    namespace dao;
+
+    use model\CargoFuncionarioModel;
+
+    class CargoFuncionarioDAO extends CargoFuncionarioModel
     {
-        private $idCargoFuncionario;
-        private $descricaoCargoFuncionario;
-
-        public function getIdCargoFunc()
-        {
-            return $this->idCargoFuncionario;
-        }
-
-        public function setIdCargoFunc($id)
-        {
-            $this->idCargoFuncionario = $id;
-        }
-
-        public function getDescricaoCargoFunc()
-        {
-            return $this->descricaoCargoFuncionario;
-        }
-
-        public function setDescricaoCargoFunc($descricaoCargo)
-        {
-            $this->descricaoCargoFuncionario = $descricaoCargo;
-        }
-
         public function cadastrarCargoFunc($cargoFunc)
         {
             $conexao = DB::getConn();
