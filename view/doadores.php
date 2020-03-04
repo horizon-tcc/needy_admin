@@ -85,7 +85,13 @@
                         <div class="form-group col-md-6 pb-2">
 
                             <label for="txtCpf">CPF</label>
-                            <input type="text" class="form-control txtCpf" id="txtCpfDoador" name="txtCpfDoador" placeholder="Digite o CPF"/>
+                            <input type="text" class="form-control txtCpf" id="txtCpfDoador" name="txtCpfDoador" placeholder="Digite o CPF" />
+                            <div id="feedback-cpf-Doador" class="valid-feedback">
+                                CPF válido!
+                            </div>
+                            <div id="feedback-cpf-Doador" class="invalid-feedback">
+                                CPF inválido!
+                            </div>
                         </div>
 
                         <div class="form-group col-md-6 pb-2">
@@ -159,7 +165,7 @@
                         <div class="form-group col-md-4 pb-2">
 
                             <label for="txtUf">UF</label>
-                            <input type="text" class="form-control" id="txtCidade" name="txtCidade" placeholder="Digite o estado" />
+                            <input type="text" class="form-control" id="txtUf" name="txtUf" placeholder="Digite o estado" />
 
                         </div>
 
@@ -239,7 +245,7 @@
 
                         <div class="form-group col-md-6 pb-2">
                             <label for="txtCpf">CPF</label>
-                            <input type="text" class="form-control txtCep" id="txtCpfResponsavel" name="txtCpfResponsavel" placeholder="Digite o CPF" />
+                            <input type="text" class="form-control txtCpf" id="txtCpfResponsavel" name="txtCpfResponsavel" placeholder="Digite o CPF" />
                         </div>
 
 
