@@ -1,4 +1,4 @@
-<title>Home</title>
+<title>Doadores</title>
 <?php
     include_once('imports/header.php');
 ?>
@@ -325,9 +325,9 @@
                                     <i class="fas fa-times flex-fill bd-highlight"></i>
                                 </li>
                             </div>
-                            <button class="btn btn-danger w-100 flat"> <i class="fas fa-plus"></i> </button>
+                            <button class="btn btn-danger w-100 flat"> <i class="fas fa-plus"></i> </button>    
                         </ul>
-
+                        
 
                     </div>
 

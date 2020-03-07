@@ -4,7 +4,7 @@
 ?>
 <?php 
 
-    require_once __DIR__.DIRECTORY_SEPARATOR."global.php";
+    require_once __DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."global.php";
 ?>
 <main class="">
 
@@ -16,6 +16,7 @@
                 <div class="boas-vindas text-center">
                     <img src="../img/love.png" />
                     <h4 class="mt-3">Facilite a procura por doadores com o needy!</h4>
+
                 </div>
             </div>
         </div>

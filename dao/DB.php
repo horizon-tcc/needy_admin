@@ -1,18 +1,23 @@
 <?php
 
     require_once __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR ."global.php";
-    require_once "../config.php";
+    include_once __DIR__ . DIRECTORY_SEPARATOR . ".." .  DIRECTORY_SEPARATOR . "config.php";
     
 
     class DB 
     {
         public static function getConn() {
             try {
-                $Conn = new PDO(DB_DSN, DB_USER, DB_PASS);
-                $Conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $Conn->exec('SET CHARACTER SET utf8'); 
+
+                $conn = new PDO(DB_DSN, DB_USER, DB_PASS);
+                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $conn->exec('SET CHARACTER SET utf8');
+                return  $conn;
             } catch(PDOException $e) {
                 echo $e->getMessage();
             }
         }
     }
+
+?>
+

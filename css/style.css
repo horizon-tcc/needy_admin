@@ -305,6 +305,10 @@ nav.top-menu img.user-img {
     nav.side-menu ul {
         margin-top: 3px;
     }
+    .menuBtn{
+        width: auto !important;
+        height: auto !important;
+    }
 }
 
 ::-webkit-scrollbar {
@@ -412,6 +416,6 @@ li.item-telefone {
 .container-item-telefone {
 
     overflow: auto;
-    height: 89%;
+    height: 91.4%;
 }
 
