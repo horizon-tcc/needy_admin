@@ -1,0 +1,24 @@
+<?php
+
+require_once '../../model/BancoSangueModel.php';
+require_once '../../dao/BancoSangueDAO.php';
+require_once '../../model/EnderecoModel.php';
+
+$bancoSangue = new BancoSangueModel();
+$enderecoBancoSangue = new EnderecoModel();
+
+$enderecoBancoSangue->setLogradouro($_GET['logradouroBancoSangue']);
+$enderecoBancoSangue->setBairro($_GET['bairroBancoSangue']);
+$enderecoBancoSangue->setNumero($_GET['numeroBancoSangue']);
+$enderecoBancoSangue->setComplemento($_GET['complementoBancoSangue']);
+$enderecoBancoSangue->setCEP($_GET['cepBancoSangue']);
+$enderecoBancoSangue->setUF($_GET['ufBancoSangue']);
+$enderecoBancoSangue->setCidade($_GET['cidadeBancoSangue']);
+
+$bancoSangue->setNome($_GET['idBancoSangue']);
+$bancoSangue->setEndereco($enderecoBancoSangue);
+$bancoSangue->setTelefone($_GET['telefones[]']);
+$bancoSangue->setPaciente($_GET['pacientes[]']);
+
+$bancoSangueDAO = new BancoSangueDAO();
+$bancoSangueDAO->inserir($bancoSangue);

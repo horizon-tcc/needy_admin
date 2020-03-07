@@ -20,4 +20,3 @@ try {
     $resultado = array("status" => ERRO);
     echo (json_encode($resultado));
 }
-?> 

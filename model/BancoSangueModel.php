@@ -1,5 +1,6 @@
 <?php
-require_once __DIR__.DIRECTORY_SEPARATOR."..". DIRECTORY_SEPARATOR. "global.php";
+
+require_once(__DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."global.php");
 
 class BancoSangueModel
 {
@@ -63,6 +64,7 @@ class BancoSangueModel
      *
      * @return  self
      */ 
+
     public function setEndereco($endereco)
     {
         $this->endereco = $endereco;
@@ -86,6 +88,7 @@ class BancoSangueModel
         $this->telefones = $telefones;
     }
 
+
     /**
      * Get the value of pacientes
      */ 
@@ -102,6 +105,7 @@ class BancoSangueModel
     public function setPacientes($pacientes)
     {
         $this->pacientes = $pacientes;
+
 
     }
 }

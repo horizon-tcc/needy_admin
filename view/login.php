@@ -7,6 +7,7 @@
 
     <?php
         include_once("imports/imports-css.php");
+        require_once(__DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."global.php");
     ?>
     <title> Login </title>
 </head>
