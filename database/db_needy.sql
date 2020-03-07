@@ -61,7 +61,7 @@ CREATE TABLE `tbBancoSangue` (
 -- Estrutura da tabela `tbcargofuncionario`
 --
 
-CREATE TABLE `tbcargofuncionario` (
+CREATE TABLE `tbCargofuncionario` (
   `idCargoFuncionario` int(12) NOT NULL,
   `descricaoCargoFuncionario` varchar(100) COLLATE utf8_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
