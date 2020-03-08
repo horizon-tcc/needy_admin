@@ -61,7 +61,7 @@ CREATE TABLE `tbBancoSangue` (
 -- Estrutura da tabela `tbcargofuncionario`
 --
 
-CREATE TABLE `tbCargofuncionario` (
+CREATE TABLE `tbCargoFuncionario` (
   `idCargoFuncionario` int(12) NOT NULL,
   `descricaoCargoFuncionario` varchar(100) COLLATE utf8_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -506,7 +506,7 @@ ALTER TABLE `tbFuncionario`
 --
 -- AUTO_INCREMENT de tabela `tbmaterialdoado`
 --
-ALTER TABLE `tbMaterialdoado`
+ALTER TABLE `tbMaterialDoado`
   MODIFY `idMaterialDoado` int(12) NOT NULL AUTO_INCREMENT;
 
 --
@@ -524,7 +524,7 @@ ALTER TABLE `tbResponsavel`
 --
 -- AUTO_INCREMENT de tabela `tbresultadodoacao`
 --
-ALTER TABLE `tbResultadodoacao`
+ALTER TABLE `tbResultadoDoacao`
   MODIFY `idResultadoDoacao` int(12) NOT NULL AUTO_INCREMENT;
 
 --
