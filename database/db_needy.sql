@@ -61,7 +61,7 @@ CREATE TABLE `tbBancoSangue` (
 -- Estrutura da tabela `tbcargofuncionario`
 --
 
-CREATE TABLE `tbCargofuncionario` (
+CREATE TABLE `tbCargoFuncionario` (
   `idCargoFuncionario` int(12) NOT NULL,
   `descricaoCargoFuncionario` varchar(100) COLLATE utf8_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -506,7 +506,7 @@ ALTER TABLE `tbFuncionario`
 --
 -- AUTO_INCREMENT de tabela `tbmaterialdoado`
 --
-ALTER TABLE `tbMaterialdoado`
+ALTER TABLE `tbMaterialDoado`
   MODIFY `idMaterialDoado` int(12) NOT NULL AUTO_INCREMENT;
 
 --
@@ -524,7 +524,7 @@ ALTER TABLE `tbResponsavel`
 --
 -- AUTO_INCREMENT de tabela `tbresultadodoacao`
 --
-ALTER TABLE `tbResultadodoacao`
+ALTER TABLE `tbResultadoDoacao`
   MODIFY `idResultadoDoacao` int(12) NOT NULL AUTO_INCREMENT;
 
 --
@@ -591,10 +591,10 @@ ALTER TABLE `tbAgendamento`
 -- Limitadores para a tabela `tbdoacao`
 --
 ALTER TABLE `tbDoacao`
-  ADD CONSTRAINT `tbDoacao_ibfk_1` FOREIGN KEY (`idDoador`) REFERENCES `tbdoador` (`idDoador`),
-  ADD CONSTRAINT `tbDoacao_ibfk_2` FOREIGN KEY (`idBancoSangue`) REFERENCES `tbbancosangue` (`idBancoSangue`),
-  ADD CONSTRAINT `tbDoacao_ibfk_3` FOREIGN KEY (`idMaterialDoado`) REFERENCES `tbmaterialdoado` (`idMaterialDoado`),
-  ADD CONSTRAINT `tbDoacao_ibfk_4` FOREIGN KEY (`idResultadoDoacao`) REFERENCES `tbresultadodoacao` (`idResultadoDoacao`);
+  ADD CONSTRAINT `tbDoacao_ibfk_1` FOREIGN KEY (`idDoador`) REFERENCES `tbDoador` (`idDoador`),
+  ADD CONSTRAINT `tbDoacao_ibfk_2` FOREIGN KEY (`idBancoSangue`) REFERENCES `tbBancoSangue` (`idBancoSangue`),
+  ADD CONSTRAINT `tbDoacao_ibfk_3` FOREIGN KEY (`idMaterialDoado`) REFERENCES `tbMaterialDoado` (`idMaterialDoado`),
+  ADD CONSTRAINT `tbDoacao_ibfk_4` FOREIGN KEY (`idResultadoDoacao`) REFERENCES `tbResultadoDoacao` (`idResultadoDoacao`);
 
 --
 -- Limitadores para a tabela `tbdoador`
