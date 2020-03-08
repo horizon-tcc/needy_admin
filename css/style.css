@@ -142,7 +142,6 @@ div.col-md-8, div.col-md-4, .form-login, div.col-md-12 {
 
 /* Fim ------ tela-login------ */
 
-
 /* ---- Início da home  ---- */
 
 .menu {
@@ -238,11 +237,9 @@ nav.top-menu img.user-img {
     nav.side-menu ul {
         justify-content: center;
     }
-
     nav.side-menu ul li {
         margin-bottom: 15px;
     }
-    
     nav.side-menu {
         width: 120px;
     }
@@ -291,21 +288,17 @@ nav.top-menu img.user-img {
     nav.side-menu {
         overflow: auto;
     }
-
-    nav.side-menu img  {
-
+    nav.side-menu img {
         width: 90px !important;
-        
     }
     nav.side-menu {
         padding-bottom: 10px;
         padding-top: 10px;
     }
-
     nav.side-menu ul {
         margin-top: 3px;
     }
-    .menuBtn{
+    .menuBtn {
         width: auto !important;
         height: auto !important;
     }
@@ -313,12 +306,11 @@ nav.top-menu img.user-img {
 
 ::-webkit-scrollbar {
     width: 8px;
-
 }
 
 ::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    background: rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.1);
     box-shadow: inset 0 0 6px rgba(0, 0, 0, .1);
 }
 
@@ -328,52 +320,43 @@ nav.top-menu img.user-img {
     box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
 }
 
-.menuBtn{
+.menuBtn {
     text-decoration: none !important;
     width: 100%;
 }
 
-nav.side-menu img  {
-
+nav.side-menu img {
     width: 120px;
     display: block;
     margin-left: auto;
     margin-right: auto;
-    
 }
 
 main {
-
     height: 80vh;
     margin-top: 2%;
     margin-left: 20%;
 }
 
 div.boas-vindas img {
-
     height: 50px;
 }
-div.boas-vindas {
- 
-}
+
+div.boas-vindas {}
 
 /* ---- Fim da home ---- */
-
 
 .form-img {
     width: 80px;
     padding: 5px;
     margin-bottom: 5px;
-    
 }
 
 .form-group {
-    
     margin-bottom: 0 !important;
 }
 
-.btn-needy-activated{
-
+.btn-needy-activated {
     text-align: center;
     padding: 10px;
     border: none;
@@ -383,39 +366,94 @@ div.boas-vindas {
     outline: none;
 }
 
-.flat{
+.flat {
     border-radius: 0 !important;
 }
 
 div.container-fluid {
     overflow: auto;
 }
-.small-icon{
+
+.small-icon {
     font-size: 30px;
 }
 
-ul.list-telefone{
-
+ul.list-telefone {
     height: 350px;
-    width:50%;
+    width: 50%;
     background-color: rgba(0, 0, 0, .1);
     overflow: auto;
 }
 
 li.item-telefone {
-
     position: relative;
     background-color: rgba(255, 255, 255, .6);
     list-style: none;
     min-width: 100% !important;
     height: 50px;
-    text-align: center;  
-
+    text-align: center;
 }
 
 .container-item-telefone {
-
     overflow: auto;
     height: 91.4%;
 }
 
+#form-insert fieldset:not(:first-of-type) {
+    display: none;
+}
+
+ul#progress {
+    overflow: hidden;
+    margin-bottom: 20px;
+    counter-reset: step;
+}
+
+ul#progress li {
+    color: gray;
+    text-transform: uppercase;
+    list-style: none;
+    position: relative;
+}
+
+ul#progress li::before {
+    content: counter(step);
+    counter-increment: step;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    line-height: 20px;
+    border-radius: 100%;
+    color:#dc3545;
+    padding: 5px;
+    text-align: center;
+    margin: 0 auto 10px auto;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+   
+}
+
+ul#progress li::after {
+    content: '';
+    width: 100%;
+    background: #dc3545;
+    height: 2px;
+    position: absolute;
+    top: 18px;
+    left: -50%;
+    z-index: -1;
+}
+
+ul#progress li:first-child::after {
+
+    content: none;
+
+}
+
+ul#progress li.activated-section::before, ul#progress li.activated-section::after{
+    background: #dc3545;
+    color: white;
+    
+}
