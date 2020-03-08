@@ -20,15 +20,15 @@
 
         <ul class="d-flex flex-wrap">
 
-            <a href="home.php" class="menuBtn d-flex justify-content-center"> <li class="menu-item d-flex justify-content-start"> <span class=""> <i class="fas fa-home"> </i> </span> <span> Home </span> </li> </a>
+            <a href="home.php" class="menuBtn"> <li class="menu-item d-flex justify-content-start"> <span class=""> <i class="fas fa-home"> </i> </span> <span> Home </span> </li> </a>
 
-            <a href="doadores.php" class="menuBtn d-flex justify-content-center"> <li class="menu-item d-flex justify-content-start"> <span class=""><i class="fas fa-users ali"></i> </span> <span> Doadores </span> </li> </a>
+            <a href="doadores.php" class="menuBtn"> <li class="menu-item d-flex justify-content-start"> <span class=""><i class="fas fa-users ali"></i> </span> <span> Doadores </span> </li> </a>
 
-            <li class="menu-item d-flex justify-content-start"> <span class=""><i class="fas fa-tint"></i> </span> <span> Doação </span> </li>
+            <a href="#" class="menuBtn"> <li class="menu-item d-flex justify-content-start"> <span class=""><i class="fas fa-tint"></i> </span> <span> Doação </span> </li> </a>
 
-            <li class="menu-item d-flex justify-content-start"> <span class=""> <i class="fas fa-stethoscope"></i> </span> <span> Funcionários </span> </li>
+            <a href="#" class="menuBtn"> <li class="menu-item d-flex justify-content-start"> <span class=""> <i class="fas fa-stethoscope"></i> </span> <span> Funcionários </span> </li> </a>
 
-            <li class="menu-item d-flex justify-content-start"> <span class=""> <i class="fas fa-user-injured"></i> </span> <span> Pacientes </span> </li>
+            <a href="paciente.php" class="menuBtn"> <li class="menu-item d-flex justify-content-start"> <span class=""> <i class="fas fa-user-injured"></i> </span> <span> Pacientes </span> </li> </a>
 
             <li class="menu-item d-flex justify-content-start"> <span class=""> <i class="fas fa-file-alt"></i> </span> <span> Relatórios </span> </li>
 
@@ -70,7 +70,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <button type="button" class="btn bg-light h-100">
+                        <button type="button" class="btn bg-light">
                             <i class="fas fa-power-off"></i>
                         </button>
                     </li>

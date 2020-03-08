@@ -591,10 +591,10 @@ ALTER TABLE `tbAgendamento`
 -- Limitadores para a tabela `tbdoacao`
 --
 ALTER TABLE `tbDoacao`
-  ADD CONSTRAINT `tbDoacao_ibfk_1` FOREIGN KEY (`idDoador`) REFERENCES `tbdoador` (`idDoador`),
-  ADD CONSTRAINT `tbDoacao_ibfk_2` FOREIGN KEY (`idBancoSangue`) REFERENCES `tbbancosangue` (`idBancoSangue`),
-  ADD CONSTRAINT `tbDoacao_ibfk_3` FOREIGN KEY (`idMaterialDoado`) REFERENCES `tbmaterialdoado` (`idMaterialDoado`),
-  ADD CONSTRAINT `tbDoacao_ibfk_4` FOREIGN KEY (`idResultadoDoacao`) REFERENCES `tbresultadodoacao` (`idResultadoDoacao`);
+  ADD CONSTRAINT `tbDoacao_ibfk_1` FOREIGN KEY (`idDoador`) REFERENCES `tbDoador` (`idDoador`),
+  ADD CONSTRAINT `tbDoacao_ibfk_2` FOREIGN KEY (`idBancoSangue`) REFERENCES `tbBancoSangue` (`idBancoSangue`),
+  ADD CONSTRAINT `tbDoacao_ibfk_3` FOREIGN KEY (`idMaterialDoado`) REFERENCES `tbMaterialDoado` (`idMaterialDoado`),
+  ADD CONSTRAINT `tbDoacao_ibfk_4` FOREIGN KEY (`idResultadoDoacao`) REFERENCES `tbResultadoDoacao` (`idResultadoDoacao`);
 
 --
 -- Limitadores para a tabela `tbdoador`

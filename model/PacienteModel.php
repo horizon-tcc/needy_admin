@@ -34,12 +34,12 @@
 
         public function getSexoPaciente()
         {
-            return $this->senhaUsuario;
+            return $this->sexoPaciente;
         }
 
         public function setSexoPaciente($id)
         {
-            $this->senhaUsuario = $id;
+            $this->sexoPaciente = $id;
         }
 
         public function getTipoSanguineoPaciente()

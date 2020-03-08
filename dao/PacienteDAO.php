@@ -1,28 +1,35 @@
 <?php
 
-require_once (__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR ."global.php");
+    require_once (__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR ."global.php");
 
-    
 
     class PacienteDAO extends PacienteModel
     {
         
         public function cadastrarPaciente($paciente)
         {
-            $conexao = DB::getConn();
-            $insert = "insert into tbPaciente(nomePaciente, idSexo, idTipoSanguineo, 
-                        idFatorRh, cpfPaciente, rgPaciente)
-                       values('".$paciente->getNomePaciente()."', ".$paciente->getSexoPaciente().", 
-                       ".$paciente->getTipoSanguineoPaciente().", ".$paciente->getFatorRhPaciente().", 
-                       '".$paciente->getCpfPaciente()."', '".$paciente->getRgPaciente()."')";
-            $conexao->exec($insert);
-            return 'Cadastro Realizado com sucesso';
+           $conexao = DB::getConn();
+           $insert = "insert into tbPaciente(nomePaciente, idSexo, idTipoSanguineo, 
+                    idFatorRh, cpfPaciente, rgPaciente)
+           values(?,?,?,?,?,?)";
+
+           $pstm = $conexao->prepare($insert);
+
+           $pstm->bindValue(1, $paciente->getNomePaciente());
+           $pstm->bindValue(2, $paciente->getSexoPaciente());
+           $pstm->bindValue(3, $paciente->getTipoSanguineoPaciente());
+           $pstm->bindValue(4, $paciente->getFatorRhPaciente());
+           $pstm->bindValue(5, $paciente->getCpfPaciente());
+           $pstm->bindValue(6, $paciente->getRgPaciente());
+           
+           $pstm->execute();
+            return '<script> alert("Registro realizado com sucesso"); </script>';
         }
 
         public static function listarPaciente()
         {
             $conexao = DB::getConn();
-            $select = "select nomePaciente, descricaoSexo, descricaoTipoSanguineo, 
+            $select = "select idPaciente, nomePaciente, descricaoSexo, descricaoTipoSanguineo, 
                         descricaoFatorRh, cpfPaciente, rgPaciente FROM tbPaciente
                         inner join tbSexo
                             on tbPaciente.idSexo = tbSexo.idSexo
@@ -50,23 +57,37 @@ require_once (__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR ."globa
         {
             $conexao = DB::getConn();
             $update = "update tbPaciente
-                        set nomePaciente ='".$paciente->getNomePaciente()."', 
-                            idSexo ='".$paciente->getSexoPaciente()."',
-                            idTipoSanguineo ='".$paciente->getTipoSanguineoPaciente()."',
-                            idFatorRh ='".$paciente->getFatorRhPaciente()."',
-                            cpfPaciente ='".$paciente->getCpfPaciente()."',
-                            rgPaciente ='".$paciente->getRgPaciente()."'
-                        where idPaciente =".$paciente->getIdPaciente();
-            $conexao->exec($update);
-            return 'Update realizado com sucesso';
+                        set nomePaciente = '?', 
+                            idSexo = ?,
+                            idTipoSanguineo = ?,
+                            idFatorRh = ?,
+                            cpfPaciente = '?',
+                            rgPaciente = '?'
+                        where idPaciente = ?";
+
+            $putm = $conexao->prepare($update);
+
+            $putm->bindValue(1, $paciente->getNomePaciente());
+            $putm->bindValue(2, $paciente->getSexoPaciente());
+            $putm->bindValue(3, $paciente->getTipoSanguineoPaciente());
+            $putm->bindValue(4, $paciente->getFatorRhPaciente());
+            $putm->bindValue(5, $paciente->getCpfPaciente());
+            $putm->bindValue(6, $paciente->getRgPaciente());
+            $putm->bindValue(7, $paciente->getIdPaciente());
+
+            $conexao->execute($update);
+            return '<script>
+                        alert(Update realizado com sucesso);
+                        window.location.replace("../../view/paciente.php");
+                    </script>';
         }
 
-        public function excluirPaciente($paciente)
+        public function excluirPaciente($id)
         {
             $conexao = DB::getConn();
             $delete = "delete from tbPaciente
-                       where idPaciente = ".$paciente->getIdPaciente();
+                       where idPaciente = ".$id;
             $conexao->exec($delete);
-            return 'Exclusão bem sucedida';
+            return '<script> alert("Exclusão realizado com sucesso");</script>';
         }
     }

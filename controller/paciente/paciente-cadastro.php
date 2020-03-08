@@ -1,18 +1,17 @@
 <?php 
 
-    require_once(__DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."global.php");
+    require_once(__DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."global.php");
 
     try{
-        header("Location: ../view/paciente.php");
         $paciente = new PacienteDAO();
         $paciente->setNomePaciente($_POST['txtNome']);
-        $paciente->setSexoPaciente($_POST['txtSexo']);
-        $paciente->setSexoPaciente($_POST['txtSexo']);
-        $paciente->setTipoSanguineo($_POST['tipoSanguineo']);
-        $paciente->setFatorRhPaciente($_POST['fatorRh']);
-        $paciente->setCpfPaciente($_POST['txtCpf']);
-        $paciente->setRgPaciente($_POST['txtRg']);
+        $paciente->setSexoPaciente($_POST['seSexo']);
+        $paciente->setTipoSanguineoPaciente($_POST['seTipoSanguineo']);
+        $paciente->setFatorRhPaciente($_POST['seFatorRh']);
+        $paciente->setCpfPaciente($_POST['txtCpfPaciente']);
+        $paciente->setRgPaciente($_POST['txtRgPaciente']);
         echo $paciente->cadastrarPaciente($paciente);
+        echo '<script> window.location.replace("../../view/paciente.php"); </script>';
     }
     catch(Exception $e){
         echo '<pre>';
@@ -20,4 +19,3 @@
         echo '</pre>';
         echo $e->getMessage();
     }
- ?>
