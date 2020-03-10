@@ -1,6 +1,7 @@
 <?php
 
 require_once(__DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."global.php");
+// require_once '../model/BancoSangueModel.php';
 
 class BancoSangueDAO
 {
@@ -11,12 +12,12 @@ class BancoSangueDAO
 
         if ($id)
             $query = "SELECT * FROM tbBancoSangue
-                    WHERE idBancoSangue = $id";
+                    WHERE idBancoSangue = $id;";
         else
-            $query = "SELECT * FROM tbBancoSangue";
+            $query = "SELECT * FROM tbBancoSangue;";
 
         $result = $Conn->query($query);
-        $result = $result->fetchAll();
+        $result = $result->fetchAll(PDO::FETCH_OBJ);
 
         return $result;
     }
@@ -27,19 +28,31 @@ class BancoSangueDAO
 
         $query = "UPDATE tbBancoSangue
                     
-                    SET nomeBancoSangue = \'$bancoSangue->nome\'
-                        logradouroBancoSangue = \'$bancoSangue->endereco->logradouro\'
-                        bairroBancoSangue = \'$bancoSangue->endereco->bairro\'
-                        numeroEndBancoSangue = \'$bancoSangue->endereco->numero\'
-                        complementoEndBancoSangue = \'$bancoSangue->endereco->complemento\'
-                        cepBancoSangue = \'$bancoSangue->endereco->CEP\'
-                        ufBancoSangue = \'$bancoSangue->endereco->UF\'
-                        cidadeBancoSangue = \'$bancoSangue->endereco->cidade\'
+                    SET nomeBancoSangue = :nome,
+                        logradouroBancoSangue = :logradouro,
+                        bairroBancoSangue = :bairro,
+                        numeroEndBancoSangue = :numero,
+                        complementoEndBancoSangue = :complemento,
+                        cepBancoSangue = :cep,
+                        ufBancoSangue = :uf,
+                        cidadeBancoSangue = :cidade
                         
-                        WHERE idBancoSangue = \'$bancoSangue->id\'
+                        WHERE idBancoSangue = :id;
                  ";
 
-        if ($Conn->exec($query))
+        $query = $Conn->prepare($query);
+
+        $query->bindValue(':nome', $bancoSangue->getNome());
+        $query->bindValue(':logradouro', $bancoSangue->getEndereco()->getLogradouro());
+        $query->bindValue(':bairro', $bancoSangue->getEndereco()->getBairro());
+        $query->bindValue(':numero', $bancoSangue->getEndereco()->getNumero());
+        $query->bindValue(':complemento', $bancoSangue->getEndereco()->getComplemento());
+        $query->bindValue(':cep', $bancoSangue->getEndereco()->getCEP());
+        $query->bindValue(':uf', $bancoSangue->getEndereco()->getUF());
+        $query->bindValue(':cidade', $bancoSangue->getEndereco()->getCidade());
+        $query->bindValue(':id', $bancoSangue->getId());
+
+        if ($query->execute())
             return true;
         else
             return false;
@@ -57,16 +70,27 @@ class BancoSangueDAO
                                             cepBancoSangue,
                                             ufBancoSangue,
                                             cidadeBancoSangue)
-                              VALUES (\'$bancoSangue->getNome()\',
-                                      \'$bancoSangue->getEndereco()->getLogradouro()\',
-                                      \'$bancoSangue->getEndereco()->getBairro()\',
-                                      \'$bancoSangue->getEndereco()->getNumero()\',
-                                      \'$bancoSangue->getEndereco()->getComplemento()\',
-                                      \'$bancoSangue->getEndereco()->getCEP()\',
-                                      \'$bancoSangue->getEndereco()->getUF()\',
-                                      \'$bancoSangue->getEndereco()->getCidade()\')";
+                VALUES (:nome,
+                        :logradouro,
+                        :bairro,
+                        :numero,
+                        :complemento,
+                        :cep,
+                        :uf,
+                        :cidade);";
+        
+        $query = $Conn->prepare($query);
 
-        if ($Conn->exec($query))
+        $query->bindValue(':nome', $bancoSangue->getNome());
+        $query->bindValue(':logradouro', $bancoSangue->getEndereco()->getLogradouro());
+        $query->bindValue(':bairro', $bancoSangue->getEndereco()->getBairro());
+        $query->bindValue(':numero', $bancoSangue->getEndereco()->getNumero());
+        $query->bindValue(':complemento', $bancoSangue->getEndereco()->getComplemento());
+        $query->bindValue(':cep', $bancoSangue->getEndereco()->getCEP());
+        $query->bindValue(':uf', $bancoSangue->getEndereco()->getUF());
+        $query->bindValue(':cidade', $bancoSangue->getEndereco()->getCidade());
+
+        if ($query->execute())
             return true;
         else
             return false;
@@ -76,8 +100,8 @@ class BancoSangueDAO
     {
         $Conn = DB::getConn();
 
-        $query = "DELETE * FROM tbBancoSangue
-                    WHERE idBancoSangue = $id";
+        $query = "DELETE FROM tbBancoSangue
+                    WHERE idBancoSangue = $id;";
 
         if ($Conn->exec($query))
             return true;
