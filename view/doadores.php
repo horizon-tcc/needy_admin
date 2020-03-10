@@ -27,25 +27,24 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                 <h6 class="text-center"> Digite algumas informações sobre o doador </h6>
                 <hr />
                 <div class="form-row w-100 mt-5">
-                    <img src="../img/camera.png" class="form-img d-block mx-auto" />
+                    <img src="../img/camera.png" class="form-img d-block mx-auto" id="imgPreview" name="imgPreview" />
                 </div>
                 <div class="form-row w-100 d-flex justify-content-center">
 
                     <div class="input-group mb-3 col-md-5">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Upload</span>
-                        </div>
+                       
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" name="imgDoador" id="imgDoador">
-                            <label class="custom-file-label" for="inputGroupFile01">Escolha uma imagem</label>
-
-                            <div id="feedback-valid-img-Doador" class="valid-feedback">
-                                Imagem válida!
-                            </div>
-                            <div id="feedback-invalid-img-Doador" class="invalid-feedback">
-                                Imagem inválida!
-                            </div>
+                            <label class="custom-file-label" for="imgDoador">Escolha uma imagem</label>
                         </div>
+
+                    </div>
+
+                    <div id="feedback-valid-img-Doador" class="valid-feedback">
+                        Imagem válida!
+                    </div>
+                    <div id="feedback-invalid-img-Doador" class="invalid-feedback">
+                        Imagem inválida!
                     </div>
 
                 </div>
@@ -96,6 +95,13 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                     <div class="form-group col-md-6 pb-2">
                         <label for="txtDataNascimento">Data de nascimento</label>
                         <input type="date" class="form-control" id="txtDataNascimento" name="txtDataNascimento" placeholder="Escolha a data de nascimento" />
+
+                        <div id="feedback-valid-data-nascimento" class="valid-feedback">
+                            Data de nascimento válida!
+                        </div>
+                        <div id="feedback-invalid-data-nascimento" class="invalid-feedback">
+                            Data de nascimento inválida!
+                        </div>
                     </div>
                 </div>
 
@@ -522,6 +528,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
         </form>
 
     </div>
+
 
 </main>
 

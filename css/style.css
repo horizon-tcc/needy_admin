@@ -457,3 +457,11 @@ ul#progress li.activated-section::before, ul#progress li.activated-section::afte
     color: white;
     
 }
+
+.img-preview {
+
+    border-radius:60%;
+    height: 150px;
+    width: 170px;
+    margin-bottom: 10px;
+}

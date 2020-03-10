@@ -224,7 +224,7 @@ function validarSecaoPessoal() {
 
         $("#imgDoador").removeClass("is-invalid");
         $("#imgDoador").addClass("is-valid");
-        
+
     }
     else {
 
@@ -250,7 +250,7 @@ function validarSecaoPessoal() {
 
         $("#txtNomeDoador").removeClass("is-invalid");
         $("#txtNomeDoador").addClass("is-valid");
-        
+
     }
     else {
 
@@ -371,7 +371,7 @@ function validarSecaoPessoal() {
     if (validarCpf(txtCpfDoador.value)) {
 
         cpfValido = true;
-        
+
         $("#txtCpfDoador").removeClass("is-invalid");
         $("#txtCpfDoador").addClass("is-valid");
     }
@@ -455,3 +455,51 @@ $("#btn-limpar-campos-pessoais").click(function () {
     limparSecaoPessoal();
 
 });
+
+
+$("input[name=imgDoador]").change(function () {
+
+    inserirImg();
+
+});
+
+
+function inserirImg() {
+
+    var file = document.querySelector('input[name=imgDoador]').files[0];
+
+    var img = document.querySelector('img[name=imgPreview]');
+
+    var reader = new FileReader();
+
+    reader.onloadend = function () {
+
+        img.src = reader.result;
+
+        $("#imgPreview").removeClass("form-img");
+        $("#imgPreview").addClass("img-preview");
+
+        $("input[name=imgDoador]").removeClass("is-invalid");
+        $("input[name=imgDoador]").addClass("is-valid");
+
+    }
+
+    if (file) {
+
+        reader.readAsDataURL(file);
+
+    } else {
+
+        img.src = "../img/camera.png";
+
+        $("#imgPreview").removeClass("img-preview");
+        $("#imgPreview").addClass("form-img");
+
+
+        $("input[name=imgDoador]").removeClass("is-valid");
+        $("input[name=imgDoador]").addClass("is-invalid");
+
+        console.log("Passou aqui");
+    }
+
+}

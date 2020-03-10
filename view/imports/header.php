@@ -70,7 +70,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <button type="button" class="btn bg-light">
+                        <button type="button" class="btn bg-light h-100">
                             <i class="fas fa-power-off"></i>
                         </button>
                     </li>
