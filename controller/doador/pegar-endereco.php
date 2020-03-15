@@ -2,21 +2,40 @@
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . ".." .DIRECTORY_SEPARATOR."..". DIRECTORY_SEPARATOR ."global.php";
 
-define("SUCESSO", 1);
-define("ERRO", 0);
+define("SUCESSO", true);
+define("ERRO", false);
+
 try {
 
     $cep = $_POST['txtCep'];
     $cep = preg_replace("/[^0-9]/","",$cep);
 
-    $url = "http://viacep.com.br/ws/$cep/xml/";
+    $url = "http://viacep.com.br/ws/$cep/json/";
 
-    $endereco = simplexml_load_file($url);
+    $curl = curl_init($url);
 
-    echo json_encode($endereco);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_TIMEOUT, 3);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+    $vetEndereco = json_decode(curl_exec($curl), true);
+
+    if (count($vetEndereco) >= 9 ) {
+
+        $vetEndereco["sucesso"]  = SUCESSO;
+        echo json_encode($vetEndereco);
+        
+    }
+    else {
+
+        $vetEndereco["sucesso"]  = ERRO;
+        echo json_encode($vetEndereco);
+    }
+    
     
 } catch (Exception $ex) {
 
-    $resultado = array("status" => ERRO);
-    echo (json_encode($resultado));
+    $resultado = array("sucesso" => ERRO);
+
+    echo json_encode($resultado);
 }

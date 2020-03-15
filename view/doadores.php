@@ -10,8 +10,8 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
         <form action="controller/doador/cadastrarDoador.php" method="post" class="w-100" id="form-insert">
 
-            <h2 class="text-center"> Cadastro de doadores </h2>
-            <ul id="progress" class="text-center d-flex mt-5 pt-3">
+            <h2 class="text-center mt-4"> Cadastro de doadores </h2>
+            <ul id="progress" class="text-center d-flex mt-2 pt-3">
 
                 <li class="flex-fill activated-section"> Informações pessoais </li>
                 <li class="flex-fill"> Informações de endereço </li>
@@ -34,8 +34,8 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                     <div class="input-group mb-3 col-md-5">
                        
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" name="imgDoador" id="imgDoador">
-                            <label class="custom-file-label" for="imgDoador">Escolha uma imagem</label>
+                            <input type="file" class="custom-file-input" name="imgDoador" id="imgDoador" accept="image/*">
+                            <label class="custom-file-label" for="imgDoador" id="file-description">Escolha uma imagem</label>
                         </div>
 
                     </div>
@@ -94,7 +94,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
                     <div class="form-group col-md-6 pb-2">
                         <label for="txtDataNascimento">Data de nascimento</label>
-                        <input type="date" class="form-control" id="txtDataNascimento" name="txtDataNascimento" placeholder="Escolha a data de nascimento" />
+                        <input type="date" class="form-control input-date" id="txtDataNascimento" name="txtDataNascimento" placeholder="Escolha a data de nascimento" />
 
                         <div id="feedback-valid-data-nascimento" class="valid-feedback">
                             Data de nascimento válida!

@@ -4,6 +4,7 @@ $(".txtRg").mask("00.000.000-0");
 $(".telefone-residencial").mask("(00) 0000-0000");
 $(".telefone-celular").mask("(00) 00000-0000");
 
+
 $("#txtCpfDoador").blur(function (e) {
 
     if (validarCpf($("#txtCpfDoador").val())) {
@@ -34,9 +35,21 @@ $("#txtCep").blur(function (e) {
         },
         success: function (response) {
 
-            $('#txtBairro').val(response.bairro);
-            $('#txtLogradouro').val(response.logradouro);
+            if (response.sucesso == true){
+                $('#txtBairro').val(response.bairro);
+                $('#txtLogradouro').val(response.logradouro);
+                $('#txtUf').val(response.uf);
+                $('#txtCidade').val(response.localidade);
+            }
+            else {
+                showToast('Atenção', 'CEP inválido, por favor passe um cep válido', 'warning', '#dc3545', 'white', 10000);
+            }
 
+
+        },
+        error: function(request, status, error){
+
+            console.log(request.responseText);
         }
 
 
@@ -72,7 +85,7 @@ function validarCpf(cpf) {
 
         var primeiraSoma = 0;
 
-        for (var i = 0, m = 10; i < vetCpf.length - 2; i++ , m--) {
+        for (var i = 0, m = 10; i < vetCpf.length - 2; i++, m--) {
 
             primeiraSoma += vetCpf[i] * m;
 
@@ -84,7 +97,7 @@ function validarCpf(cpf) {
 
             var segundaSoma = 0;
 
-            for (var i = 0, m = 11; i < vetCpf.length - 1; i++ , m--) {
+            for (var i = 0, m = 11; i < vetCpf.length - 1; i++, m--) {
 
                 segundaSoma += vetCpf[i] * m;
 
@@ -170,7 +183,6 @@ $(document).on("change", "input[name=rbTipoContato]", function (e) {
     }
     else {
 
-
         $("#txtTelefoneDoador").mask("(00) 00000-0000");
 
     }
@@ -181,6 +193,7 @@ $(document).on("change", "input[name=rbTipoContato]", function (e) {
 
 function limparSecaoPessoal() {
 
+    var imgPreview = document.getElementById("imgPreview");
     var imgDoador = document.getElementById("imgDoador");
     var txtNomeDoador = document.getElementById("txtNomeDoador");
     var txtDataNascimento = document.getElementById("txtDataNascimento");
@@ -188,11 +201,18 @@ function limparSecaoPessoal() {
     var txtRgDoador = document.getElementById("txtRgDoador");
 
 
+    $("#imgPreview").removeClass("img-preview");
+    $("#imgPreview").addClass("form-img");
+
+    imgPreview.src = "../img/camera.png"
     imgDoador.value = "";
     txtNomeDoador.value = "";
     txtDataNascimento.value = "";
     txtCpfDoador.value = "";
     txtRgDoador.value = "";
+
+    validarSecaoPessoal();
+
 }
 
 
@@ -216,7 +236,6 @@ function validarSecaoPessoal() {
     var cpfValido = false;
     var rgValido = false;
 
-    console.log(txtNomeDoador.value);
 
     if (imgDoador.value != "") {
 
@@ -228,15 +247,7 @@ function validarSecaoPessoal() {
     }
     else {
 
-        $.toast({
-            heading: 'Atenção',
-            text: 'Passe uma imagem válida',
-            icon: 'warning',
-            loader: true,
-            bgColor: '#dc3545',        // Change it to false to disable loader
-            loaderBg: 'white',  // To change the background
-            position: 'top-right'
-        });
+        showToast('Atenção', 'Passe uma imagem válida', 'warning', '#dc3545', 'white', 10000);
 
         $("#imgDoador").removeClass("is-valid");
         $("#imgDoador").addClass("is-invalid");
@@ -244,7 +255,7 @@ function validarSecaoPessoal() {
 
     }
 
-    if (txtNomeDoador.value.length >= 3) {
+    if (txtNomeDoador.value.length >= 3 && validarNome(txtNomeDoador.value)) {
 
         nomeValido = true;
 
@@ -254,15 +265,7 @@ function validarSecaoPessoal() {
     }
     else {
 
-        $.toast({
-            heading: 'Atenção',
-            text: 'O nome do doador deve possuir pelo menos três caracteres',
-            icon: 'warning',
-            loader: true,
-            bgColor: '#dc3545',        // Change it to false to disable loader
-            loaderBg: 'white',  // To change the background
-            position: 'top-right'
-        });
+        showToast('Atenção', 'O nome do doador deve possuir pelo menos 3 caracteres e não deve possuir números', 'warning', '#dc3545', 'white', 10000);
 
         $("#txtNomeDoador").removeClass("is-valid");
         $("#txtNomeDoador").addClass("is-invalid");
@@ -280,15 +283,7 @@ function validarSecaoPessoal() {
     }
     else {
 
-        $.toast({
-            heading: 'Atenção',
-            text: 'Passe um sexo válido',
-            icon: 'warning',
-            loader: true,
-            bgColor: '#dc3545',        // Change it to false to disable loader
-            loaderBg: 'white',  // To change the background
-            position: 'top-right'
-        });
+        showToast('Atenção', 'Passe um sexo válido', 'warning', '#dc3545', 'white', 10000);
 
         $("#seSexo").removeClass("is-valid");
         $("#seSexo").addClass("is-invalid");
@@ -307,15 +302,7 @@ function validarSecaoPessoal() {
     }
     else {
 
-        $.toast({
-            heading: 'Atenção',
-            text: 'Passe uma data válida',
-            icon: 'warning',
-            loader: true,
-            bgColor: '#dc3545',        // Change it to false to disable loader
-            loaderBg: 'white',  // To change the background
-            position: 'top-right'
-        });
+        showToast('Atenção', 'Passe uma data válida', 'warning', '#dc3545', 'white', 10000);
 
         $("#txtDataNascimento").removeClass("is-valid");
         $("#txtDataNascimento").addClass("is-invalid");
@@ -330,15 +317,7 @@ function validarSecaoPessoal() {
     }
     else {
 
-        $.toast({
-            heading: 'Atenção',
-            text: 'Passe um tipo de sangue válido',
-            icon: 'warning',
-            loader: true,
-            bgColor: '#dc3545',        // Change it to false to disable loader
-            loaderBg: 'white',  // To change the background
-            position: 'top-right'
-        });
+        showToast('Atenção', 'Passe um tipo de sangue válido', 'warning', '#dc3545', 'white', 10000);
 
         $("#seTipoSanguineo").removeClass("is-valid");
         $("#seTipoSanguineo").addClass("is-invalid");
@@ -353,15 +332,7 @@ function validarSecaoPessoal() {
     }
     else {
 
-        $.toast({
-            heading: 'Atenção',
-            text: 'Passe um tipo de fator RH válido',
-            icon: 'warning',
-            loader: true,
-            bgColor: '#dc3545',        // Change it to false to disable loader
-            loaderBg: 'white',  // To change the background
-            position: 'top-right'
-        });
+        showToast('Atenção', 'Passe um tipo de fator RH válido', 'warning', '#dc3545', 'white', 10000);
 
         $("#seFatorRh").removeClass("is-valid");
         $("#seFatorRh").addClass("is-invalid");
@@ -377,15 +348,7 @@ function validarSecaoPessoal() {
     }
     else {
 
-        $.toast({
-            heading: 'Atenção',
-            text: 'Passe um CPF válido',
-            icon: 'warning',
-            loader: true,
-            bgColor: '#dc3545',        // Change it to false to disable loader
-            loaderBg: 'white',  // To change the background
-            position: 'top-right'
-        });
+        showToast('Atenção', 'Passe um CPF válido', 'warning', '#dc3545', 'white', 10000);
 
         $("#txtCpfDoador").removeClass("is-valid");
         $("#txtCpfDoador").addClass("is-invalid");
@@ -402,15 +365,7 @@ function validarSecaoPessoal() {
     }
     else {
 
-        $.toast({
-            heading: 'Atenção',
-            text: 'Passe um rg válido',
-            icon: 'warning',
-            loader: true,
-            bgColor: '#dc3545',        // Change it to false to disable loader
-            loaderBg: 'white',  // To change the background
-            position: 'top-right'
-        });
+        showToast('Atenção', 'Passe um rg válido', 'warning', '#dc3545', 'white', 10000);
 
         $("#txtRgDoador").removeClass("is-valid");
         $("#txtRgDoador").addClass("is-invalid");
@@ -499,7 +454,42 @@ function inserirImg() {
         $("input[name=imgDoador]").removeClass("is-valid");
         $("input[name=imgDoador]").addClass("is-invalid");
 
-        console.log("Passou aqui");
     }
 
+}
+
+
+
+function showToast(title, text, icon, bgColor, bgLoader, time) {
+
+
+    $.toast({
+        heading: title,
+        text: text,
+        icon: icon,
+        loader: true,
+        bgColor: bgColor,
+        loaderBg: bgLoader,
+        position: 'top-right',
+        hideAfter: time
+    });
+
+}
+
+function validarNome() {
+
+    var nome = document.getElementById("txtNomeDoador");
+
+    for (var i = 0; i < nome.value.length; i++) {
+
+        if (!checkNumber(nome.value[i])) {
+            continue;
+        }
+        else {
+            return false;
+        }
+
+    }
+
+    return true;
 }
