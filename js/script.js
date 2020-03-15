@@ -13,7 +13,6 @@ $("#txtCpfDoador").blur(function (e) {
     else {
         $("#txtCpfDoador").removeClass("is-valid");
         $("#txtCpfDoador").addClass("is-invalid");
-
     }
 
 });
@@ -36,6 +35,8 @@ $("#txtCep").blur(function (e) {
 
             $('#txtBairro').val(response.bairro);
             $('#txtLogradouro').val(response.logradouro);
+            $('#txtCidade').val(response.localidade);
+            $('#txtUf').val(response.uf);
 
         }
 
@@ -466,7 +467,7 @@ $("input[name=imgDoador]").change(function () {
 
 function inserirImg() {
 
-    var file = document.querySelector('input[name=imgDoador]').files[0];
+    var file = document.querySelector('.img-input').files[0];
 
     var img = document.querySelector('img[name=imgPreview]');
 
@@ -479,8 +480,8 @@ function inserirImg() {
         $("#imgPreview").removeClass("form-img");
         $("#imgPreview").addClass("img-preview");
 
-        $("input[name=imgDoador]").removeClass("is-invalid");
-        $("input[name=imgDoador]").addClass("is-valid");
+        $(".img-input").removeClass("is-invalid");
+        $(".img-input").addClass("is-valid");
 
     }
 
@@ -496,10 +497,9 @@ function inserirImg() {
         $("#imgPreview").addClass("form-img");
 
 
-        $("input[name=imgDoador]").removeClass("is-valid");
-        $("input[name=imgDoador]").addClass("is-invalid");
+        $(".img-input").removeClass("is-valid");
+        $(".img-input").addClass("is-invalid");
 
-        console.log("Passou aqui");
     }
 
 }
