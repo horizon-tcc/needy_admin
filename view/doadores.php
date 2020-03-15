@@ -32,10 +32,12 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                 <div class="form-row w-100 d-flex justify-content-center">
 
                     <div class="input-group mb-3 col-md-5">
-                       
+
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" name="imgDoador" id="imgDoador" accept="image/*">
+
+                            <input type="file" class="custom-file-input img-input" name="imgDoador" id="imgDoador" accept="image/*">
                             <label class="custom-file-label" for="imgDoador" id="file-description">Escolha uma imagem</label>
+
                         </div>
 
                     </div>
@@ -51,7 +53,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                 <div class="form-row w-100">
                     <div class="form-group col-md-12 pb-2">
                         <label for="txtNomeDoador">Nome</label>
-                        <input type="text" class="form-control" name="txtNomeDoador" id="txtNomeDoador" placeholder="Digite o nome" />
+                        <input type="text" class="form-control" name="txtNomeDoador" id="txtNomeDoador" placeholder="Digite o nome" maxlength="100" />
 
                         <div id="feedback-valid-nome-Doador" class="valid-feedback">
                             Nome válido!
@@ -195,10 +197,10 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                 </div>
 
 
-                <div class="form-row w-100 mt-5">
+                <div class="form-row w-100 mt-5 d-flex justify-content-center">
 
 
-                    <div class="form-group col-md-6 d-flex align-items-end justify-content-end pb-2">
+                    <div class="form-group col-md-4 d-flex align-items-end justify-content-end pb-2">
 
                         <button type="button" class="btn btn-outline-danger w-100 flat" data-toggle="modal" data-target="#limpar-campos-pessoais">
                             <i class="far fa-window-close"></i> Limpar
@@ -209,7 +211,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                     </div>
 
 
-                    <div class="form-group col-md-6 d-flex align-items-end justify-content-end pb-2">
+                    <div class="form-group col-md-4 d-flex align-items-end justify-content-end pb-2">
 
                         <button type="button" class="btn btn-danger w-100 flat next action" name="next" id="btn-pessoal">
                             <i class="far fa-paper-plane"></i> Próxima etapa
@@ -229,25 +231,35 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                 <h2 class="text-center mt-2"> Informações de endereço </h2>
                 <h6 class="text-center"> Digite algumas informações para que os hemocentros possam encontrar o doador</h6>
                 <hr />
+
                 <div class="form-row w-100 mt-5">
 
-
-                    <div class="form-group col-md-4 pb-2">
+                    <div class="form-group col-md-12 pb-2">
 
                         <label for="txtCep">CEP</label>
                         <input type="text" class="form-control txtCep" id="txtCep" name="txtCep" placeholder="Digite o CEP" />
                     </div>
 
+                </div>
+
+                <div class="form-row w-100">
+
                     <div class="form-group col-md-4 pb-2">
 
                         <label for="txtLogradouro">Logradouro</label>
-                        <input type="text" class="form-control" id="txtLogradouro" name="txtLogradouro" placeholder="Digite o logradouro" />
+                        <input type="text" class="form-control" id="txtLogradouro" name="txtLogradouro" placeholder="Digite o logradouro" maxlength="100" />
                     </div>
 
                     <div class="form-group col-md-4 pb-2">
 
                         <label for="txtBairro">Bairro</label>
-                        <input type="text" class="form-control" id="txtBairro" name="txtBairro" placeholder="Digite o bairro" />
+                        <input type="text" class="form-control" id="txtBairro" name="txtBairro" placeholder="Digite o bairro" maxlength="100" />
+                    </div>
+
+                    <div class="form-group col-md-4 pb-2">
+
+                        <label for="txtCidade">Cidade</label>
+                        <input type="text" class="form-control" id="txtCidade" name="txtCidade" placeholder="Digite a cidade" maxlength="100" />
                     </div>
 
 
@@ -258,21 +270,24 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                     <div class="form-group col-md-4 pb-2">
 
                         <label for="txtUf">UF</label>
-                        <input type="text" class="form-control" id="txtUf" name="txtUf" placeholder="Digite o estado" />
+                        <input type="text" class="form-control" id="txtUf" name="txtUf" placeholder="Digite o estado" maxlength="2" />
 
                     </div>
 
                     <div class="form-group col-md-4 pb-2">
 
                         <label for="txtNumero">Número</label>
-                        <input type="text" class="form-control" id="txtNumero" name="txtNumero" placeholder="Digite o número residencial" />
+                        <input type="text" class="form-control" id="txtNumero" name="txtNumero" placeholder="Digite o número residencial" maxlength="5" />
                     </div>
 
                     <div class="form-group col-md-4 pb-2">
 
-                        <label for="txtCidade">Cidade</label>
-                        <input type="text" class="form-control" id="txtCidade" name="txtCidade" placeholder="Digite a cidade" />
+                        <label for="txtComplemento">Complemento</label>
+                        <input type="text" class="form-control" id="txtComplemento" name="txtComplemento" placeholder="Digite o complemento do endereço" maxlength="70" />
                     </div>
+
+
+
                 </div>
 
 
