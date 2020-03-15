@@ -35,7 +35,10 @@ $("#txtCep").blur(function (e) {
         },
         success: function (response) {
 
-            if (response.sucesso == true){
+            if (response.sucesso == true) {
+
+                $("#txtCep").removeClass("is-invalid");
+                $("#txtCep").addClass("is-valid");
 
                 $('#txtBairro').val(response.bairro);
                 $('#txtLogradouro').val(response.logradouro);
@@ -44,13 +47,18 @@ $("#txtCep").blur(function (e) {
             }
             else {
                 showToast('Atenção', 'CEP inválido, por favor passe um cep válido', 'warning', '#dc3545', 'white', 10000);
+                $("#txtCep").removeClass("is-valid");
+                $("#txtCep").addClass("is-invalid");
+
             }
 
 
         },
-        error: function(request, status, error){
+        error: function (request, status, error) {
 
-            console.log(request.responseText);
+            showToast('Atenção', 'CEP inválido, por favor passe um cep válido', 'warning', '#dc3545', 'white', 10000);
+            $("#txtCep").removeClass("is-valid");
+            $("#txtCep").addClass("is-invalid");
         }
 
 
@@ -393,12 +401,21 @@ function checkNumber(valor) {
 }
 
 function validarData(data) {
-
+    dataAtual = new Date();
     data = data.split("-");
 
     if (checkNumber(data[0]) && checkNumber(data[1]) && checkNumber(data[2])) {
 
-        return true;
+        console.log("data atual = "+dataAtual.getFullYear());
+        console.log("data passada = "+data[0]);
+        
+        if ( (( dataAtual.getFullYear() - data[0] ) >= 16)
+        && ( data[0] >= dataAtual.getFullYear() - 80) 
+        && (data[0] < dataAtual.getFullYear())){
+
+            return true;
+        }
+        
     }
     else {
         return false;
@@ -428,6 +445,8 @@ function inserirImg() {
 
     var reader = new FileReader();
 
+    nomeImg = $("#file-description").val() 
+
     reader.onloadend = function () {
 
         img.src = reader.result;
@@ -437,6 +456,13 @@ function inserirImg() {
 
         $(".img-input").removeClass("is-invalid");
         $(".img-input").addClass("is-valid");
+
+        nomeImg = $(".img-input").val();
+        nomeImg = nomeImg.split("\\");
+        console.log(nomeImg);
+
+        $("#file-description").empty();
+        $("#file-description").append( nomeImg[nomeImg.length-1] );
 
     }
 
@@ -451,9 +477,11 @@ function inserirImg() {
         $("#imgPreview").removeClass("img-preview");
         $("#imgPreview").addClass("form-img");
 
-
         $(".img-input").removeClass("is-valid");
         $(".img-input").addClass("is-invalid");
+
+        $("#file-description").empty();
+        $("#file-description").append("Escolha uma imagem");
 
     }
 
@@ -494,3 +522,4 @@ function validarNome() {
 
     return true;
 }
+

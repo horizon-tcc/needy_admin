@@ -238,6 +238,13 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
                         <label for="txtCep">CEP</label>
                         <input type="text" class="form-control txtCep" id="txtCep" name="txtCep" placeholder="Digite o CEP" />
+
+                        <div id="feedback-valid-cep-Doador" class="valid-feedback">
+                            CEP válido!
+                        </div>
+                        <div id="feedback-invalid-cep-Doador" class="invalid-feedback">
+                            CEP inválido!
+                        </div>
                     </div>
 
                 </div>
