@@ -24,7 +24,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
             <fieldset class="mt-5 pb-4">
                 <i class="fas fa-user text-center d-block mx-auto small-icon"></i>
                 <h2 class="text-center mt-2"> Informações pessoais </h2>
-                <h6 class="text-center"> Digite algumas informações sobre o doador </h6>
+                <h6 class="text-center mt-2"> Digite algumas informações sobre o doador </h6>
                 <hr />
                 <div class="form-row w-100 mt-5">
                     <img src="../img/camera.png" class="form-img d-block mx-auto" id="imgPreview" name="imgPreview" />
@@ -36,7 +36,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                         <div class="custom-file">
 
                             <input type="file" class="custom-file-input img-input" name="imgDoador" id="imgDoador" accept="image/*">
-                            <label class="custom-file-label" for="imgDoador" id="file-description">Escolha uma imagem</label>
+                            <label class="custom-file-label" for="imgDoador" id="file-description"> <strong class="red"> * </strong> Escolha uma imagem</label>
 
                         </div>
 
@@ -52,7 +52,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                 </div>
                 <div class="form-row w-100">
                     <div class="form-group col-md-12 pb-2">
-                        <label for="txtNomeDoador">Nome</label>
+                        <label for="txtNomeDoador"> <strong class="red"> * </strong> Nome </label>
                         <input type="text" class="form-control" name="txtNomeDoador" id="txtNomeDoador" placeholder="Digite o nome" maxlength="100" />
 
                         <div id="feedback-valid-nome-Doador" class="valid-feedback">
@@ -66,7 +66,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
                 <div class="form-row w-100">
                     <div class="form-group col-md-6 pb-2">
-                        <label for="seSexo">Sexo</label>
+                        <label for="seSexo"> <strong class="red"> * </strong> Sexo</label>
                         <select class="form-control" name="seSexo" id="seSexo">
 
                             <?php
@@ -95,7 +95,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                     </div>
 
                     <div class="form-group col-md-6 pb-2">
-                        <label for="txtDataNascimento">Data de nascimento</label>
+                        <label for="txtDataNascimento"> <strong class="red"> * </strong> Data de nascimento</label>
                         <input type="date" class="form-control input-date" id="txtDataNascimento" name="txtDataNascimento" placeholder="Escolha a data de nascimento" />
 
                         <div id="feedback-valid-data-nascimento" class="valid-feedback">
@@ -110,7 +110,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                 <div class="form-row w-100">
 
                     <div class="form-group col-md-6 pb-2">
-                        <label for="seTipoSanguineo">Tipo sanguíneo</label>
+                        <label for="seTipoSanguineo"> <strong class="red"> * </strong> Tipo sanguíneo</label>
                         <select class="form-control" name="seTipoSanguineo" id="seTipoSanguineo">
                             <?php
 
@@ -135,7 +135,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                     </div>
 
                     <div class="form-group col-md-6 pb-2">
-                        <label for="seFatorRh">Fator Rh</label>
+                        <label for="seFatorRh"> <strong class="red"> * </strong> Fator Rh</label>
                         <select class="form-control" name="seFatorRh" id="seFatorRh">
 
                             <?php
@@ -170,7 +170,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
                     <div class="form-group col-md-6 pb-2">
 
-                        <label for="txtCpfDoador">CPF</label>
+                        <label for="txtCpfDoador"> <strong class="red"> * </strong> CPF</label>
                         <input type="text" class="form-control txtCpf" id="txtCpfDoador" name="txtCpfDoador" placeholder="Digite o CPF" />
                         <div id="feedback-valid-cpf-Doador" class="valid-feedback">
                             CPF válido!
@@ -181,7 +181,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                     </div>
 
                     <div class="form-group col-md-6 pb-2">
-                        <label for="txtRgDoador">RG</label>
+                        <label for="txtRgDoador"> <strong class="red"> * </strong> RG</label>
                         <input type="text" class="form-control txtRg" id="txtRgDoador" name="txtRgDoador" placeholder="Digite o RG" />
 
                         <div id="feedback-valid-rg-Doador" class="valid-feedback">
@@ -194,6 +194,11 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                     </div>
 
 
+                </div>
+
+                <div class="form-row w-100 mt-2 d-flex justify-content-end">
+
+                    <h6 class="text-center mt-2"> Dados obrigatórios <strong class="red"> * </strong> </h6>
                 </div>
 
 
@@ -560,6 +565,8 @@ include_once("imports/imports-js.php");
 
 ?>
 
+
+<script src="../js/script-doador.js"></script>
 
 </body>
 

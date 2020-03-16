@@ -465,3 +465,8 @@ ul#progress li.activated-section::before, ul#progress li.activated-section::afte
     width: 170px;
     margin-bottom: 10px;
 }
+
+strong.red {
+
+    color:#dc3545;
+}
