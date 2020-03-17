@@ -183,10 +183,12 @@ div.col-md-8, div.col-md-4, .form-login, div.col-md-12 {
 
 nav.top-menu {
     background-color: rgba(0, 0, 0, 0.1);
-    width: 78%;
+    width: auto;
     padding: 10px;
-    margin-left: 21%;
     z-index: 1032;
+    margin-left: 300px;
+ 
+
 }
 
 nav.top-menu ul button {
@@ -203,6 +205,7 @@ nav.side-menu {
     top: 0px;
     left: 0px;
     height: 100vh;
+    width: 300px;
 }
 
 nav.top-menu img.user-img {
@@ -242,6 +245,11 @@ nav.top-menu img.user-img {
     }
     nav.side-menu {
         width: 120px;
+    }
+    nav.top-menu {
+        margin-left: 120px;
+     
+    
     }
     nav.side-menu ul li::before, nav.side-menu ul li::after {
         content: '';
@@ -302,6 +310,12 @@ nav.top-menu img.user-img {
         width: auto !important;
         height: auto !important;
     }
+    main {
+        margin-left: 150px !important;
+    }
+    ul#progress li {
+       font-size: 12px;
+    }
 }
 
 ::-webkit-scrollbar {
@@ -335,7 +349,7 @@ nav.side-menu img {
 main {
     height: 80vh;
     margin-top: 2%;
-    margin-left: 20%;
+    margin-left: 300px;
 }
 
 div.boas-vindas img {
@@ -404,7 +418,7 @@ li.item-telefone {
 }
 
 ul#progress {
-    overflow: hidden;
+    overflow: auto;
     margin-bottom: 20px;
     counter-reset: step;
 }
@@ -466,7 +480,44 @@ ul#progress li.activated-section::before, ul#progress li.activated-section::afte
     margin-bottom: 10px;
 }
 
+input[type=file] {
+    display: none;
+}
+
+label#file-description {
+    color:white;
+    width: 250px;
+    height: auto;
+    background-color: #dc3545;
+    position: absolute;
+    margin: auto;
+    top:0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    
+    
+}
+
 strong.red {
 
     color:#dc3545;
+}
+
+
+label#file-description span{
+
+    margin-right: 10px;
+    font-size: 15px;
+}
+
+label#file-description span:nth-child(3){
+
+    margin-right: 0;
 }

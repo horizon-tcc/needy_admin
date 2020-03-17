@@ -140,7 +140,9 @@ function inserirImg() {
         nomeImg = nomeImg.split("\\");
 
         $("#file-description").empty();
-        $("#file-description").append( nomeImg[nomeImg.length-1] );
+        $("#file-description").append("<span> <strong> * </strong> </span>" 
+            +"<span> <i class='far fa-file-image'></i> </span>" 
+            +"<span>"+ nomeImg[nomeImg.length-1] + "</span>   ");
 
     }
 
@@ -159,7 +161,9 @@ function inserirImg() {
         $(".img-input").addClass("is-invalid");
 
         $("#file-description").empty();
-        $("#file-description").append(" <strong class='red'> * </strong> Escolha uma imagem");
+        $("#file-description").append("<span> <strong> * </strong> </span>" 
+            +"<span> <i class='far fa-file-image'></i> </span>" 
+            +"<span> Escolha uma imagem </span>   ");
 
     }
 

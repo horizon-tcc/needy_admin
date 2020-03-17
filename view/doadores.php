@@ -36,7 +36,11 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                         <div class="custom-file">
 
                             <input type="file" class="custom-file-input img-input" name="imgDoador" id="imgDoador" accept="image/*">
-                            <label class="custom-file-label" for="imgDoador" id="file-description"> <strong class="red"> * </strong> Escolha uma imagem</label>
+                            <label class="" for="imgDoador" id="file-description"> 
+                                <span> <strong> * </strong> </span> 
+                                <span> <i class="far fa-file-image"></i> </span> 
+                                <span> Escolha uma imagem </span> 
+                            </label>
 
                         </div>
 
