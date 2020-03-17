@@ -86,12 +86,12 @@ function limparSecaoPessoal() {
     var txtDataNascimento = document.getElementById("txtDataNascimento");
     var txtCpfDoador = document.getElementById("txtCpfDoador");
     var txtRgDoador = document.getElementById("txtRgDoador");
-    var lblImgDoador = document.getElementById("file-description"); 
+    var lblImgDoador = document.getElementById("file-description");
 
     $("#imgPreview").removeClass("img-preview");
     $("#imgPreview").addClass("form-img");
 
-    
+
 
     imgPreview.src = "../img/camera.png"
     imgDoador.value = "";
@@ -99,7 +99,7 @@ function limparSecaoPessoal() {
     txtDataNascimento.value = "";
     txtCpfDoador.value = "";
     txtRgDoador.value = "";
-    lblImgDoador.innerHTML ="<strong class='red'>*</strong> Escolha uma imagem";
+    lblImgDoador.innerHTML = "<strong class='red'>*</strong> Escolha uma imagem";
 
     validarSecaoPessoal();
 
@@ -279,8 +279,84 @@ function validarSecaoPessoal() {
     }
 }
 
-function validadarSecaoEndereco(){
+function validadarSecaoEndereco() {
 
+
+    var txtCep = document.getElementById("txtCep");
+    var txtLogradouro = document.getElementById("txtLogradouro");
+    var txtBairro = document.getElementById("txtBairro");
+    var txtCidade = document.getElementById("txtCidade");
+    var txtUf = document.getElementById("txtUf");
+    var txtNumero = document.getElementById("txtNumero");
+    var txtComplemento = document.getElementById("txtComplemento");
+
+    var cepValido = false;
+    var logradouroValido = false;
+    var bairroValido = false;
+    var cidadeValido = false;
+    var ufValido = false;
+    var numeroValido = false;
+
+    if (txtCep.value != "") {
+
+        $.ajax({
+
+            url: "../controller/doador/pegar-endereco.php",
+            type: "post",
+            dataType: "json",
+            data: {
+
+                "txtCep": $('#txtCep').val()
+            },
+            success: function (response) {
+
+                if (response.sucesso == true) {
+
+                    $("#txtCep").removeClass("is-invalid");
+                    $("#txtCep").addClass("is-valid");
+
+                    $('#txtBairro').val(response.bairro);
+                    $('#txtLogradouro').val(response.logradouro);
+                    $('#txtUf').val(response.uf);
+                    $('#txtCidade').val(response.localidade);
+
+                    cepValido = true;
+                }
+                else {
+                    showToast('Atenção', 'CEP inválido, por favor passe um cep válido', 'warning', '#dc3545', 'white', 10000);
+                    $("#txtCep").removeClass("is-valid");
+                    $("#txtCep").addClass("is-invalid");
+
+                }
+
+
+            },
+            error: function (request, status, error) {
+
+                showToast('Atenção', 'CEP inválido, por favor passe um cep válido', 'warning', '#dc3545', 'white', 10000);
+                $("#txtCep").removeClass("is-valid");
+                $("#txtCep").addClass("is-invalid");
+            }
+
+
+
+        });
+
+    }
+    else {
+
+        showToast('Atenção', 'CEP inválido, por favor passe um cep válido', 'warning', '#dc3545', 'white', 10000);
+        $("#txtCep").removeClass("is-valid");
+        $("#txtCep").addClass("is-invalid");
+
+    }
+
+
+    if (txtLogradouro.value != ""){
+
+        
+
+    }
 
 }
 
@@ -310,3 +386,47 @@ function validarNome() {
 
     return true;
 }
+
+
+$(document).ready(function () {
+    try {
+        var fsPrev, fsAtual, fsNext;
+
+        $('.next').click(function () {
+
+            if (validarSecaoPessoal()) {
+
+                fsAtual = $(this).parent().parent().parent();
+                fsNext = fsAtual.next();
+
+                $('#progress li').eq($('fieldset').index(fsNext)).addClass("activated-section");
+
+                fsAtual.hide(800);
+                fsNext.show(800);
+
+            }
+            else {
+
+
+            }
+        });
+
+
+        $('.prev').click(function () {
+
+            fsAtual = $(this).parent().parent().parent();
+            fsPrev = fsAtual.prev();
+
+            $('#progress li').eq($('fieldset').index(fsAtual)).removeClass("activated-section");
+
+            fsAtual.hide(800);
+            fsPrev.show(800);
+
+
+        });
+
+    }
+    catch (e) {
+        logMyErrors(e);
+    }
+});

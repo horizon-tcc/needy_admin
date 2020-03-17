@@ -81,48 +81,7 @@ function validarCpf(cpf) {
 
 }
 
-$(document).ready(function () {
-    try {
-        var fsPrev, fsAtual, fsNext;
 
-        $('.next').click(function () {
-
-            if (validarSecaoPessoal()) {
-
-                fsAtual = $(this).parent().parent().parent();
-                fsNext = fsAtual.next();
-
-                $('#progress li').eq($('fieldset').index(fsNext)).addClass("activated-section");
-
-                fsAtual.hide(800);
-                fsNext.show(800);
-
-            }
-            else {
-
-
-            }
-        });
-
-
-        $('.prev').click(function () {
-
-            fsAtual = $(this).parent().parent().parent();
-            fsPrev = fsAtual.prev();
-
-            $('#progress li').eq($('fieldset').index(fsAtual)).removeClass("activated-section");
-
-            fsAtual.hide(800);
-            fsPrev.show(800);
-
-
-        });
-
-    }
-    catch (e) {
-        logMyErrors(e);
-    }
-});
 
 function checkNumber(valor) {
     var regra = /^[0-9]+$/;
