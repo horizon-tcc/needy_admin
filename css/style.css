@@ -393,10 +393,11 @@ div.container-fluid {
 }
 
 ul.list-telefone {
-    height: 350px;
-    width: 50%;
     background-color: rgba(0, 0, 0, .1);
     overflow: auto;
+    width: 50%;
+    height: 450px;
+    position: relative;
 }
 
 li.item-telefone {
@@ -408,13 +409,22 @@ li.item-telefone {
     text-align: center;
 }
 
+ul.list-telefone button {
+    position: absolute;
+    bottom: 0px;
+}
+ul.list-telefone h5 {
+
+    color: rgba(0, 0, 0, .5);
+}
+
 .container-item-telefone {
     overflow: auto;
     height: 91.4%;
 }
 
 #form-insert fieldset:not(:first-of-type) {
-    display: none;
+     /* display: none;  */
 }
 
 ul#progress {

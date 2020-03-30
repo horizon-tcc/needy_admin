@@ -36,10 +36,10 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                         <div class="custom-file">
 
                             <input type="file" class="custom-file-input img-input" name="imgDoador" id="imgDoador" accept="image/*">
-                            <label class="" for="imgDoador" id="file-description"> 
-                                <span> <strong> * </strong> </span> 
-                                <span> <i class="far fa-file-image"></i> </span> 
-                                <span> Escolha uma imagem </span> 
+                            <label class="" for="imgDoador" id="file-description">
+                                <span> <strong> * </strong> </span>
+                                <span> <i class="far fa-file-image"></i> </span>
+                                <span> Escolha uma imagem </span>
                             </label>
 
                         </div>
@@ -209,7 +209,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                 <div class="form-row w-100 mt-5 d-flex justify-content-center">
 
 
-                    <div class="form-group col-md-4 d-flex align-items-end justify-content-end pb-2">
+                    <div class="form-group col-md-4 d-flex align-items-end justify-content-end pb-2 pt-2">
 
                         <button type="button" class="btn btn-outline-danger w-100 flat" data-toggle="modal" data-target="#limpar-campos-pessoais">
                             <i class="far fa-window-close"></i> Limpar
@@ -245,7 +245,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
                     <div class="form-group col-md-12 pb-2">
 
-                        <label for="txtCep">CEP</label>
+                        <label for="txtCep"> <strong class="red"> * </strong> CEP</label>
                         <input type="text" class="form-control txtCep" id="txtCep" name="txtCep" placeholder="Digite o CEP" />
 
                         <div id="feedback-valid-cep-Doador" class="valid-feedback">
@@ -262,20 +262,47 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
                     <div class="form-group col-md-4 pb-2">
 
-                        <label for="txtLogradouro">Logradouro</label>
+                        <label for="txtLogradouro"> <strong class="red"> * </strong> Logradouro</label>
                         <input type="text" class="form-control" id="txtLogradouro" name="txtLogradouro" placeholder="Digite o logradouro" maxlength="100" />
+
+                        <div id="feedback-valid-logradouro-Doador" class="valid-feedback">
+                            Logradouro válido!
+                        </div>
+
+                        <div id="feedback-invalid-logradouro-Doador" class="invalid-feedback">
+                            Logradouro inválido!
+                        </div>
                     </div>
 
                     <div class="form-group col-md-4 pb-2">
 
-                        <label for="txtBairro">Bairro</label>
+                        <label for="txtBairro"> <strong class="red"> * </strong> Bairro</label>
                         <input type="text" class="form-control" id="txtBairro" name="txtBairro" placeholder="Digite o bairro" maxlength="100" />
+
+
+                        <div id="feedback-valid-bairro-Doador" class="valid-feedback">
+                            Bairro válido!
+                        </div>
+
+                        <div id="feedback-invalid-bairro-Doador" class="invalid-feedback">
+                            Bairro inválido!
+                        </div>
                     </div>
 
                     <div class="form-group col-md-4 pb-2">
 
-                        <label for="txtCidade">Cidade</label>
+                        <label for="txtCidade"> <strong class="red"> * </strong> Cidade</label>
                         <input type="text" class="form-control" id="txtCidade" name="txtCidade" placeholder="Digite a cidade" maxlength="100" />
+
+
+                        <div id="feedback-valid-cidade-Doador" class="valid-feedback">
+                            Cidade válida!
+                        </div>
+
+                        <div id="feedback-invalid-cidade-Doador" class="invalid-feedback">
+                            Cidade inválida!
+                        </div>
+
                     </div>
 
 
@@ -285,15 +312,32 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
                     <div class="form-group col-md-4 pb-2">
 
-                        <label for="txtUf">UF</label>
+                        <label for="txtUf"> <strong class="red"> * </strong> UF</label>
                         <input type="text" class="form-control" id="txtUf" name="txtUf" placeholder="Digite o estado" maxlength="2" />
+
+
+                        <div id="feedback-valid-uf-Doador" class="valid-feedback">
+                            UF válida!
+                        </div>
+
+                        <div id="feedback-invalid-uf-Doador" class="invalid-feedback">
+                            UF inválida!
+                        </div>
 
                     </div>
 
                     <div class="form-group col-md-4 pb-2">
 
-                        <label for="txtNumero">Número</label>
+                        <label for="txtNumero"> <strong class="red"> * </strong> Número</label>
                         <input type="text" class="form-control" id="txtNumero" name="txtNumero" placeholder="Digite o número residencial" maxlength="5" />
+
+                        <div id="feedback-valid-numero-Doador" class="valid-feedback">
+                            Número válido!
+                        </div>
+
+                        <div id="feedback-invalid-numero-Doador" class="invalid-feedback">
+                            Número inválido!
+                        </div>
                     </div>
 
                     <div class="form-group col-md-4 pb-2">
@@ -305,6 +349,13 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
 
                 </div>
+
+
+
+                <div class="form-row w-100 mt-2 d-flex justify-content-end">
+                    <h6 class="text-center mt-2"> Dados obrigatórios <strong class="red"> * </strong> </h6>
+                </div>
+
 
 
                 <div class="form-row w-100 mt-5">
@@ -353,29 +404,42 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                 <div class="form-row w-100 mt-5 d-flex justify-content-center">
 
                     <div class="form-group col-md-6 pb-2">
-                        <label for="txtEmail">E-mail</label>
+                        <label for="txtEmail"> <strong class="red"> * </strong> E-mail</label>
                         <input type="email" class="form-control" name="txtEmail" id="txtEmail" placeholder="Digite o e-mail" />
                     </div>
 
                 </div>
 
-                <div class="form-row w-100 d-flex justify-content-center align-items-center mt-4">
+                <div class="form-row w-100 mt-4 d-flex justify-content-center">
 
-                    <ul class="list-telefone">
-                        <div class="container-item-telefone">
-                            <li class="item-telefone d-flex bd-highlight align-items-center">
-                                <i class="fas fa-phone-alt flex-fill bd-highlight"></i>
-                                <div class="h-100 flex-fill bd-highlight">
-                                    <span class="h-100 d-flex justify-content-center align-items-center"> 4002-8922 </span>
+                    <div class="form-group w-100">
+                        <h4 class="text-center"> <strong class="red"> * </strong> Telefones </h4>
+                        <div class="d-flex justify-content-center w-100 mt-3">
+                            <ul class="list-telefone">
+                                <div class="container-item-telefone">
+                                    <?php
+
+                                    if (isset($_SESSION['telefonesDoador'])) {
+                                    } else {
+                                        echo ("<h5 class='text-center mt-3'> Nenhum telefone adicionado </h5>");
+                                    }
+
+                                    ?>
+                                    <!-- <li class="item-telefone d-flex bd-highlight align-items-center">
+                                        <i class="fas fa-phone-alt flex-fill bd-highlight"></i>
+                                        <div class="h-100 flex-fill bd-highlight">
+                                            <span class="h-100 d-flex justify-content-center align-items-center"> 4002-8922 </span>
+                                        </div>
+
+                                        <i class="fas fa-times flex-fill bd-highlight"></i>
+                                    </li> -->
                                 </div>
-
-                                <i class="fas fa-times flex-fill bd-highlight"></i>
-                            </li>
+                                <button type="button" class="btn btn-danger w-100 flat" data-toggle="modal" data-target="#adicionar-telefone">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </ul>
                         </div>
-                        <button type="button" class="btn btn-danger w-100 flat" data-toggle="modal" data-target="#adicionar-telefone">
-                            <i class="fas fa-plus"></i>
-                        </button>
-                    </ul>
+                    </div>
 
 
                 </div>
@@ -492,47 +556,6 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
             </fieldset>
 
 
-            <div class="modal fade" id="adicionar-telefone" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modal-title-adicionar-telefone"> Adicionar telefone </h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form method="post" action="../controller/adicionarTelefoneDoador.php">
-
-                                <div class="form-row d-flex justify-content-center">
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="rbTipoResidencial" name="rbTipoContato" class="custom-control-input" value="residencial" checked="checked">
-                                        <label class="custom-control-label" for="rbTipoResidencial">Residencial</label>
-                                    </div>
-
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="rbTipoCelular" name="rbTipoContato" class="custom-control-input" value="celular">
-                                        <label class="custom-control-label" for="rbTipoCelular">Celular</label>
-                                    </div>
-
-                                </div>
-                                <div class="form-row">
-
-                                    <div class="form-group col-md-12 py-2">
-                                        <label for="txtTelefoneDoador">Telefone</label>
-                                        <input type="text" name="txtTelefoneDoador" id="txtTelefoneDoador" class="form-control telefone-residencial" placeholder="Digite o telefone" />
-                                    </div>
-
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
-                            <button type="button" class="btn btn-danger">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
 
             <div class="modal fade" id="limpar-campos-pessoais" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -557,6 +580,61 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
 
         </form>
+
+
+
+        <div class="modal fade" id="adicionar-telefone" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form method="post" action="../controller/adicionar-telefone.php" id="form-telefone">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modal-title-adicionar-telefone"> Adicionar telefone </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+
+                            <div class="form-row d-flex justify-content-center">
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="rbTipoResidencial" name="rbTipoContato" class="custom-control-input" value="residencial" checked="checked">
+                                    <label class="custom-control-label" for="rbTipoResidencial">Residencial</label>
+                                </div>
+
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="rbTipoCelular" name="rbTipoContato" class="custom-control-input" value="celular">
+                                    <label class="custom-control-label" for="rbTipoCelular">Celular</label>
+                                </div>
+
+                            </div>
+                            <div class="form-row">
+
+                                <div class="form-group col-md-12 py-2">
+                                    <label for="txtTelefoneDoador">Telefone</label>
+                                    <input type="text" name="txtTelefoneDoador" id="txtTelefoneDoador" class="form-control telefone-residencial" placeholder="Digite o telefone" />
+
+                                    <div id="feedback-valid-telefone-Doador" class="valid-feedback">
+                                        Telefone válido!
+                                    </div>
+
+                                    <div id="feedback-invalid-telefone-Doador" class="invalid-feedback">
+                                        Telefone inválido!
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+                            <input type="submit" class="btn btn-danger" value="Adicionar"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
     </div>
 

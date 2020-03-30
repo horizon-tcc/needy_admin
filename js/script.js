@@ -98,8 +98,6 @@ function validarData(data) {
 
     if (checkNumber(data[0]) && checkNumber(data[1]) && checkNumber(data[2])) {
 
-        console.log("data atual = "+dataAtual.getFullYear());
-        console.log("data passada = "+data[0]);
         
         if ( (( dataAtual.getFullYear() - data[0] ) >= 16)
         && ( data[0] >= dataAtual.getFullYear() - 80) 

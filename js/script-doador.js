@@ -38,7 +38,7 @@ $("#txtCep").blur(function (e) {
                 $('#txtCidade').val(response.localidade);
             }
             else {
-                showToast('Atenção', 'CEP inválido, por favor passe um cep válido', 'warning', '#dc3545', 'white', 10000);
+                //showToast('Atenção', 'CEP inválido, por favor passe um cep válido', 'warning', '#dc3545', 'white', 10000);
                 $("#txtCep").removeClass("is-valid");
                 $("#txtCep").addClass("is-invalid");
 
@@ -48,7 +48,7 @@ $("#txtCep").blur(function (e) {
         },
         error: function (request, status, error) {
 
-            showToast('Atenção', 'CEP inválido, por favor passe um cep válido', 'warning', '#dc3545', 'white', 10000);
+            //showToast('Atenção', 'CEP inválido, por favor passe um cep válido', 'warning', '#dc3545', 'white', 10000);
             $("#txtCep").removeClass("is-valid");
             $("#txtCep").addClass("is-invalid");
         }
@@ -279,7 +279,7 @@ function validarSecaoPessoal() {
     }
 }
 
-function validadarSecaoEndereco() {
+function validarSecaoEndereco() {
 
 
     var txtCep = document.getElementById("txtCep");
@@ -293,70 +293,185 @@ function validadarSecaoEndereco() {
     var cepValido = false;
     var logradouroValido = false;
     var bairroValido = false;
-    var cidadeValido = false;
+    var cidadeValida = false;
     var ufValido = false;
     var numeroValido = false;
 
-    if (txtCep.value != "") {
-
-        $.ajax({
-
-            url: "../controller/doador/pegar-endereco.php",
-            type: "post",
-            dataType: "json",
-            data: {
-
-                "txtCep": $('#txtCep').val()
-            },
-            success: function (response) {
-
-                if (response.sucesso == true) {
-
-                    $("#txtCep").removeClass("is-invalid");
-                    $("#txtCep").addClass("is-valid");
-
-                    $('#txtBairro').val(response.bairro);
-                    $('#txtLogradouro').val(response.logradouro);
-                    $('#txtUf').val(response.uf);
-                    $('#txtCidade').val(response.localidade);
-
-                    cepValido = true;
-                }
-                else {
-                    showToast('Atenção', 'CEP inválido, por favor passe um cep válido', 'warning', '#dc3545', 'white', 10000);
-                    $("#txtCep").removeClass("is-valid");
-                    $("#txtCep").addClass("is-invalid");
-
-                }
 
 
-            },
-            error: function (request, status, error) {
+    $.ajax({
 
-                showToast('Atenção', 'CEP inválido, por favor passe um cep válido', 'warning', '#dc3545', 'white', 10000);
+        url: "../controller/doador/pegar-endereco.php",
+        type: "post",
+        dataType: "json",
+        async: false,
+        data: {
+
+            "txtCep": $('#txtCep').val()
+        },
+        success: function (response) {
+
+            if (response.sucesso == true) {
+
+                $("#txtCep").removeClass("is-invalid");
+                $("#txtCep").addClass("is-valid");
+
+                $('#txtBairro').val(response.bairro);
+                $('#txtLogradouro').val(response.logradouro);
+                $('#txtUf').val(response.uf);
+                $('#txtCidade').val(response.localidade);
+
+                cepValido = true;
+
+
+
+            }
+            else {
+
                 $("#txtCep").removeClass("is-valid");
                 $("#txtCep").addClass("is-invalid");
+
             }
 
 
+        },
+        error: function (request, status, error) {
 
-        });
+            $("#txtCep").removeClass("is-valid");
+            $("#txtCep").addClass("is-invalid");
+        }
+
+
+
+    });
+
+
+
+    if (!cepValido) {
+        showToast('Atenção', 'CEP inválido, por favor passe um cep válido - inválido', 'warning', '#dc3545', 'white', 10000);
+    }
+
+
+
+
+
+    if (txtLogradouro.value != "") {
+
+
+        logradouroValido = true;
+
+        $("#txtLogradouro").removeClass("is-invalid");
+        $("#txtLogradouro").addClass("is-valid");
 
     }
     else {
 
-        showToast('Atenção', 'CEP inválido, por favor passe um cep válido', 'warning', '#dc3545', 'white', 10000);
-        $("#txtCep").removeClass("is-valid");
-        $("#txtCep").addClass("is-invalid");
+        showToast('Atenção', 'Logradouro inválido, por favor passe um logradouro válido', 'warning', '#dc3545', 'white', 10000);
+
+        $("#txtLogradouro").removeClass("is-valid");
+        $("#txtLogradouro").addClass("is-invalid");
 
     }
 
 
-    if (txtLogradouro.value != ""){
 
-        
+    if (txtBairro.value != "") {
+
+
+        bairroValido = true;
+
+        $("#txtBairro").removeClass("is-invalid");
+        $("#txtBairro").addClass("is-valid");
 
     }
+    else {
+
+        showToast('Atenção', 'Bairro inválido, por favor passe um bairro válido', 'warning', '#dc3545', 'white', 10000);
+
+        $("#txtBairro").removeClass("is-valid");
+        $("#txtBairro").addClass("is-invalid");
+
+    }
+
+
+
+    if (txtCidade.value != "") {
+
+
+        cidadeValida = true;
+
+        $("#txtCidade").removeClass("is-invalid");
+        $("#txtCidade").addClass("is-valid");
+
+    }
+    else {
+
+        showToast('Atenção', 'Cidade inválida, por favor passe uma cidade válida', 'warning', '#dc3545', 'white', 10000);
+
+        $("#txtCidade").removeClass("is-valid");
+        $("#txtCidade").addClass("is-invalid");
+
+    }
+
+
+    if (txtUf.value != "") {
+
+
+        ufValido = true;
+
+        $("#txtUf").removeClass("is-invalid");
+        $("#txtUf").addClass("is-valid");
+
+    }
+    else {
+
+        showToast('Atenção', 'UF inválida, por favor passe um UF válida', 'warning', '#dc3545', 'white', 10000);
+
+        $("#txtUf").removeClass("is-valid");
+        $("#txtUf").addClass("is-invalid");
+
+    }
+
+
+
+    if (txtNumero.value != "") {
+
+
+        numeroValido = true;
+
+        $("#txtNumero").removeClass("is-invalid");
+        $("#txtNumero").addClass("is-valid");
+
+    }
+    else {
+
+        showToast('Atenção', 'Número inválido, por favor passe um número válido', 'warning', '#dc3545', 'white', 10000);
+
+        $("#txtNumero").removeClass("is-valid");
+        $("#txtNumero").addClass("is-invalid");
+
+    }
+
+    // console.log('cep - '+ cepValido);
+    // console.log('logradouro - '+ logradouroValido);
+    // console.log('bairro - '+ bairroValido);
+    // console.log('cidade - ' +cidadeValida);
+    // console.log('uf - '+ufValido);
+    // console.log('numero - '+numeroValido);
+
+    if (cepValido && logradouroValido && bairroValido && cidadeValida && ufValido && numeroValido) {
+
+        return true;
+    }
+    else {
+        return false;
+    }
+
+
+
+
+
+
 
 }
 
@@ -391,21 +506,48 @@ function validarNome() {
 $(document).ready(function () {
     try {
         var fsPrev, fsAtual, fsNext;
+        var etapa = 1;
 
         $('.next').click(function () {
 
-            if (validarSecaoPessoal()) {
+            if (etapa == 1) {
 
-                fsAtual = $(this).parent().parent().parent();
-                fsNext = fsAtual.next();
+                if (validarSecaoPessoal()) {
 
-                $('#progress li').eq($('fieldset').index(fsNext)).addClass("activated-section");
+                    fsAtual = $(this).parent().parent().parent();
+                    fsNext = fsAtual.next();
 
-                fsAtual.hide(800);
-                fsNext.show(800);
+                    $('#progress li').eq($('fieldset').index(fsNext)).addClass("activated-section");
+
+                    fsAtual.hide(800);
+                    fsNext.show(800);
+
+                    etapa++;
+                }
 
             }
-            else {
+            else if (etapa == 2) {
+
+
+                if (validarSecaoEndereco()) {
+
+                    fsAtual = $(this).parent().parent().parent();
+                    fsNext = fsAtual.next();
+
+                    $('#progress li').eq($('fieldset').index(fsNext)).addClass("activated-section");
+
+                    fsAtual.hide(800);
+                    fsNext.show(800);
+
+                    etapa++;
+
+                }
+            }
+
+            else if (etapa == 3) {
+
+            }
+            else if (etapa == 4) {
 
 
             }
@@ -422,6 +564,8 @@ $(document).ready(function () {
             fsAtual.hide(800);
             fsPrev.show(800);
 
+            etapa--;
+
 
         });
 
@@ -430,3 +574,57 @@ $(document).ready(function () {
         logMyErrors(e);
     }
 });
+
+
+$("#form-telefone").submit(function (ev) {
+
+    ev.preventDefault();
+
+
+    $.ajax({
+
+        url: "../controller/doador/adicionar-telefone.php",
+        type: "post",
+        dataType: "json",
+        data: {
+
+            "txtTelefoneDoador": $('#txtTelefoneDoador').val()
+        },
+        success: function (response) {
+
+            if (response.status) {
+
+                $(".list-telefone").append("<li class='item-telefone d-flex bd-highlight align-items-center'>"
+                    + "<i class='fas fa-phone-alt flex-fill bd-highlight'></i>"
+                    + "<div class='h-100 flex-fill bd-highlight'>"
+                    + "<span class='h-100 d-flex justify-content-center align-items-center'>"+ response.novoTelefone +"</span>"
+                    + "</div>"
+                    + "<i class='fas fa-times flex-fill bd-highlight'></i>"
+                    + "</li>");
+
+
+            }
+            else {
+
+                showToast('Atenção', 'Telefone inválido', 'warning', '#dc3545', 'white', 10000);
+                $("#txtTelefoneDoador").removeClass("is-valid");
+                $("#txtTelefoneDoador").addClass("is-invalid");
+            }
+
+        },
+        error: function (request, status, error) {
+
+            console.log("deu ruim mano");
+
+        }
+
+
+
+    });
+
+
+
+
+});
+
+

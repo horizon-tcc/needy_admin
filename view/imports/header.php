@@ -53,41 +53,41 @@
 
     </nav>
 
-        <div class="top-menu-container"></div>
-        <nav class="top-menu shadow p-1 bg-white rounded d-block">
+    
+    <nav class="top-menu shadow p-1 bg-white rounded d-block">
 
-            <div class="d-flex bd-highlight align-items-center">
-                <div class="p-2 flex-fill bd-highlight">
+        <div class="d-flex bd-highlight align-items-center">
+            <div class="p-2 flex-fill bd-highlight">
 
-                    <ul class="nav justify-content-start align-items-center">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#"> <img src="../img/girl.jpg" alt="..." class="user-img" /></a>
-                        </li>
-                        <li class="nav-item align-items-center">
-                            <h6>Beatriz soares </h6>
-                        </li>
+                <ul class="nav justify-content-start align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#"> <img src="../img/girl.jpg" alt="..." class="user-img" /></a>
+                    </li>
+                    <li class="nav-item align-items-center">
+                        <h6>Beatriz soares </h6>
+                    </li>
 
-                    </ul>
-
-                </div>
-                <div class="p-2 flex-fill bd-highlight text-right">
-
-
-                    <ul class="nav justify-content-end">
-                        <li class="nav-item">
-                            <button type="button" class="btn bg-light">
-                                <i class="fas fa-bell"></i> <span class="badge badge-secondary">5</span>
-                            </button>
-                        </li>
-
-                        <li class="nav-item">
-                            <button type="button" class="btn bg-light h-100">
-                                <i class="fas fa-power-off"></i>
-                            </button>
-                        </li>
-                    </ul>
-                </div>
+                </ul>
 
             </div>
+            <div class="p-2 flex-fill bd-highlight text-right">
 
-        </nav>
+
+                <ul class="nav justify-content-end">
+                    <li class="nav-item">
+                        <button type="button" class="btn bg-light">
+                            <i class="fas fa-bell"></i> <span class="badge badge-secondary">5</span>
+                        </button>
+                    </li>
+
+                    <li class="nav-item">
+                        <button type="button" class="btn bg-light h-100">
+                            <i class="fas fa-power-off"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+    </nav>
