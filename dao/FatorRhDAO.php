@@ -17,8 +17,6 @@ class FatorRhDAO
         $pstm->execute();
 
         return $pstm->fetchAll();
-
-
     }
 }
 

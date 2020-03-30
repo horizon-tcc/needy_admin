@@ -9,6 +9,7 @@
         public function cadastrarFuncionario($funcionario)
         {
             $conexao = DB::getConn();
+
             $insert = "insert into tbFuncionario(nomeFuncionario, cpfFuncionario, rgFuncionario, 
                     idBancoSangue, idUsuario, idCargoFuncionario)
             values(?,?,?,?,?,?)";
@@ -23,12 +24,14 @@
             $pstm->bindValue(6, $funcionario->getCargoFuncionario());
            
             $pstm->execute();
+
             return '<script> alert("Registro realizado com sucesso"); </script>';
         }
 
         public static function listarFuncionario()
         {
             $conexao = DB::getConn();
+
             $select = "select idFuncionario, nomeFuncionario, cpfFuncionario, rgFuncionario, 
                         nomeBancoSangue, emailUsuario, descricaoCargoFuncionario FROM tbFuncionario
                         inner join tbBancoSangue
@@ -37,19 +40,27 @@
                                     on tbFuncionario.idUsuario = tbUsuario.idUsuario
                                         inner join tbCargoFuncionario
                                             on tbFuncionario.idCargoFuncionario = tbCargoFuncionario.idCargoFuncionario";
-            $rCargo = $conexao->query($select);
-            $rCargo->execute();
-            $lista = $rCargo->fetchAll();
+
+            $putm = $conexao->prepare($select);
+
+            $putm->execute();
+
+            $lista = $putm->fetchAll();
+
             return $lista;
         }
 
-        public static function selecEditarFuncionario($id)
+        public static function selecEditarFuncionario(int $id)
         {
             $conexao = DB::getConn();
+
             $select = "select * FROM tbFuncionario
-                       where =".$id;
-            $rCargo = $conexao->query($select);
-            $selec= $rCargo->fetch();
+                       where =".(int)$id;
+
+            $putm = $conexao->prepare($select);
+
+            $selec= $putm->fetch();
+
             return $selec;
         }
 
@@ -75,19 +86,22 @@
             $pstm->bindValue(6, $funcionario->getIdCargoFuncionario());
             $putm->bindValue(7, $funcionario->getIdFuncionario());
 
-            $conexao->execute($update);
+            $conexao->execute($putm);
             return '<script>
                         alert(Update realizado com sucesso);
                         window.location.replace("../../view/funcionario.php");
                     </script>';
         }
 
-        public function excluirFuncionario($id)
+        public function excluirFuncionario(int $id)
         {
             $conexao = DB::getConn();
+
             $delete = "delete from tbFuncionario
-                       where idFuncionario = ".$id;
+                       where idFuncionario = ".(int)$id;
+
             $conexao->exec($delete);
+
             return '<script> alert("Exclusão realizado com sucesso");</script>';
         }
     }

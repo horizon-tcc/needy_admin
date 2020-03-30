@@ -6,51 +6,78 @@
         public function cadastrarUsuario($usuario)
         {
             $conexao = DB::getConn();
-            $insert = "insert into tbUsuario(emailUsuario, senhaUsuario, idTipoUsuario)
-                    values('".$usuario->getEmailUsuario()."', '".$usuario->getSenhaUsuario()."', 
-                    ".$usuario->getIdTipoUsuario.")";
-            $conexao->exec($insert);
-            return 'Cadastro Realizado com sucesso';
+
+            $insert = "INSERT INTO tbUsuario(emailUsuario, senhaUsuario, idTipoUsuario)
+                    VALUES(?, ?, ?)";
+
+            $pstm = $conexao->prepare($insert);
+
+            $pstm->bindValue(1, $usuario->getEmailUsuario());
+            $pstm->bindValue(2, $usuario->getSenhaUsuario());
+            $pstm->bindValue(3, $usuario->getIdTipoUsuario());
+
+            $pstm->execute();
+            
+            return '<script> alert("Registro realizado com sucesso"); </script>';
         }
 
         public static function listarUsuario()
         {
             $conexao = DB::getConn();
-            $select = "select idUsuario, emailUsuario, senhaUsuario, idTipoUsuario FROM tbUsuario";
-            $rCargo = $conexao->query($select);
-            $rCargo->execute();
-            $lista = $rCargo->fetchAll();
-            return $lista;
+
+            $select = "SELECT * FROM tbUsuario";
+
+            $pstm = $conexao->prepare($selec);
+
+            $pstm->execute();
+
+            return $pstm->fetchAll();
         }
 
-        public static function selecEditarUsuario($id)
+        public static function selecEditarUsuario(int $id)
         {
             $conexao = DB::getConn();
-            $select = "select idUsuario, emailUsuario, senhaUsuario, idTipoUsuario FROM tbUsuario
-                    where =".((int)$id);
+
+            $select = "SELECT idUsuario, emailUsuario, senhaUsuario, idTipoUsuario FROM tbUsuario
+                    WHERE =".((int)$id);
+
             $rCargo = $conexao->query($select);
-            $selec= $rCargo->fetch();
-            return $selec;
+
+            return $rCargo->fetch();
         }
 
         public function editarUsuario($usuario)
         {
             $conexao = DB::getConn();
-            $update = "update tbUsuario
-                        set emailUsuario ='".$usuario->getEmailUsuario()."', 
-                            senhaUsuario ='".$usuario->getSenhaUsuario()."', 
-                            idTipoUsuario ='".$usuario->getIdTipoUsuario()."'
-                        where idUsuario =".$usuario->getIdUsuario();
-            $conexao->exec($update);
-            return 'Update realizado com sucesso';
+            $update = "UPDATE tbUsuario
+                        SET emailUsuario =?, 
+                            senhaUsuario =?, 
+                            idTipoUsuario = ?
+                        WHERE idUsuario = ?";
+
+            $pstm = $conexao->prepare($update);
+
+            $pstm->bindValue(1, $usuario->getEmailUsuario());
+            $pstm->bindValue(2, $usuario->getSenhaUsuario());
+            $pstm->bindValue(3, $usuario->getIdTipoUsuario());
+            $pstm->bindValue(4, $usuario->getIdUsuario());
+
+            $pstm->execute();
+
+            return '<script> alert("Update realizado com sucesso"); </script>';
         }
 
-        public function excluirUsuario($usuario)
+        public function excluirUsuario(int $id)
         {
             $conexao = DB::getConn();
-            $delete = "delete from tbUsuario
-                    where idUsuario = ".$usuario->getIdUsuario();
-            $conexao->exec($delete);
-            return 'Exclusão bem sucedida';
+            
+            $delete = "DELETE from tbUsuario
+                    WHERE idUsuario = ".(int) $id;
+
+            $pstm = $conexao->prepare($delete);
+
+            $pstm->execute();
+
+            return '<script> alert("Exclusão realizada com sucesso"); </script>';
         }
     }
