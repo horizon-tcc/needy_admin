@@ -10,7 +10,7 @@ $("#txtCpfDoador").blur(function (e) {
         $("#txtCpfDoador").addClass("is-invalid");
 
     }
-
+    
 });
 
 
@@ -452,13 +452,6 @@ function validarSecaoEndereco() {
 
     }
 
-    // console.log('cep - '+ cepValido);
-    // console.log('logradouro - '+ logradouroValido);
-    // console.log('bairro - '+ bairroValido);
-    // console.log('cidade - ' +cidadeValida);
-    // console.log('uf - '+ufValido);
-    // console.log('numero - '+numeroValido);
-
     if (cepValido && logradouroValido && bairroValido && cidadeValida && ufValido && numeroValido) {
 
         return true;
@@ -594,12 +587,12 @@ $("#form-telefone").submit(function (ev) {
 
             if (response.status) {
 
-                $(".list-telefone").append("<li class='item-telefone d-flex bd-highlight align-items-center'>"
+                $(".container-item-telefone").append("<li class='item-telefone d-flex bd-highlight align-items-center'>"
                     + "<i class='fas fa-phone-alt flex-fill bd-highlight'></i>"
                     + "<div class='h-100 flex-fill bd-highlight'>"
                     + "<span class='h-100 d-flex justify-content-center align-items-center'>"+ response.novoTelefone +"</span>"
                     + "</div>"
-                    + "<i class='fas fa-times flex-fill bd-highlight'></i>"
+                    + "<i class='fas fa-times flex-fill bd-highlight remover-telefone'></i>"
                     + "</li>");
 
 
@@ -613,8 +606,11 @@ $("#form-telefone").submit(function (ev) {
 
         },
         error: function (request, status, error) {
+            
+            showToast('Atenção', 'Telefone inválido', 'warning', '#dc3545', 'white', 10000);
+            $("#txtTelefoneDoador").removeClass("is-valid");
+            $("#txtTelefoneDoador").addClass("is-invalid");
 
-            console.log("deu ruim mano");
 
         }
 
@@ -626,5 +622,56 @@ $("#form-telefone").submit(function (ev) {
 
 
 });
+
+
+
+$(".remover-telefone").click(function (ev) {
+
+
+    $.ajax({
+
+        url: "../controller/doador/remover-telefone.php",
+        type: "post",
+        dataType: "json",
+        data: {
+
+            "telefoneRemovido": $(".item-telefone").eq( $(this).index() ).children().eq(1).children().first().val()
+        },
+        success: function (response) {
+
+            if (response.status) {
+
+                $(".item-telefone").eq($(this).index()).remove();
+                showToast('Atenção', 'Telefone removido com sucesso', 'warning', '#28a745', 'white', 10000);
+
+            }
+            else {
+
+                showToast('Atenção', 'Erro ao remover o telefone', 'warning', '#dc3545', 'white', 10000);
+                console.log($(this));
+            }
+
+        },
+        error: function (request, status, error) {
+   
+            showToast('Atenção', 'Erro ao remover o telefone', 'warning', '#dc3545', 'white', 10000);
+
+            console.log(request.textStatus);
+            
+        }
+
+
+
+    });
+
+
+
+
+});
+
+
+
+
+
 
 

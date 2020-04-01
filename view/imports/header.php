@@ -8,6 +8,11 @@
     <?php
     include_once("imports/imports-css.php");
     ?>
+
+    <?php
+        session_start();
+    ?>
+
 </head>
 
 <body>

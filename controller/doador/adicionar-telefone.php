@@ -5,41 +5,45 @@ define("FALHA", false);
 
 session_start();
 
-if (isset($_SESSION['telefonesDoador'])) {
+try {
+    if (isset($_SESSION['telefonesDoador'])) {
 
 
-    if (isset($_POST['txtTelefoneDoador']) && !empty($_POST['txtTelefoneDoador'])) {
-        
-        $telefone = $_POST['txtTelefoneDoador'];
+        if (isset($_POST['txtTelefoneDoador']) && !empty($_POST['txtTelefoneDoador'])) {
 
-        array_push($_SESSION['telefonesDoador'] , $telefone);
+            $telefone = $_POST['txtTelefoneDoador'];
 
-        $resposta = array("status" => SUCESSO, "novoTelefone" => $telefone);
+            array_push($_SESSION['telefonesDoador'], $telefone);
 
-    }
-    else {
+            $resposta = array("status" => SUCESSO, "novoTelefone" => $telefone);
 
-        $resposta = array("status" => FALHA);
+            echo $resposta;
+        } else {
 
-        echo json_encode($resposta);
+            $resposta = array("status" => FALHA);
 
-    }
-} else {
-
-    $listTelefones = array();
-
-    if (isset($_POST['txtTelefoneDoador']) && !empty($_POST['txtTelefoneDoador'])) {
-
-        $telefone = $_POST['txtTelefoneDoador'];
-        $listTelefones = array($telefone);
-
-        $_SESSION['telefonesDoador'] =  $listTelefones;
-
-        echo json_encode( array("status" => SUCESSO, "novoTelefone" => $telefone) );
+            echo json_encode($resposta);
+        }
     } else {
 
-        $resposta = array("status" => FALHA);
+        $listTelefones = array();
 
-        echo json_encode($resposta);
+        if (isset($_POST['txtTelefoneDoador']) && !empty($_POST['txtTelefoneDoador'])) {
+
+            $telefone = $_POST['txtTelefoneDoador'];
+            $listTelefones = array($telefone);
+
+            $_SESSION['telefonesDoador'] =  $listTelefones;
+
+            echo json_encode(array("status" => SUCESSO, "novoTelefone" => $telefone));
+        } else {
+
+            $resposta = array("status" => FALHA);
+
+            echo json_encode($resposta);
+        }
     }
+} catch (Exception $ex) {
+
+    echo $ex->getMessage();
 }

@@ -187,8 +187,6 @@ nav.top-menu {
     padding: 10px;
     z-index: 1032;
     margin-left: 300px;
- 
-
 }
 
 nav.top-menu ul button {
@@ -248,8 +246,6 @@ nav.top-menu img.user-img {
     }
     nav.top-menu {
         margin-left: 120px;
-     
-    
     }
     nav.side-menu ul li::before, nav.side-menu ul li::after {
         content: '';
@@ -314,7 +310,7 @@ nav.top-menu img.user-img {
         margin-left: 150px !important;
     }
     ul#progress li {
-       font-size: 12px;
+        font-size: 12px;
     }
 }
 
@@ -407,14 +403,16 @@ li.item-telefone {
     min-width: 100% !important;
     height: 50px;
     text-align: center;
+    padding-bottom: 10px;
+    padding-top: 10px;
 }
 
 ul.list-telefone button {
     position: absolute;
     bottom: 0px;
 }
-ul.list-telefone h5 {
 
+ul.list-telefone h5 {
     color: rgba(0, 0, 0, .5);
 }
 
@@ -424,7 +422,7 @@ ul.list-telefone h5 {
 }
 
 #form-insert fieldset:not(:first-of-type) {
-     /* display: none;  */
+    /* display: none;  */
 }
 
 ul#progress {
@@ -451,12 +449,11 @@ ul#progress li::before {
     background: white;
     line-height: 20px;
     border-radius: 100%;
-    color:#dc3545;
+    color: #dc3545;
     padding: 5px;
     text-align: center;
     margin: 0 auto 10px auto;
-    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
-   
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
 }
 
 ul#progress li::after {
@@ -471,20 +468,16 @@ ul#progress li::after {
 }
 
 ul#progress li:first-child::after {
-
     content: none;
-
 }
 
-ul#progress li.activated-section::before, ul#progress li.activated-section::after{
+ul#progress li.activated-section::before, ul#progress li.activated-section::after {
     background: #dc3545;
     color: white;
-    
 }
 
 .img-preview {
-
-    border-radius:60%;
+    border-radius: 60%;
     height: 150px;
     width: 170px;
     margin-bottom: 10px;
@@ -495,13 +488,13 @@ input[type=file] {
 }
 
 label#file-description {
-    color:white;
+    color: white;
     width: 250px;
     height: auto;
     background-color: #dc3545;
     position: absolute;
     margin: auto;
-    top:0;
+    top: 0;
     left: 0;
     bottom: 0;
     right: 0;
@@ -511,23 +504,17 @@ label#file-description {
     align-items: center;
     padding-top: 5px;
     padding-bottom: 5px;
-    
-    
 }
 
 strong.red {
-
-    color:#dc3545;
+    color: #dc3545;
 }
 
-
-label#file-description span{
-
+label#file-description span {
     margin-right: 10px;
     font-size: 15px;
 }
 
-label#file-description span:nth-child(3){
-
+label#file-description span:nth-child(3) {
     margin-right: 0;
 }

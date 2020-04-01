@@ -420,19 +420,26 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                                     <?php
 
                                     if (isset($_SESSION['telefonesDoador'])) {
+
+                                        $vetTelefones =  $_SESSION["telefonesDoador"];
+
+                                        foreach ($vetTelefones as $telefone ) {
+
+                                            echo ("<li class='item-telefone d-flex bd-highlight align-items-center'>"
+                                                . "<i class='fas fa-phone-alt flex-fill bd-highlight'></i>"
+                                                . "<div class='h-100 flex-fill bd-highlight'>"
+                                                . "<span class='h-100 d-flex justify-content-center align-items-center'>" . $telefone . "</span>"
+                                                . "</div>"
+                                                . "<i class='fas fa-times flex-fill bd-highlight remover-telefone'></i>"
+                                                . "</li>");
+                                        }
+
                                     } else {
                                         echo ("<h5 class='text-center mt-3'> Nenhum telefone adicionado </h5>");
                                     }
 
                                     ?>
-                                    <!-- <li class="item-telefone d-flex bd-highlight align-items-center">
-                                        <i class="fas fa-phone-alt flex-fill bd-highlight"></i>
-                                        <div class="h-100 flex-fill bd-highlight">
-                                            <span class="h-100 d-flex justify-content-center align-items-center"> 4002-8922 </span>
-                                        </div>
-
-                                        <i class="fas fa-times flex-fill bd-highlight"></i>
-                                    </li> -->
+                                   
                                 </div>
                                 <button type="button" class="btn btn-danger w-100 flat" data-toggle="modal" data-target="#adicionar-telefone">
                                     <i class="fas fa-plus"></i>
@@ -629,7 +636,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
-                            <input type="submit" class="btn btn-danger" value="Adicionar"/>
+                            <input type="submit" class="btn btn-danger" value="Adicionar" />
                         </div>
                     </form>
                 </div>
