@@ -27,7 +27,7 @@
                     </div>
 
                     <div class="form-row w-100">
-                        <div class="form-group col-md-6 pb-2">
+                        <div class="form-group col-md-12 pb-2">
                             <label for="seSexo">Sexo</label>
                             <select class="form-control" name="seSexo">
                                 <option selected>Selecione uma opção</option>
