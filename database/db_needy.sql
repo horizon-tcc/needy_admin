@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.6.6deb5
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Tempo de geração: 25-Fev-2020 às 23:48
--- Versão do servidor: 10.3.16-MariaDB
--- versão do PHP: 7.3.7
+-- Host: localhost:3306
+-- Generation Time: 04-Abr-2020 às 22:26
+-- Versão do servidor: 5.7.29-0ubuntu0.18.04.1
+-- PHP Version: 7.2.24-0ubuntu0.18.04.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -19,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Banco de dados: `bdneedy`
+-- Database: `db_needy`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tbagendamento`
+-- Estrutura da tabela `tbAgendamento`
 --
 
 CREATE TABLE `tbAgendamento` (
@@ -40,7 +38,7 @@ CREATE TABLE `tbAgendamento` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tbbancosangue`
+-- Estrutura da tabela `tbBancoSangue`
 --
 
 CREATE TABLE `tbBancoSangue` (
@@ -55,10 +53,18 @@ CREATE TABLE `tbBancoSangue` (
   `cidadeBancoSangue` varchar(100) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+--
+-- Extraindo dados da tabela `tbBancoSangue`
+--
+
+INSERT INTO `tbBancoSangue` (`idBancoSangue`, `nomeBancoSangue`, `logradouroBancoSangue`, `bairroBancoSangue`, `numeroEndBancoSangue`, `complementoEndBancoSangue`, `cepBancoSangue`, `ufBancoSangue`, `cidadeBancoSangue`) VALUES
+(1, 'João Incompetente Da Silva', 'Rua João é muito incompetente', 'Bairro Incompetente', '666', 'Estou puto com joão incompetente', '666-666', 'SP', 'São Paulo'),
+(2, 'Banco dos bobos', 'Rua dos bobos', 'Bairro dos bobos', '666', 'Nadega esquerda, próximo ao cu', '40028922', 'RJ', 'Rio de Janeiro');
+
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tbcargofuncionario`
+-- Estrutura da tabela `tbCargoFuncionario`
 --
 
 CREATE TABLE `tbCargoFuncionario` (
@@ -69,7 +75,7 @@ CREATE TABLE `tbCargoFuncionario` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tbdoacao`
+-- Estrutura da tabela `tbDoacao`
 --
 
 CREATE TABLE `tbDoacao` (
@@ -88,7 +94,7 @@ CREATE TABLE `tbDoacao` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tbdoador`
+-- Estrutura da tabela `tbDoador`
 --
 
 CREATE TABLE `tbDoador` (
@@ -97,7 +103,6 @@ CREATE TABLE `tbDoador` (
   `idResponsavel` int(12) DEFAULT NULL,
   `idSexo` int(12) NOT NULL,
   `dataNascimentoDoador` date NOT NULL,
-  `idadeDoador` int(12) NOT NULL,
   `idFatorRh` int(12) NOT NULL,
   `idTipoSanguineo` int(12) NOT NULL,
   `cpfDoador` varchar(14) COLLATE utf8_bin NOT NULL,
@@ -112,10 +117,17 @@ CREATE TABLE `tbDoador` (
   `idUsuario` int(12) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+--
+-- Extraindo dados da tabela `tbDoador`
+--
+
+INSERT INTO `tbDoador` (`idDoador`, `nomeDoador`, `idResponsavel`, `idSexo`, `dataNascimentoDoador`, `idFatorRh`, `idTipoSanguineo`, `cpfDoador`, `rgDoador`, `logradouroDoador`, `bairroDoador`, `cepDoador`, `numeroEndDoador`, `complementoEndDoador`, `cidadeDoador`, `ufDoador`, `idUsuario`) VALUES
+(1, 'Miguel Doador de Cu', 1, 2, '2003-08-02', 2, 4, '666.666.666-66', '555.555.555-55', 'Rua Quem mora aqui dá a bunda', 'Bairro dos Doadores de Bunda', '190190190', '111', 'nadega direita, próximo ao cu', 'São Paulo', 'SP', 1);
+
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tbfatorrh`
+-- Estrutura da tabela `tbFatorRh`
 --
 
 CREATE TABLE `tbFatorRh` (
@@ -124,7 +136,7 @@ CREATE TABLE `tbFatorRh` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Extraindo dados da tabela `tbfatorrh`
+-- Extraindo dados da tabela `tbFatorRh`
 --
 
 INSERT INTO `tbFatorRh` (`idFatorRh`, `descricaoFatorRh`) VALUES
@@ -134,7 +146,7 @@ INSERT INTO `tbFatorRh` (`idFatorRh`, `descricaoFatorRh`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tbfuncionario`
+-- Estrutura da tabela `tbFuncionario`
 --
 
 CREATE TABLE `tbFuncionario` (
@@ -150,7 +162,7 @@ CREATE TABLE `tbFuncionario` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tbmaterialdoado`
+-- Estrutura da tabela `tbMaterialDoado`
 --
 
 CREATE TABLE `tbMaterialDoado` (
@@ -161,7 +173,7 @@ CREATE TABLE `tbMaterialDoado` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tbpaciente`
+-- Estrutura da tabela `tbPaciente`
 --
 
 CREATE TABLE `tbPaciente` (
@@ -177,7 +189,7 @@ CREATE TABLE `tbPaciente` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tbresponsavel`
+-- Estrutura da tabela `tbResponsavel`
 --
 
 CREATE TABLE `tbResponsavel` (
@@ -185,13 +197,20 @@ CREATE TABLE `tbResponsavel` (
   `nomeResponsavel` varchar(100) COLLATE utf8_bin DEFAULT NULL,
   `cpfResponsavel` varchar(14) COLLATE utf8_bin DEFAULT NULL,
   `rgResponsavel` varchar(15) COLLATE utf8_bin DEFAULT NULL,
-  `dataNascimeentoResponsavel` date DEFAULT NULL
+  `dataNascimentoResponsavel` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Extraindo dados da tabela `tbResponsavel`
+--
+
+INSERT INTO `tbResponsavel` (`idResponsavel`, `nomeResponsavel`, `cpfResponsavel`, `rgResponsavel`, `dataNascimentoResponsavel`) VALUES
+(1, 'João Irresponsável da Silva', '40028922', '666666', '1966-06-06');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tbresultadodoacao`
+-- Estrutura da tabela `tbResultadoDoacao`
 --
 
 CREATE TABLE `tbResultadoDoacao` (
@@ -202,7 +221,7 @@ CREATE TABLE `tbResultadoDoacao` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tbsexo`
+-- Estrutura da tabela `tbSexo`
 --
 
 CREATE TABLE `tbSexo` (
@@ -211,7 +230,7 @@ CREATE TABLE `tbSexo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Extraindo dados da tabela `tbsexo`
+-- Extraindo dados da tabela `tbSexo`
 --
 
 INSERT INTO `tbSexo` (`idSexo`, `descricaoSexo`) VALUES
@@ -221,7 +240,7 @@ INSERT INTO `tbSexo` (`idSexo`, `descricaoSexo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tbtelefonebancosangue`
+-- Estrutura da tabela `tbTelefoneBancoSangue`
 --
 
 CREATE TABLE `tbTelefoneBancoSangue` (
@@ -233,7 +252,7 @@ CREATE TABLE `tbTelefoneBancoSangue` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tbtelefonedoador`
+-- Estrutura da tabela `tbTelefoneDoador`
 --
 
 CREATE TABLE `tbTelefoneDoador` (
@@ -245,7 +264,7 @@ CREATE TABLE `tbTelefoneDoador` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tbtelefoneresponsavel`
+-- Estrutura da tabela `tbTelefoneResponsavel`
 --
 
 CREATE TABLE `tbTelefoneResponsavel` (
@@ -257,7 +276,7 @@ CREATE TABLE `tbTelefoneResponsavel` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tbtipodoacao`
+-- Estrutura da tabela `tbTipoDoacao`
 --
 
 CREATE TABLE `tbTipoDoacao` (
@@ -268,7 +287,7 @@ CREATE TABLE `tbTipoDoacao` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tbtiposanguineo`
+-- Estrutura da tabela `tbTipoSanguineo`
 --
 
 CREATE TABLE `tbTipoSanguineo` (
@@ -277,7 +296,7 @@ CREATE TABLE `tbTipoSanguineo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Extraindo dados da tabela `tbtiposanguineo`
+-- Extraindo dados da tabela `tbTipoSanguineo`
 --
 
 INSERT INTO `tbTipoSanguineo` (`idTipoSanguineo`, `descricaoTipoSanguineo`) VALUES
@@ -289,7 +308,7 @@ INSERT INTO `tbTipoSanguineo` (`idTipoSanguineo`, `descricaoTipoSanguineo`) VALU
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tbtipousuario`
+-- Estrutura da tabela `tbTipoUsuario`
 --
 
 CREATE TABLE `tbTipoUsuario` (
@@ -298,7 +317,7 @@ CREATE TABLE `tbTipoUsuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Extraindo dados da tabela `tbtipousuario`
+-- Extraindo dados da tabela `tbTipoUsuario`
 --
 
 INSERT INTO `tbTipoUsuario` (`idTipoUsuario`, `descricaoTipoUsuario`) VALUES
@@ -307,7 +326,7 @@ INSERT INTO `tbTipoUsuario` (`idTipoUsuario`, `descricaoTipoUsuario`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tbusuario`
+-- Estrutura da tabela `tbUsuario`
 --
 
 CREATE TABLE `tbUsuario` (
@@ -318,11 +337,18 @@ CREATE TABLE `tbUsuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Índices para tabelas despejadas
+-- Extraindo dados da tabela `tbUsuario`
+--
+
+INSERT INTO `tbUsuario` (`idUsuario`, `emailUsuario`, `senhaUsuario`, `idTipoUsuario`) VALUES
+(1, 'miguel.boiola@gay.com', '123', 1);
+
+--
+-- Indexes for dumped tables
 --
 
 --
--- Índices para tabela `tbagendamento`
+-- Indexes for table `tbAgendamento`
 --
 ALTER TABLE `tbAgendamento`
   ADD PRIMARY KEY (`idAgendamento`),
@@ -331,19 +357,19 @@ ALTER TABLE `tbAgendamento`
   ADD KEY `idBancoSangue` (`idBancoSangue`);
 
 --
--- Índices para tabela `tbbancosangue`
+-- Indexes for table `tbBancoSangue`
 --
 ALTER TABLE `tbBancoSangue`
   ADD PRIMARY KEY (`idBancoSangue`);
 
 --
--- Índices para tabela `tbcargofuncionario`
+-- Indexes for table `tbCargoFuncionario`
 --
 ALTER TABLE `tbCargoFuncionario`
   ADD PRIMARY KEY (`idCargoFuncionario`);
 
 --
--- Índices para tabela `tbdoacao`
+-- Indexes for table `tbDoacao`
 --
 ALTER TABLE `tbDoacao`
   ADD PRIMARY KEY (`idDoacao`),
@@ -353,7 +379,7 @@ ALTER TABLE `tbDoacao`
   ADD KEY `idResultadoDoacao` (`idResultadoDoacao`);
 
 --
--- Índices para tabela `tbdoador`
+-- Indexes for table `tbDoador`
 --
 ALTER TABLE `tbDoador`
   ADD PRIMARY KEY (`idDoador`),
@@ -364,13 +390,13 @@ ALTER TABLE `tbDoador`
   ADD KEY `idUsuario` (`idUsuario`);
 
 --
--- Índices para tabela `tbfatorrh`
+-- Indexes for table `tbFatorRh`
 --
 ALTER TABLE `tbFatorRh`
   ADD PRIMARY KEY (`idFatorRh`);
 
 --
--- Índices para tabela `tbfuncionario`
+-- Indexes for table `tbFuncionario`
 --
 ALTER TABLE `tbFuncionario`
   ADD PRIMARY KEY (`idFuncionario`),
@@ -379,13 +405,13 @@ ALTER TABLE `tbFuncionario`
   ADD KEY `idCargoFuncionario` (`idCargoFuncionario`);
 
 --
--- Índices para tabela `tbmaterialdoado`
+-- Indexes for table `tbMaterialDoado`
 --
 ALTER TABLE `tbMaterialDoado`
   ADD PRIMARY KEY (`idMaterialDoado`);
 
 --
--- Índices para tabela `tbpaciente`
+-- Indexes for table `tbPaciente`
 --
 ALTER TABLE `tbPaciente`
   ADD PRIMARY KEY (`idPaciente`),
@@ -394,193 +420,174 @@ ALTER TABLE `tbPaciente`
   ADD KEY `idFatorRh` (`idFatorRh`);
 
 --
--- Índices para tabela `tbresponsavel`
+-- Indexes for table `tbResponsavel`
 --
 ALTER TABLE `tbResponsavel`
   ADD PRIMARY KEY (`idResponsavel`);
 
 --
--- Índices para tabela `tbresultadodoacao`
+-- Indexes for table `tbResultadoDoacao`
 --
 ALTER TABLE `tbResultadoDoacao`
   ADD PRIMARY KEY (`idResultadoDoacao`);
 
 --
--- Índices para tabela `tbsexo`
+-- Indexes for table `tbSexo`
 --
 ALTER TABLE `tbSexo`
   ADD PRIMARY KEY (`idSexo`);
 
 --
--- Índices para tabela `tbtelefonebancosangue`
+-- Indexes for table `tbTelefoneBancoSangue`
 --
 ALTER TABLE `tbTelefoneBancoSangue`
   ADD PRIMARY KEY (`idTelefoneBancoSangue`),
   ADD KEY `idBancoSangue` (`idBancoSangue`);
 
 --
--- Índices para tabela `tbtelefonedoador`
+-- Indexes for table `tbTelefoneDoador`
 --
 ALTER TABLE `tbTelefoneDoador`
   ADD PRIMARY KEY (`idTelefoneDoador`),
   ADD KEY `idDoador` (`idDoador`);
 
 --
--- Índices para tabela `tbtelefoneresponsavel`
+-- Indexes for table `tbTelefoneResponsavel`
 --
 ALTER TABLE `tbTelefoneResponsavel`
   ADD PRIMARY KEY (`idTelefoneResponsavel`),
   ADD KEY `idResponsavel` (`idResponsavel`);
 
 --
--- Índices para tabela `tbtipodoacao`
+-- Indexes for table `tbTipoDoacao`
 --
 ALTER TABLE `tbTipoDoacao`
   ADD PRIMARY KEY (`idTipoDoacao`);
 
 --
--- Índices para tabela `tbtiposanguineo`
+-- Indexes for table `tbTipoSanguineo`
 --
 ALTER TABLE `tbTipoSanguineo`
   ADD PRIMARY KEY (`idTipoSanguineo`);
 
 --
--- Índices para tabela `tbtipousuario`
+-- Indexes for table `tbTipoUsuario`
 --
 ALTER TABLE `tbTipoUsuario`
   ADD PRIMARY KEY (`idTipoUsuario`);
 
 --
--- Índices para tabela `tbusuario`
+-- Indexes for table `tbUsuario`
 --
 ALTER TABLE `tbUsuario`
   ADD PRIMARY KEY (`idUsuario`),
   ADD KEY `idTipoUsuario` (`idTipoUsuario`);
 
 --
--- AUTO_INCREMENT de tabelas despejadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de tabela `tbagendamento`
+-- AUTO_INCREMENT for table `tbAgendamento`
 --
 ALTER TABLE `tbAgendamento`
   MODIFY `idAgendamento` int(12) NOT NULL AUTO_INCREMENT;
-
 --
--- AUTO_INCREMENT de tabela `tbbancosangue`
+-- AUTO_INCREMENT for table `tbBancoSangue`
 --
 ALTER TABLE `tbBancoSangue`
-  MODIFY `idBancoSangue` int(12) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `idBancoSangue` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT de tabela `tbcargofuncionario`
+-- AUTO_INCREMENT for table `tbCargoFuncionario`
 --
 ALTER TABLE `tbCargoFuncionario`
   MODIFY `idCargoFuncionario` int(12) NOT NULL AUTO_INCREMENT;
-
 --
--- AUTO_INCREMENT de tabela `tbdoacao`
+-- AUTO_INCREMENT for table `tbDoacao`
 --
 ALTER TABLE `tbDoacao`
   MODIFY `idDoacao` int(12) NOT NULL AUTO_INCREMENT;
-
 --
--- AUTO_INCREMENT de tabela `tbdoador`
+-- AUTO_INCREMENT for table `tbDoador`
 --
 ALTER TABLE `tbDoador`
-  MODIFY `idDoador` int(12) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `idDoador` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT de tabela `tbfatorrh`
+-- AUTO_INCREMENT for table `tbFatorRh`
 --
 ALTER TABLE `tbFatorRh`
   MODIFY `idFatorRh` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
--- AUTO_INCREMENT de tabela `tbfuncionario`
+-- AUTO_INCREMENT for table `tbFuncionario`
 --
 ALTER TABLE `tbFuncionario`
   MODIFY `idFuncionario` int(12) NOT NULL AUTO_INCREMENT;
-
 --
--- AUTO_INCREMENT de tabela `tbmaterialdoado`
+-- AUTO_INCREMENT for table `tbMaterialDoado`
 --
 ALTER TABLE `tbMaterialDoado`
   MODIFY `idMaterialDoado` int(12) NOT NULL AUTO_INCREMENT;
-
 --
--- AUTO_INCREMENT de tabela `tbpaciente`
+-- AUTO_INCREMENT for table `tbPaciente`
 --
 ALTER TABLE `tbPaciente`
   MODIFY `idPaciente` int(12) NOT NULL AUTO_INCREMENT;
-
 --
--- AUTO_INCREMENT de tabela `tbresponsavel`
+-- AUTO_INCREMENT for table `tbResponsavel`
 --
 ALTER TABLE `tbResponsavel`
-  MODIFY `idResponsavel` int(12) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `idResponsavel` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT de tabela `tbresultadodoacao`
+-- AUTO_INCREMENT for table `tbResultadoDoacao`
 --
 ALTER TABLE `tbResultadoDoacao`
   MODIFY `idResultadoDoacao` int(12) NOT NULL AUTO_INCREMENT;
-
 --
--- AUTO_INCREMENT de tabela `tbsexo`
+-- AUTO_INCREMENT for table `tbSexo`
 --
 ALTER TABLE `tbSexo`
   MODIFY `idSexo` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
--- AUTO_INCREMENT de tabela `tbtelefonebancosangue`
+-- AUTO_INCREMENT for table `tbTelefoneBancoSangue`
 --
 ALTER TABLE `tbTelefoneBancoSangue`
   MODIFY `idTelefoneBancoSangue` int(12) NOT NULL AUTO_INCREMENT;
-
 --
--- AUTO_INCREMENT de tabela `tbtelefonedoador`
+-- AUTO_INCREMENT for table `tbTelefoneDoador`
 --
 ALTER TABLE `tbTelefoneDoador`
   MODIFY `idTelefoneDoador` int(12) NOT NULL AUTO_INCREMENT;
-
 --
--- AUTO_INCREMENT de tabela `tbtelefoneresponsavel`
+-- AUTO_INCREMENT for table `tbTelefoneResponsavel`
 --
 ALTER TABLE `tbTelefoneResponsavel`
   MODIFY `idTelefoneResponsavel` int(12) NOT NULL AUTO_INCREMENT;
-
 --
--- AUTO_INCREMENT de tabela `tbtipodoacao`
+-- AUTO_INCREMENT for table `tbTipoDoacao`
 --
 ALTER TABLE `tbTipoDoacao`
   MODIFY `idTipoDoacao` int(12) NOT NULL AUTO_INCREMENT;
-
 --
--- AUTO_INCREMENT de tabela `tbtiposanguineo`
+-- AUTO_INCREMENT for table `tbTipoSanguineo`
 --
 ALTER TABLE `tbTipoSanguineo`
   MODIFY `idTipoSanguineo` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
--- AUTO_INCREMENT de tabela `tbtipousuario`
+-- AUTO_INCREMENT for table `tbTipoUsuario`
 --
 ALTER TABLE `tbTipoUsuario`
   MODIFY `idTipoUsuario` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
--- AUTO_INCREMENT de tabela `tbusuario`
+-- AUTO_INCREMENT for table `tbUsuario`
 --
 ALTER TABLE `tbUsuario`
-  MODIFY `idUsuario` int(12) NOT NULL AUTO_INCREMENT;
+  MODIFY `idUsuario` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- Constraints for dumped tables
+--
 
 --
--- Restrições para despejos de tabelas
---
-
---
--- Limitadores para a tabela `tbagendamento`
+-- Limitadores para a tabela `tbAgendamento`
 --
 ALTER TABLE `tbAgendamento`
   ADD CONSTRAINT `tbAgendamento_ibfk_1` FOREIGN KEY (`idDoador`) REFERENCES `tbDoador` (`idDoador`),
@@ -588,7 +595,7 @@ ALTER TABLE `tbAgendamento`
   ADD CONSTRAINT `tbAgendamento_ibfk_3` FOREIGN KEY (`idBancoSangue`) REFERENCES `tbBancoSangue` (`idBancoSangue`);
 
 --
--- Limitadores para a tabela `tbdoacao`
+-- Limitadores para a tabela `tbDoacao`
 --
 ALTER TABLE `tbDoacao`
   ADD CONSTRAINT `tbDoacao_ibfk_1` FOREIGN KEY (`idDoador`) REFERENCES `tbDoador` (`idDoador`),
@@ -597,7 +604,7 @@ ALTER TABLE `tbDoacao`
   ADD CONSTRAINT `tbDoacao_ibfk_4` FOREIGN KEY (`idResultadoDoacao`) REFERENCES `tbResultadoDoacao` (`idResultadoDoacao`);
 
 --
--- Limitadores para a tabela `tbdoador`
+-- Limitadores para a tabela `tbDoador`
 --
 ALTER TABLE `tbDoador`
   ADD CONSTRAINT `tbDoador_ibfk_1` FOREIGN KEY (`idResponsavel`) REFERENCES `tbResponsavel` (`idResponsavel`),
@@ -607,7 +614,7 @@ ALTER TABLE `tbDoador`
   ADD CONSTRAINT `tbDoador_ibfk_5` FOREIGN KEY (`idUsuario`) REFERENCES `tbUsuario` (`idUsuario`);
 
 --
--- Limitadores para a tabela `tbfuncionario`
+-- Limitadores para a tabela `tbFuncionario`
 --
 ALTER TABLE `tbFuncionario`
   ADD CONSTRAINT `tbFuncionario_ibfk_1` FOREIGN KEY (`idBancoSangue`) REFERENCES `tbBancoSangue` (`idBancoSangue`),
@@ -615,7 +622,7 @@ ALTER TABLE `tbFuncionario`
   ADD CONSTRAINT `tbFuncionario_ibfk_3` FOREIGN KEY (`idCargoFuncionario`) REFERENCES `tbCargoFuncionario` (`idCargoFuncionario`);
 
 --
--- Limitadores para a tabela `tbpaciente`
+-- Limitadores para a tabela `tbPaciente`
 --
 ALTER TABLE `tbPaciente`
   ADD CONSTRAINT `tbPaciente_ibfk_1` FOREIGN KEY (`idSexo`) REFERENCES `tbSexo` (`idSexo`),
@@ -623,29 +630,28 @@ ALTER TABLE `tbPaciente`
   ADD CONSTRAINT `tbPaciente_ibfk_3` FOREIGN KEY (`idFatorRh`) REFERENCES `tbFatorRh` (`idFatorRh`);
 
 --
--- Limitadores para a tabela `tbtelefonebancosangue`
+-- Limitadores para a tabela `tbTelefoneBancoSangue`
 --
 ALTER TABLE `tbTelefoneBancoSangue`
   ADD CONSTRAINT `tbTelefoneBancoSangue_ibfk_1` FOREIGN KEY (`idBancoSangue`) REFERENCES `tbBancoSangue` (`idBancoSangue`);
 
 --
--- Limitadores para a tabela `tbtelefonedoador`
+-- Limitadores para a tabela `tbTelefoneDoador`
 --
 ALTER TABLE `tbTelefoneDoador`
   ADD CONSTRAINT `tbTelefoneDoador_ibfk_1` FOREIGN KEY (`idDoador`) REFERENCES `tbDoador` (`idDoador`);
 
 --
--- Limitadores para a tabela `tbtelefoneresponsavel`
+-- Limitadores para a tabela `tbTelefoneResponsavel`
 --
 ALTER TABLE `tbTelefoneResponsavel`
   ADD CONSTRAINT `tbTelefoneResponsavel_ibfk_1` FOREIGN KEY (`idResponsavel`) REFERENCES `tbResponsavel` (`idResponsavel`);
 
 --
--- Limitadores para a tabela `tbusuario`
+-- Limitadores para a tabela `tbUsuario`
 --
 ALTER TABLE `tbUsuario`
   ADD CONSTRAINT `tbUsuario_ibfk_1` FOREIGN KEY (`idTipoUsuario`) REFERENCES `tbTipoUsuario` (`idTipoUsuario`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
