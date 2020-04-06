@@ -423,25 +423,24 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
                                         $vetTelefones =  $_SESSION["telefonesDoador"];
 
-                                        foreach ($vetTelefones as $telefone ) {
+                                        foreach ($vetTelefones as $telefone) {
 
                                             echo ("<li class='item-telefone d-flex bd-highlight align-items-center'>"
                                                 . "<i class='fas fa-phone-alt flex-fill bd-highlight'></i>"
-                                                . "<div class='h-100 flex-fill bd-highlight'>"
-                                                . "<span class='h-100 d-flex justify-content-center align-items-center'>" . $telefone . "</span>"
+                                                . "<div class='h-100 flex-fill bd-highlight container-span-telefone'>"
+                                                . "<span class='h-100 d-flex justify-content-center align-items-center desc-telefone'>" . $telefone . "</span>"
                                                 . "</div>"
                                                 . "<i class='fas fa-times flex-fill bd-highlight remover-telefone'></i>"
                                                 . "</li>");
                                         }
-
                                     } else {
-                                        echo ("<h5 class='text-center mt-3'> Nenhum telefone adicionado </h5>");
+                                        echo ("<div id='msg-list-telefone'> </div><h5 class='text-center mt-3'> Nenhum telefone adicionado </h5> </div>");
                                     }
 
                                     ?>
-                                   
+
                                 </div>
-                                <button type="button" class="btn btn-danger w-100 flat" data-toggle="modal" data-target="#adicionar-telefone">
+                                <button type="button" class="btn btn-danger w-100 flat" data-toggle="modal" data-target="#modal-adicionar-telefone-doador">
                                     <i class="fas fa-plus"></i>
                                 </button>
                             </ul>
@@ -590,10 +589,10 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
 
 
-        <div class="modal fade" id="adicionar-telefone" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="modal-adicionar-telefone-doador" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <form method="post" action="../controller/adicionar-telefone.php" id="form-telefone">
+                    <form method="post" action="../controller/doador/adicionar-telefone.php" id="form-adicionar-telefone-doador">
                         <div class="modal-header">
                             <h5 class="modal-title" id="modal-title-adicionar-telefone"> Adicionar telefone </h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -639,6 +638,42 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                             <input type="submit" class="btn btn-danger" value="Adicionar" />
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="modal-remover-telefone-doador" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h6 class="modal-title" id="modal-title-remover-telefone"> Remover telefone </h6>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+
+                        <div class="form-row d-flex justify-content-center">
+
+                            <div class="form-group col-md-12 py-2">
+
+                                <h5 id="desc-remover-telefone" class="text-center"> Deseja remover o seguinte telefone:</h5>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" id="btn-remover-telefone-doador"> Remover </button>
+                    </div>
+
                 </div>
             </div>
         </div>

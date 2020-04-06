@@ -11,13 +11,26 @@ try {
 
         if (isset($_POST['txtTelefoneDoador']) && !empty($_POST['txtTelefoneDoador'])) {
 
+
             $telefone = $_POST['txtTelefoneDoador'];
 
-            array_push($_SESSION['telefonesDoador'], $telefone);
+            if (array_search($telefone, $_SESSION['telefonesDoador']) === false) {
 
-            $resposta = array("status" => SUCESSO, "novoTelefone" => $telefone);
 
-            echo $resposta;
+                array_push($_SESSION['telefonesDoador'], $telefone);
+
+                $resposta = array("status" => SUCESSO, "novoTelefone" => $telefone);
+
+                echo json_encode($resposta);
+            }
+
+            else {
+
+                $resposta = array("status" => FALHA);
+
+                echo json_encode($resposta);
+
+            }
         } else {
 
             $resposta = array("status" => FALHA);

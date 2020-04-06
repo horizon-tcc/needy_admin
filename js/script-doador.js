@@ -10,7 +10,7 @@ $("#txtCpfDoador").blur(function (e) {
         $("#txtCpfDoador").addClass("is-invalid");
 
     }
-    
+
 });
 
 
@@ -569,7 +569,7 @@ $(document).ready(function () {
 });
 
 
-$("#form-telefone").submit(function (ev) {
+$("#form-adicionar-telefone-doador").submit(function (ev) {
 
     ev.preventDefault();
 
@@ -588,26 +588,30 @@ $("#form-telefone").submit(function (ev) {
             if (response.status) {
 
                 $(".container-item-telefone").append("<li class='item-telefone d-flex bd-highlight align-items-center'>"
-                    + "<i class='fas fa-phone-alt flex-fill bd-highlight'></i>"
-                    + "<div class='h-100 flex-fill bd-highlight'>"
-                    + "<span class='h-100 d-flex justify-content-center align-items-center'>"+ response.novoTelefone +"</span>"
-                    + "</div>"
-                    + "<i class='fas fa-times flex-fill bd-highlight remover-telefone'></i>"
-                    + "</li>");
+                +"<i class='fas fa-phone-alt flex-fill bd-highlight'></i>"
+                + "<div class='h-100 flex-fill bd-highlight container-span-telefone'>"
+                    + "<span class='h-100 d-flex justify-content-center align-items-center desc-telefone'>"+response.novoTelefone+"</span>"
+                + "</div>"
+                + "<i class='fas fa-times flex-fill bd-highlight remover-telefone'></i>"
+                + "</li>");
 
+                showToast('Sucesso', 'Telefone adicionado com sucesso', 'success', '#28a745', 'white', 5000);
+
+                $("#txtTelefoneDoador").removeClass("is-invalid");
+                $("#txtTelefoneDoador").val("");
 
             }
             else {
 
-                showToast('Atenção', 'Telefone inválido', 'warning', '#dc3545', 'white', 10000);
+                showToast('Atenção', 'Telefone inválido', 'warning', '#dc3545', 'white', 5000);
                 $("#txtTelefoneDoador").removeClass("is-valid");
                 $("#txtTelefoneDoador").addClass("is-invalid");
             }
 
         },
         error: function (request, status, error) {
-            
-            showToast('Atenção', 'Telefone inválido', 'warning', '#dc3545', 'white', 10000);
+
+            showToast('Atenção', 'Telefone inválido', 'warning', '#dc3545', 'white', 5000);
             $("#txtTelefoneDoador").removeClass("is-valid");
             $("#txtTelefoneDoador").addClass("is-invalid");
 
@@ -625,49 +629,65 @@ $("#form-telefone").submit(function (ev) {
 
 
 
-$(".remover-telefone").click(function (ev) {
+$(document).on('click', 'i.remover-telefone',function (ev) {
 
 
-    $.ajax({
+    let containerTelefone = this.parentNode;
+    let descTelefoneRemovido = this.parentNode.querySelector("div.container-span-telefone").firstChild.innerHTML;
 
-        url: "../controller/doador/remover-telefone.php",
-        type: "post",
-        dataType: "json",
-        data: {
+    $('#modal-remover-telefone-doador').modal('show');
+    $('#desc-remover-telefone').text("Deseja remover o número "+descTelefoneRemovido+" ?");
 
-            "telefoneRemovido": $(".item-telefone").eq( $(this).index() ).children().eq(1).children().first().val()
-        },
-        success: function (response) {
 
-            if (response.status) {
+    $("#btn-remover-telefone-doador").on('click', function (ev) {
 
-                $(".item-telefone").eq($(this).index()).remove();
-                showToast('Atenção', 'Telefone removido com sucesso', 'warning', '#28a745', 'white', 10000);
+
+        $.ajax({
+
+            url: "../controller/doador/remover-telefone.php",
+            type: "post",
+            dataType: "json",
+            data: {
+
+                "telefoneRemovido": descTelefoneRemovido
+            },
+            success: function (response) {
+
+                if (response.status) {
+
+                    containerTelefone.remove();
+                    showToast('Sucesso', 'Telefone removido com sucesso', 'success', '#28a745', 'white', 5000);
+                
+
+                }
+                else {
+
+                    showToast('Atenção', 'Erro ao remover o telefone', 'danger', '#dc3545', 'white', 5000);
+                
+                }
+
+            },
+            error: function (request, status, error) {
+
+                showToast('Atenção', 'Erro ao remover o telefone', 'warning', '#dc3545', 'white', 5000);
+
+                console.log(status);
 
             }
-            else {
 
-                showToast('Atenção', 'Erro ao remover o telefone', 'warning', '#dc3545', 'white', 10000);
-                console.log($(this));
-            }
 
-        },
-        error: function (request, status, error) {
-   
-            showToast('Atenção', 'Erro ao remover o telefone', 'warning', '#dc3545', 'white', 10000);
 
-            console.log(request.textStatus);
-            
-        }
-
+        });
+        
 
 
     });
 
-
-
+    
 
 });
+
+
 
 
 
