@@ -434,7 +434,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                                                 . "</li>");
                                         }
                                     } else {
-                                        echo ("<div id='msg-list-telefone'> </div><h5 class='text-center mt-3'> Nenhum telefone adicionado </h5> </div>");
+                                        echo ("<div id='msg-list-telefone'> <h5 class='text-center mt-3'> Nenhum telefone adicionado </h5> </div>");
                                     }
 
                                     ?>
