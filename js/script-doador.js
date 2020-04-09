@@ -1,4 +1,3 @@
-
 $("#txtCpfDoador").blur(function (e) {
 
     if (validarCpf($("#txtCpfDoador").val())) {

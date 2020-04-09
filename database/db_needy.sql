@@ -333,6 +333,7 @@ CREATE TABLE `tbUsuario` (
   `idUsuario` int(12) NOT NULL,
   `emailUsuario` varchar(40) COLLATE utf8_bin NOT NULL,
   `senhaUsuario` char(32) COLLATE utf8_bin NOT NULL,
+  `fotoUsuario` varchar(100) COLLATE utf8_bin,
   `idTipoUsuario` int(12) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 

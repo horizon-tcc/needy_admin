@@ -1,5 +1,5 @@
 <?php
-    require_once __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR ."global.php";
+    require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR ."global.php");
 
     class UsuarioDAO extends UsuarioModel
     {
@@ -44,6 +44,20 @@
             $rCargo = $conexao->query($select);
 
             return $rCargo->fetch();
+        }
+
+        public function selecEditarUsuario($sessao)
+        {
+            $conexao = DB::getConn();
+
+            $select = "SELECT COUNT(idUsuario) as 'resultado', idTipoUsuario FROM tbUsuario
+                    WHERE = ? AND ? ";
+            
+            $pstm = $conexao->prepare($select);
+            $pstm->bindValue(1, $usuario->getEmailUsuario());
+            $pstm->bindValue(2, $usuario->getSenhaUsuario());
+            
+            return $pstm->fetch();
         }
 
         public function editarUsuario($usuario)
