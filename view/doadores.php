@@ -585,6 +585,28 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
             </div>
 
 
+
+            <div class="modal fade" id="limpar-campos-endereco" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modal-title-limpar-campos-endereco"> Limpar campos </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h5> Deseja limpar todos os campos ? </h5>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-danger" id="btn-limpar-campos-endereco" data-dismiss="modal">Limpar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </form>
 
 
@@ -646,34 +668,34 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
         <div class="modal fade" id="modal-remover-telefone-doador" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
+                    <form action="../controller/doador/remover-telefone.php" method="POST" id="form-remover-telefone-doador">
+                        <div class="modal-header">
+                            <h6 class="modal-title" id="modal-title-remover-telefone"> Remover telefone </h6>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
 
-                    <div class="modal-header">
-                        <h6 class="modal-title" id="modal-title-remover-telefone"> Remover telefone </h6>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
 
+                            <div class="form-row d-flex justify-content-center">
 
-                        <div class="form-row d-flex justify-content-center">
+                                <div class="form-group col-md-12 py-2">
 
-                            <div class="form-group col-md-12 py-2">
+                                    <h5 id="desc-remover-telefone" class="text-center"> Deseja remover o seguinte telefone:</h5>
+                                    <input type="hidden" name="hdTelefoneRemovidoDoador" id="hdTelefoneRemovidoDoador"/>
+                                </div>
 
-                                <h5 id="desc-remover-telefone" class="text-center"> Deseja remover o seguinte telefone:</h5>
 
                             </div>
 
 
                         </div>
-
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal" id="btn-remover-telefone-doador"> Remover </button>
-                    </div>
-
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+                            <input type="submit" class="btn btn-danger" id="btn-remover-telefone-doador" value="Remover" /> 
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

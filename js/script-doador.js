@@ -101,7 +101,21 @@ function limparSecaoPessoal() {
     txtRgDoador.value = "";
     lblImgDoador.innerHTML = "<strong class='red'>*</strong> Escolha uma imagem";
 
-    validarSecaoPessoal();
+    
+
+
+}
+
+
+function limparSecaoEndereco(){
+    
+     document.getElementById("txtCep").value = "";
+     document.getElementById("txtLogradouro").value = "";
+     document.getElementById("txtBairro").value = ""; 
+     document.getElementById("txtCidade").value = "";
+     document.getElementById("txtUf").value = "";
+     document.getElementById("txtNumero").value = "";
+     document.getElementById("txtComplemento").value = "";
 
 }
 
@@ -109,6 +123,14 @@ function limparSecaoPessoal() {
 $("#btn-limpar-campos-pessoais").click(function () {
 
     limparSecaoPessoal();
+    validarSecaoPessoal();
+
+});
+
+$("#btn-limpar-campos-endereco").click(function(){
+
+    limparSecaoEndereco();
+    validarSecaoEndereco();
 
 });
 
@@ -623,8 +645,9 @@ $("#form-adicionar-telefone-doador").submit(function (ev) {
     });
 
 
-
-
+     
+    $('#modal-adicionar-telefone-doador').modal('hide');
+    
 });
 
 
@@ -632,60 +655,74 @@ $("#form-adicionar-telefone-doador").submit(function (ev) {
 $(document).on('click', 'i.remover-telefone',function (ev) {
 
 
-    let containerTelefone = this.parentNode;
     let descTelefoneRemovido = this.parentNode.querySelector("div.container-span-telefone").firstChild.innerHTML;
 
+    
     $('#modal-remover-telefone-doador').modal('show');
     $('#desc-remover-telefone').text("Deseja remover o número "+descTelefoneRemovido+" ?");
-
-
-    $("#btn-remover-telefone-doador").on('click', function (ev) {
-
-
-        $.ajax({
-
-            url: "../controller/doador/remover-telefone.php",
-            type: "post",
-            dataType: "json",
-            data: {
-
-                "telefoneRemovido": descTelefoneRemovido
-            },
-            success: function (response) {
-
-                if (response.status) {
-
-                    containerTelefone.remove();
-                    showToast('Sucesso', 'Telefone removido com sucesso', 'success', '#28a745', 'white', 5000);
-                
-
-                }
-                else {
-
-                    showToast('Atenção', 'Erro ao remover o telefone', 'danger', '#dc3545', 'white', 5000);
-                
-                }
-
-            },
-            error: function (request, status, error) {
-
-                showToast('Atenção', 'Erro ao remover o telefone', 'warning', '#dc3545', 'white', 5000);
-
-                console.log(status);
-
-            }
-
-
-
-        });
-        
-
-
-    });
-
+    $('#hdTelefoneRemovidoDoador').val(descTelefoneRemovido);
     
 
 });
+
+
+$("#form-remover-telefone-doador").on('submit', function (ev) {
+
+    ev.preventDefault();
+
+    listContainerTelefone = document.querySelectorAll("li.item-telefone");
+
+    for( let i = 0; i < listContainerTelefone.length; i++ ){
+
+       if ( listContainerTelefone[i].querySelector("div.container-span-telefone").firstChild.innerHTML 
+       == document.getElementById("hdTelefoneRemovidoDoador").value) {
+
+        listContainerTelefone[i].remove();
+        break;
+       }
+
+    }
+       
+    $.ajax({
+
+        url: "../controller/doador/remover-telefone.php",
+        type: "post",
+        dataType: "json",
+        data: {
+
+            "telefoneRemovido": $("#hdTelefoneRemovidoDoador").val()
+        },
+        success: function (response) {
+
+            if (response.status) {
+
+                showToast('Sucesso', 'Telefone removido com sucesso', 'success', '#28a745', 'white', 5000);
+            
+
+            }
+            else {
+
+                showToast('Atenção', 'Erro ao remover o telefone', 'danger', '#dc3545', 'white', 5000);
+            
+            }
+
+        },
+        error: function (request, status, error) {
+
+            showToast('Atenção', 'Erro ao remover o telefone', 'warning', '#dc3545', 'white', 5000);
+
+            console.log(status);
+
+        }
+
+
+    });
+    
+ 
+    $('#modal-remover-telefone-doador').modal('hide');
+
+});
+
 
 
 
