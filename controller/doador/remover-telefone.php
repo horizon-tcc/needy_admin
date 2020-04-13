@@ -22,7 +22,7 @@ if (
 
         $_SESSION['telefonesDoador'] = $listTelefone;
 
-        $response = array("status" => SUCESSO);
+        $response = array("status" => SUCESSO, "size" => count($_SESSION["telefonesDoador"]));
 
         echo json_encode($response);
     }

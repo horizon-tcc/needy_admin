@@ -38,7 +38,7 @@ $("#txtCep").blur(function (e) {
                 $('#txtCidade').val(response.localidade);
             }
             else {
-                //showToast('Atenção', 'CEP inválido, por favor passe um cep válido', 'warning', '#dc3545', 'white', 10000);
+
                 $("#txtCep").removeClass("is-valid");
                 $("#txtCep").addClass("is-invalid");
 
@@ -48,7 +48,6 @@ $("#txtCep").blur(function (e) {
         },
         error: function (request, status, error) {
 
-            //showToast('Atenção', 'CEP inválido, por favor passe um cep válido', 'warning', '#dc3545', 'white', 10000);
             $("#txtCep").removeClass("is-valid");
             $("#txtCep").addClass("is-invalid");
         }
@@ -101,21 +100,22 @@ function limparSecaoPessoal() {
     txtRgDoador.value = "";
     lblImgDoador.innerHTML = "<strong class='red'>*</strong> Escolha uma imagem";
 
-    
+
 
 
 }
 
 
-function limparSecaoEndereco(){
-    
-     document.getElementById("txtCep").value = "";
-     document.getElementById("txtLogradouro").value = "";
-     document.getElementById("txtBairro").value = ""; 
-     document.getElementById("txtCidade").value = "";
-     document.getElementById("txtUf").value = "";
-     document.getElementById("txtNumero").value = "";
-     document.getElementById("txtComplemento").value = "";
+function limparSecaoEndereco() {
+
+    document.getElementById("txtCep").value = "";
+    document.getElementById("txtLogradouro").value = "";
+    document.getElementById("txtBairro").value = "";
+    document.getElementById("txtCidade").value = "";
+    document.getElementById("txtUf").value = "";
+    document.getElementById("txtNumero").value = "";
+    document.getElementById("txtComplemento").value = "";
+
 
 }
 
@@ -127,7 +127,7 @@ $("#btn-limpar-campos-pessoais").click(function () {
 
 });
 
-$("#btn-limpar-campos-endereco").click(function(){
+$("#btn-limpar-campos-endereco").click(function () {
 
     limparSecaoEndereco();
     validarSecaoEndereco();
@@ -609,13 +609,20 @@ $("#form-adicionar-telefone-doador").submit(function (ev) {
 
             if (response.status) {
 
+                if (response.size == 1) {
+
+                    document.getElementById("msg-list-telefone").remove();
+                }
+
+
+
                 $(".container-item-telefone").append("<li class='item-telefone d-flex bd-highlight align-items-center'>"
-                +"<i class='fas fa-phone-alt flex-fill bd-highlight'></i>"
-                + "<div class='h-100 flex-fill bd-highlight container-span-telefone'>"
-                    + "<span class='h-100 d-flex justify-content-center align-items-center desc-telefone'>"+response.novoTelefone+"</span>"
-                + "</div>"
-                + "<i class='fas fa-times flex-fill bd-highlight remover-telefone'></i>"
-                + "</li>");
+                    + "<i class='fas fa-phone-alt flex-fill bd-highlight'></i>"
+                    + "<div class='h-100 flex-fill bd-highlight container-span-telefone'>"
+                    + "<span class='h-100 d-flex justify-content-center align-items-center desc-telefone'>" + response.novoTelefone + "</span>"
+                    + "</div>"
+                    + "<i class='fas fa-times flex-fill bd-highlight remover-telefone'></i>"
+                    + "</li>");
 
                 showToast('Sucesso', 'Telefone adicionado com sucesso', 'success', '#28a745', 'white', 5000);
 
@@ -645,23 +652,23 @@ $("#form-adicionar-telefone-doador").submit(function (ev) {
     });
 
 
-     
+
     $('#modal-adicionar-telefone-doador').modal('hide');
-    
+
 });
 
 
 
-$(document).on('click', 'i.remover-telefone',function (ev) {
+$(document).on('click', 'i.remover-telefone', function (ev) {
 
 
     let descTelefoneRemovido = this.parentNode.querySelector("div.container-span-telefone").firstChild.innerHTML;
 
-    
+
     $('#modal-remover-telefone-doador').modal('show');
-    $('#desc-remover-telefone').text("Deseja remover o número "+descTelefoneRemovido+" ?");
+    $('#desc-remover-telefone').text("Deseja remover o número " + descTelefoneRemovido + " ?");
     $('#hdTelefoneRemovidoDoador').val(descTelefoneRemovido);
-    
+
 
 });
 
@@ -672,17 +679,17 @@ $("#form-remover-telefone-doador").on('submit', function (ev) {
 
     listContainerTelefone = document.querySelectorAll("li.item-telefone");
 
-    for( let i = 0; i < listContainerTelefone.length; i++ ){
+    for (let i = 0; i < listContainerTelefone.length; i++) {
 
-       if ( listContainerTelefone[i].querySelector("div.container-span-telefone").firstChild.innerHTML 
-       == document.getElementById("hdTelefoneRemovidoDoador").value) {
+        if (listContainerTelefone[i].querySelector("div.container-span-telefone").firstChild.innerHTML
+            == document.getElementById("hdTelefoneRemovidoDoador").value) {
 
-        listContainerTelefone[i].remove();
-        break;
-       }
+            listContainerTelefone[i].remove();
+            break;
+        }
 
     }
-       
+
     $.ajax({
 
         url: "../controller/doador/remover-telefone.php",
@@ -696,14 +703,20 @@ $("#form-remover-telefone-doador").on('submit', function (ev) {
 
             if (response.status) {
 
+                if (response.size == 0) {
+
+                    document.querySelector(".container-item-telefone").innerHTML =
+                        "<div id='msg-list-telefone'> <h5 class='text-center mt-3'> Nenhum telefone adicionado </h5> </div>";
+
+                }
                 showToast('Sucesso', 'Telefone removido com sucesso', 'success', '#28a745', 'white', 5000);
-            
+
 
             }
             else {
 
                 showToast('Atenção', 'Erro ao remover o telefone', 'danger', '#dc3545', 'white', 5000);
-            
+
             }
 
         },
@@ -717,18 +730,21 @@ $("#form-remover-telefone-doador").on('submit', function (ev) {
 
 
     });
-    
- 
+
+
     $('#modal-remover-telefone-doador').modal('hide');
 
 });
 
+window.addEventListener('beforeunload', (event) => {
 
-
-
-
-
-
-
-
-
+    if ( $("#txtNomeDoador").val().length > 0 || $("#imgDoador").val().length > 0 ||
+    $("#txtDataNascimento").val().length > 0 || $("#txtCpfDoador").val().length > 0 || 
+    $("#txtRgDoador").val().length > 0 || $("txtCep").val().length > 0 || $("txtLogradouro").val().length > 0
+    || $("txtCidade").val().length > 0 || $("txtUf").val().length > 0 || $("txtNumero").val().length > 0
+    || $("txtComplemento").val().length > 0 || $("txtEmail").val().length > 0 || $("txtNomeResponsavel").val().length > 0    
+    || $("txtDataNascimentoResponsavel").val().length > 0 || $("txtCpfResponsavel").val().length > 0 || $("txtRgResponsavel").val().length > 0) {
+       
+        event.returnValue = `Tem certeza que deseja sair ?`;
+    }
+});

@@ -2,6 +2,7 @@
 <?php
 include_once('imports/header.php');
 require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "global.php");
+
 ?>
 
 <main>
@@ -373,7 +374,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
                     <div class="form-group col-md-4 d-flex align-items-end justify-content-end pb-2 pt-2">
 
-                        <button type="reset" class="btn btn-outline-danger w-100 flat">
+                        <button type="button" class="btn btn-outline-danger w-100 flat" data-toggle="modal" data-target="#limpar-campos-endereco">
                             <i class="far fa-window-close"></i> Limpar
                         </button>
 
@@ -419,7 +420,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                                 <div class="container-item-telefone">
                                     <?php
 
-                                    if (isset($_SESSION['telefonesDoador'])) {
+                                    if (isset($_SESSION['telefonesDoador']) && !empty($_SESSION["telefonesDoador"])) {
 
                                         $vetTelefones =  $_SESSION["telefonesDoador"];
 
@@ -494,16 +495,16 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                 <h6 class="text-center"> Digite algumas informações sobre os responsáveis (caso o doador seja menor de idade) </h6>
                 <hr />
 
-                <div class="form-row mt-5">
+                <div class="form-row mt-5 w-100">
 
                     <div class="form-group col-md-6 pb-2">
-                        <label for="txtNome">Nome</label>
-                        <input type="text" class="form-control" name="txtNome" id="txtNome" placeholder="Digite o nome" />
+                        <label for="txtNomeResponsavel">Nome</label>
+                        <input type="text" class="form-control" name="txtNomeResponsavel" id="txtNomeResponsavel" placeholder="Digite o nome" />
                     </div>
 
                     <div class="form-group col-md-6 pb-2">
-                        <label for="txtDataNascimento">Data de nascimento</label>
-                        <input type="date" class="form-control" id="txtDataNascimento" name="txtDataNascimento" placeholder="Escolha a data de nascimento" />
+                        <label for="txtDataNascimentoResponsavel">Data de nascimento</label>
+                        <input type="date" class="form-control" id="txtDataNascimentoResponsavel" name="txtDataNascimentoResponsavel" placeholder="Escolha a data de nascimento" />
                     </div>
 
                 </div>
@@ -512,13 +513,13 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
 
                     <div class="form-group col-md-6 pb-2">
-                        <label for="txtCpf">CPF</label>
+                        <label for="txtCpfResponsavel">CPF</label>
                         <input type="text" class="form-control txtCpf" id="txtCpfResponsavel" name="txtCpfResponsavel" placeholder="Digite o CPF" />
                     </div>
 
 
                     <div class="form-group col-md-6 pb-2">
-                        <label for="txtRg">RG</label>
+                        <label for="txtRgResponsavel">RG</label>
                         <input type="text" class="form-control txtRg" id="txtRgResponsavel" name="txtRgResponsavel" placeholder="Digite o RG" />
                     </div>
 

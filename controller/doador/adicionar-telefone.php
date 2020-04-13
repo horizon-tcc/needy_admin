@@ -19,7 +19,7 @@ try {
 
                 array_push($_SESSION['telefonesDoador'], $telefone);
 
-                $resposta = array("status" => SUCESSO, "novoTelefone" => $telefone);
+                $resposta = array("status" => SUCESSO, "novoTelefone" => $telefone, "size" => count($_SESSION['telefonesDoador']));
 
                 echo json_encode($resposta);
             }
@@ -48,7 +48,7 @@ try {
 
             $_SESSION['telefonesDoador'] =  $listTelefones;
 
-            echo json_encode(array("status" => SUCESSO, "novoTelefone" => $telefone));
+            echo json_encode( array("status" => SUCESSO, "novoTelefone" => $telefone, "size" => count($_SESSION['telefonesDoador'])) );
         } else {
 
             $resposta = array("status" => FALHA);
