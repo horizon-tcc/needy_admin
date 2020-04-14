@@ -118,6 +118,34 @@ function limparSecaoEndereco() {
 
 }
 
+function limparSecaoContato () {
+
+    document.getElementById("txtEmail").value = "";
+
+    $.ajax({
+
+        url: "../controller/doador/limpar-sessao.php",
+        type: "post",
+        dataType: "json",
+        success: function (response) {
+
+            if (response.status) {
+
+               $(".container-item-telefone").empty();
+            }
+
+        },
+        error: function (request, status, error) {
+           
+            showToast('Atenção', 'Erro ao limpar o formulário', 'warning', '#dc3545', 'white', 10000);
+        }
+
+
+
+
+    });
+}
+
 
 $("#btn-limpar-campos-pessoais").click(function () {
 
@@ -130,6 +158,13 @@ $("#btn-limpar-campos-endereco").click(function () {
 
     limparSecaoEndereco();
     validarSecaoEndereco();
+
+});
+
+$("#btn-limpar-campos-contato").on("click",function(ev){
+
+    limparSecaoContato();
+
 
 });
 
@@ -747,3 +782,5 @@ window.addEventListener('beforeunload', (event) => {
         event.returnValue = `Tem certeza que deseja sair ?`;
     }
 });
+
+

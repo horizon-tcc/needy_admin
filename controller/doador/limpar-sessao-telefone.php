@@ -16,4 +16,7 @@
     }
     else {
 
+        $resposta = array("status" => FALHA);
+
+        echo json_encode($resposta);
     }
