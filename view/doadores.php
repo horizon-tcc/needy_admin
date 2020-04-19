@@ -407,6 +407,13 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                     <div class="form-group col-md-6 pb-2">
                         <label for="txtEmail"> <strong class="red"> * </strong> E-mail</label>
                         <input type="email" class="form-control" name="txtEmail" id="txtEmail" placeholder="Digite o e-mail" />
+
+                        <div id="feedback-valid-nome-Doador" class="valid-feedback">
+                            Email válido!
+                        </div>
+                        <div id="feedback-invalid-nome-Doador" class="invalid-feedback">
+                            Email inválido!
+                        </div>
                     </div>
 
                 </div>
@@ -415,14 +422,15 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
                     <div class="form-group w-100">
                         <h4 class="text-center"> <strong class="red"> * </strong> Telefones </h4>
-                        <div class="d-flex justify-content-center w-100 mt-3">
+                        <div class="w-100 mt-3 d-flex justify-content-center align-items-center flex-column">
+
                             <ul class="list-telefone">
-                                <div class="container-item-telefone">
+                                <div class="container-item-telefone" id="container-item-telefone-doador">
                                     <?php
 
                                     if (isset($_SESSION['telefonesDoador']) && !empty($_SESSION["telefonesDoador"])) {
 
-                                        $vetTelefones =  $_SESSION["telefonesDoador"];
+                                        $vetTelefones = $_SESSION["telefonesDoador"];
 
                                         foreach ($vetTelefones as $telefone) {
 
@@ -431,11 +439,11 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                                                 . "<div class='h-100 flex-fill bd-highlight container-span-telefone'>"
                                                 . "<span class='h-100 d-flex justify-content-center align-items-center desc-telefone'>" . $telefone . "</span>"
                                                 . "</div>"
-                                                . "<i class='fas fa-times flex-fill bd-highlight remover-telefone'></i>"
+                                                . "<i class='fas fa-times flex-fill bd-highlight remover-telefone-doador'></i>"
                                                 . "</li>");
                                         }
                                     } else {
-                                        echo ("<div id='msg-list-telefone'> <h5 class='text-center mt-3'> Nenhum telefone adicionado </h5> </div>");
+                                        echo ("<div id='msg-list-telefone-doador'> <h5 class='text-center mt-3'> Nenhum telefone adicionado </h5> </div>");
                                     }
 
                                     ?>
@@ -445,6 +453,15 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                                     <i class="fas fa-plus"></i>
                                 </button>
                             </ul>
+
+
+                            <div id="feedback-valid-telefone-Doador" class="valid-feedback w-100 text-center">
+                                Correto!
+                            </div>
+
+                            <div id="feedback-invalid-telefone-Doador" class="invalid-feedback w-100 text-center">
+                                Passe pelo menos um telefone!
+                            </div>
                         </div>
                     </div>
 
@@ -522,6 +539,57 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                         <label for="txtRgResponsavel">RG</label>
                         <input type="text" class="form-control txtRg" id="txtRgResponsavel" name="txtRgResponsavel" placeholder="Digite o RG" />
                     </div>
+
+                </div>
+
+
+                <div class="form-row w-100 mt-4 d-flex justify-content-center">
+
+                    <div class="form-group w-100">
+                        <h4 class="text-center"> <strong class="red"> * </strong> Telefones </h4>
+                        <div class="w-100 mt-3 d-flex justify-content-center align-items-center flex-column">
+
+                            <ul class="list-telefone">
+                                <div class="container-item-telefone" id="container-item-telefone-responsavel">
+                                    <?php
+
+                                    if (isset($_SESSION['telefonesResponsavel']) && !empty($_SESSION["telefonesResponsavel"])) {
+
+                                        $vetTelefones =  $_SESSION["telefonesResponsavel"];
+
+                                        foreach ($vetTelefones as $telefone) {
+
+                                            echo ("<li class='item-telefone d-flex bd-highlight align-items-center'>"
+                                                . "<i class='fas fa-phone-alt flex-fill bd-highlight'></i>"
+                                                . "<div class='h-100 flex-fill bd-highlight container-span-telefone'>"
+                                                . "<span class='h-100 d-flex justify-content-center align-items-center desc-telefone'>" . $telefone . "</span>"
+                                                . "</div>"
+                                                . "<i class='fas fa-times flex-fill bd-highlight remover-telefone-responsavel'></i>"
+                                                . "</li>");
+                                        }
+                                    } else {
+                                        echo ("<div id='msg-list-telefone-responsavel'> <h5 class='text-center mt-3'> Nenhum telefone adicionado </h5> </div>");
+                                    }
+
+                                    ?>
+
+                                </div>
+                                <button type="button" class="btn btn-danger w-100 flat" data-toggle="modal" data-target="#modal-adicionar-telefone-responsavel">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </ul>
+
+
+                            <div id="feedback-valid-telefone-Doador" class="valid-feedback w-100 text-center">
+                                Correto!
+                            </div>
+
+                            <div id="feedback-invalid-telefone-Doador" class="invalid-feedback w-100 text-center">
+                                Passe pelo menos um telefone!
+                            </div>
+                        </div>
+                    </div>
+
 
                 </div>
 
@@ -635,7 +703,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                 <div class="modal-content">
                     <form method="post" action="../controller/doador/adicionar-telefone.php" id="form-adicionar-telefone-doador">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="modal-title-adicionar-telefone"> Adicionar telefone </h5>
+                            <h5 class="modal-title" id="modal-title-adicionar-telefone"> Adicionar telefone para o doador </h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -645,13 +713,13 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
                             <div class="form-row d-flex justify-content-center">
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="rbTipoResidencial" name="rbTipoContato" class="custom-control-input" value="residencial" checked="checked">
-                                    <label class="custom-control-label" for="rbTipoResidencial">Residencial</label>
+                                    <input type="radio" id="rbTipoResidencialDoador" name="rbTipoContato" class="custom-control-input" value="residencial" checked="checked">
+                                    <label class="custom-control-label" for="rbTipoResidencialDoador">Residencial</label>
                                 </div>
 
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="rbTipoCelular" name="rbTipoContato" class="custom-control-input" value="celular">
-                                    <label class="custom-control-label" for="rbTipoCelular">Celular</label>
+                                    <input type="radio" id="rbTipoCelularDoador" name="rbTipoContato" class="custom-control-input" value="celular">
+                                    <label class="custom-control-label" for="rbTipoCelularDoador">Celular</label>
                                 </div>
 
                             </div>
@@ -701,7 +769,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
                                 <div class="form-group col-md-12 py-2">
 
-                                    <h5 id="desc-remover-telefone" class="text-center"> Deseja remover o seguinte telefone:</h5>
+                                    <h5 id="desc-remover-telefone-doador" class="text-center"> Deseja remover o seguinte telefone:</h5>
                                     <input type="hidden" name="hdTelefoneRemovidoDoador" id="hdTelefoneRemovidoDoador" />
                                 </div>
 
@@ -719,7 +787,102 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
             </div>
         </div>
 
+
+
+        <div class="modal fade" id="modal-adicionar-telefone-responsavel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form method="post" action="../controller/responsavel/adicionar-telefone.php" id="form-adicionar-telefone-responsavel">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modal-title-adicionar-telefone-responsavel"> Adicionar telefone para o responsável </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+
+                            <div class="form-row d-flex justify-content-center">
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="rbTipoResidencialResponsavel" name="rbTipoContatoResponsavel" class="custom-control-input" value="residencial" checked="checked">
+                                    <label class="custom-control-label" for="rbTipoResidencialResponsavel">Residencial</label>
+                                </div>
+
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="rbTipoCelularResponsavel" name="rbTipoContatoResponsavel" class="custom-control-input" value="celular">
+                                    <label class="custom-control-label" for="rbTipoCelularResponsavel">Celular</label>
+                                </div>
+
+                            </div>
+                            <div class="form-row">
+
+                                <div class="form-group col-md-12 py-2">
+                                    <label for="txtTelefoneResponsavel">Telefone</label>
+                                    <input type="text" name="txtTelefoneResponsavel" id="txtTelefoneResponsavel" class="form-control telefone-residencial" placeholder="Digite o telefone" />
+
+                                    <div id="feedback-valid-telefone-Doador" class="valid-feedback">
+                                        Telefone válido!
+                                    </div>
+
+                                    <div id="feedback-invalid-telefone-Doador" class="invalid-feedback">
+                                        Telefone inválido!
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+                            <input type="submit" class="btn btn-danger" value="Adicionar" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        
+
+        <div class="modal fade" id="modal-remover-telefone-responsavel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form action="../controller/responsavel/remover-telefone.php" method="POST" id="form-remover-telefone-responsavel">
+                        <div class="modal-header">
+                            <h6 class="modal-title" id="modal-title-remover-telefone-responsavel"> Remover telefone </h6>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+
+                            <div class="form-row d-flex justify-content-center">
+
+                                <div class="form-group col-md-12 py-2">
+
+                                    <h5 id="desc-remover-telefone-responsavel" class="text-center"> Deseja remover o seguinte telefone:</h5>
+                                    <input type="hidden" name="hdTelefoneRemovidoResponsavel" id="hdTelefoneRemovidoResponsavel" />
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+                            <input type="submit" class="btn btn-danger" id="btn-remover-telefone-responsavel" value="Remover" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
     </div>
+
 
 
 </main>
@@ -732,7 +895,7 @@ include_once("imports/imports-js.php");
 
 
 <script src="../js/script-doador.js"></script>
-
+<script src="../js/script-responsavel.js"></script>
 </body>
 
 </html>

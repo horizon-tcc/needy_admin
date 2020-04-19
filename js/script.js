@@ -7,11 +7,11 @@ $(".telefone-celular").mask("(00) 00000-0000");
 
 
 $(document).ready(function () {
-   $('input').keypress(function (e) {
+    $('input').keypress(function (e) {
         var code = null;
-        code = (e.keyCode ? e.keyCode : e.which);                
+        code = (e.keyCode ? e.keyCode : e.which);
         return (code == 13) ? false : true;
-   });
+    });
 });
 
 
@@ -98,14 +98,14 @@ function validarData(data) {
 
     if (checkNumber(data[0]) && checkNumber(data[1]) && checkNumber(data[2])) {
 
-        
-        if ( (( dataAtual.getFullYear() - data[0] ) >= 16)
-        && ( data[0] >= dataAtual.getFullYear() - 80) 
-        && (data[0] < dataAtual.getFullYear())){
+
+        if (((dataAtual.getFullYear() - data[0]) >= 16)
+            && (data[0] >= dataAtual.getFullYear() - 80)
+            && (data[0] < dataAtual.getFullYear())) {
 
             return true;
         }
-        
+
     }
     else {
         return false;
@@ -122,7 +122,7 @@ function inserirImg() {
 
     var reader = new FileReader();
 
-    nomeImg = $("#file-description").val() 
+    nomeImg = $("#file-description").val()
 
     reader.onloadend = function () {
 
@@ -138,9 +138,9 @@ function inserirImg() {
         nomeImg = nomeImg.split("\\");
 
         $("#file-description").empty();
-        $("#file-description").append("<span> <strong> * </strong> </span>" 
-            +"<span> <i class='far fa-file-image'></i> </span>" 
-            +"<span>"+ nomeImg[nomeImg.length-1] + "</span>   ");
+        $("#file-description").append("<span> <strong> * </strong> </span>"
+            + "<span> <i class='far fa-file-image'></i> </span>"
+            + "<span>" + nomeImg[nomeImg.length - 1] + "</span>   ");
 
     }
 
@@ -159,9 +159,9 @@ function inserirImg() {
         $(".img-input").addClass("is-invalid");
 
         $("#file-description").empty();
-        $("#file-description").append("<span> <strong> * </strong> </span>" 
-            +"<span> <i class='far fa-file-image'></i> </span>" 
-            +"<span> Escolha uma imagem </span>   ");
+        $("#file-description").append("<span> <strong> * </strong> </span>"
+            + "<span> <i class='far fa-file-image'></i> </span>"
+            + "<span> Escolha uma imagem </span>   ");
 
     }
 
@@ -187,3 +187,11 @@ function showToast(title, text, icon, bgColor, bgLoader, time) {
 
 
 
+function validarEmail(email) {
+    var filter = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    
+    if (filter.test(email)) {
+        return true;
+    }
+    return false;
+}

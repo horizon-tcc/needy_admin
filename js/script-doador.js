@@ -26,7 +26,7 @@ $("#txtCep").blur(function (e) {
         },
         success: function (response) {
 
-            if (response.sucesso == true) {
+            if (response.sucesso) {
 
                 $("#txtCep").removeClass("is-invalid");
                 $("#txtCep").addClass("is-valid");
@@ -78,13 +78,13 @@ $(document).on("change", "input[name=rbTipoContato]", function (e) {
 
 function limparSecaoPessoal() {
 
-    var imgPreview = document.getElementById("imgPreview");
-    var imgDoador = document.getElementById("imgDoador");
-    var txtNomeDoador = document.getElementById("txtNomeDoador");
-    var txtDataNascimento = document.getElementById("txtDataNascimento");
-    var txtCpfDoador = document.getElementById("txtCpfDoador");
-    var txtRgDoador = document.getElementById("txtRgDoador");
-    var lblImgDoador = document.getElementById("file-description");
+    let imgPreview = document.getElementById("imgPreview");
+    let imgDoador = document.getElementById("imgDoador");
+    let txtNomeDoador = document.getElementById("txtNomeDoador");
+    let txtDataNascimento = document.getElementById("txtDataNascimento");
+    let txtCpfDoador = document.getElementById("txtCpfDoador");
+    let txtRgDoador = document.getElementById("txtRgDoador");
+    let lblImgDoador = document.getElementById("file-description");
 
     $("#imgPreview").removeClass("img-preview");
     $("#imgPreview").addClass("form-img");
@@ -118,25 +118,29 @@ function limparSecaoEndereco() {
 
 }
 
-function limparSecaoContato () {
+function limparSecaoContato() {
 
     document.getElementById("txtEmail").value = "";
 
     $.ajax({
 
-        url: "../controller/doador/limpar-sessao.php",
+        url: "../controller/doador/limpar-sessao-telefone.php",
         type: "post",
         dataType: "json",
         success: function (response) {
 
             if (response.status) {
 
-               $(".container-item-telefone").empty();
+                $(".container-item-telefone").empty();
+
+                document.querySelector(".container-item-telefone").innerHTML =
+                    "<div id='msg-list-telefone'> <h5 class='text-center mt-3'> Nenhum telefone adicionado </h5> </div>";
+
             }
 
         },
         error: function (request, status, error) {
-           
+
             showToast('Atenção', 'Erro ao limpar o formulário', 'warning', '#dc3545', 'white', 10000);
         }
 
@@ -150,44 +154,43 @@ function limparSecaoContato () {
 $("#btn-limpar-campos-pessoais").click(function () {
 
     limparSecaoPessoal();
-    validarSecaoPessoal();
+
 
 });
 
 $("#btn-limpar-campos-endereco").click(function () {
 
     limparSecaoEndereco();
-    validarSecaoEndereco();
+
 
 });
 
-$("#btn-limpar-campos-contato").on("click",function(ev){
+$("#btn-limpar-campos-contato").on("click", function (ev) {
 
     limparSecaoContato();
-
 
 });
 
 
 function validarSecaoPessoal() {
 
-    var imgDoador = document.getElementById("imgDoador");
-    var txtNomeDoador = document.getElementById("txtNomeDoador");
-    var seSexo = document.getElementById("seSexo");
-    var txtDataNascimento = document.getElementById("txtDataNascimento");
-    var seTipoSanguineo = document.getElementById("seTipoSanguineo");
-    var seFatorRh = document.getElementById("seFatorRh");
-    var txtCpfDoador = document.getElementById("txtCpfDoador");
-    var txtRgDoador = document.getElementById("txtRgDoador");
+    let imgDoador = document.getElementById("imgDoador");
+    let txtNomeDoador = document.getElementById("txtNomeDoador");
+    let seSexo = document.getElementById("seSexo");
+    let txtDataNascimento = document.getElementById("txtDataNascimento");
+    let seTipoSanguineo = document.getElementById("seTipoSanguineo");
+    let seFatorRh = document.getElementById("seFatorRh");
+    let txtCpfDoador = document.getElementById("txtCpfDoador");
+    let txtRgDoador = document.getElementById("txtRgDoador");
 
-    var imgValida = false;
-    var nomeValido = false;
-    var sexoValido = false;
-    var dataNascimentoValido = false;
-    var tipoSanguineoValido = false;
-    var fatorRhValido = false;
-    var cpfValido = false;
-    var rgValido = false;
+    let imgValida = false;
+    let nomeValido = false;
+    let sexoValido = false;
+    let dataNascimentoValido = false;
+    let tipoSanguineoValido = false;
+    let fatorRhValido = false;
+    let cpfValido = false;
+    let rgValido = false;
 
 
     if (imgDoador.value != "") {
@@ -338,20 +341,20 @@ function validarSecaoPessoal() {
 function validarSecaoEndereco() {
 
 
-    var txtCep = document.getElementById("txtCep");
-    var txtLogradouro = document.getElementById("txtLogradouro");
-    var txtBairro = document.getElementById("txtBairro");
-    var txtCidade = document.getElementById("txtCidade");
-    var txtUf = document.getElementById("txtUf");
-    var txtNumero = document.getElementById("txtNumero");
-    var txtComplemento = document.getElementById("txtComplemento");
+    let txtCep = document.getElementById("txtCep");
+    let txtLogradouro = document.getElementById("txtLogradouro");
+    let txtBairro = document.getElementById("txtBairro");
+    let txtCidade = document.getElementById("txtCidade");
+    let txtUf = document.getElementById("txtUf");
+    let txtNumero = document.getElementById("txtNumero");
+    let txtComplemento = document.getElementById("txtComplemento");
 
-    var cepValido = false;
-    var logradouroValido = false;
-    var bairroValido = false;
-    var cidadeValida = false;
-    var ufValido = false;
-    var numeroValido = false;
+    let cepValido = false;
+    let logradouroValido = false;
+    let bairroValido = false;
+    let cidadeValida = false;
+    let ufValido = false;
+    let numeroValido = false;
 
 
 
@@ -516,11 +519,86 @@ function validarSecaoEndereco() {
         return false;
     }
 
+}
+
+function validarSecaoContato() {
+
+    let emailDoador = document.getElementById("txtEmail");
+
+    let emailValido = false;
+    let telefoneValido = false;
+
+
+    if (validarEmail(emailDoador.value)) {
+
+        emailValido = true;
+
+        $("#txtEmail").removeClass("is-invalid");
+        $("#txtEmail").addClass("is-valid");
+    }
+    else {
+        showToast('Atenção', 'Email inválido, por favor passe um email válido', 'warning', '#dc3545', 'white', 10000);
+
+        $("#txtEmail").removeClass("is-valid");
+        $("#txtEmail").addClass("is-invalid");
+    }
+
+    $.ajax({
+
+        url: "../controller/doador/verificar-tamanho-sessao-telefone.php",
+        type: "post",
+        dataType: "json",
+        async: false,
+        success: function (response) {
+
+            if (response.status) {
+
+                if (response.size > 0) {
+
+                    telefoneValido = true;
+
+                    $("ul.list-telefone").removeClass("is-invalid");
+                    $("ul.list-telefone").addClass("is-valid");
+
+
+                }
+                else {
+
+                    showToast('Atenção', 'Passe pelo menos um número para contato', 'warning', '#dc3545', 'white', 10000);
+
+                }
+
+            }
+            else {
+
+                showToast('Atenção', 'Passe pelo menos um número para contato', 'warning', '#dc3545', 'white', 10000);
+
+                $("ul.list-telefone").removeClass("is-valid");
+                $("ul.list-telefone").addClass("is-invalid");
+
+            }
+
+        },
+        error: function (request, status, error) {
+
+            showToast('Atenção', 'Erro ao validar a lista de telefones', 'warning', '#dc3545', 'white', 10000);
+            $("ul.list-telefone").removeClass("is-valid");
+            $("ul.list-telefone").addClass("is-invalid");
+        }
 
 
 
+    });
 
 
+
+    if (emailValido && telefoneValido) {
+
+        return true;
+
+    }
+
+    return false;
 
 }
 
@@ -535,9 +613,9 @@ $("input[name=imgDoador]").change(function () {
 
 function validarNome() {
 
-    var nome = document.getElementById("txtNomeDoador");
+    let nome = document.getElementById("txtNomeDoador");
 
-    for (var i = 0; i < nome.value.length; i++) {
+    for (let i = 0; i < nome.value.length; i++) {
 
         if (!checkNumber(nome.value[i])) {
             continue;
@@ -554,12 +632,19 @@ function validarNome() {
 
 $(document).ready(function () {
     try {
-        var fsPrev, fsAtual, fsNext;
-        var etapa = 1;
+
+        const primeiraEtapa = 1;
+        const segundaEtapa = 2;
+        const terceiraEtapa = 3;
+        const quartaEtapa = 4;
+
+        let fsPrev, fsAtual, fsNext;
+        let etapa = primeiraEtapa;
+
 
         $('.next').click(function () {
 
-            if (etapa == 1) {
+            if (etapa == primeiraEtapa) {
 
                 if (validarSecaoPessoal()) {
 
@@ -575,7 +660,7 @@ $(document).ready(function () {
                 }
 
             }
-            else if (etapa == 2) {
+            else if (etapa == segundaEtapa) {
 
 
                 if (validarSecaoEndereco()) {
@@ -593,10 +678,24 @@ $(document).ready(function () {
                 }
             }
 
-            else if (etapa == 3) {
+            else if (etapa == terceiraEtapa) {
+
+                if (validarSecaoContato()) {
+
+                    fsAtual = $(this).parent().parent().parent();
+                    fsNext = fsAtual.next();
+
+                    $('#progress li').eq($('fieldset').index(fsNext)).addClass("activated-section");
+
+                    fsAtual.hide(800);
+                    fsNext.show(800);
+
+                    etapa++;
+
+                }
 
             }
-            else if (etapa == 4) {
+            else if (etapa == quartaEtapa) {
 
 
             }
@@ -645,23 +744,26 @@ $("#form-adicionar-telefone-doador").submit(function (ev) {
 
                 if (response.size == 1) {
 
-                    document.getElementById("msg-list-telefone").remove();
+                    document.getElementById("msg-list-telefone-doador").remove();
                 }
 
 
 
-                $(".container-item-telefone").append("<li class='item-telefone d-flex bd-highlight align-items-center'>"
+                $("#container-item-telefone-doador").append("<li class='item-telefone d-flex bd-highlight align-items-center'>"
                     + "<i class='fas fa-phone-alt flex-fill bd-highlight'></i>"
                     + "<div class='h-100 flex-fill bd-highlight container-span-telefone'>"
                     + "<span class='h-100 d-flex justify-content-center align-items-center desc-telefone'>" + response.novoTelefone + "</span>"
                     + "</div>"
-                    + "<i class='fas fa-times flex-fill bd-highlight remover-telefone'></i>"
+                    + "<i class='fas fa-times flex-fill bd-highlight remover-telefone-doador'></i>"
                     + "</li>");
 
                 showToast('Sucesso', 'Telefone adicionado com sucesso', 'success', '#28a745', 'white', 5000);
 
                 $("#txtTelefoneDoador").removeClass("is-invalid");
                 $("#txtTelefoneDoador").val("");
+
+
+                $('#modal-adicionar-telefone-doador').modal('hide');
 
             }
             else {
@@ -687,20 +789,19 @@ $("#form-adicionar-telefone-doador").submit(function (ev) {
 
 
 
-    $('#modal-adicionar-telefone-doador').modal('hide');
 
 });
 
 
 
-$(document).on('click', 'i.remover-telefone', function (ev) {
+$(document).on('click', 'i.remover-telefone-doador', function (ev) {
 
 
     let descTelefoneRemovido = this.parentNode.querySelector("div.container-span-telefone").firstChild.innerHTML;
 
 
     $('#modal-remover-telefone-doador').modal('show');
-    $('#desc-remover-telefone').text("Deseja remover o número " + descTelefoneRemovido + " ?");
+    $('#desc-remover-telefone-doador').text("Deseja remover o número " + descTelefoneRemovido + " ?");
     $('#hdTelefoneRemovidoDoador').val(descTelefoneRemovido);
 
 
@@ -711,7 +812,7 @@ $("#form-remover-telefone-doador").on('submit', function (ev) {
 
     ev.preventDefault();
 
-    listContainerTelefone = document.querySelectorAll("li.item-telefone");
+    listContainerTelefone = document.querySelectorAll("div#container-item-telefone-doador li.item-telefone");
 
     for (let i = 0; i < listContainerTelefone.length; i++) {
 
@@ -739,8 +840,8 @@ $("#form-remover-telefone-doador").on('submit', function (ev) {
 
                 if (response.size == 0) {
 
-                    document.querySelector(".container-item-telefone").innerHTML =
-                        "<div id='msg-list-telefone'> <h5 class='text-center mt-3'> Nenhum telefone adicionado </h5> </div>";
+                    document.querySelector("#container-item-telefone-doador").innerHTML =
+                        "<div id='msg-list-telefone-doador'> <h5 class='text-center mt-3'> Nenhum telefone adicionado </h5> </div>";
 
                 }
                 showToast('Sucesso', 'Telefone removido com sucesso', 'success', '#28a745', 'white', 5000);
@@ -772,13 +873,13 @@ $("#form-remover-telefone-doador").on('submit', function (ev) {
 
 window.addEventListener('beforeunload', (event) => {
 
-    if ( $("#txtNomeDoador").val().length > 0 || $("#imgDoador").val().length > 0 ||
-    $("#txtDataNascimento").val().length > 0 || $("#txtCpfDoador").val().length > 0 || 
-    $("#txtRgDoador").val().length > 0 || $("txtCep").val().length > 0 || $("txtLogradouro").val().length > 0
-    || $("txtCidade").val().length > 0 || $("txtUf").val().length > 0 || $("txtNumero").val().length > 0
-    || $("txtComplemento").val().length > 0 || $("txtEmail").val().length > 0 || $("txtNomeResponsavel").val().length > 0    
-    || $("txtDataNascimentoResponsavel").val().length > 0 || $("txtCpfResponsavel").val().length > 0 || $("txtRgResponsavel").val().length > 0) {
-       
+    if ($("#txtNomeDoador").val().length > 0 || $("#imgDoador").val().length > 0 ||
+        $("#txtDataNascimento").val().length > 0 || $("#txtCpfDoador").val().length > 0 ||
+        $("#txtRgDoador").val().length > 0 || $("#txtCep").val().length > 0 || $("#txtLogradouro").val().length > 0
+        || $("#txtCidade").val().length > 0 || $("#txtUf").val().length > 0 || $("#txtNumero").val().length > 0
+        || $("#txtComplemento").val().length > 0 || $("#txtEmail").val().length > 0 || $("#txtNomeResponsavel").val().length > 0
+        || $("#txtDataNascimentoResponsavel").val().length > 0 || $("#txtCpfResponsavel").val().length > 0 || $("#txtRgResponsavel").val().length > 0) {
+
         event.returnValue = `Tem certeza que deseja sair ?`;
     }
 });

@@ -1,7 +1,7 @@
 <?php
 
-define("SUCESSO", true);
-define("FALHA", false);
+define("SUCESSO", 1);
+define("FALHA", 0);
 
 session_start();
 

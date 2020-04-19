@@ -5,9 +5,9 @@
     
     session_start();
 
-    if ( isset($_SESSION['telefonesDoador']) || !empty($_SESSION['telefonesDoador'])){
+    if ( isset($_SESSION['telefonesResponsavel']) || !empty($_SESSION['telefonesResponsavel'])){
 
-        unset($_SESSION['telefonesDoador']);
+        unset($_SESSION['telefonesResponsavel']);
 
         $resposta = array("status" => SUCESSO);
 

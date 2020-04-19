@@ -27,7 +27,8 @@ h6 {
 /* Inicio ----Login-----*/
 
 .background-default {
-    background-color: #F0142D;
+    /* background-color: #F0142D; */
+    background-color: #dc3545;
     color: white;
 }
 
@@ -422,7 +423,7 @@ ul.list-telefone h5 {
 }
 
 #form-insert fieldset:not(:first-of-type) {
-    /* display: none;  */
+      /* display: none;    */
 }
 
 ul#progress {
