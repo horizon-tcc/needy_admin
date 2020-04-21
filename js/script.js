@@ -5,7 +5,6 @@ $(".telefone-residencial").mask("(00) 0000-0000");
 $(".telefone-celular").mask("(00) 00000-0000");
 
 
-
 $(document).ready(function () {
     $('input').keypress(function (e) {
         var code = null;
@@ -185,13 +184,12 @@ function showToast(title, text, icon, bgColor, bgLoader, time) {
 
 }
 
-
-
 function validarEmail(email) {
     var filter = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
     
     if (filter.test(email)) {
         return true;
+    } else {
+        return false;
     }
-    return false;
 }

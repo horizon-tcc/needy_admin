@@ -7,7 +7,6 @@ $("#txtCpfDoador").blur(function (e) {
     else {
         $("#txtCpfDoador").removeClass("is-valid");
         $("#txtCpfDoador").addClass("is-invalid");
-
     }
 
 });
@@ -43,15 +42,12 @@ $("#txtCep").blur(function (e) {
 
             }
 
-
         },
         error: function (request, status, error) {
 
             $("#txtCep").removeClass("is-valid");
             $("#txtCep").addClass("is-invalid");
         }
-
-
 
     });
 
@@ -90,7 +86,6 @@ function limparSecaoPessoal() {
     $("#imgPreview").addClass("form-img");
 
 
-
     imgPreview.src = "../img/camera.png"
     imgDoador.value = "";
     txtNomeDoador.value = "";
@@ -100,10 +95,7 @@ function limparSecaoPessoal() {
     lblImgDoador.innerHTML = "<strong class='red'>*</strong> Escolha uma imagem";
 
 
-
-
 }
-
 
 function limparSecaoEndereco() {
 
@@ -114,7 +106,6 @@ function limparSecaoEndereco() {
     document.getElementById("txtUf").value = "";
     document.getElementById("txtNumero").value = "";
     document.getElementById("txtComplemento").value = "";
-
 
 }
 
@@ -144,9 +135,6 @@ function limparSecaoContato() {
             showToast('Atenção', 'Erro ao limpar o formulário', 'warning', '#dc3545', 'white', 10000);
         }
 
-
-
-
     });
 }
 
@@ -155,13 +143,11 @@ $("#btn-limpar-campos-pessoais").click(function () {
 
     limparSecaoPessoal();
 
-
 });
 
 $("#btn-limpar-campos-endereco").click(function () {
 
     limparSecaoEndereco();
-
 
 });
 
@@ -191,7 +177,6 @@ function validarSecaoPessoal() {
     let fatorRhValido = false;
     let cpfValido = false;
     let rgValido = false;
-
 
     if (imgDoador.value != "") {
 
@@ -311,7 +296,6 @@ function validarSecaoPessoal() {
     }
 
 
-
     if (txtRgDoador.value != "") {
 
         rgValido = true;
@@ -340,7 +324,6 @@ function validarSecaoPessoal() {
 
 function validarSecaoEndereco() {
 
-
     let txtCep = document.getElementById("txtCep");
     let txtLogradouro = document.getElementById("txtLogradouro");
     let txtBairro = document.getElementById("txtBairro");
@@ -355,8 +338,6 @@ function validarSecaoEndereco() {
     let cidadeValida = false;
     let ufValido = false;
     let numeroValido = false;
-
-
 
     $.ajax({
 
@@ -382,8 +363,6 @@ function validarSecaoEndereco() {
 
                 cepValido = true;
 
-
-
             }
             else {
 
@@ -392,15 +371,12 @@ function validarSecaoEndereco() {
 
             }
 
-
         },
         error: function (request, status, error) {
 
             $("#txtCep").removeClass("is-valid");
             $("#txtCep").addClass("is-invalid");
         }
-
-
 
     });
 
@@ -409,9 +385,6 @@ function validarSecaoEndereco() {
     if (!cepValido) {
         showToast('Atenção', 'CEP inválido, por favor passe um cep válido - inválido', 'warning', '#dc3545', 'white', 10000);
     }
-
-
-
 
 
     if (txtLogradouro.value != "") {
@@ -432,8 +405,6 @@ function validarSecaoEndereco() {
 
     }
 
-
-
     if (txtBairro.value != "") {
 
 
@@ -451,7 +422,6 @@ function validarSecaoEndereco() {
         $("#txtBairro").addClass("is-invalid");
 
     }
-
 
 
     if (txtCidade.value != "") {
@@ -883,5 +853,3 @@ window.addEventListener('beforeunload', (event) => {
         event.returnValue = `Tem certeza que deseja sair ?`;
     }
 });
-
-

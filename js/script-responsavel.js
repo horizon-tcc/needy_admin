@@ -12,7 +12,6 @@ $(document).on("change", "input[name=rbTipoContatoResponsavel]", function (e) {
 
     }
 
-
 });
 
 
@@ -92,8 +91,6 @@ $("#form-adicionar-telefone-responsavel").on("submit",function(event){
 });
 
 
-
-
 $(document).on('click', 'i.remover-telefone-responsavel', function (ev) {
 
 
@@ -129,7 +126,6 @@ $("#form-remover-telefone-responsavel").on('submit', function (ev) {
     }
 
     
-
     $.ajax({
 
         url: "../controller/responsavel/remover-telefone.php",
