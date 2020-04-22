@@ -12,7 +12,7 @@ $("#txtCpfFuncionario").blur(function () {
 });
 
 $("#txtNomeFuncionario").blur(function () {
-    let nome = $("#txtNomeDoador").value();
+    let nome = $("#txtNomeFuncionario").value();
 
     if (nome.length >= 3 && validarNome(nome)) {
         $("#txtNomeFuncionario").removeClass("is-invalid");
@@ -23,42 +23,6 @@ $("#txtNomeFuncionario").blur(function () {
 
         $("#txtNomeFuncionario").removeClass("is-valid");
         $("#txtNomeFuncionario").addClass("is-invalid");
-    }
-
-});
-
-$("#scBancoSangue").blur(function () {
-    if (!$("#scBancoSangue").value()) {
-        showToast('Atenção', 'Selecione uma das opções de Banco de Sangue Disponivel', 'warning', '#dc3545', 'white', 10000);
-        $('#scBancoSangue').removeClass(("is-valid"));
-        $('#scBancoSangue').addClass(("is-invalid"));
-    } else {
-        $('#scBancoSangue').removeClass(("is-invalid"));
-        $('#scBancoSangue').addClass(("is-valid"));
-    }
-});
-
-$("#scBancoSangue").blur(function () {
-    if (!$("#scBancoSangue").value()) {
-        showToast('Atenção', 'Selecione uma das opções de Banco de Sangue Disponivel', 'warning', '#dc3545', 'white', 10000);
-        $('#scBancoSangue').removeClass(("is-valid"));
-        $('#scBancoSangue').addClass(("is-invalid"));
-    } else {
-        $('#scBancoSangue').removeClass(("is-invalid"));
-        $('#scBancoSangue').addClass(("is-valid"));
-    }
-
-});
-
-$("#scBancoSangue").blur(function () {
-
-    if (!$("#scBancoSangue").value()) {
-        showToast('Atenção', 'Selecione uma das opções de banco de sangue disponivel', 'warning', '#dc3545', 'white', 10000);
-        $('#scBancoSangue').removeClass(("is-valid"));
-        $('#scBancoSangue').addClass(("is-invalid"));
-    } else {
-        $('#scBancoSangue').removeClass(("is-invalid"));
-        $('#scBancoSangue').addClass(("is-valid"));
     }
 
 });
@@ -75,3 +39,28 @@ $("#scCargoFuncionario").blur(function () {
     }
     
 });
+
+$("#txtRgFuncionario").blur(function () {
+
+    if (!$("#txtRgFuncionario").value()) {
+        showToast('Atenção', 'Digite um Rg valido', 'warning', '#dc3545', 'white', 10000);
+        $('#txtRgFuncionario').removeClass(("is-valid"));
+        $('#txtRgFuncionario').addClass(("is-invalid"));
+    } else {
+        $('#txtRgFuncionario').removeClass(("is-invalid"));
+        $('#txtRgFuncionario').addClass(("is-valid"));
+    }
+
+});
+
+function limparCamposFuncionario() {
+
+    document.getElementById("#txtCpfFuncionario").value = "";
+    document.getElementById("#txtNomeFuncionario").value = "";
+    document.getElementById("#txtRgFuncionario").value = "";
+    document.getElementById("#scBancoSangue").value = "";
+    document.getElementById("#scCargoFuncionario").value = "";
+
+}
+
+$("#btnLimparCamposFuncionario").click(limparCamposFuncionario());
