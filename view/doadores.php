@@ -424,7 +424,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                         <h4 class="text-center"> <strong class="red"> * </strong> Telefones </h4>
                         <div class="w-100 mt-3 d-flex justify-content-center align-items-center flex-column">
 
-                            <ul class="list-telefone">
+                            <ul class="list-telefone" id="list-telefone-doador">
                                 <div class="container-item-telefone" id="container-item-telefone-doador">
                                     <?php
 
@@ -515,13 +515,30 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                 <div class="form-row mt-5 w-100">
 
                     <div class="form-group col-md-6 pb-2">
+
                         <label for="txtNomeResponsavel">Nome</label>
                         <input type="text" class="form-control" name="txtNomeResponsavel" id="txtNomeResponsavel" placeholder="Digite o nome" />
+
+                        <div id="feedback-valid-nome-Responsavel" class="valid-feedback">
+                            Nome válido!
+                        </div>
+                        <div id="feedback-invalid-nome-Responsavel" class="invalid-feedback">
+                            Nome inválido!
+                        </div>
                     </div>
 
                     <div class="form-group col-md-6 pb-2">
                         <label for="txtDataNascimentoResponsavel">Data de nascimento</label>
                         <input type="date" class="form-control" id="txtDataNascimentoResponsavel" name="txtDataNascimentoResponsavel" placeholder="Escolha a data de nascimento" />
+                       
+                        <div id="feedback-valid-data-Responsavel" class="valid-feedback">
+                            Data de nascimento válida!
+                        </div>
+
+                        <div id="feedback-invalid-data-Responsavel" class="invalid-feedback">
+                            Data de nascimento inválida!
+                        </div>
+
                     </div>
 
                 </div>
@@ -532,12 +549,28 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                     <div class="form-group col-md-6 pb-2">
                         <label for="txtCpfResponsavel">CPF</label>
                         <input type="text" class="form-control txtCpf" id="txtCpfResponsavel" name="txtCpfResponsavel" placeholder="Digite o CPF" />
+                        
+                        <div id="feedback-valid-cpf-Responsavel" class="valid-feedback">
+                            CPF válido!
+                        </div>
+
+                        <div id="feedback-invalid-cpf-Responsavel" class="invalid-feedback">
+                            CPF inválido!
+                        </div>
+
                     </div>
 
 
                     <div class="form-group col-md-6 pb-2">
                         <label for="txtRgResponsavel">RG</label>
                         <input type="text" class="form-control txtRg" id="txtRgResponsavel" name="txtRgResponsavel" placeholder="Digite o RG" />
+
+                        <div id="feedback-valid-rg-Responsavel" class="valid-feedback">
+                            RG válido!
+                        </div>
+                        <div id="feedback-invalid-rg-Responsavel" class="invalid-feedback">
+                            RG inválido!
+                        </div>
                     </div>
 
                 </div>
@@ -549,7 +582,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                         <h4 class="text-center"> <strong class="red"> * </strong> Telefones </h4>
                         <div class="w-100 mt-3 d-flex justify-content-center align-items-center flex-column">
 
-                            <ul class="list-telefone">
+                            <ul class="list-telefone" id="list-telefone-responsavel">
                                 <div class="container-item-telefone" id="container-item-telefone-responsavel">
                                     <?php
 
@@ -580,11 +613,11 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                             </ul>
 
 
-                            <div id="feedback-valid-telefone-Doador" class="valid-feedback w-100 text-center">
+                            <div id="feedback-valid-telefone-Responsavel" class="valid-feedback w-100 text-center">
                                 Correto!
                             </div>
 
-                            <div id="feedback-invalid-telefone-Doador" class="invalid-feedback w-100 text-center">
+                            <div id="feedback-invalid-telefone-Responsavel" class="invalid-feedback w-100 text-center">
                                 Passe pelo menos um telefone!
                             </div>
                         </div>
@@ -609,7 +642,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
                     <div class="form-group col-md-4 d-flex align-items-end justify-content-end pb-2 pt-2">
 
-                        <button type="reset" class="btn btn-outline-danger w-100 flat">
+                        <button type="button" class="btn btn-outline-danger w-100 flat">
                             <i class="far fa-window-close"></i> Limpar
                         </button>
 
@@ -620,7 +653,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
                     <div class="form-group col-md-4 d-flex align-items-end justify-content-end pb-2 pt-2">
 
-                        <button type="submit" class="btn btn-danger w-100 flat action" name="next">
+                        <button type="button" class="btn btn-danger w-100 flat action next" name="next">
                             <i class="far fa-paper-plane"></i> Finalizar Cadastro
                         </button>
 
@@ -842,7 +875,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
             </div>
         </div>
 
-        
+
 
         <div class="modal fade" id="modal-remover-telefone-responsavel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
