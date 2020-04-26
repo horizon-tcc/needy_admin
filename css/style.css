@@ -423,7 +423,7 @@ ul.list-telefone h5 {
 }
 
 #form-insert fieldset:not(:first-of-type) {
-      /* display: none;    */
+      display: none;   
 }
 
 ul#progress {
@@ -518,4 +518,13 @@ label#file-description span {
 
 label#file-description span:nth-child(3) {
     margin-right: 0;
+}
+.remove-cellphone {
+
+
+}
+.remove-cellphone:hover {
+
+    cursor: pointer;
+    background-color:rgba(0, 0, 0, .3) ;
 }

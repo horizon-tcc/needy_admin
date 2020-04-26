@@ -125,7 +125,7 @@ function limparSecaoContato() {
                 $(".container-item-telefone").empty();
 
                 document.querySelector(".container-item-telefone").innerHTML =
-                    "<div id='msg-list-telefone'> <h5 class='text-center mt-3'> Nenhum telefone adicionado </h5> </div>";
+                    "<div id='msg-list-telefone-doador'> <h5 class='text-center mt-3'> Nenhum telefone adicionado </h5> </div>";
 
             }
 
@@ -196,7 +196,8 @@ function validarSecaoPessoal() {
 
     }
 
-    if (txtNomeDoador.value.length >= 3 && validarNome(txtNomeDoador.value)) {
+
+    if (validarNome(txtNomeDoador.value)) {
 
         nomeValido = true;
 
@@ -233,7 +234,7 @@ function validarSecaoPessoal() {
 
 
 
-    if (validarData(txtDataNascimento.value)) {
+    if (validarDataDoador(txtDataNascimento.value)) {
 
         dataNascimentoValido = true;
 
@@ -527,8 +528,8 @@ function validarSecaoContato() {
 
                     telefoneValido = true;
 
-                    $("ul.list-telefone").removeClass("is-invalid");
-                    $("ul.list-telefone").addClass("is-valid");
+                    $("#list-telefone-doador").removeClass("is-invalid");
+                    $("#list-telefone-doador").addClass("is-valid");
 
 
                 }
@@ -543,8 +544,8 @@ function validarSecaoContato() {
 
                 showToast('Atenção', 'Passe pelo menos um número para contato', 'warning', '#dc3545', 'white', 10000);
 
-                $("ul.list-telefone").removeClass("is-valid");
-                $("ul.list-telefone").addClass("is-invalid");
+                $("#list-telefone-doador").removeClass("is-valid");
+                $("#list-telefone-doador").addClass("is-invalid");
 
             }
 
@@ -552,8 +553,8 @@ function validarSecaoContato() {
         error: function (request, status, error) {
 
             showToast('Atenção', 'Erro ao validar a lista de telefones', 'warning', '#dc3545', 'white', 10000);
-            $("ul.list-telefone").removeClass("is-valid");
-            $("ul.list-telefone").addClass("is-invalid");
+            $("#list-telefone-doador").removeClass("is-valid");
+            $("#list-telefone-doador").addClass("is-invalid");
         }
 
 
@@ -581,26 +582,10 @@ $("input[name=imgDoador]").change(function () {
 });
 
 
-function validarNome() {
-
-    let nome = document.getElementById("txtNomeDoador");
-
-    for (let i = 0; i < nome.value.length; i++) {
-
-        if (!checkNumber(nome.value[i])) {
-            continue;
-        }
-        else {
-            return false;
-        }
-
-    }
-
-    return true;
-}
 
 
 $(document).ready(function () {
+ 
     try {
 
         const primeiraEtapa = 1;
@@ -667,6 +652,46 @@ $(document).ready(function () {
             }
             else if (etapa == quartaEtapa) {
 
+                if (validarSecaoResponsavel()) {
+
+                    // $.ajax({
+
+                    //     url: "../controller/doador/adicionar-telefone.php",
+                    //     type: "post",
+                    //     dataType: "json",
+                    //     data: {
+                
+                    //         "txtTelefoneDoador": $('#txtTelefoneDoador').val()
+                    //     },
+                    //     success: function (response) {
+                
+                    //         if (response.status) {
+                
+                                
+                    //         }
+                    //         else {
+                
+                    //             showToast('Atenção', 'Erro ao cadastrar o doador!', 'warning', '#dc3545', 'white', 5000);
+                    //             $("#txtTelefoneDoador").removeClass("is-valid");
+                    //             $("#txtTelefoneDoador").addClass("is-invalid");
+                    //         }
+                
+                    //     },
+                    //     error: function (request, status, error) {
+                
+                    //         showToast('Atenção', 'Erro ao cadastrar o doador!', 'warning', '#dc3545', 'white', 5000);
+                    //         $("#txtTelefoneDoador").removeClass("is-valid");
+                    //         $("#txtTelefoneDoador").addClass("is-invalid");
+                
+                
+                    //     }
+                
+                
+                
+                    // });
+                
+                    
+                }
 
             }
         });
@@ -688,8 +713,8 @@ $(document).ready(function () {
         });
 
     }
-    catch (e) {
-        logMyErrors(e);
+    catch (ex) {
+        console.log(ex.message);
     }
 });
 
@@ -853,3 +878,33 @@ window.addEventListener('beforeunload', (event) => {
         event.returnValue = `Tem certeza que deseja sair ?`;
     }
 });
+
+
+function validarDataDoador(data) {
+
+    try {
+
+        let dataPassada = new Date(data);
+
+        let dataAux0 = new Date();
+        let dataAux1 = new Date();
+
+        dataAux0.setYear(dataAux0.getFullYear() - 16);
+
+        dataAux1.setYear(dataAux1.getFullYear() - 69);
+
+        if (dataPassada <= dataAux0 && dataPassada >= dataAux1) {
+
+            return true;
+        }
+
+        return false;
+
+    }
+
+    catch (ex) {
+
+        return false;
+    }
+}
+

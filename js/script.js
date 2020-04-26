@@ -91,28 +91,6 @@ function checkNumber(valor) {
     }
 }
 
-function validarData(data) {
-    dataAtual = new Date();
-    data = data.split("-");
-
-    if (checkNumber(data[0]) && checkNumber(data[1]) && checkNumber(data[2])) {
-
-
-        if (((dataAtual.getFullYear() - data[0]) >= 16)
-            && (data[0] >= dataAtual.getFullYear() - 80)
-            && (data[0] < dataAtual.getFullYear())) {
-
-            return true;
-        }
-
-    }
-    else {
-        return false;
-    }
-}
-
-
-
 function inserirImg() {
 
     var file = document.querySelector('.img-input').files[0];
@@ -186,10 +164,37 @@ function showToast(title, text, icon, bgColor, bgLoader, time) {
 
 function validarEmail(email) {
     var filter = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-    
+
     if (filter.test(email)) {
         return true;
     } else {
         return false;
     }
+}
+
+
+function convertMilisecsToYears(milisecs){
+
+    return milisecs / 1000 / 60 / 60  / 24 / 365;
+}
+
+
+function validarNome(nome) {
+
+
+    if (nome != "" && nome.length >= 3) {
+
+        for (let i = 0; i < nome.length; i++) {
+
+            if (!checkNumber(nome[i])) {
+                continue;
+            }
+            else {
+                return false;
+            }
+
+        }
+    }
+
+    return true;
 }
