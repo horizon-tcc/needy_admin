@@ -3,6 +3,11 @@
     require_once(__DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."global.php");
 
     try{
+        if() {
+
+        } else if() {
+
+        }
         $paciente = new PacienteDAO();
         $paciente->setNomePaciente($_POST['txtNome']);
         $paciente->setSexoPaciente($_POST['seSexo']);
