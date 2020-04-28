@@ -16,4 +16,18 @@
            return $pstm->fetchAll();
 
         }
+
+        public function verificarExistenciaPeloId($id){
+
+            $conn = DB::getConn();
+
+            $sql = "SELECT * FROM tbtiposanguineo WHERE idTipoSanguineo = ?";
+
+            $pstm = $conn->prepare($sql);
+            $pstm->bindValue(1, $id);
+
+            $pstm->execute();
+            
+            return ( count($pstm->fetchAll()) > 0 ) ? true : false ; 
+        }
     }

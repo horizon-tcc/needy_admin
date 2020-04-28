@@ -21,6 +21,20 @@
 
         }
 
+        public function verificaExistenciaPeloId($id){
+
+            $conn = DB::getConn();
+            $sql = "SELECT * FROM tbsexo WHERE idSexo = ?";
+
+            $pstm = $conn->prepare($sql);
+
+            $pstm->bindValue(1, $id);
+
+            $pstm->execute();
+
+            return ( count($pstm->fetchAll()) > 0 ) ? true : false;
+        }
+
     }
 
 

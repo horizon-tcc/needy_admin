@@ -20,35 +20,35 @@ function validarCpf(cpf) {
 
 
 
-        var cpfFormatado = cpf.replace(/\./g, "");
+        let cpfFormatado = cpf.replace(/\./g, "");
         cpfFormatado = cpfFormatado.replace("-", "");
 
 
-        var vetCpf = cpfFormatado.split("");
+        let vetCpf = cpfFormatado.split("");
 
-        var primeiroCaracter = vetCpf[0];
+        let primeiroCaracter = vetCpf[0];
 
         for (var i = 1; primeiroCaracter == vetCpf[i]; i++) {
-            if (i == vetCpf.length - 2) {
-                return;
+            if (i == vetCpf.length - 1) {
+                return false;
             }
         }
 
-        var primeiraSoma = 0;
+        let primeiraSoma = 0;
 
-        for (var i = 0, m = 10; i < vetCpf.length - 2; i++, m--) {
+        for (let i = 0, m = 10; i < vetCpf.length - 2; i++, m--) {
 
             primeiraSoma += vetCpf[i] * m;
 
         }
-        var primeiroResto = (primeiraSoma * 10) % 11;
+        let primeiroResto = (primeiraSoma * 10) % 11;
 
         if (primeiroResto == vetCpf[vetCpf.length - 2] ||
             (primeiroResto == 10 && vetCpf[vetCpf.length - 2] == 0)) {
 
-            var segundaSoma = 0;
+            let segundaSoma = 0;
 
-            for (var i = 0, m = 11; i < vetCpf.length - 1; i++, m--) {
+            for (let i = 0, m = 11; i < vetCpf.length - 1; i++, m--) {
 
                 segundaSoma += vetCpf[i] * m;
 
@@ -173,16 +173,16 @@ function validarEmail(email) {
 }
 
 
-function convertMilisecsToYears(milisecs){
+function convertMilisecsToYears(milisecs) {
 
-    return milisecs / 1000 / 60 / 60  / 24 / 365;
+    return milisecs / 1000 / 60 / 60 / 24 / 365;
 }
 
 
 function validarNome(nome) {
 
 
-    if (nome != "" && nome.length >= 3) {
+    if (nome.length >= 3) {
 
         for (let i = 0; i < nome.length; i++) {
 
@@ -194,7 +194,13 @@ function validarNome(nome) {
             }
 
         }
+
+        return true;
+    }
+    else {
+
+        return false;
     }
 
-    return true;
+
 }

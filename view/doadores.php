@@ -9,7 +9,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
     <div class="container-fluid d-flex justify-content-center align-items-center mt-2">
 
-        <form action="controller/doador/cadastrarDoador.php" method="post" class="w-100" id="form-insert">
+        <form action="controller/doador/cadastrarDoador.php" method="post" class="w-100" id="form-insert" enctype="multipart/form-data">
 
             <h2 class="text-center mt-4"> Cadastro de doadores </h2>
             <ul id="progress" class="text-center d-flex mt-2 pt-3">
@@ -58,7 +58,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                 <div class="form-row w-100">
                     <div class="form-group col-md-12 pb-2">
                         <label for="txtNomeDoador"> <strong class="red"> * </strong> Nome </label>
-                        <input type="text" class="form-control" name="txtNomeDoador" id="txtNomeDoador" placeholder="Digite o nome" maxlength="100" />
+                        <input type="text" class="form-control flat" name="txtNomeDoador" id="txtNomeDoador" placeholder="Digite o nome" maxlength="100" />
 
                         <div id="feedback-valid-nome-Doador" class="valid-feedback">
                             Nome válido!
@@ -72,7 +72,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                 <div class="form-row w-100">
                     <div class="form-group col-md-6 pb-2">
                         <label for="seSexo"> <strong class="red"> * </strong> Sexo</label>
-                        <select class="form-control" name="seSexo" id="seSexo">
+                        <select class="form-control flat" name="seSexo" id="seSexo">
 
                             <?php
 
@@ -101,7 +101,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
                     <div class="form-group col-md-6 pb-2">
                         <label for="txtDataNascimento"> <strong class="red"> * </strong> Data de nascimento</label>
-                        <input type="date" class="form-control input-date" id="txtDataNascimento" name="txtDataNascimento" placeholder="Escolha a data de nascimento" />
+                        <input type="date" class="form-control input-date flat" id="txtDataNascimento" name="txtDataNascimento" placeholder="Escolha a data de nascimento" />
 
                         <div id="feedback-valid-data-nascimento" class="valid-feedback">
                             Data de nascimento válida!
@@ -116,7 +116,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
                     <div class="form-group col-md-6 pb-2">
                         <label for="seTipoSanguineo"> <strong class="red"> * </strong> Tipo sanguíneo</label>
-                        <select class="form-control" name="seTipoSanguineo" id="seTipoSanguineo">
+                        <select class="form-control flat" name="seTipoSanguineo" id="seTipoSanguineo">
                             <?php
 
                             $tipoSanguineoController = new TipoSanguineoController();
@@ -141,7 +141,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
                     <div class="form-group col-md-6 pb-2">
                         <label for="seFatorRh"> <strong class="red"> * </strong> Fator Rh</label>
-                        <select class="form-control" name="seFatorRh" id="seFatorRh">
+                        <select class="form-control flat" name="seFatorRh" id="seFatorRh">
 
                             <?php
 
@@ -176,7 +176,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                     <div class="form-group col-md-6 pb-2">
 
                         <label for="txtCpfDoador"> <strong class="red"> * </strong> CPF</label>
-                        <input type="text" class="form-control txtCpf" id="txtCpfDoador" name="txtCpfDoador" placeholder="Digite o CPF" />
+                        <input type="text" class="form-control txtCpf flat" id="txtCpfDoador" name="txtCpfDoador" placeholder="Digite o CPF" />
                         <div id="feedback-valid-cpf-Doador" class="valid-feedback">
                             CPF válido!
                         </div>
@@ -187,7 +187,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
                     <div class="form-group col-md-6 pb-2">
                         <label for="txtRgDoador"> <strong class="red"> * </strong> RG</label>
-                        <input type="text" class="form-control txtRg" id="txtRgDoador" name="txtRgDoador" placeholder="Digite o RG" />
+                        <input type="text" class="form-control txtRg flat" id="txtRgDoador" name="txtRgDoador" placeholder="Digite o RG" />
 
                         <div id="feedback-valid-rg-Doador" class="valid-feedback">
                             RG válido!
@@ -247,7 +247,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                     <div class="form-group col-md-12 pb-2">
 
                         <label for="txtCep"> <strong class="red"> * </strong> CEP</label>
-                        <input type="text" class="form-control txtCep" id="txtCep" name="txtCep" placeholder="Digite o CEP" />
+                        <input type="text" class="form-control txtCep flat" id="txtCep" name="txtCep" placeholder="Digite o CEP" />
 
                         <div id="feedback-valid-cep-Doador" class="valid-feedback">
                             CEP válido!
@@ -264,7 +264,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                     <div class="form-group col-md-4 pb-2">
 
                         <label for="txtLogradouro"> <strong class="red"> * </strong> Logradouro</label>
-                        <input type="text" class="form-control" id="txtLogradouro" name="txtLogradouro" placeholder="Digite o logradouro" maxlength="100" />
+                        <input type="text" class="form-control flat" id="txtLogradouro" name="txtLogradouro" placeholder="Digite o logradouro" maxlength="100" />
 
                         <div id="feedback-valid-logradouro-Doador" class="valid-feedback">
                             Logradouro válido!
@@ -278,7 +278,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                     <div class="form-group col-md-4 pb-2">
 
                         <label for="txtBairro"> <strong class="red"> * </strong> Bairro</label>
-                        <input type="text" class="form-control" id="txtBairro" name="txtBairro" placeholder="Digite o bairro" maxlength="100" />
+                        <input type="text" class="form-control flat" id="txtBairro" name="txtBairro" placeholder="Digite o bairro" maxlength="100" />
 
 
                         <div id="feedback-valid-bairro-Doador" class="valid-feedback">
@@ -293,7 +293,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                     <div class="form-group col-md-4 pb-2">
 
                         <label for="txtCidade"> <strong class="red"> * </strong> Cidade</label>
-                        <input type="text" class="form-control" id="txtCidade" name="txtCidade" placeholder="Digite a cidade" maxlength="100" />
+                        <input type="text" class="form-control flat" id="txtCidade" name="txtCidade" placeholder="Digite a cidade" maxlength="100" />
 
 
                         <div id="feedback-valid-cidade-Doador" class="valid-feedback">
@@ -314,7 +314,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                     <div class="form-group col-md-4 pb-2">
 
                         <label for="txtUf"> <strong class="red"> * </strong> UF</label>
-                        <input type="text" class="form-control" id="txtUf" name="txtUf" placeholder="Digite o estado" maxlength="2" />
+                        <input type="text" class="form-control flat" id="txtUf" name="txtUf" placeholder="Digite o estado" maxlength="2" />
 
 
                         <div id="feedback-valid-uf-Doador" class="valid-feedback">
@@ -330,7 +330,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                     <div class="form-group col-md-4 pb-2">
 
                         <label for="txtNumero"> <strong class="red"> * </strong> Número</label>
-                        <input type="text" class="form-control" id="txtNumero" name="txtNumero" placeholder="Digite o número residencial" maxlength="5" />
+                        <input type="text" class="form-control flat" id="txtNumero" name="txtNumero" placeholder="Digite o número residencial" maxlength="5" />
 
                         <div id="feedback-valid-numero-Doador" class="valid-feedback">
                             Número válido!
@@ -344,7 +344,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                     <div class="form-group col-md-4 pb-2">
 
                         <label for="txtComplemento">Complemento</label>
-                        <input type="text" class="form-control" id="txtComplemento" name="txtComplemento" placeholder="Digite o complemento do endereço" maxlength="70" />
+                        <input type="text" class="form-control flat" id="txtComplemento" name="txtComplemento" placeholder="Digite o complemento do endereço" maxlength="70" />
                     </div>
 
 
@@ -406,7 +406,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
                     <div class="form-group col-md-6 pb-2">
                         <label for="txtEmail"> <strong class="red"> * </strong> E-mail</label>
-                        <input type="email" class="form-control" name="txtEmail" id="txtEmail" placeholder="Digite o e-mail" />
+                        <input type="email" class="form-control flat" name="txtEmail" id="txtEmail" placeholder="Digite o e-mail" />
 
                         <div id="feedback-valid-nome-Doador" class="valid-feedback">
                             Email válido!
@@ -468,6 +468,10 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
                 </div>
 
+                <div class="form-row w-100 mt-2 d-flex justify-content-end">
+                    <h6 class="text-center mt-2"> Dados obrigatórios <strong class="red"> * </strong> </h6>
+                </div>
+
                 <div class="form-row w-100 mt-5">
 
 
@@ -516,8 +520,8 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
                     <div class="form-group col-md-6 pb-2">
 
-                        <label for="txtNomeResponsavel">Nome</label>
-                        <input type="text" class="form-control" name="txtNomeResponsavel" id="txtNomeResponsavel" placeholder="Digite o nome" />
+                        <label for="txtNomeResponsavel"> <strong class="red"> * </strong> Nome</label>
+                        <input type="text" class="form-control flat" name="txtNomeResponsavel" id="txtNomeResponsavel" placeholder="Digite o nome" />
 
                         <div id="feedback-valid-nome-Responsavel" class="valid-feedback">
                             Nome válido!
@@ -528,8 +532,8 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                     </div>
 
                     <div class="form-group col-md-6 pb-2">
-                        <label for="txtDataNascimentoResponsavel">Data de nascimento</label>
-                        <input type="date" class="form-control" id="txtDataNascimentoResponsavel" name="txtDataNascimentoResponsavel" placeholder="Escolha a data de nascimento" />
+                        <label for="txtDataNascimentoResponsavel"> <strong class="red"> * </strong> Data de nascimento</label>
+                        <input type="date" class="form-control flat" id="txtDataNascimentoResponsavel" name="txtDataNascimentoResponsavel" placeholder="Escolha a data de nascimento" />
                        
                         <div id="feedback-valid-data-Responsavel" class="valid-feedback">
                             Data de nascimento válida!
@@ -547,8 +551,8 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
 
                     <div class="form-group col-md-6 pb-2">
-                        <label for="txtCpfResponsavel">CPF</label>
-                        <input type="text" class="form-control txtCpf" id="txtCpfResponsavel" name="txtCpfResponsavel" placeholder="Digite o CPF" />
+                        <label for="txtCpfResponsavel"> <strong class="red"> * </strong> CPF</label>
+                        <input type="text" class="form-control txtCpf flat" id="txtCpfResponsavel" name="txtCpfResponsavel" placeholder="Digite o CPF" />
                         
                         <div id="feedback-valid-cpf-Responsavel" class="valid-feedback">
                             CPF válido!
@@ -562,8 +566,8 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
 
                     <div class="form-group col-md-6 pb-2">
-                        <label for="txtRgResponsavel">RG</label>
-                        <input type="text" class="form-control txtRg" id="txtRgResponsavel" name="txtRgResponsavel" placeholder="Digite o RG" />
+                        <label for="txtRgResponsavel"> <strong class="red"> * </strong> RG</label>
+                        <input type="text" class="form-control txtRg flat" id="txtRgResponsavel" name="txtRgResponsavel" placeholder="Digite o RG" />
 
                         <div id="feedback-valid-rg-Responsavel" class="valid-feedback">
                             RG válido!
@@ -625,7 +629,10 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
 
                 </div>
-
+                
+                <div class="form-row w-100 mt-2 d-flex justify-content-end">
+                    <h6 class="text-center mt-2"> Dados obrigatórios <strong class="red"> * </strong> </h6>
+                </div>
 
                 <div class="form-row w-100 mt-5">
 
@@ -642,7 +649,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
                     <div class="form-group col-md-4 d-flex align-items-end justify-content-end pb-2 pt-2">
 
-                        <button type="button" class="btn btn-outline-danger w-100 flat">
+                        <button type="button" class="btn btn-outline-danger w-100 flat" data-toggle="modal" data-target="#limpar-campos-responsavel">
                             <i class="far fa-window-close"></i> Limpar
                         </button>
 
@@ -676,7 +683,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h5> Deseja limpar todos os campos ?</h5>
+                        <h5> Deseja limpar os campos desta etapa ?</h5>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
@@ -698,7 +705,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h5> Deseja limpar todos os campos ? </h5>
+                        <h5> Deseja limpar os campos desta etapa ? </h5>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
@@ -719,11 +726,32 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h5> Deseja limpar todos os campos ? </h5>
+                        <h5> Deseja limpar os campos desta etapa ? </h5>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
                         <button type="button" class="btn btn-danger" id="btn-limpar-campos-contato" data-dismiss="modal">Limpar</button>
+                    </div>
+                </div>
+            </div>
+        </div>  
+
+
+        <div class="modal fade" id="limpar-campos-responsavel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal-title-limpar-campos-responsavel"> Limpar campos </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h5> Deseja limpar os campos desta etapa ? </h5>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger" id="btn-limpar-campos-responsavel" data-dismiss="modal">Limpar</button>
                     </div>
                 </div>
             </div>
@@ -760,7 +788,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
                                 <div class="form-group col-md-12 py-2">
                                     <label for="txtTelefoneDoador">Telefone</label>
-                                    <input type="text" name="txtTelefoneDoador" id="txtTelefoneDoador" class="form-control telefone-residencial" placeholder="Digite o telefone" />
+                                    <input type="text" name="txtTelefoneDoador" id="txtTelefoneDoador" class="form-control telefone-residencial flat" placeholder="Digite o telefone" />
 
                                     <div id="feedback-valid-telefone-Doador" class="valid-feedback">
                                         Telefone válido!
@@ -851,7 +879,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
                                 <div class="form-group col-md-12 py-2">
                                     <label for="txtTelefoneResponsavel">Telefone</label>
-                                    <input type="text" name="txtTelefoneResponsavel" id="txtTelefoneResponsavel" class="form-control telefone-residencial" placeholder="Digite o telefone" />
+                                    <input type="text" name="txtTelefoneResponsavel" id="txtTelefoneResponsavel" class="form-control telefone-residencial flat  " placeholder="Digite o telefone" />
 
                                     <div id="feedback-valid-telefone-Doador" class="valid-feedback">
                                         Telefone válido!

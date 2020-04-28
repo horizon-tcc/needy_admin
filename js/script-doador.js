@@ -92,7 +92,9 @@ function limparSecaoPessoal() {
     txtDataNascimento.value = "";
     txtCpfDoador.value = "";
     txtRgDoador.value = "";
-    lblImgDoador.innerHTML = "<strong class='red'>*</strong> Escolha uma imagem";
+    lblImgDoador.innerHTML = "<span> <strong> * </strong> </span>"
+        + "<span> <i class='far fa-file-image'></i> </span>"
+        + "<span> Escolha uma imagem </span>";
 
 
 }
@@ -122,9 +124,9 @@ function limparSecaoContato() {
 
             if (response.status) {
 
-                $(".container-item-telefone").empty();
+                $("#container-item-telefone-doador").empty();
 
-                document.querySelector(".container-item-telefone").innerHTML =
+                document.querySelector("#container-item-telefone-doador").innerHTML =
                     "<div id='msg-list-telefone-doador'> <h5 class='text-center mt-3'> Nenhum telefone adicionado </h5> </div>";
 
             }
@@ -585,7 +587,7 @@ $("input[name=imgDoador]").change(function () {
 
 
 $(document).ready(function () {
- 
+
     try {
 
         const primeiraEtapa = 1;
@@ -637,15 +639,70 @@ $(document).ready(function () {
 
                 if (validarSecaoContato()) {
 
-                    fsAtual = $(this).parent().parent().parent();
-                    fsNext = fsAtual.next();
+                    let dataEscolhida = new Date($('#txtDataNascimento').val());
+                    let dataAtual = new Date();
 
-                    $('#progress li').eq($('fieldset').index(fsNext)).addClass("activated-section");
+                    let diferenca = Math.abs(dataAtual.getTime() - dataEscolhida.getTime());
 
-                    fsAtual.hide(800);
-                    fsNext.show(800);
+                    diferenca = Math.floor(diferenca / 1000 / 60 / 60 / 24 / 365);
 
-                    etapa++;
+                    if (diferenca >= 18) {
+
+                        $.ajax({
+
+                            url: "../controller/doador/cadastrar-doador.php",
+                            type: "post",
+                            dataType: "json",
+                            data: {
+                                "imgDoador": $("#imgDoador").val(),
+                                "txtNomeDoador": $("#txtNomeDoador").val(),
+                                "seSexo": $("#seSexo").val(),
+                                "txtDataNascimento": $("#txtDataNascimento").val(),
+                                "seTipoSanguineo": $("#seTipoSanguineo").val(),
+                                "seFatorRh": $("#txtCpfDoador").val(),
+                                "txtRgDoador": $("#txtRgDoador").val(),
+                                "txtCep": $("#txtCep").val(),
+                                "txtLogradouro": $("#txtLogradouro").val(),
+                                "txtBairro": $("#txtBairro").val(),
+                                "txtCidade": $("#txtCidade").val(),
+                                "txtUf": $("#txtUf").val(),
+                                "txtNumero": $("#txtNumero").val(),
+                                "txtComplemento": $("#txtComplemento").val(),
+                                "txtEmail": $("#txtEmail").val()
+
+                            },
+                            success: function (response) {
+
+
+
+                            },
+                            error: function (request, status, error) {
+
+
+                            }
+
+
+
+                        });
+
+
+
+                    }
+
+                    else {
+
+                        fsAtual = $(this).parent().parent().parent();
+                        fsNext = fsAtual.next();
+
+                        $('#progress li').eq($('fieldset').index(fsNext)).addClass("activated-section");
+
+                        fsAtual.hide(800);
+                        fsNext.show(800);
+
+                        etapa++;
+                    }
+
+
 
                 }
 
@@ -654,43 +711,48 @@ $(document).ready(function () {
 
                 if (validarSecaoResponsavel()) {
 
-                    // $.ajax({
+                    $.ajax({
 
-                    //     url: "../controller/doador/adicionar-telefone.php",
-                    //     type: "post",
-                    //     dataType: "json",
-                    //     data: {
-                
-                    //         "txtTelefoneDoador": $('#txtTelefoneDoador').val()
-                    //     },
-                    //     success: function (response) {
-                
-                    //         if (response.status) {
-                
-                                
-                    //         }
-                    //         else {
-                
-                    //             showToast('Atenção', 'Erro ao cadastrar o doador!', 'warning', '#dc3545', 'white', 5000);
-                    //             $("#txtTelefoneDoador").removeClass("is-valid");
-                    //             $("#txtTelefoneDoador").addClass("is-invalid");
-                    //         }
-                
-                    //     },
-                    //     error: function (request, status, error) {
-                
-                    //         showToast('Atenção', 'Erro ao cadastrar o doador!', 'warning', '#dc3545', 'white', 5000);
-                    //         $("#txtTelefoneDoador").removeClass("is-valid");
-                    //         $("#txtTelefoneDoador").addClass("is-invalid");
-                
-                
-                    //     }
-                
-                
-                
-                    // });
-                
-                    
+                        url: "../controller/doador/cadastrar-doador.php",
+                        type: "post",
+                        dataType: "json",
+                        data: {
+                            "imgDoador": $("#imgDoador").val(),
+                            "txtNomeDoador": $("#txtNomeDoador").val(),
+                            "seSexo": $("#seSexo").val(),
+                            "txtDataNascimento": $("#txtDataNascimento").val(),
+                            "seTipoSanguineo": $("#seTipoSanguineo").val(),
+                            "seFatorRh": $("#txtCpfDoador").val(),
+                            "txtRgDoador": $("#txtRgDoador").val(),
+                            "txtCep": $("#txtCep").val(),
+                            "txtLogradouro": $("#txtLogradouro").val(),
+                            "txtBairro": $("#txtBairro").val(),
+                            "txtCidade": $("#txtCidade").val(),
+                            "txtUf": $("#txtUf").val(),
+                            "txtNumero": $("#txtNumero").val(),
+                            "txtComplemento": $("#txtComplemento").val(),
+                            "txtEmail": $("#txtEmail").val(),
+                            "txtNomeResponsavel": $("#txtNomeResponsavel").val(),
+                            "txtDataNascimentoResponsavel": $("#txtDataNascimentoResponsavel").val(),
+                            "txtCpfResponsavel": $("#txtCpfResponsavel").val(),
+                            "txtRgResponsavel": $("#txtRgResponsavel").val()
+
+                        },
+                        success: function (response) {
+
+
+
+                        },
+                        error: function (request, status, error) {
+
+
+                        }
+
+
+
+                    });
+
+
                 }
 
             }
@@ -721,6 +783,11 @@ $(document).ready(function () {
 
 $("#form-adicionar-telefone-doador").submit(function (ev) {
 
+    const SUCESSO = 1;
+    const NUMERO_REPETIDO = 2;
+    const NUMERO_INVALIDO = 3;
+
+
     ev.preventDefault();
 
 
@@ -735,7 +802,7 @@ $("#form-adicionar-telefone-doador").submit(function (ev) {
         },
         success: function (response) {
 
-            if (response.status) {
+            if (response.status === SUCESSO) {
 
                 if (response.size == 1) {
 
@@ -761,11 +828,25 @@ $("#form-adicionar-telefone-doador").submit(function (ev) {
                 $('#modal-adicionar-telefone-doador').modal('hide');
 
             }
-            else {
+            else if (response.status === NUMERO_REPETIDO) {
 
-                showToast('Atenção', 'Telefone inválido', 'warning', '#dc3545', 'white', 5000);
+                showToast('Atenção', 'Telefone repetido, por favor digite outro telefone!', 'warning', '#dc3545', 'white', 5000);
                 $("#txtTelefoneDoador").removeClass("is-valid");
                 $("#txtTelefoneDoador").addClass("is-invalid");
+            }
+
+            else if (response.status === NUMERO_INVALIDO) {
+
+                showToast('Atenção', 'Telefone inválido, por favor digite outro telefone!', 'warning', '#dc3545', 'white', 5000);
+                $("#txtTelefoneDoador").removeClass("is-valid");
+                $("#txtTelefoneDoador").addClass("is-invalid");
+
+            }
+            else {
+                showToast('Atenção', 'Erro ao adicionar um telefone!', 'warning', '#dc3545', 'white', 5000);
+                $("#txtTelefoneDoador").removeClass("is-valid");
+                $("#txtTelefoneDoador").addClass("is-invalid");
+
             }
 
         },
@@ -805,6 +886,8 @@ $(document).on('click', 'i.remover-telefone-doador', function (ev) {
 
 $("#form-remover-telefone-doador").on('submit', function (ev) {
 
+    const SUCESSO = 1;
+
     ev.preventDefault();
 
     listContainerTelefone = document.querySelectorAll("div#container-item-telefone-doador li.item-telefone");
@@ -831,7 +914,7 @@ $("#form-remover-telefone-doador").on('submit', function (ev) {
         },
         success: function (response) {
 
-            if (response.status) {
+            if (response.status === SUCESSO) {
 
                 if (response.size == 0) {
 
@@ -875,7 +958,76 @@ window.addEventListener('beforeunload', (event) => {
         || $("#txtComplemento").val().length > 0 || $("#txtEmail").val().length > 0 || $("#txtNomeResponsavel").val().length > 0
         || $("#txtDataNascimentoResponsavel").val().length > 0 || $("#txtCpfResponsavel").val().length > 0 || $("#txtRgResponsavel").val().length > 0) {
 
-        event.returnValue = `Tem certeza que deseja sair ?`;
+            let listTelefoneDoador;
+            let listTelefoneResponsavel;
+
+            $.ajax({
+
+                url: "../controller/doador/verificar-tamanho-sessao-telefone.php",
+                type: "post",
+                dataType: "json",
+                async: false,
+                success: function (response) {
+        
+                    if (response.status ) {
+        
+                        listTelefoneDoador =  (response.size > 0) ? true : false;
+        
+                    }
+                    else {
+
+                        showToast('Atenção', 'Erro ao verificar a lista de telefones', 'warning', '#dc3545', 'white', 5000);
+                    }
+        
+                },
+                error: function (request, status, error) {
+        
+                    showToast('Atenção', 'Erro ao verificar a lista de telefones', 'warning', '#dc3545', 'white', 5000);
+        
+                    console.log(status);
+        
+                }
+        
+        
+            });
+
+
+            $.ajax({
+
+                url: "../controller/responsavel/verificar-tamanho-sessao-telefone.php",
+                type: "post",
+                dataType: "json",
+                async: false,
+                success: function (response) {
+        
+                    if (response.status ) {
+        
+                        listTelefoneResponsavel =  (response.size > 0) ? true : false;
+        
+                    }
+                    else {
+
+                        showToast('Atenção', 'Erro ao verificar a lista de telefones', 'warning', '#dc3545', 'white', 5000);
+                    }
+        
+                },
+                error: function (request, status, error) {
+        
+                    showToast('Atenção', 'Erro ao verificar a lista de telefones', 'warning', '#dc3545', 'white', 5000);
+        
+                    console.log(status);
+        
+                }
+        
+        
+            });
+        
+
+        if (listTelefoneResponsavel || listTelefoneDoador) {
+
+            event.returnValue = `Tem certeza que deseja sair ?`;
+        }
+        
     }
 });
 
@@ -908,3 +1060,75 @@ function validarDataDoador(data) {
     }
 }
 
+function limparTodosCampos() {
+
+    $("#imgDoador").val("");
+    $("#txtNomeDoador").val("");
+    $("#seSexo").val("");
+    $("#seFatorRh").val("");
+    $("#txtDataNascimento").val("");
+    $("#seTipoSanguineo").val("");
+    $("#txtCpfDoador").val("");
+    $("#txtRgDoador").val("");
+    $("#txtCep").val("");
+    $("#txtLogradouro").val("");
+    $("#txtBairro").val("");
+    $("#txtCidade").val("");
+    $("#txtUf").val("");
+    $("#txtNumero").val("");
+    $("#txtComplemento").val("");
+    $("#txtEmail").val("");
+    $("#txtNomeResponsavel").val("");
+    $("#txtDataNascimentoResponsavel").val("");
+    $("#txtCpfResponsavel").val("");
+    $("#txtRgResponsavel").val("")
+
+
+    $.ajax({
+
+        url: "../controller/doador/limpar-sessao-telefone.php",
+        type: "post",
+        dataType: "json",
+        async: false,
+        success: function (response) {
+
+            
+
+        },
+        error: function (request, status, error) {
+
+            showToast('Atenção', 'Erro ao limpar a lista de telefones do doador', 'warning', '#dc3545', 'white', 5000);
+
+            console.log(status);
+
+        }
+
+
+    });
+
+
+    $.ajax({
+
+        url: "../controller/responsavel/limpar-sessao-telefone.php",
+        type: "post",
+        dataType: "json",
+        async: false,
+        success: function (response) {
+
+            
+
+        },
+        error: function (request, status, error) {
+
+            showToast('Atenção', 'Erro ao limpar a lista de telefones do responsável', 'warning', '#dc3545', 'white', 5000);
+
+            console.log(status);
+
+        }
+
+
+    });
+
+    
+
+}

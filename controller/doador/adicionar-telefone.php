@@ -1,7 +1,9 @@
 <?php
 
-define("SUCESSO", true);
-define("FALHA", false);
+define("SUCESSO", 1);
+define("FALHA", 0);
+define("NUMERO_REPETIDO", 2);
+define("NUMERO_INVALIDO", 3);
 
 session_start();
 
@@ -26,14 +28,14 @@ try {
 
             else {
 
-                $resposta = array("status" => FALHA);
+                $resposta = array("status" => NUMERO_REPETIDO);
 
                 echo json_encode($resposta);
 
             }
         } else {
 
-            $resposta = array("status" => FALHA);
+            $resposta = array("status" => NUMERO_INVALIDO);
 
             echo json_encode($resposta);
         }
@@ -51,12 +53,13 @@ try {
             echo json_encode( array("status" => SUCESSO, "novoTelefone" => $telefone, "size" => count($_SESSION['telefonesDoador'])) );
         } else {
 
-            $resposta = array("status" => FALHA);
+            $resposta = array("status" => NUMERO_INVALIDO);
 
             echo json_encode($resposta);
         }
     }
 } catch (Exception $ex) {
 
-    echo $ex->getMessage();
+    $resposta = array("status" => FALHA);
+    echo json_encode($resposta);
 }

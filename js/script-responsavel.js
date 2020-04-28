@@ -335,3 +335,71 @@ function validarDataResponsavel(data) {
     }
 
 }
+
+$("#txtCpfResponsavel").on("blur",function(){
+
+    if ( validarCpf($("#txtCpfResponsavel").val()) ){
+
+        $("#txtCpfResponsavel").addClass("is-valid");
+        $("#txtCpfResponsavel").removeClass("is-invalid");
+    }
+    else {
+        $("#txtCpfResponsavel").addClass("is-invalid");
+        $("#txtCpfResponsavel").removeClass("is-valid");
+
+    }
+    
+
+});
+
+function limparSecaoResponsavel(){
+
+    $("#txtNomeResponsavel").val("");
+    $("#txtDataNascimentoResponsavel").val("");
+    $("#txtCpfResponsavel").val("");
+    $("#txtRgResponsavel").val("");
+
+
+    $.ajax({
+
+        url: "../controller/responsavel/limpar-sessao-telefone.php",
+        type: "post",
+        dataType: "json",
+        success: function (response) {
+
+            if (response.status) {
+
+                
+                $("#container-item-telefone-responsavel").empty();
+
+                document.querySelector("#container-item-telefone-responsavel").innerHTML =
+                    "<div id='msg-list-telefone-responsavel'> <h5 class='text-center mt-3'> Nenhum telefone adicionado </h5> </div>";
+
+              
+            }
+            else {
+
+                showToast('Atenção', 'Erro ao limpar o formulário', 'warning', '#dc3545', 'white', 10000);
+
+            }
+
+        },
+        error: function (request, status, error) {
+
+            showToast('Atenção', 'Erro ao limpar o formulário', 'warning', '#dc3545', 'white', 10000);
+            
+        }
+
+
+
+    });
+
+
+}
+
+
+$("#btn-limpar-campos-responsavel").on("click",function(){
+
+   limparSecaoResponsavel();
+
+});

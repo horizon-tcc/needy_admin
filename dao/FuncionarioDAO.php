@@ -76,7 +76,7 @@
                             idCargoFuncionario = ?
                         where idPaciente = ?";
 
-            $putm = $conexao->prepare($update);
+            $pstm= $conexao->prepare($update);
 
             $pstm->bindValue(1, $funcionario->getNomeFuncionario());
             $pstm->bindValue(2, $funcionario->getCpfFuncionario());
@@ -84,9 +84,9 @@
             $pstm->bindValue(4, $funcionario->getIdBancoSangue());
             $pstm->bindValue(5, $funcionario->getIdUsuario());
             $pstm->bindValue(6, $funcionario->getIdCargoFuncionario());
-            $putm->bindValue(7, $funcionario->getIdFuncionario());
+            $pstm->bindValue(7, $funcionario->getIdFuncionario());
 
-            $conexao->execute($putm);
+            $pstm->execute();
             return '<script>
                         alert(Update realizado com sucesso);
                         window.location.replace("../../view/funcionario.php");

@@ -8,30 +8,31 @@ define("ERRO", false);
 try {
 
     $cep = $_POST['txtCep'];
-    $cep = preg_replace("/[^0-9]/","",$cep);
+    // $cep = preg_replace("/[^0-9]/","",$cep);
 
-    $url = "http://viacep.com.br/ws/$cep/json/";
+    // $url = "http://viacep.com.br/ws/$cep/json/";
 
-    $curl = curl_init($url);
+    // $curl = curl_init($url);
 
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl, CURLOPT_TIMEOUT, 3);
-    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+    // curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    // curl_setopt($curl, CURLOPT_TIMEOUT, 3);
+    // curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 
-    $vetEndereco = json_decode(curl_exec($curl), true);
+    // $vetEndereco = json_decode(curl_exec($curl), true);
 
-    if (count($vetEndereco) >= 9 ) {
+    // if (count($vetEndereco) >= 9 ) {
 
-        $vetEndereco["sucesso"]  = SUCESSO;
-        echo json_encode($vetEndereco);
+    //     $vetEndereco["sucesso"]  = SUCESSO;
+    //     echo json_encode($vetEndereco);
         
-    }
-    else {
+    // }
+    // else {
 
-        $vetEndereco["sucesso"]  = ERRO;
-        echo json_encode($vetEndereco);
-    }
+    //     $vetEndereco["sucesso"]  = ERRO;
+    //     echo json_encode($vetEndereco);
+    // }
     
+    echo ValidacaoController::validarCep($cep);
     
 } catch (Exception $ex) {
 
