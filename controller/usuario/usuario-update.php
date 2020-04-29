@@ -3,16 +3,37 @@
     require_once(__DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."global.php");
 
     try{
-        $funcionario = new FuncionarioDAO();
-        $funcionario->setIdFuncionario($_GET['#']);
-        $funcionario->setNomeFuncionario($_POST['#']);
-        $funcionario->setCpfFuncionario($_POST['#']);
-        $funcionario->setRgFuncionario($_POST['#']);
-        $funcionario->setBancoSangue($_POST['#']);
-        $funcionario->setUsuarioFuncionario($_POST['#']);
-        $funcionario->setCargoFuncionario($_POST['#']);
-        echo $paciente->cadastrarFuncionario($funcionario);
-        echo '<script> window.location.replace("../../view/funcionario.php"); </script>';
+        
+        $idUsuario = intval($_GET['#']);
+        $emailUsuario = $_POST['#txtEmailUsuario'];
+        $senhaUsuario = $_POST['psSenhaUsuario'];
+        $tipoUsuario = intval($_POST['#scTipoUsuario']);
+
+        $statusEmailUsuario = ValidacaoUsuarioController::validacaoEmailUsuario($emailUsuario);
+        $statusSenhaUsuario = ValidacaoUsuarioController::validacaoSenhaUsuario($senhaUsuario);
+        $statusTipoUsuario = ValidacaoUsuarioController::validacaoTipoUsuario($tipoUsuario);
+
+
+        if($statusEmailUsuario && $statusSenhaUsuario && $statusTipoUsuario && !empty($idUsuario())){
+            
+            $usuario = new UsuarioDao();
+
+            $usuario->setIdUsuario($idUsuario);
+            $usuario->setEmailUsuario($emailUsuario);
+            $usuario->setSenhaUsuario($senhaUsuario);
+            $usuario->setTipoUsuario($tipoUsuario);
+
+            echo $usuario->editarUsuario($usuario);
+
+            echo '<script> window.location.replace("../../view/funcionario.php"); </script>';
+
+        } else {
+
+            echo 'Tentativa de Inserção de dados comprometidos';
+
+        }
+        
+        
     }
     catch(Exception $e){
         echo '<pre>';
