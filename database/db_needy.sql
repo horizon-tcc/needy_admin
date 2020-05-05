@@ -57,10 +57,6 @@ CREATE TABLE `tbBancoSangue` (
 -- Extraindo dados da tabela `tbBancoSangue`
 --
 
-INSERT INTO `tbBancoSangue` (`idBancoSangue`, `nomeBancoSangue`, `logradouroBancoSangue`, `bairroBancoSangue`, `numeroEndBancoSangue`, `complementoEndBancoSangue`, `cepBancoSangue`, `ufBancoSangue`, `cidadeBancoSangue`) VALUES
-(1, 'João Incompetente Da Silva', 'Rua João é muito incompetente', 'Bairro Incompetente', '666', 'Estou puto com joão incompetente', '666-666', 'SP', 'São Paulo'),
-(2, 'Banco dos bobos', 'Rua dos bobos', 'Bairro dos bobos', '666', 'Nadega esquerda, próximo ao cu', '40028922', 'RJ', 'Rio de Janeiro');
-
 -- --------------------------------------------------------
 
 --
@@ -120,9 +116,6 @@ CREATE TABLE `tbDoador` (
 --
 -- Extraindo dados da tabela `tbDoador`
 --
-
-INSERT INTO `tbDoador` (`idDoador`, `nomeDoador`, `idResponsavel`, `idSexo`, `dataNascimentoDoador`, `idFatorRh`, `idTipoSanguineo`, `cpfDoador`, `rgDoador`, `logradouroDoador`, `bairroDoador`, `cepDoador`, `numeroEndDoador`, `complementoEndDoador`, `cidadeDoador`, `ufDoador`, `idUsuario`) VALUES
-(1, 'Miguel Doador de Cu', 1, 2, '2003-08-02', 2, 4, '666.666.666-66', '555.555.555-55', 'Rua Quem mora aqui dá a bunda', 'Bairro dos Doadores de Bunda', '190190190', '111', 'nadega direita, próximo ao cu', 'São Paulo', 'SP', 1);
 
 -- --------------------------------------------------------
 
@@ -205,7 +198,7 @@ CREATE TABLE `tbResponsavel` (
 --
 
 INSERT INTO `tbResponsavel` (`idResponsavel`, `nomeResponsavel`, `cpfResponsavel`, `rgResponsavel`, `dataNascimentoResponsavel`) VALUES
-(1, 'João Irresponsável da Silva', '40028922', '666666', '1966-06-06');
+
 
 -- --------------------------------------------------------
 
@@ -322,8 +315,8 @@ CREATE TABLE `tbTipoUsuario` (
 
 INSERT INTO `tbTipoUsuario` (`idTipoUsuario`, `descricaoTipoUsuario`) VALUES
 (1, 'Master'),
-(2, 'Doador'),
-(3, 'Gerente');
+(2, 'Admin'),
+(3, 'Doador');
 
 -- --------------------------------------------------------
 
@@ -344,7 +337,7 @@ CREATE TABLE `tbUsuario` (
 --
 
 INSERT INTO `tbUsuario` (`idUsuario`, `emailUsuario`, `senhaUsuario`, `idTipoUsuario`) VALUES
-(1, 'miguel.boiola@gay.com', '123', 1);
+(1, 'omelhorgrupodetcc007@gmail.com', 'omelhortcc@456', 1);
 
 --
 -- Indexes for dumped tables
