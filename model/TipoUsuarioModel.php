@@ -1,17 +1,38 @@
 <?php
 
-    require_once(__DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."global.php");
+require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "global.php");
 
-    class TipoUsuarioModel
+define("MASTER", 1);
+define("DOADOR", 2);
+define("GERENTE", 3);
+define("FUNCIONARIO", 4);
+
+class TipoUsuarioModel
+{
+    private $idTipoUsuario;
+    private $descricaoTipoUsuario;
+    
+
+    public function getIdTipoUsuario()
     {
-        
-        public static function listarTipoUsuario(){
-            $conexao = DB::getConn();
-            $select = "select idTipoUsuario, descricaoTipoUsuario FROM tbTipoUsuario";
-            $rCargo = $conexao->query($select);
-            $rCargo->execute();
-            $lista = $rCargo->fetchAll();
-            return $lista;
-        }
+        return $this->idTipoUsuario;
+    }
+
+    public function setIdTipoUsuario($idTipoUsuario)
+    {
+        $this->idTipoUsuario = $idTipoUsuario;
 
     }
+
+   
+    public function getDescricaoTipoUsuario()
+    {
+        return $this->descricaoTipoUsuario;
+    }
+
+    public function setDescricaoTipoUsuario($descricaoTipoUsuario)
+    {
+        $this->descricaoTipoUsuario = $descricaoTipoUsuario;
+
+    }
+}

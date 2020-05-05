@@ -352,10 +352,12 @@ main {
 div.boas-vindas img {
     height: 50px;
 }
-
-div.boas-vindas {}
+/* 
+div.boas-vindas {} */
 
 /* ---- Fim da home ---- */
+
+/**** início da página de cadastro ****/
 
 .form-img {
     width: 80px;
@@ -423,7 +425,7 @@ ul.list-telefone h5 {
 }
 
 #form-insert fieldset:not(:first-of-type) {
-      /* display: none;    */
+      display: none;   
 }
 
 ul#progress {
@@ -519,12 +521,71 @@ label#file-description span {
 label#file-description span:nth-child(3) {
     margin-right: 0;
 }
+/* 
 .remove-cellphone {
 
 
-}
+} */
 .remove-cellphone:hover {
 
     cursor: pointer;
     background-color:rgba(0, 0, 0, .3) ;
 }
+/**** fim da página de cadastro ****/
+
+/***** início da página de consulta   ******/
+
+.input-for-search{
+    
+    border:none;
+    border-bottom: solid 2px rgba(0, 0, 0, .3);
+    outline:none;
+    width: 600px;
+    padding: 10px;
+}
+
+.input-for-search:focus {
+
+    border-bottom-color:rgb(50, 141, 245);
+    transition: 0.8s;
+    background-color: rgba(50, 141, 245, .1);
+}
+
+
+.card-consulta {
+
+    border:none;
+    background-color: white;
+    border-radius: 30px;
+    box-shadow: 0 0 10px gray;
+    color: gray;
+    padding: 15px;
+    text-align: center;
+    width: 200px;  
+    margin-right: 40px; 
+    margin-top:40px
+}
+
+.card-consulta img{
+
+    height: 90px;
+    width: 95px;
+    border-radius: 100%;
+
+
+}
+.card-consulta button {
+
+    background-color: #dc3545;
+    color:white;
+    border:solid 2px white;
+    border-radius: 100% ;
+    padding: 15px;
+}
+
+.container-cards {
+    overflow: auto;
+    height: 100%;
+    padding: 40px;
+}
+/***** fim da página de consulta   ******/

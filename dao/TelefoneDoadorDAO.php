@@ -16,7 +16,7 @@ class TelefoneDoadorDAO{
 
         for ($i = 0 ; $i < count($doador->getTelefones()); $i++){
 
-            $pstm->bindValue(1, $doador->getTelefones()[$i]->getNumeroTelefone());
+            $pstm->bindValue(1, $doador->getTelefones()[$i]);
             $pstm->bindValue(2, $doador->getId());
             $pstm->execute();
         }

@@ -215,7 +215,7 @@ function validarSecaoResponsavel() {
 
     }
 
-    if (validarCpf($("#txtCpfResponsavel").val())) {
+    if (validarCpf($("#txtCpfResponsavel").val()) &&  !verificarExistenciaCpfResponsavel( $("#txtCpfResponsavel").val() )) {
 
         cpfResponsavelValido = true;
 
@@ -403,3 +403,37 @@ $("#btn-limpar-campos-responsavel").on("click",function(){
    limparSecaoResponsavel();
 
 });
+
+
+function verificarExistenciaCpfResponsavel() {
+
+
+    const CPF_VALIDO = 1; 
+    let resultado;
+
+    $.ajax({
+
+        url: "../controller/responsavel/verifica-existencia-cpf-responsavel.php",
+        type: "post",
+        dataType: "json",
+        async: false,
+        success: function (response) {
+
+            
+            if (response.status === CPF_VALIDO) {
+
+                resultado = false;
+                
+            }
+        },
+        error: function (request, status, error) {
+
+            
+        }
+
+
+    });
+
+    return resultado;
+    
+}

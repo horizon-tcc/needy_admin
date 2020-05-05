@@ -14,11 +14,13 @@ class TelefoneResponsavelDAO{
 
         $pstm = $conn->prepare($sql);
 
+        
         for ($i = 0 ; $i < count($responsavel->getTelefones()); $i++){
 
-            $pstm->bindValue(1, $responsavel->getTelefones()[$i]->getNumeroTelefone());
+            $pstm->bindValue(1, $responsavel->getTelefones()[$i]);
             $pstm->bindValue(2, $responsavel->getId());
             $pstm->execute();
+
         }
 
         return true;

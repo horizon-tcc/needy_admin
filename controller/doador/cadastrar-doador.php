@@ -2,11 +2,11 @@
 
 require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "global.php");
 
-define("ERRO", 0);
-define("SUCESSO", 1);
+define("ERRO_AO_CADASTRAR_O_DOADOR", 0);
+define("DOADOR_CADASTRADO_COM_SUCESSO", 1);
 define("CPF_DOADOR_INVALIDO", 2);
 define("CPF_RESPONSAVEL_INVALIDO", 3);
-define("CEP_INVALIDO", 4);
+define("CEP_DOADOR_INVALIDO", 4);
 define("NOME_DOADOR_INVALIDO", 5);
 define("NOME_RESPONSAVEL_INVALIDO", 6);
 define("DATA_NASCIMENTO_DOADOR_INVALIDA", 7);
@@ -32,6 +32,10 @@ $vetErros = [];
 
 $doador = new Doador();
 
+$doadorDao = new DoadorDAO();
+
+$usuarioDao = new UsuarioDAO(); 
+
 if (isset($_SESSION['telefonesDoador']) && !empty($_SESSION['telefonesDoador'])) {
 
     $doador->setTelefones($_SESSION['telefonesDoador']);
@@ -39,7 +43,7 @@ if (isset($_SESSION['telefonesDoador']) && !empty($_SESSION['telefonesDoador']))
 
     $erro = array(
         "status" => TELEFONE_DOADOR_INVALIDO,
-        "msg" => "Lista de telefones do doador inválida, por favor passe pelo menos um telefone"
+        "msg" => "Lista de telefones do doador inválida, por favor passe pelo menos um telefone válido"
     );
 
     array_push($vetErros, $erro);
@@ -102,7 +106,7 @@ if (
 ) {
 
 
-    $doador->getTipoSanguineo()->setDescricaoTipoSanguineo($_POST['seTipoSanguineo']);
+    $doador->getTipoSanguineo()->setIdTipoSanguineo($_POST['seTipoSanguineo']);
 } else {
 
     $erro = array(
@@ -118,7 +122,7 @@ if (
     && ValidacaoController::validarTipoFatorRh($_POST['seFatorRh'])
 ) {
 
-    $doador->getFatorRh()->setDescricaoFatorRh($_POST['seFatorRh']);
+    $doador->getFatorRh()->setIdFatorRh($_POST['seFatorRh']);
 } else {
 
     $erro = array(
@@ -132,10 +136,12 @@ if (
 
 if (
     isset($_POST['txtCpfDoador']) && !empty($_POST['txtCpfDoador'])
-    && ValidacaoController::validarCpf($_POST['txtCpfDoador'])
+    && ValidacaoController::validarCpf($_POST['txtCpfDoador']) &&
+    !$doadorDao->verificarExistenciaCpfDoador($_POST['txtCpfDoador'])
 ) {
 
     $doador->setCpf($_POST['txtCpfDoador']);
+    
 } else {
 
     $erro = array(
@@ -163,7 +169,7 @@ if (
 
 if (isset($_POST['txtCep']) && !empty($_POST['txtCep'])) {
 
-    $vetResult = json_decode(ValidacaoController::validarCep($_POST['txtCep']), true);
+    $vetResult = ValidacaoController::validarCep($_POST['txtCep']);
 
     if ($vetResult["sucesso"]) {
 
@@ -171,7 +177,7 @@ if (isset($_POST['txtCep']) && !empty($_POST['txtCep'])) {
     } else {
 
         $erro = array(
-            "status" => CEP_INVALIDO,
+            "status" => CEP_DOADOR_INVALIDO,
             "msg" => "O CEP está inválido, por favor passe um CEP válido"
         );
 
@@ -180,7 +186,7 @@ if (isset($_POST['txtCep']) && !empty($_POST['txtCep'])) {
 } else {
 
     $erro = array(
-        "status" => CEP_INVALIDO,
+        "status" => CEP_DOADOR_INVALIDO,
         "msg" => "O CEP está inválido, por favor passe um CEP válido"
     );
 
@@ -254,17 +260,20 @@ if (isset($_POST['txtNumero']) && !empty($_POST['txtNumero'])) {
     array_push($vetErros, $erro);
 }
 
+$doador->getEndereco()->setComplemento($_POST['txtComplemento']);
+
 if (
     isset($_POST['txtEmail']) && !empty($_POST['txtEmail'])
-    && ValidacaoController::validarEmail($_POST['txtEmail'])
+    && ValidacaoController::validarEmail($_POST['txtEmail']) &&
+    !$usuarioDao->verificaExistenciaEmailUsuario($_POST['txtEmail'])
 ) {
 
-    $doador->setEmail($_POST['txtEmail']);
+    $doador->getUsuario()->setEmailUsuario($_POST['txtEmail']);
 } else {
 
     $erro = array(
         "status" => EMAIL_DOADOR_INVALIDO,
-        "msg" => "O número do endereço está inválido, por favor passe um número válido"
+        "msg" => "O email está inválido, por favor passe um email válido"
     );
 
     array_push($vetErros, $erro);
@@ -272,8 +281,8 @@ if (
 
 try {
 
-    if (isset($_FILES['imgDoador']) && !empty($_POST['imgDoador'])) {
-
+    if (isset($_FILES['imgDoador']) && !empty($_FILES['imgDoador'])) {
+        
         $array = explode(".", $_FILES['imgDoador']['name']);
 
         $nome = "";
@@ -285,17 +294,17 @@ try {
                 $extensao = strtolower($array[$i]);
             }
 
-            $nome += $array[$i];
+            $nome = $nome . $array[$i];
         }
 
         $nomeCompleto = $nome . $extensao;
 
-        $novoNome = md5(($doador->getCpf() + $doador->getRg()) + time()) . "." . $extensao;
+        $novoNome = md5(($doador->getCpf() . $doador->getRg()) . time()) . "." . $extensao;
 
         move_uploaded_file($_FILES['imgDoador']['tmp_name'], __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".."
             . DIRECTORY_SEPARATOR . "img" . DIRECTORY_SEPARATOR . "img_doadores" . DIRECTORY_SEPARATOR . $novoNome);
 
-        $doador->setImgDoador($novoNome);
+        $doador->getUsuario()->setFotoUsuario($novoNome);
     } else {
 
         $erro = array(
@@ -315,14 +324,19 @@ try {
     array_push($vetErros, $erro);
 }
 
+$doador->getUsuario()->setSenhaUsuario( UsuarioUtil::gerarSenhaUsuario( 7, true, true ,true , true) );
+$doador->getUsuario()->getTipoUsuario()->setIdTipoUsuario( DOADOR );
+
 
 $dataAtual = new DateTime();
 $dataNascimento = new DateTime($doador->getDataNasc());
 $idadeDoador = $dataAtual->diff($dataNascimento);
 
-if ($idadeDoador < 18) {
+
+if ( (int) $idadeDoador->format("%y") < 18) {
 
     $responsavel = new Responsavel();
+    $responsavelDao = new ResponsavelDAO();
 
     if (
         isset($_POST['txtNomeResponsavel'])
@@ -345,10 +359,10 @@ if ($idadeDoador < 18) {
     if (
         isset($_POST['txtDataNascimentoResponsavel']) &&
         !empty($_POST['txtDataNascimentoResponsavel']) &&
-        ResponsavelValidacaoController::validarDataResponsavel($_POST['txtDataNascimentoResponsavel'])
+        ValidacaoResponsavelController::validarDataResponsavel($_POST['txtDataNascimentoResponsavel'])
     ) {
 
-        $doador->setDataNasc($_POST['txtDataNascimentoResponsavel']);
+        $responsavel->setDataNasc($_POST['txtDataNascimentoResponsavel']);
     } else {
 
         $erro = array(
@@ -362,10 +376,12 @@ if ($idadeDoador < 18) {
     if (
         isset($_POST['txtCpfResponsavel'])
         && !empty($_POST['txtCpfResponsavel'])
-        && ValidacaoController::validarCpf($_POST['txtCpfResponsavel'])
+        && ValidacaoController::validarCpf($_POST['txtCpfResponsavel']) &&
+        !$responsavelDao->verificarExistenciaCpfResponsavel($_POST['txtCpfResponsavel']) 
     ) {
 
         $responsavel->setCpf($_POST['txtCpfResponsavel']);
+        
     } else {
 
         $erro = array(
@@ -391,18 +407,88 @@ if ($idadeDoador < 18) {
         array_push($vetErros, $erro);
     }
 
+    if ( isset( $_SESSION['telefonesResponsavel'] ) && !empty( $_SESSION['telefonesResponsavel'] ) ){
+
+        $responsavel->setTelefones( $_SESSION['telefonesResponsavel'] );
+    }
+    else {
+
+        $erro = array(
+            "status" => TELEFONE_RESPONSAVEL_INVALIDO,
+            "msg" => "A lista de telefones do responsável está inválida, por favor passe pelo menos um telefone válido válido"
+        );
+
+        array_push($vetErros, $erro);
+
+    }
 
     $doador->setResponsavel($responsavel);
 
+    if (count($vetErros) == 0) {
+
+        $responsavelDao->cadastrar($doador->getResponsavel());
+        $doador->setResponsavel($responsavelDao->getResponsavelByCpf($doador->getResponsavel()->getCpf()));
+
+        $usuarioDao->cadastrarUsuario($doador->getUsuario());
+
+        $doador->setUsuario($usuarioDao->getUsuarioByEmail($doador->getUsuario()->getEmailUsuario()));
+        $doadorDao->cadastrar($doador);
+      
+        $doador = $doadorDao->getDoadorByCpf($doador->getCpf());
+
+        $doador->getResponsavel()->setTelefones($_SESSION['telefonesResponsavel']);
+        $doador->setTelefones($_SESSION['telefonesDoador']);
+
+        $telefoneDoadorDao = new TelefoneDoadorDAO();
+        $telefoneResponsavelDao = new TelefoneResponsavelDAO();
+
+        $telefoneDoadorDao->cadastrar($doador);
+        $telefoneResponsavelDao->cadastrar($doador->getResponsavel());
+
+
+        $resposta = array("status" => DOADOR_CADASTRADO_COM_SUCESSO);
+
+        echo json_encode($resposta);
+
+    } else {
+
+        $resposta = array("status" => ERRO_AO_CADASTRAR_O_DOADOR);
+        array_push($vetErros, $resposta);
+        echo json_encode($vetErros);
+
+    }
+} else {
 
     if (count($vetErros) == 0) {
 
-        $doadorDao = new DoadorDAO();
-        $responsavelDao = new ResponsavelDAO();
+        
+        $telefoneDoadorDao = new TelefoneDoadorDAO();
+
+        $usuarioDao->cadastrarUsuario($doador->getUsuario());
+
+        $doador->setUsuario(
+        $usuarioDao->getUsuarioByEmail(
+        $doador->getUsuario()->getEmailUsuario()));
 
         $doadorDao->cadastrar($doador);
-        $responsavelDao->cadastrar($responsavel);
+
+        $doador = $doadorDao->getDoadorByCpf($doador->getCpf());
+        $doador->setTelefones($_SESSION['telefonesDoador']);
+        
+        $telefoneDoadorDao->cadastrar($doador);
+
+
+        $resposta = array("status" => DOADOR_CADASTRADO_COM_SUCESSO);
+
+        echo json_encode($resposta);
+
     } else {
+        $resposta = array("status" => ERRO_AO_CADASTRAR_O_DOADOR);
+        array_push($vetErros, $resposta);
+        echo json_encode($vetErros);
+
     }
-} else {
+
+
+
 }

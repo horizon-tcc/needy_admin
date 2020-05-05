@@ -9,7 +9,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
     <div class="container-fluid d-flex justify-content-center align-items-center mt-2">
 
-        <form action="controller/doador/cadastrarDoador.php" method="post" class="w-100" id="form-insert" enctype="multipart/form-data">
+        <form action="../controller/doador/cadastrar-doador.php" method="post" class="w-100" id="form-insert" enctype="multipart/form-data">
 
             <h2 class="text-center mt-4"> Cadastro de doadores </h2>
             <ul id="progress" class="text-center d-flex mt-2 pt-3">

@@ -321,7 +321,9 @@ CREATE TABLE `tbTipoUsuario` (
 --
 
 INSERT INTO `tbTipoUsuario` (`idTipoUsuario`, `descricaoTipoUsuario`) VALUES
-(1, 'Master');
+(1, 'Master'),
+(2, 'Doador'),
+(3, 'Gerente');
 
 -- --------------------------------------------------------
 

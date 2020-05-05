@@ -4,7 +4,6 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR ."global
 
 class Doador extends Pessoa
 {
-    private $email;
     private $endereco;
     private $tipoSanguineo;
     private $responsavel;
@@ -12,7 +11,6 @@ class Doador extends Pessoa
     private $usuario;
     private $sexo;
     private $fatorRh;
-    private $imgDoador;
 
     public function __construct()
     {
@@ -35,18 +33,6 @@ class Doador extends Pessoa
     public function setEndereco($endereco)
     {
         $this->endereco = $endereco;
-    }
-
-
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-
-    public function setEmail($email)
-    {
-        $this->email = $email;
     }
 
 
@@ -121,16 +107,4 @@ class Doador extends Pessoa
         $this->fatorRh = $fatorRh;
     }
 
-  
-    public function getImgDoador()
-    {
-        return $this->imgDoador;
-    }
-
-   
-   
-    public function setImgDoador($imgDoador)
-    {
-        $this->imgDoador = $imgDoador;
-    }
 }

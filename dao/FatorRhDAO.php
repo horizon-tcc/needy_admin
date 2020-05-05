@@ -35,6 +35,40 @@ class FatorRhDAO
 
 
     }
+
+    public function getFatorRhById($id){
+
+        $conn = DB::getConn();
+
+        $sql = "SELECT idFatorRh, descricaoFatorRh FROM tbfatorh WHERE idFatorRh = ?";
+
+        $pstm = $conn->prepare($sql);
+
+        $pstm->bindValue(1, $id);
+
+        $pstm->execute();
+
+        $result = $pstm->fetchAll();
+
+        if ( count($result) > 0 ){
+
+            $fatorRh = new FatorRh();
+
+            foreach( $result as $r ){
+
+                $fatorRh->setIdFatorRh($r['idFatorRh']);
+                $fatorRh->setDescricaoFatorRh($r['descricaoFatorRh']);
+
+            }
+
+            return $fatorRh;
+
+        } else  {
+
+            return null;
+        }
+
+    }
 }
 
 

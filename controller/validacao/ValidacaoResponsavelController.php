@@ -1,6 +1,6 @@
 <?php
 
-    class ResponsavelValidacaoController{
+    class ValidacaoResponsavelController{
 
         public static function validarDataResponsavel($data){
 

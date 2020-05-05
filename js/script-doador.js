@@ -1,12 +1,27 @@
 $("#txtCpfDoador").blur(function (e) {
 
-    if (validarCpf($("#txtCpfDoador").val())) {
+
+    if (validarCpf($("#txtCpfDoador").val()) && !verificarExistenciaCpfDoador($("#txtCpfDoador").val())) {
         $("#txtCpfDoador").removeClass("is-invalid");
         $("#txtCpfDoador").addClass("is-valid");
     }
     else {
         $("#txtCpfDoador").removeClass("is-valid");
         $("#txtCpfDoador").addClass("is-invalid");
+    }
+
+});
+
+$("#txtEmail").blur(function (e) {
+
+
+    if (validarEmail($("#txtEmail").val()) && !verificarExistenciaEmailUsuario($("#txtEmail").val())) {
+        $("#txtEmail").removeClass("is-invalid");
+        $("#txtEmail").addClass("is-valid");
+    }
+    else {
+        $("#txtEmail").removeClass("is-valid");
+        $("#txtEmail").addClass("is-invalid");
     }
 
 });
@@ -39,6 +54,8 @@ $("#txtCep").blur(function (e) {
 
                 $("#txtCep").removeClass("is-valid");
                 $("#txtCep").addClass("is-invalid");
+
+
 
             }
 
@@ -283,7 +300,7 @@ function validarSecaoPessoal() {
     }
 
 
-    if (validarCpf(txtCpfDoador.value)) {
+    if (validarCpf(txtCpfDoador.value) && !verificarExistenciaCpfDoador(txtCpfDoador.value)) {
 
         cpfValido = true;
 
@@ -502,7 +519,7 @@ function validarSecaoContato() {
     let telefoneValido = false;
 
 
-    if (validarEmail(emailDoador.value)) {
+    if (validarEmail(emailDoador.value) && !verificarExistenciaEmailUsuario(emailDoador.value)) {
 
         emailValido = true;
 
@@ -594,6 +611,7 @@ $(document).ready(function () {
         const segundaEtapa = 2;
         const terceiraEtapa = 3;
         const quartaEtapa = 4;
+        const SUCESSO_AO_CADASTRAR_O_DOADOR = 1;
 
         let fsPrev, fsAtual, fsNext;
         let etapa = primeiraEtapa;
@@ -648,44 +666,38 @@ $(document).ready(function () {
 
                     if (diferenca >= 18) {
 
+                        let formularioDoador = document.querySelector("#form-insert");
+                        let formData = new FormData(formularioDoador);
+
                         $.ajax({
 
                             url: "../controller/doador/cadastrar-doador.php",
                             type: "post",
                             dataType: "json",
-                            data: {
-                                "imgDoador": $("#imgDoador").val(),
-                                "txtNomeDoador": $("#txtNomeDoador").val(),
-                                "seSexo": $("#seSexo").val(),
-                                "txtDataNascimento": $("#txtDataNascimento").val(),
-                                "seTipoSanguineo": $("#seTipoSanguineo").val(),
-                                "seFatorRh": $("#txtCpfDoador").val(),
-                                "txtRgDoador": $("#txtRgDoador").val(),
-                                "txtCep": $("#txtCep").val(),
-                                "txtLogradouro": $("#txtLogradouro").val(),
-                                "txtBairro": $("#txtBairro").val(),
-                                "txtCidade": $("#txtCidade").val(),
-                                "txtUf": $("#txtUf").val(),
-                                "txtNumero": $("#txtNumero").val(),
-                                "txtComplemento": $("#txtComplemento").val(),
-                                "txtEmail": $("#txtEmail").val()
-
-                            },
+                            processData: false,
+                            contentType: false,
+                            data: formData,
                             success: function (response) {
 
+                                if (response.status === SUCESSO_AO_CADASTRAR_O_DOADOR) {
 
+                                    limparTodosCampos();
+
+                                }
+                                else {
+
+                                    console.log(response);
+
+                                }
 
                             },
                             error: function (request, status, error) {
 
-
+                                console.log(request.responseText);
+                                console.log(request);
                             }
 
-
-
                         });
-
-
 
                     }
 
@@ -709,6 +721,10 @@ $(document).ready(function () {
             }
             else if (etapa == quartaEtapa) {
 
+                let formularioDoador = document.querySelector("#form-insert");
+                let formData = new FormData(formularioDoador);
+
+
                 if (validarSecaoResponsavel()) {
 
                     $.ajax({
@@ -716,39 +732,30 @@ $(document).ready(function () {
                         url: "../controller/doador/cadastrar-doador.php",
                         type: "post",
                         dataType: "json",
-                        data: {
-                            "imgDoador": $("#imgDoador").val(),
-                            "txtNomeDoador": $("#txtNomeDoador").val(),
-                            "seSexo": $("#seSexo").val(),
-                            "txtDataNascimento": $("#txtDataNascimento").val(),
-                            "seTipoSanguineo": $("#seTipoSanguineo").val(),
-                            "seFatorRh": $("#txtCpfDoador").val(),
-                            "txtRgDoador": $("#txtRgDoador").val(),
-                            "txtCep": $("#txtCep").val(),
-                            "txtLogradouro": $("#txtLogradouro").val(),
-                            "txtBairro": $("#txtBairro").val(),
-                            "txtCidade": $("#txtCidade").val(),
-                            "txtUf": $("#txtUf").val(),
-                            "txtNumero": $("#txtNumero").val(),
-                            "txtComplemento": $("#txtComplemento").val(),
-                            "txtEmail": $("#txtEmail").val(),
-                            "txtNomeResponsavel": $("#txtNomeResponsavel").val(),
-                            "txtDataNascimentoResponsavel": $("#txtDataNascimentoResponsavel").val(),
-                            "txtCpfResponsavel": $("#txtCpfResponsavel").val(),
-                            "txtRgResponsavel": $("#txtRgResponsavel").val()
-
-                        },
+                        processData: false,
+                        contentType: false,
+                        data: formData,
                         success: function (response) {
 
+                            if (response.status === SUCESSO_AO_CADASTRAR_O_DOADOR) {
 
+                                limparTodosCampos();
+                            }
+                            else {
+
+                                console.log(response.status);
+
+                            }
 
                         },
                         error: function (request, status, error) {
 
+                            console.log("Deu ruim ao cadastrar o doador");
 
+
+                            console.log(request.responseText);
+                            console.log(request);
                         }
-
-
 
                     });
 
@@ -958,76 +965,80 @@ window.addEventListener('beforeunload', (event) => {
         || $("#txtComplemento").val().length > 0 || $("#txtEmail").val().length > 0 || $("#txtNomeResponsavel").val().length > 0
         || $("#txtDataNascimentoResponsavel").val().length > 0 || $("#txtCpfResponsavel").val().length > 0 || $("#txtRgResponsavel").val().length > 0) {
 
-            let listTelefoneDoador;
-            let listTelefoneResponsavel;
+        event.returnValue = `Tem certeza que deseja sair ?`;
+    }
 
-            $.ajax({
+    else {
 
-                url: "../controller/doador/verificar-tamanho-sessao-telefone.php",
-                type: "post",
-                dataType: "json",
-                async: false,
-                success: function (response) {
-        
-                    if (response.status ) {
-        
-                        listTelefoneDoador =  (response.size > 0) ? true : false;
-        
-                    }
-                    else {
+        let listTelefoneDoador;
+        let listTelefoneResponsavel;
 
-                        showToast('Atenção', 'Erro ao verificar a lista de telefones', 'warning', '#dc3545', 'white', 5000);
-                    }
-        
-                },
-                error: function (request, status, error) {
-        
-                    showToast('Atenção', 'Erro ao verificar a lista de telefones', 'warning', '#dc3545', 'white', 5000);
-        
-                    console.log(status);
-        
+        $.ajax({
+
+            url: "../controller/doador/verificar-tamanho-sessao-telefone.php",
+            type: "post",
+            dataType: "json",
+            async: false,
+            success: function (response) {
+
+                if (response.status) {
+
+                    listTelefoneDoador = (response.size > 0) ? true : false;
+
                 }
-        
-        
-            });
+                else {
 
-
-            $.ajax({
-
-                url: "../controller/responsavel/verificar-tamanho-sessao-telefone.php",
-                type: "post",
-                dataType: "json",
-                async: false,
-                success: function (response) {
-        
-                    if (response.status ) {
-        
-                        listTelefoneResponsavel =  (response.size > 0) ? true : false;
-        
-                    }
-                    else {
-
-                        showToast('Atenção', 'Erro ao verificar a lista de telefones', 'warning', '#dc3545', 'white', 5000);
-                    }
-        
-                },
-                error: function (request, status, error) {
-        
                     showToast('Atenção', 'Erro ao verificar a lista de telefones', 'warning', '#dc3545', 'white', 5000);
-        
-                    console.log(status);
-        
                 }
-        
-        
-            });
-        
+
+            },
+            error: function (request, status, error) {
+
+                showToast('Atenção', 'Erro ao verificar a lista de telefones', 'warning', '#dc3545', 'white', 5000);
+
+                console.log(status);
+
+            }
+
+
+        });
+
+
+        $.ajax({
+
+            url: "../controller/responsavel/verificar-tamanho-sessao-telefone.php",
+            type: "post",
+            dataType: "json",
+            async: false,
+            success: function (response) {
+
+                if (response.status) {
+
+                    listTelefoneResponsavel = (response.size > 0) ? true : false;
+
+                }
+                else {
+
+                    showToast('Atenção', 'Erro ao verificar a lista de telefones', 'warning', '#dc3545', 'white', 5000);
+                }
+
+            },
+            error: function (request, status, error) {
+
+                showToast('Atenção', 'Erro ao verificar a lista de telefones', 'warning', '#dc3545', 'white', 5000);
+
+                console.log(status);
+
+            }
+
+
+        });
 
         if (listTelefoneResponsavel || listTelefoneDoador) {
 
             event.returnValue = `Tem certeza que deseja sair ?`;
         }
-        
+
     }
 });
 
@@ -1062,6 +1073,7 @@ function validarDataDoador(data) {
 
 function limparTodosCampos() {
 
+    $("#imgPreview").attr("src", "../img/camera.png");
     $("#imgDoador").val("");
     $("#txtNomeDoador").val("");
     $("#seSexo").val("");
@@ -1092,7 +1104,7 @@ function limparTodosCampos() {
         async: false,
         success: function (response) {
 
-            
+
 
         },
         error: function (request, status, error) {
@@ -1115,7 +1127,7 @@ function limparTodosCampos() {
         async: false,
         success: function (response) {
 
-            
+
 
         },
         error: function (request, status, error) {
@@ -1129,6 +1141,80 @@ function limparTodosCampos() {
 
     });
 
-    
+
 
 }
+
+function verificarExistenciaCpfDoador(cpf) {
+
+    const CPF_VALIDO = 1;
+    let resultado = true;
+
+    $.ajax({
+
+        url: "../controller/doador/verifica-existencia-cpf-doador.php",
+        type: "post",
+        data:
+            { "txtCpfDoador": cpf },
+        dataType: "json",
+        async: false,
+        success: function (response) {
+
+            if (response.status === CPF_VALIDO) {
+
+                resultado = false;
+
+
+            }
+        },
+        error: function (request, status, error) {
+
+
+            console.log(request.responseText);
+        }
+
+
+    });
+
+    return resultado;
+
+}
+
+
+function verificarExistenciaEmailUsuario(email) {
+
+    const EMAIL_VALIDO = 1;
+    let resultado = true;
+
+    $.ajax({
+
+        url: "../controller/usuario/verifica-existencia-email-usuario.php",
+        type: "post",
+        data:
+            { "txtEmail": email },
+        dataType: "json",
+        async: false,
+        success: function (response) {
+
+
+            if (response.status === EMAIL_VALIDO) {
+
+                resultado = false;
+
+            }
+        },
+        error: function (request, status, error) {
+
+
+            console.log(request.responseText);
+        }
+
+
+    });
+
+    return resultado;
+
+}
+
+
+
