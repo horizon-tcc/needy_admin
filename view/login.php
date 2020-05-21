@@ -45,7 +45,7 @@
                     <div class="col-md-12 d-flex align-items-center justify-content-center">
 
 
-                        <form action="home.php" class="mb-6 form-login " method="post">
+                        <form action="../controller/usuario/login-usuario.php" class="mb-6 form-login " method="post">
 
 
                             <div class="mb-5">
@@ -58,8 +58,8 @@
 
                                 <img src="../img/user-icon.png" class="small-height mr-5">
                                 <div class="form-secundary w-100 d-block">
-                                    <input type="text" name="txtLogin" id="txtLogin" autocomplete="off" required>
-                                    <label for="txtLogin" class="label">
+                                    <input type="text" name="txtLogin" id="txtEmail" autocomplete="off" required>
+                                    <label for="txtEmail" class="label">
                                         <span class="content-label"> E-mail </span>
                                     </label>
                                 </div>

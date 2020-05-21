@@ -682,7 +682,7 @@ $(document).ready(function () {
                                 if (response.status === SUCESSO_AO_CADASTRAR_O_DOADOR) {
 
                                     limparTodosCampos();
-
+                                    document.location.reload(true);
                                 }
                                 else {
 
@@ -740,10 +740,11 @@ $(document).ready(function () {
                             if (response.status === SUCESSO_AO_CADASTRAR_O_DOADOR) {
 
                                 limparTodosCampos();
+                                document.location.reload(true);
                             }
                             else {
 
-                                console.log(response.status);
+                                console.log(response);
 
                             }
 
@@ -967,7 +968,7 @@ window.addEventListener('beforeunload', (event) => {
 
         event.returnValue = `Tem certeza que deseja sair ?`;
     }
-
+/*
     else {
 
         let listTelefoneDoador;
@@ -1040,6 +1041,7 @@ window.addEventListener('beforeunload', (event) => {
         }
 
     }
+*/ 
 });
 
 

@@ -14,10 +14,10 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
             <h2 class="text-center mt-4"> Cadastro de doadores </h2>
             <ul id="progress" class="text-center d-flex mt-2 pt-3">
 
-                <li class="flex-fill activated-section"> Informações pessoais </li>
-                <li class="flex-fill"> Informações de endereço </li>
-                <li class="flex-fill"> Informações para contato </li>
-                <li class="flex-fill"> Informações sobre os responsáveis </li>
+                <li class="flex-fill activated-section"> Pessoal </li>
+                <li class="flex-fill"> Endereço </li>
+                <li class="flex-fill"> Contato </li>
+                <li class="flex-fill"> Responsável </li>
 
             </ul>
 

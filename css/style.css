@@ -561,9 +561,11 @@ label#file-description span:nth-child(3) {
     color: gray;
     padding: 15px;
     text-align: center;
-    width: 200px;  
+    width: 230px;  
     margin-right: 40px; 
-    margin-top:40px
+    margin-top:40px;
+    overflow: auto;
+    height: 350px;
 }
 
 .card-consulta img{
@@ -573,6 +575,12 @@ label#file-description span:nth-child(3) {
     border-radius: 100%;
 
 
+}
+
+.card-consulta a:hover {
+
+    color:white;
+    
 }
 .card-consulta button {
 
@@ -587,5 +595,6 @@ label#file-description span:nth-child(3) {
     overflow: auto;
     height: 100%;
     padding: 40px;
+    padding-bottom: 20px;
 }
 /***** fim da página de consulta   ******/

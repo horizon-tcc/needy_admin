@@ -159,5 +159,28 @@
 
     }
 
+
+        public function logar($usuario) {
+
+            $conn = DB::getConn();
+
+            $sql ='SELECT * FROM tbusuario WHERE emailUsuario = ? AND senhaUsuario =  ? AND statusUsuario != 0';
+
+            $prepare = $conn->prepare($sql);
+
+            $prepare->execute();
+
+            $result = $prepare->fetchAll();
+
+            if (count($result) >0 ){
+
+            } else {
+
+
+            }
+            
+
+        }
+
         
     }

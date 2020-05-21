@@ -215,7 +215,7 @@ function validarSecaoResponsavel() {
 
     }
 
-    if (validarCpf($("#txtCpfResponsavel").val()) &&  !verificarExistenciaCpfResponsavel( $("#txtCpfResponsavel").val() )) {
+    if ( validarCpf($("#txtCpfResponsavel").val()) &&  !verificarExistenciaCpfResponsavel( $("#txtCpfResponsavel").val() ) ) {
 
         cpfResponsavelValido = true;
 
@@ -338,7 +338,7 @@ function validarDataResponsavel(data) {
 
 $("#txtCpfResponsavel").on("blur",function(){
 
-    if ( validarCpf($("#txtCpfResponsavel").val()) ){
+    if ( validarCpf($("#txtCpfResponsavel").val()) && !verificarExistenciaCpfResponsavel( $("#txtCpfResponsavel").val() )){
 
         $("#txtCpfResponsavel").addClass("is-valid");
         $("#txtCpfResponsavel").removeClass("is-invalid");
@@ -405,17 +405,19 @@ $("#btn-limpar-campos-responsavel").on("click",function(){
 });
 
 
-function verificarExistenciaCpfResponsavel() {
+function verificarExistenciaCpfResponsavel(cpf) {
 
 
     const CPF_VALIDO = 1; 
-    let resultado;
+    let resultado = true;
 
     $.ajax({
 
         url: "../controller/responsavel/verifica-existencia-cpf-responsavel.php",
         type: "post",
         dataType: "json",
+        data:
+            { "txtCpfResponsavel": cpf },
         async: false,
         success: function (response) {
 
@@ -428,7 +430,7 @@ function verificarExistenciaCpfResponsavel() {
         },
         error: function (request, status, error) {
 
-            
+            console.log(request.responseText);
         }
 
 
