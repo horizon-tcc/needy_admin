@@ -14,7 +14,6 @@ $("#txtPesquisa").on("keyup", function () {
         dataType: "json",
         success: function (response) {
 
-            console.log("status : " + response.status);
 
             if (response.status === SUCESSO_AO_CONSULTAR_OS_DOADORES) {
 
@@ -30,8 +29,8 @@ $("#txtPesquisa").on("keyup", function () {
                     +"<h6 class='text-center mt-2'>"+ element.cpfDoador + "</h6>"
                     +"<h6 class='text-center mt-2'>"+ element.descricaoTipoSanguineo +"</h6>"
 
-                    +"<a href='doadores.php?id="+element.idDoador+"'> <button class='mt-4'> <i class='fas fa-pen'></i> </button> </a>"
-                    +"<a href='../controller/doador/remover-doador.php?id="+element.idDoador+"'> <button class='4'> <i class='far fa-trash-alt'></i> </button> </a>"
+                    +"<a href='doadores.php?idDoador="+element.idDoador+"'> <button class='mt-4'> <i class='fas fa-pen'></i> </button> </a>"
+                    +"<a href='../controller/doador/remover-doador.php?idDoador="+element.idDoador +"' class='remover-doador'> <button class='mt-4' data-toggle='modal' data-target='#modal-remover-doador'> <i class='far fa-trash-alt'></i> </button> </a>"
                     +"</div>");
                     
 
@@ -47,7 +46,7 @@ $("#txtPesquisa").on("keyup", function () {
                 $(".container-cards").append("<h6 class='mt-4'> Nenhum doador encontrado </h6>");
             }
 
-            console.log(response);
+          
            
         },
         error: function (request, status, error) {
@@ -62,52 +61,60 @@ $("#txtPesquisa").on("keyup", function () {
 });
 
 
-$(".remover-doador").on("click", function(ev){
+$(document).on("click", ".remover-doador", function(ev){
 
-    /*
+
+
     ev.preventDefault();
 
-    $.ajax({
+    let url = this.getAttribute("href");
+    
+    hdUrlDoadorRemovido = document.querySelector("#hdUrlDoadorRemovido");
+    
+    hdUrlDoadorRemovido.value = url;
 
-        url: "../controller/doador/consultar-doadores.php",
+    
+   
+   
+
+});
+
+$("#form-remover-doador").on("submit", (ev) => {
+
+    const SUCESSO_AO_REMOVER_DOADOR = 1;
+    const ERRO_AO_REMOVER_DOADOR = 0;
+
+    ev.preventDefault();
+
+     $.ajax({
+
+        url: $("#hdUrlDoadorRemovido").val(),
         type: "get",
         dataType: "json",
         success: function (response) {
 
-            console.log("status : " + response.status);
+            
 
-            if (response.status === SUCESSO_AO_CONSULTAR_OS_DOADORES) {
+            if (response.status === SUCESSO_AO_REMOVER_DOADOR) {
 
-                $(".container-cards").empty();
+                showToast('Sucesso', 'Doador removido com sucesso', 'success', '#28a745', 'white', 2000);
+
+                setTimeout(function(){
+    
+                    location.reload(true);
+
+                }, 2000);
                 
-                response.result.forEach(element => {
-                    
-                    $(".container-cards").append("<div class='card-consulta'>"
-
-                    +"<img src='../img/img_doadores/" + element.fotoUsuario + "' class='' />"
-
-                    +"<h6 class='text-center mt-5'>"+ element.nomeDoador + "</h6>"
-                    +"<h6 class='text-center mt-2'>"+ element.cpfDoador + "</h6>"
-                    +"<h6 class='text-center mt-2'>"+ element.descricaoTipoSanguineo +"</h6>"
-
-                    +"<a href='doadores.php?id="+element.idDoador+"'> <button class='mt-4'> <i class='fas fa-pen'></i> </button> </a>"
-                    +"<a href='../controller/doador/remover-doador.php?id="+element.idDoador+"'> <button class='4'> <i class='far fa-trash-alt'></i> </button> </a>"
-                    +"</div>");
-                    
-
-                });
-
                 
                
             }
-            else if (response.status === NENHUM_DOADOR_ENCONTRADO){
+            else if (response.status === ERRO_AO_REMOVER_DOADOR){
 
 
-                $(".container-cards").empty();
-                $(".container-cards").append("<h6 class='mt-4'> Nenhum doador encontrado </h6>");
+                showToast('Erro', 'Error ao remover o doador!', 'warning', '#dc3545', 'white', 5000);
             }
 
-            console.log(response);
+            
            
         },
         error: function (request, status, error) {
@@ -119,6 +126,6 @@ $(".remover-doador").on("click", function(ev){
 
     });
 
-   */ 
+   
 
 });

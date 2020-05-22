@@ -9,7 +9,7 @@
 }
 
 @font-face {
-    src: url(../font/Roboto-Regular.ttf);
+    src: url(../font/Roboto-Bold.ttf);
     font-family: "Roboto-Bold";
 }
 
@@ -591,10 +591,22 @@ label#file-description span:nth-child(3) {
     padding: 15px;
 }
 
+.card-consulta form {
+
+    float: right;
+}
+
 .container-cards {
     overflow: auto;
     height: 100%;
     padding: 40px;
     padding-bottom: 20px;
+    margin-top: 40px;
+}
+
+.font-bold {
+
+    font-family: "Roboto-Bold";
+
 }
 /***** fim da página de consulta   ******/
