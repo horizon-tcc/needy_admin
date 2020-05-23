@@ -61,13 +61,13 @@ class DoadorDAO
     {
 
         $conn = DB::getConn();
-        
+
         $sexo = new Sexo();
         $tipoSanguineo = new TipoSanguineo();
         $fatorRh = new FatorRh();
         $usuario = new UsuarioModel();
         $responsavel = new Responsavel();
-        
+
 
         $sql = "SELECT idDoador, nomeDoador, rgDoador, dataNascimentoDoador 
                 cpfDoador, s.idSexo, descricaoSexo, t.idTipoSanguineo, 
@@ -76,7 +76,7 @@ class DoadorDAO
                 complementoEndDoador, cidadeDoador, ufDoador, u.idUsuario, 
                 emailUsuario, fotoUsuario, tipo.idTipoUsuario, descricaoTipoUsuario,
                 r.idResponsavel, nomeResponsavel, rgResponsavel, cpfResponsavel,
-                dataNascimentoResponsavel  FROM tbdoador
+                dataNascimentoResponsavel, statusUsuario  FROM tbdoador
 
                 INNER JOIN tbsexo as s
                 on tbdoador.idSexo = s.idSexo
@@ -91,7 +91,8 @@ class DoadorDAO
                 left join tbtipousuario as tipo
                 on u.idTipoUsuario = tipo.idTipoUsuario
                 
-                WHERE cpfDoador LIKE ?";
+                WHERE cpfDoador LIKE ?
+                AND statusUsuario != 0";
 
 
         $pstm = $conn->prepare($sql);
@@ -108,15 +109,15 @@ class DoadorDAO
             $doador = new Doador();
 
             foreach ($result as $r) {
-                
-                $doador->setId( $r['idDoador'] );
-                $doador->setNome( $r['nomeDoador'] );
+
+                $doador->setId($r['idDoador']);
+                $doador->setNome($r['nomeDoador']);
                 $doador->setRg($r['rgDoador']);
-                
+
                 $sexo->setIdSexo($r['idSexo']);
                 $sexo->setDescricaoSexo($r['descricaoSexo']);
                 $doador->setSexo($sexo);
-                
+
                 $tipoSanguineo->setIdTipoSanguineo($r['idTipoSanguineo']);
                 $tipoSanguineo->setDescricaoTipoSanguineo($r['descricaoTipoSanguineo']);
                 $doador->setTipoSanguineo($tipoSanguineo);
@@ -146,29 +147,27 @@ class DoadorDAO
                 $responsavel->setDataNasc($r['dataNascimentoResponsavel']);
                 $responsavel->setRg($r['rgResponsavel']);
                 $doador->setResponsavel($responsavel);
-
-
             }
 
             return $doador;
-        }
-        else {
+        } else {
 
             return null;
         }
     }
 
-    public function getDoadorByName($name)
+
+    public function getDoadorById($id)
     {
 
         $conn = DB::getConn();
-        
+
         $sexo = new Sexo();
         $tipoSanguineo = new TipoSanguineo();
         $fatorRh = new FatorRh();
         $usuario = new UsuarioModel();
         $responsavel = new Responsavel();
-        
+
 
         $sql = "SELECT idDoador, nomeDoador, rgDoador, dataNascimentoDoador 
                 cpfDoador, s.idSexo, descricaoSexo, t.idTipoSanguineo, 
@@ -177,7 +176,7 @@ class DoadorDAO
                 complementoEndDoador, cidadeDoador, ufDoador, u.idUsuario, 
                 emailUsuario, fotoUsuario, tipo.idTipoUsuario, descricaoTipoUsuario,
                 r.idResponsavel, nomeResponsavel, rgResponsavel, cpfResponsavel,
-                dataNascimentoResponsavel  FROM tbdoador
+                dataNascimentoResponsavel, statusUsuario  FROM tbdoador
 
                 INNER JOIN tbsexo as s
                 on tbdoador.idSexo = s.idSexo
@@ -192,37 +191,33 @@ class DoadorDAO
                 left join tbtipousuario as tipo
                 on u.idTipoUsuario = tipo.idTipoUsuario
                 
-                WHERE nomeDoador LIKE ?";
+                WHERE idDoador = ?
+                AND statusUsuario != 0";
 
 
         $pstm = $conn->prepare($sql);
 
-        $pstm->bindValue(1, $name . "%");
+        $pstm->bindValue(1, $id);
 
         $pstm->execute();
 
         $result = $pstm->fetchAll();
-        
-      
+        $doador = null;
+
         if (count($result) > 0) {
 
-            $doadores = [];
-            $doador = null;
-            
+            $doador = new Doador();
+
             foreach ($result as $r) {
 
-                $doador = new Doador();
-
-                $doador->setId( $r['idDoador'] );
-                $doador->setNome( $r['nomeDoador'] );
+                $doador->setId($r['idDoador']);
+                $doador->setNome($r['nomeDoador']);
                 $doador->setRg($r['rgDoador']);
-                $doador->setCpf($r['cpfDoador']);
-                $doador->setDataNasc($r['dataNascimentoDoador']);
-                
+
                 $sexo->setIdSexo($r['idSexo']);
                 $sexo->setDescricaoSexo($r['descricaoSexo']);
                 $doador->setSexo($sexo);
-                
+
                 $tipoSanguineo->setIdTipoSanguineo($r['idTipoSanguineo']);
                 $tipoSanguineo->setDescricaoTipoSanguineo($r['descricaoTipoSanguineo']);
                 $doador->setTipoSanguineo($tipoSanguineo);
@@ -230,13 +225,15 @@ class DoadorDAO
                 $fatorRh->setIdFatorRh($r['idFatorRh']);
                 $fatorRh->setDescricaoFatorRh($r['descricaoFatorRh']);
                 $doador->setFatorRh($fatorRh);
-
+                
+                $usuario->setIdUsuario( $r['idUsuario'] );
                 $usuario->setEmailUsuario($r['emailUsuario']);
                 $usuario->setFotoUsuario($r['fotoUsuario']);
                 $usuario->getTipoUsuario()->setIdTipoUsuario($r['idTipoUsuario']);
                 $usuario->getTipoUsuario()->setDescricaoTipoUsuario($r['descricaoTipoUsuario']);
                 $doador->setUsuario($usuario);
 
+                $doador->setCpf($r['cpfDoador']);
                 $doador->getEndereco()->setCEP($r['cepDoador']);
                 $doador->getEndereco()->setLogradouro($r['logradouroDoador']);
                 $doador->getEndereco()->setBairro($r['bairroDoador']);
@@ -251,33 +248,144 @@ class DoadorDAO
                 $responsavel->setDataNasc($r['dataNascimentoResponsavel']);
                 $responsavel->setRg($r['rgResponsavel']);
                 $doador->setResponsavel($responsavel);
-
-                array_push($doadores, $doador);
             }
 
-            return $doadores;
-        }
-        else {
+            return $doador;
+        } else {
 
             return null;
         }
     }
+
+
+    public function getDoadorByName($name)
+    {
+
+        $conn = DB::getConn();
+
+        $sql = "SELECT idDoador, nomeDoador, rgDoador, tbdoador.dataNascimentoDoador, 
+                cpfDoador, s.idSexo, descricaoSexo, t.idTipoSanguineo, 
+                descricaoTipoSanguineo, f.idFatorRh, descricaoFatorRh,
+                logradouroDoador, bairroDoador, cepDoador, numeroEndDoador,
+                complementoEndDoador, cidadeDoador, ufDoador, u.idUsuario, 
+                emailUsuario, fotoUsuario, tipo.idTipoUsuario, descricaoTipoUsuario,
+                r.idResponsavel, nomeResponsavel, rgResponsavel, cpfResponsavel,
+                dataNascimentoResponsavel, statusUsuario FROM tbdoador
+
+                INNER JOIN tbsexo as s
+                on tbdoador.idSexo = s.idSexo
+                INNER JOIN tbtiposanguineo as t
+                on tbdoador.idTipoSanguineo = t.idTipoSanguineo
+                INNER JOIN tbfatorrh as f
+                on tbdoador.idFatorRh = f.idFatorRh
+                LEFT JOIN tbusuario as u
+                on tbdoador.idUsuario = u.idUsuario
+                LEFT JOIN tbresponsavel as r
+                ON tbdoador.idResponsavel = r.idResponsavel
+                left join tbtipousuario as tipo
+                on u.idTipoUsuario = tipo.idTipoUsuario
+                
+                WHERE nomeDoador LIKE _utf8 ? COLLATE utf8_unicode_ci
+                AND statusUsuario != 0";
+
+
+        $pstm = $conn->prepare($sql);
+
+        $pstm->bindValue(1, $name . "%");
+
+        $pstm->execute();
+
+        $result = $pstm->fetchAll();
+
+
+        if (count($result) > 0) {
+
+            return $result;
+        } else {
+
+            return null;
+        }
+    }
+
+    public function getAll()
+    {
+
+        $conn = DB::getConn();
+
+
+        $sql = "SELECT idDoador, nomeDoador, rgDoador, tbdoador.dataNascimentoDoador, 
+                cpfDoador, s.idSexo, descricaoSexo, t.idTipoSanguineo, 
+                descricaoTipoSanguineo, f.idFatorRh, descricaoFatorRh,
+                logradouroDoador, bairroDoador, cepDoador, numeroEndDoador,
+                complementoEndDoador, cidadeDoador, ufDoador, u.idUsuario, 
+                emailUsuario, fotoUsuario, tipo.idTipoUsuario, descricaoTipoUsuario,
+                r.idResponsavel, nomeResponsavel, rgResponsavel, cpfResponsavel,
+                dataNascimentoResponsavel, statusUsuario  FROM tbdoador
+
+                INNER JOIN tbsexo as s
+                on tbdoador.idSexo = s.idSexo
+                INNER JOIN tbtiposanguineo as t
+                on tbdoador.idTipoSanguineo = t.idTipoSanguineo
+                INNER JOIN tbfatorrh as f
+                on tbdoador.idFatorRh = f.idFatorRh
+                LEFT JOIN tbusuario as u
+                on tbdoador.idUsuario = u.idUsuario
+                LEFT JOIN tbresponsavel as r
+                ON tbdoador.idResponsavel = r.idResponsavel
+                left join tbtipousuario as tipo
+                on u.idTipoUsuario = tipo.idTipoUsuario
+                WHERE statusUsuario != 0";
+
+
+        $pstm = $conn->prepare($sql);
+
+        $pstm->execute();
+
+        $result = $pstm->fetchAll();
+
+
+        if (count($result) > 0) {
+
+            return $result;
+        } else {
+
+            return null;
+        }
+    }
+
 
     public function verificarExistenciaCpfDoador($cpf)
     {
 
         $conn = DB::getConn();
 
-        $sql = "SELECT cpfDoador FROM tbdoador WHERE cpfDoador LIKE ?";
+        $sql = "SELECT cpfDoador, statusUsuario FROM tbdoador 
+                INNER JOIN tbusuario
+                ON tbdoador.idUsuario = tbusuario.idUsuario
+                WHERE cpfDoador LIKE ? AND statusUsuario != 0";
 
         $pstm = $conn->prepare($sql);
 
         $pstm->bindValue(1, $cpf);
 
         $pstm->execute();
-        
+
         return (count($pstm->fetchAll()) > 0) ? true : false;
     }
 
-}
 
+    public function remover($idUsuario)
+    {
+
+        $conn = DB::getConn();
+
+        $sql = "UPDATE tbusuario set statusUsuario = ? WHERE idUsuario = ?";
+
+        $pstm = $conn->prepare($sql);
+
+        $pstm->bindValue(1, 0);
+        $pstm->bindValue(2, $idUsuario);
+
+        return  $pstm->execute();
+    }
+}

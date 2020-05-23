@@ -1,6 +1,8 @@
 
 <?php 
 
+require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "global.php");
+
 define("CPF_RESPONSAVEL_INVALIDO", 0);
 define("CPF_RESPONSAVEL_VALIDO", 1);
 

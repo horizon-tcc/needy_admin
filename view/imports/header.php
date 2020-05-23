@@ -29,7 +29,7 @@
                 <li class="menu-item d-flex justify-content-start"> <span class=""> <i class="fas fa-home"> </i> </span> <span> Home </span> </li>
             </a>
 
-            <a href="doadores.php" class="menuBtn">
+            <a href="consultar-doadores.php" class="menuBtn">
                 <li class="menu-item d-flex justify-content-start"> <span class=""><i class="fas fa-users ali"></i> </span> <span> Doadores </span> </li>
             </a>
 

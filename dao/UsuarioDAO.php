@@ -26,7 +26,7 @@
         {
             $conexao = DB::getConn();
 
-            $select = "SELECT * FROM tbUsuario";
+            $select = "SELECT * FROM tbUsuario WHERE statusUsuario != 0";
 
             $pstm = $conexao->prepare($select);
 
@@ -105,7 +105,7 @@
                     tipo.idTipoUsuario, descricaoTipoUsuario
                     FROM tbusuario INNER JOIN tbTipoUsuario as tipo
                     ON tbusuario.idTipoUsuario = tipo.idTipoUsuario 
-                    WHERE emailUsuario LIKE ?";
+                    WHERE emailUsuario LIKE ? AND statusUsuario != 0";
 
             $pstm = $conn->prepare($sql);
 
@@ -145,7 +145,7 @@
 
         $conn = DB::getConn();
 
-        $sql = "SELECT emailUsuario FROM tbusuario WHERE emailUsuario LIKE ?";
+        $sql = "SELECT emailUsuario FROM tbusuario WHERE emailUsuario LIKE ? AND statusUsuario != 0";
 
         $pstm = $conn->prepare( $sql );
 
@@ -158,6 +158,32 @@
         return ( count($result) > 0 ) ? true : false;
 
     }
+
+
+        public function logar($usuario) {
+
+            $conn = DB::getConn();
+
+            $sql ='SELECT * FROM tbusuario WHERE emailUsuario = ? AND senhaUsuario =  ? AND statusUsuario != 0';
+
+            $prepare = $conn->prepare($sql);
+
+            $prepare->bindValue(1, $usuario->getEmailUsuario());
+            $prepare->bindValue(2, $usuario->getSenhaUsuario());
+
+            $prepare->execute();
+
+            $result = $prepare->fetchAll();
+
+            if (count($result) >0 ){
+
+            } else {
+
+
+            }
+            
+
+        }
 
         
     }

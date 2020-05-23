@@ -110,7 +110,7 @@ CREATE TABLE `tbDoador` (
   `complementoEndDoador` varchar(70) COLLATE utf8_bin DEFAULT NULL,
   `cidadeDoador` varchar(100) COLLATE utf8_bin NOT NULL,
   `ufDoador` char(2) COLLATE utf8_bin NOT NULL,
-  `idUsuario` int(12) DEFAULT NULL
+  `idUsuario` int(12) DEFAULT NULL 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
@@ -329,7 +329,8 @@ CREATE TABLE `tbUsuario` (
   `emailUsuario` varchar(40) COLLATE utf8_bin NOT NULL,
   `senhaUsuario` char(32) COLLATE utf8_bin NOT NULL,
   `fotoUsuario` varchar(100) COLLATE utf8_bin,
-  `idTipoUsuario` int(12) NOT NULL
+  `idTipoUsuario` int(12) NOT NULL,
+  `statusUsuario` int(12) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --

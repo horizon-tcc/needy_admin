@@ -4,7 +4,7 @@
 
     try{
        
-        $idPaciente = $_GET['#']
+        $idPaciente = $_GET['#'];
         $nomePaciente = $_POST['txtNomePaciente'];
         $sexoPaciente = $_POST['seSexoPaciente'];
         $tipoSanguineoPaciente = $_POST['seTipoSanguineoPaciente'];
