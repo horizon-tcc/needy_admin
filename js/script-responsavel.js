@@ -215,7 +215,7 @@ function validarSecaoResponsavel() {
 
     }
 
-    if ( validarCpf($("#txtCpfResponsavel").val()) &&  !verificarExistenciaCpfResponsavel( $("#txtCpfResponsavel").val() ) ) {
+    if (validarCpf($("#txtCpfResponsavel").val()) && !verificarExistenciaCpfResponsavel($("#txtCpfResponsavel").val())) {
 
         cpfResponsavelValido = true;
 
@@ -233,7 +233,7 @@ function validarSecaoResponsavel() {
     }
 
 
-    if ( $("#txtRgResponsavel").val() != "") {
+    if ($("#txtRgResponsavel").val() != "") {
 
         rgResponsavelValido = true;
 
@@ -261,7 +261,7 @@ function validarSecaoResponsavel() {
 
                 if (response.size > 0) {
 
-                     telefoneResponsavelValido = true;
+                    telefoneResponsavelValido = true;
 
                     $("#list-telefone-responsavel").removeClass("is-invalid");
                     $("#list-telefone-responsavel").addClass("is-valid");
@@ -296,13 +296,13 @@ function validarSecaoResponsavel() {
     });
 
 
-    if (nomeResponsavelValido && dataResponsavelValido && cpfResponsavelValido 
-    
+    if (nomeResponsavelValido && dataResponsavelValido && cpfResponsavelValido
+
         && rgResponsavelValido) {
 
-            return true;
+        return true;
 
-        }
+    }
     return false;
 }
 
@@ -336,9 +336,9 @@ function validarDataResponsavel(data) {
 
 }
 
-$("#txtCpfResponsavel").on("blur",function(){
+$("#txtCpfResponsavel").on("blur", function () {
 
-    if ( validarCpf($("#txtCpfResponsavel").val()) && !verificarExistenciaCpfResponsavel( $("#txtCpfResponsavel").val() )){
+    if (validarCpf($("#txtCpfResponsavel").val()) && !verificarExistenciaCpfResponsavel($("#txtCpfResponsavel").val())) {
 
         $("#txtCpfResponsavel").addClass("is-valid");
         $("#txtCpfResponsavel").removeClass("is-invalid");
@@ -348,11 +348,11 @@ $("#txtCpfResponsavel").on("blur",function(){
         $("#txtCpfResponsavel").removeClass("is-valid");
 
     }
-    
+
 
 });
 
-function limparSecaoResponsavel(){
+function limparSecaoResponsavel() {
 
     $("#txtNomeResponsavel").val("");
     $("#txtDataNascimentoResponsavel").val("");
@@ -369,13 +369,13 @@ function limparSecaoResponsavel(){
 
             if (response.status) {
 
-                
+
                 $("#container-item-telefone-responsavel").empty();
 
                 document.querySelector("#container-item-telefone-responsavel").innerHTML =
                     "<div id='msg-list-telefone-responsavel'> <h5 class='text-center mt-3'> Nenhum telefone adicionado </h5> </div>";
 
-              
+
             }
             else {
 
@@ -387,7 +387,7 @@ function limparSecaoResponsavel(){
         error: function (request, status, error) {
 
             showToast('Atenção', 'Erro ao limpar o formulário', 'warning', '#dc3545', 'white', 10000);
-            
+
         }
 
 
@@ -398,9 +398,9 @@ function limparSecaoResponsavel(){
 }
 
 
-$("#btn-limpar-campos-responsavel").on("click",function(){
+$("#btn-limpar-campos-responsavel").on("click", function () {
 
-   limparSecaoResponsavel();
+    limparSecaoResponsavel();
 
 });
 
@@ -408,7 +408,7 @@ $("#btn-limpar-campos-responsavel").on("click",function(){
 function verificarExistenciaCpfResponsavel(cpf) {
 
 
-    const CPF_VALIDO = 1; 
+    const CPF_VALIDO = 1;
     let resultado = true;
 
     $.ajax({
@@ -421,11 +421,11 @@ function verificarExistenciaCpfResponsavel(cpf) {
         async: false,
         success: function (response) {
 
-            
+
             if (response.status === CPF_VALIDO) {
 
                 resultado = false;
-                
+
             }
         },
         error: function (request, status, error) {
@@ -437,5 +437,5 @@ function verificarExistenciaCpfResponsavel(cpf) {
     });
 
     return resultado;
-    
+
 }

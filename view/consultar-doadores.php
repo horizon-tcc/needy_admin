@@ -26,7 +26,8 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
             <div class="row">
                 <div class="col-md-12 text-right">
 
-                    <a href="doadores.php"> <button type="button" class="btn btn-danger"> Novo doador <i class="fas fa-plus"></i> </button> </a>
+                    <a href="doadores.php"> <button type="button" class="btn btn-danger"> Novo doador <i
+                                class="fas fa-plus"></i> </button> </a>
                 </div>
             </div>
 
@@ -36,7 +37,8 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
                 <div class="form-group col-md-6 d-flex align-items-center justify-content-center color-gray">
 
-                    <input type="text" name="txtPesquisa" id="txtPesquisa" class="input-for-search" placeholder="Digite o nome do doador" />
+                    <input type="text" name="txtPesquisa" id="txtPesquisa" class="input-for-search"
+                        placeholder="Digite o nome do doador" />
 
                     <i class="fas fa-search ml-2"></i>
                 </div>
@@ -53,45 +55,44 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
             <?php
 
-            $doadorController = new DoadorController();
+                $doadorController = new DoadorController();
 
-            $doadores = $doadorController->getAll();
+                $doadores = $doadorController->getAll();
 
-            if ($doadores != null) {
-
-
-                foreach ($doadores as $d) {
-
-                    // echo "<div class='card-consulta'>"
-
-                    //     . "<img src='../img/img_doadores/" . $d['fotoUsuario'] . "' class='' />"
-
-                    //     . "<h6 class='text-center mt-5'>" . $d['nomeDoador'] . "</h6>"
-                    //     . "<h6 class='text-center mt-2'>" . $d['cpfDoador'] . "</h6>"
-                    //     . "<h6 class='text-center mt-2'>" . $d['descricaoTipoSanguineo'] . "</h6>"
-
-                    //     . "<a href='doadores.php?idDoador=" . $d['idDoador'] . "'> <button class='mt-4'> <i class='fas fa-pen'></i> </button> </a>"
-                    //     . "<a href='../controller/doador/remover-doador.php?idDoador=" . $d['idDoador'] . "'> <button class='mt-4 remover-doador'> <i class='far fa-trash-alt'></i> </button> </a>"
-                    //     . "</div>";
+                if ($doadores != null) {
 
 
-                    echo "<div class='card-consulta'>"
+                    foreach ($doadores as $d) {
 
-                        . "<img src='../img/img_doadores/" . $d['fotoUsuario'] . "' class='' />"
+                        // echo "<div class='card-consulta'>"
 
-                        . "<h6 class='text-center mt-5'>" . $d['nomeDoador'] . "</h6>"
-                        . "<h6 class='text-center mt-2'>" . $d['cpfDoador'] . "</h6>"
-                        . "<h6 class='text-center mt-2'>" . $d['descricaoTipoSanguineo'] . "</h6>"
+                        //     . "<img src='../img/img_doadores/" . $d['fotoUsuario'] . "' class='' />"
 
-                        . "<a href='doadores.php?idDoador=" . $d['idDoador'] . "'> <button class='mt-4'> <i class='fas fa-pen'></i> </button> </a>"
-                        . "<a href='../controller/doador/remover-doador.php?idDoador=" . $d['idDoador'] . "' class='remover-doador'> <button class='mt-4' data-toggle='modal' data-target='#modal-remover-doador'> <i class='far fa-trash-alt'></i> </button> </a>"
-                        . "</div>";
+                        //     . "<h6 class='text-center mt-5'>" . $d['nomeDoador'] . "</h6>"
+                        //     . "<h6 class='text-center mt-2'>" . $d['cpfDoador'] . "</h6>"
+                        //     . "<h6 class='text-center mt-2'>" . $d['descricaoTipoSanguineo'] . "</h6>"
+
+                        //     . "<a href='doadores.php?idDoador=" . $d['idDoador'] . "'> <button class='mt-4'> <i class='fas fa-pen'></i> </button> </a>"
+                        //     . "<a href='../controller/doador/remover-doador.php?idDoador=" . $d['idDoador'] . "'> <button class='mt-4 remover-doador'> <i class='far fa-trash-alt'></i> </button> </a>"
+                        //     . "</div>";
+
+
+                        echo "<div class='card-consulta'>"
+
+                            . "<img src='../img/img_doadores/" . $d['fotoUsuario'] . "' class='' />"
+
+                            . "<h6 class='text-center mt-5'>" . $d['nomeDoador'] . "</h6>"
+                            . "<h6 class='text-center mt-2'>" . $d['cpfDoador'] . "</h6>"
+                            . "<h6 class='text-center mt-2'>" . $d['descricaoTipoSanguineo'] . "</h6>"
+
+                            . "<a href='doadores.php?idDoador=" . $d['idDoador'] . "'> <button class='mt-4'> <i class='fas fa-pen'></i> </button> </a>"
+                            . "<a href='../controller/doador/remover-doador.php?idDoador=" . $d['idDoador'] . "' class='remover-doador'> <button class='mt-4' data-toggle='modal' data-target='#modal-remover-doador'> <i class='far fa-trash-alt'></i> </button> </a>"
+                            . "</div>";
+                    }
+                } else {
+
+                    echo "<h6 class='mt-4'> Nenhum doador foi cadastrado ainda </h6>";
                 }
-            } else {
-
-                echo "<h6 class='mt-4'> Nenhum doador foi cadastrado ainda </h6>";
-            }
-
 
             ?>
 
@@ -101,7 +102,8 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
 
 
-    <div class="modal fade" id="modal-remover-doador" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modal-remover-doador" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <form action="../controller/doador/remover-doador.php" method="POST" id="form-remover-doador">
@@ -118,7 +120,8 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
                             <div class="form-group col-md-12 py-2">
 
-                                <h5 id="desc-remover-doador" class="text-center"> Deseja remover o doador selecionado ? </h5>
+                                <h5 id="desc-remover-doador" class="text-center"> Deseja remover o doador selecionado ?
+                                </h5>
                                 <input type="hidden" name="hdUrlDoadorRemovido" id="hdUrlDoadorRemovido" />
                             </div>
 
@@ -135,7 +138,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
             </div>
         </div>
     </div>
-    
+
 
     <!-- <div class="modal fade" id="modal-remover-doador" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">

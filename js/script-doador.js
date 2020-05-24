@@ -968,80 +968,80 @@ window.addEventListener('beforeunload', (event) => {
 
         event.returnValue = `Tem certeza que deseja sair ?`;
     }
-/*
-    else {
-
-        let listTelefoneDoador;
-        let listTelefoneResponsavel;
-
-        $.ajax({
-
-            url: "../controller/doador/verificar-tamanho-sessao-telefone.php",
-            type: "post",
-            dataType: "json",
-            async: false,
-            success: function (response) {
-
-                if (response.status) {
-
-                    listTelefoneDoador = (response.size > 0) ? true : false;
-
-                }
-                else {
-
+    /*
+        else {
+    
+            let listTelefoneDoador;
+            let listTelefoneResponsavel;
+    
+            $.ajax({
+    
+                url: "../controller/doador/verificar-tamanho-sessao-telefone.php",
+                type: "post",
+                dataType: "json",
+                async: false,
+                success: function (response) {
+    
+                    if (response.status) {
+    
+                        listTelefoneDoador = (response.size > 0) ? true : false;
+    
+                    }
+                    else {
+    
+                        showToast('Atenção', 'Erro ao verificar a lista de telefones', 'warning', '#dc3545', 'white', 5000);
+                    }
+    
+                },
+                error: function (request, status, error) {
+    
                     showToast('Atenção', 'Erro ao verificar a lista de telefones', 'warning', '#dc3545', 'white', 5000);
+    
+                    console.log(status);
+    
                 }
-
-            },
-            error: function (request, status, error) {
-
-                showToast('Atenção', 'Erro ao verificar a lista de telefones', 'warning', '#dc3545', 'white', 5000);
-
-                console.log(status);
-
-            }
-
-
-        });
-
-
-        $.ajax({
-
-            url: "../controller/responsavel/verificar-tamanho-sessao-telefone.php",
-            type: "post",
-            dataType: "json",
-            async: false,
-            success: function (response) {
-
-                if (response.status) {
-
-                    listTelefoneResponsavel = (response.size > 0) ? true : false;
-
-                }
-                else {
-
+    
+    
+            });
+    
+    
+            $.ajax({
+    
+                url: "../controller/responsavel/verificar-tamanho-sessao-telefone.php",
+                type: "post",
+                dataType: "json",
+                async: false,
+                success: function (response) {
+    
+                    if (response.status) {
+    
+                        listTelefoneResponsavel = (response.size > 0) ? true : false;
+    
+                    }
+                    else {
+    
+                        showToast('Atenção', 'Erro ao verificar a lista de telefones', 'warning', '#dc3545', 'white', 5000);
+                    }
+    
+                },
+                error: function (request, status, error) {
+    
                     showToast('Atenção', 'Erro ao verificar a lista de telefones', 'warning', '#dc3545', 'white', 5000);
+    
+                    console.log(status);
+    
                 }
-
-            },
-            error: function (request, status, error) {
-
-                showToast('Atenção', 'Erro ao verificar a lista de telefones', 'warning', '#dc3545', 'white', 5000);
-
-                console.log(status);
-
+    
+    
+            });
+    
+            if (listTelefoneResponsavel || listTelefoneDoador) {
+    
+                event.returnValue = `Tem certeza que deseja sair ?`;
             }
-
-
-        });
-
-        if (listTelefoneResponsavel || listTelefoneDoador) {
-
-            event.returnValue = `Tem certeza que deseja sair ?`;
+    
         }
-
-    }
-*/ 
+    */
 });
 
 
