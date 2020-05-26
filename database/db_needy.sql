@@ -197,9 +197,6 @@ CREATE TABLE `tbResponsavel` (
 -- Extraindo dados da tabela `tbResponsavel`
 --
 
-INSERT INTO `tbResponsavel` (`idResponsavel`, `nomeResponsavel`, `cpfResponsavel`, `rgResponsavel`, `dataNascimentoResponsavel`) VALUES
-
-
 -- --------------------------------------------------------
 
 --
