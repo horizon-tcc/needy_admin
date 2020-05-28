@@ -204,3 +204,16 @@ function validarNome(nome) {
 
 
 }
+
+function calculateAge(yearOfBirth) {
+
+    let actualDate = new Date();
+    yearOfBirth = new Date(yearOfBirth);
+     
+    let age = Math.abs(actualDate.getTime() - yearOfBirth.getTime());
+
+    age = Math.floor(age / 1000 / 60 / 60 / 24 / 365);
+
+    return age;
+
+}

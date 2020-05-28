@@ -5,6 +5,12 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
 ?>
 
+<?php 
+
+    TelefoneDoadorController::limparSessaoDoadorTelefone();
+    TelefoneResponsavelController::limparSessaoResponsavelTelefone();
+?>
+
 <main>
 
     <div class="container-fluid d-flex justify-content-center align-items-center mt-2">
@@ -813,7 +819,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
         </div>
 
 
-        <div class="modal fade" id="modal-remover-telefone-doador" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="remover-telefone-doador" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <form action="../controller/doador/remover-telefone.php" method="POST" id="form-remover-telefone-doador">

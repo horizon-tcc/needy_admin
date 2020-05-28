@@ -15,7 +15,8 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
                 <div class="col-md-12">
 
-                    <h2 class="text-center"> Consultar pelos doadores </h2>
+                    <h2 class="text-center"> <i class="fas fa-search"></i> </h2>
+                    <h2 class="text-center"> Consultar doadores </h2>
 
 
                 </div>
@@ -62,20 +63,8 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
                 foreach ($doadores as $d) {
 
-                    // echo "<div class='card-consulta'>"
 
-                    //     . "<img src='../img/img_doadores/" . $d['fotoUsuario'] . "' class='' />"
-
-                    //     . "<h6 class='text-center mt-5'>" . $d['nomeDoador'] . "</h6>"
-                    //     . "<h6 class='text-center mt-2'>" . $d['cpfDoador'] . "</h6>"
-                    //     . "<h6 class='text-center mt-2'>" . $d['descricaoTipoSanguineo'] . "</h6>"
-
-                    //     . "<a href='doadores.php?idDoador=" . $d['idDoador'] . "'> <button class='mt-4'> <i class='fas fa-pen'></i> </button> </a>"
-                    //     . "<a href='../controller/doador/remover-doador.php?idDoador=" . $d['idDoador'] . "'> <button class='mt-4 remover-doador'> <i class='far fa-trash-alt'></i> </button> </a>"
-                    //     . "</div>";
-
-
-                    echo "<div class='card-consulta'>"
+                    echo "<div class='card-consulta' id ='" . $d['idDoador'] . "'>"
 
                         . "<img src='../img/img_doadores/" . $d['fotoUsuario'] . "' class='' />"
 
@@ -83,7 +72,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                         . "<h6 class='text-center mt-2'>" . $d['cpfDoador'] . "</h6>"
                         . "<h6 class='text-center mt-2'>" . $d['descricaoTipoSanguineo'] . "</h6>"
 
-                        . "<a href='doadores.php?idDoador=" . $d['idDoador'] . "'> <button class='mt-4'> <i class='fas fa-pen'></i> </button> </a>"
+                        . "<a href='doadores.php?idDoador=" . $d['idDoador'] . "' class='editar-doador'> <button class='mt-4'> <i class='fas fa-pen'></i> </button> </a>"
                         . "<a href='../controller/doador/remover-doador.php?idDoador=" . $d['idDoador'] . "' class='remover-doador'> <button class='mt-4' data-toggle='modal' data-target='#modal-remover-doador'> <i class='far fa-trash-alt'></i> </button> </a>"
                         . "</div>";
                 }
@@ -135,42 +124,272 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
             </div>
         </div>
     </div>
-    
 
-    <!-- <div class="modal fade" id="modal-remover-doador" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+
+    <div class="modal fade bd-example-modal-lg" id="modal-view-doador" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <form action="../controller/doador/remover-doador.php" method="POST" id="form-remover-doador">
-                    <div class="modal-header">
-                        <h6 class="modal-title font-bold" id="modal-title-remover-doador"> Remover doador </h6>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                <div class="modal-header">
+                    <h6 class="modal-title font-bold" id="modal-title-view-doador"> <i class="far fa-eye"></i> Visualizar doador </h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <img src="../img/girl.jpg" alt="" class="d-block mx-auto" id="img-doador">
+
+                    <h5 class="text-center mt-3 nome-doador" id="nome-doador"> Beatriz tenório </h5>
+
+
+                    <div class="section-personal w-100 mt-5 mt-5">
+
+                        <div class="row mt-5">
+                            <div class="col-md-12">
+
+                                <h6 class="font-bold text-center"> Informações pessoais <span class="icon-modal"> <i class="far fa-id-card"></i> </span> </h6>
+                                <hr />
+                            </div>
+                        </div>
+
+                        <div class="row mt-4">
+
+                            <div class="col-md-3">
+
+                                <h6 class="font-bold"> CPF: <span id="cpf-doador"> 491.123.428-82 </span> </h6>
+
+                            </div>
+
+                            <div class="col-md-3">
+
+                                <h6 class="font-bold"> RG: <span id="rg-doador"> 38.578.783-2 </span> </h6>
+
+                            </div>
+
+                            <div class="col-md-3">
+
+                                <h6 class="font-bold"> Sexo: <span id="sexo-doador"> Feminino </span> </h6>
+
+                            </div>
+
+                            <div class="col-md-3">
+
+                                <h6 class="font-bold"> Tipo sanguíneo: <span id="tipo-sanguineo-doador"> B </span> </h6>
+
+                            </div>
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="col-md-3">
+
+                                <h6 class="font-bold"> Fator RH: <span id="fator-rh-doador"> Positivo </span> </h6>
+
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <h6 class="font-bold"> Data de nascimento: <span id="data-nascimento-doador"> 21/12/2000 </span> </h6>
+
+                            </div>
+                        </div>
+
                     </div>
-                    <div class="modal-body">
 
 
-                        <div class="form-row d-flex justify-content-center">
 
-                            <div class="form-group col-md-12 py-2">
+                    <div class="section-andress w-100 mt-5">
 
-                                <h5 id="desc-remover-doador" class="text-center"> Deseja remover o doador selecionado ? </h5>
-                                <input type="hidden" name="hdUrlDoadorRemovido" id="hdUrlDoadorRemovido" />
+                        <div class="row mt-5">
+                            <div class="col-md-12">
+
+                                <h6 class="font-bold text-center"> informações do endereço <span class="icon-modal"> <i class="fas fa-map-marked-alt"></i> </span> </h6>
+                                <hr />
+                            </div>
+                        </div>
+
+                        <div class="row mt-4">
+
+                            <div class="col-md-12">
+
+                                <h6 class="font-bold"> Logradouro: <span class="logradouro-doador"> Rua Travessa estrada do sol </span> </h6>
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="row mt-4">
+
+
+                            <div class="col-md-3">
+
+                                <h6 class="font-bold"> Bairro: <span id="bairro-doador"> Castro alves </span> </h6>
+
+                            </div>
+
+                            <div class="col-md-3">
+
+                                <h6 class="font-bold"> Número: <span id="numero-endereco-doador"> 60 </span> </h6>
+
+                            </div>
+
+
+                            <div class="col-md-3">
+
+                                <h6 class="font-bold"> Cidade: <span id="cidade-doador"> São Paulo </span> </h6>
+
+                            </div>
+
+
+                            <div class="col-md-3">
+
+                                <h6 class="font-bold"> Estado: <span id="estado-doador"> São Paulo </span> </h6>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="row mt-4">
+
+                            <div class="col-md-3">
+
+                                <h6 class="font-bold"> CEP: <span id="cep-doador"> 08474-215 </span> </h6>
+
+                            </div>
+
+                            <div class="col-md-9">
+
+                                <h6 class="font-bold"> Complemento: <span id="complemento-doador"> 13A </span> </h6>
+
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="section-contact w-100 mt-5">
+
+                        <div class="row mt-5">
+                            <div class="col-md-12">
+
+                                <h6 class="font-bold text-center"> informações para contato <span class="icon-modal"> <i class="fas fa-phone-alt"></i> </span> </h6>
+                                <hr />
+                            </div>
+                        </div>
+
+                        <div class="row mt-4">
+
+                            <div class="col-md-12">
+
+                                <h6 class="font-bold text-center"> Email: <span id="email-doador"> nunesgustavo668@gmail.com </span> </h6>
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="row mt-4">
+
+                            <div class="col-md-6 d-block mx-auto">
+
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" scope="col"> Telefones </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="telefones-doador">
+                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div class="section-responsible w-100 mt-5">
+
+                        <div class="row mt-5">
+                            <div class="col-md-12">
+
+                                <h6 class="font-bold text-center"> informações do responsável <span class="icon-modal"> <i class="fas fa-user-tie"></i> </span> </h6>
+                                <hr />
+                            </div>
+                        </div>
+
+                        <div class="row mt-4">
+
+
+                            <div class="col-md-6">
+
+                                <h6 class="font-bold"> Nome: <span id="nome-responsavel-doador"> Dalva Soares da Costa </span> </h6>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <h6 class="font-bold"> Data de nascimento: <span id="data-nascimento-responsavel-doador"> 21/12/1985 </span> </h6>
+
                             </div>
 
 
                         </div>
 
 
+                        <div class="row mt-4">
+
+                            <div class="col-md-6">
+
+                                <h6 class="font-bold"> CPF: <span id="cpf-responsavel-doador"> 503.988.496-68 </span> </h6>
+                            </div>
+
+                            
+                            <div class="col-md-6">
+
+                                <h6 class="font-bold"> RG: <span id="rg-responsavel-doador"> 23.263.782-5 </span> </h6>
+                            </div>
+                        </div>
+
+                        <div class="row mt-4">
+
+                            <div class="col-md-6 d-block mx-auto">
+
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" scope="col"> Telefones </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="telefones-responsavel-doador">
+                                       
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
-                        <input type="submit" class="btn btn-danger" id="btn-remover-doador" value="Remover" />
-                    </div>
-                </form>
+
+
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">OK</button>
+                </div>
             </div>
         </div>
-    </div> -->
+    </div>
+
 
 </main>
 

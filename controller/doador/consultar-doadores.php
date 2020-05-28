@@ -22,7 +22,8 @@ if (isset($_POST['txtPesquisa']) || !empty($_POST['txtPesquisa'])) {
         foreach ($doadores as $d) {
             
             $tupla = array(
-                "nomeDoador" => $d['nomeDoador']
+                 "idDoador" => $d['idDoador']
+                ,"nomeDoador" => $d['nomeDoador']
                 ,"cpfDoador" => $d['cpfDoador']
                 ,"descricaoTipoSanguineo" => $d['descricaoTipoSanguineo']
                 ,"idDoador" => $d['idDoador']
@@ -43,6 +44,7 @@ if (isset($_POST['txtPesquisa']) || !empty($_POST['txtPesquisa'])) {
         
     } else {
 
+        
         $resposta = array("status" => NENHUM_DOADOR_ENCONTRADO);
 
         echo json_encode($resposta);

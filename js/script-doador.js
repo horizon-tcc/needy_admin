@@ -658,13 +658,9 @@ $(document).ready(function () {
                 if (validarSecaoContato()) {
 
                     let dataEscolhida = new Date($('#txtDataNascimento').val());
-                    let dataAtual = new Date();
+                    let age = calculateAge(dataEscolhida);
 
-                    let diferenca = Math.abs(dataAtual.getTime() - dataEscolhida.getTime());
-
-                    diferenca = Math.floor(diferenca / 1000 / 60 / 60 / 24 / 365);
-
-                    if (diferenca >= 18) {
+                    if (age >= 18) {
 
                         let formularioDoador = document.querySelector("#form-insert");
                         let formData = new FormData(formularioDoador);
@@ -681,8 +677,17 @@ $(document).ready(function () {
 
                                 if (response.status === SUCESSO_AO_CADASTRAR_O_DOADOR) {
 
-                                    limparTodosCampos();
-                                    document.location.reload(true);
+                                    
+                                    
+                                    showToast('Sucesso', 'Doador cadastrado com sucesso', 'success', '#28a745', 'white', 2000);
+                                    
+                                    setTimeout(function() {
+                                        limparTodosCampos();
+                                        document.location.reload(true);
+                                        
+                                    }, 2000);
+
+                                    
                                 }
                                 else {
 
@@ -739,11 +744,19 @@ $(document).ready(function () {
 
                             if (response.status === SUCESSO_AO_CADASTRAR_O_DOADOR) {
 
-                                limparTodosCampos();
-                                document.location.reload(true);
+                                
+                                showToast('Sucesso', 'Doador cadastrado com sucesso', 'success', '#28a745', 'white', 2000);
+                                    
+                                setTimeout(function() {
+                                    limparTodosCampos();
+                                    document.location.reload(true);
+                                    
+                                }, 2000);
+
                             }
                             else {
 
+                                showToast('Atenção', 'Erro cadastrar o doador', 'warning', '#dc3545', 'white', 10000);
                                 console.log(response);
 
                             }
@@ -751,7 +764,7 @@ $(document).ready(function () {
                         },
                         error: function (request, status, error) {
 
-                            console.log("Deu ruim ao cadastrar o doador");
+                            showToast('Atenção', 'Erro cadastrar o doador', 'warning', '#dc3545', 'white', 10000);
 
 
                             console.log(request.responseText);
@@ -966,83 +979,17 @@ window.addEventListener('beforeunload', (event) => {
         || $("#txtComplemento").val().length > 0 || $("#txtEmail").val().length > 0 || $("#txtNomeResponsavel").val().length > 0
         || $("#txtDataNascimentoResponsavel").val().length > 0 || $("#txtCpfResponsavel").val().length > 0 || $("#txtRgResponsavel").val().length > 0) {
 
+
+      
         event.returnValue = `Tem certeza que deseja sair ?`;
+
+        
     }
-/*
-    else {
 
-        let listTelefoneDoador;
-        let listTelefoneResponsavel;
-
-        $.ajax({
-
-            url: "../controller/doador/verificar-tamanho-sessao-telefone.php",
-            type: "post",
-            dataType: "json",
-            async: false,
-            success: function (response) {
-
-                if (response.status) {
-
-                    listTelefoneDoador = (response.size > 0) ? true : false;
-
-                }
-                else {
-
-                    showToast('Atenção', 'Erro ao verificar a lista de telefones', 'warning', '#dc3545', 'white', 5000);
-                }
-
-            },
-            error: function (request, status, error) {
-
-                showToast('Atenção', 'Erro ao verificar a lista de telefones', 'warning', '#dc3545', 'white', 5000);
-
-                console.log(status);
-
-            }
-
-
-        });
-
-
-        $.ajax({
-
-            url: "../controller/responsavel/verificar-tamanho-sessao-telefone.php",
-            type: "post",
-            dataType: "json",
-            async: false,
-            success: function (response) {
-
-                if (response.status) {
-
-                    listTelefoneResponsavel = (response.size > 0) ? true : false;
-
-                }
-                else {
-
-                    showToast('Atenção', 'Erro ao verificar a lista de telefones', 'warning', '#dc3545', 'white', 5000);
-                }
-
-            },
-            error: function (request, status, error) {
-
-                showToast('Atenção', 'Erro ao verificar a lista de telefones', 'warning', '#dc3545', 'white', 5000);
-
-                console.log(status);
-
-            }
-
-
-        });
-
-        if (listTelefoneResponsavel || listTelefoneDoador) {
-
-            event.returnValue = `Tem certeza que deseja sair ?`;
-        }
-
-    }
-*/ 
 });
+
+
+
 
 
 function validarDataDoador(data) {

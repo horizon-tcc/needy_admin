@@ -38,6 +38,11 @@ function carregarPagina($nomeClasse)
         require_once(__DIR__ . DIRECTORY_SEPARATOR . "controller" . DIRECTORY_SEPARATOR ."utilidades".DIRECTORY_SEPARATOR.$nomeClasse . ".php");
     }
 
+    else if ( file_exists (__DIR__ . DIRECTORY_SEPARATOR . "controller" . DIRECTORY_SEPARATOR ."telefone".DIRECTORY_SEPARATOR.$nomeClasse . ".php")) {
+
+        require_once(__DIR__ . DIRECTORY_SEPARATOR . "controller" . DIRECTORY_SEPARATOR ."telefone".DIRECTORY_SEPARATOR.$nomeClasse . ".php");
+    }
+
     else if (file_exists(__DIR__ . DIRECTORY_SEPARATOR . "dao" . DIRECTORY_SEPARATOR . $nomeClasse . ".php")) {
 
         require_once(__DIR__ . DIRECTORY_SEPARATOR . "dao" . DIRECTORY_SEPARATOR . $nomeClasse . ".php");

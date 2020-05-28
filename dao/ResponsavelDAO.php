@@ -127,6 +127,22 @@ class ResponsavelDAO
             return null;
         }
     }  
+
+
+    public function getResponsiblePhonesById($id) {
+
+        $conn = db::getConn();
+        $sql = "SELECT * FROM tbtelefoneresponsavel WHERE idResponsavel = ?";
+
+        $pstm = $conn->prepare($sql);
+
+        $pstm->bindValue(1, $id);
+
+        $pstm->execute();
+
+        return $pstm->fetchAll();
+
+    }
     
 
     

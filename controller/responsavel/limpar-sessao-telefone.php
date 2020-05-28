@@ -5,7 +5,7 @@
     
     session_start();
 
-    if ( isset($_SESSION['telefonesResponsavel']) || !empty($_SESSION['telefonesResponsavel'])){
+    if ( isset($_SESSION['telefonesResponsavel']) && !empty($_SESSION['telefonesResponsavel'])){
 
         unset($_SESSION['telefonesResponsavel']);
 

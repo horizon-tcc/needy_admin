@@ -169,30 +169,32 @@ class DoadorDAO
         $responsavel = new Responsavel();
 
 
-        $sql = "SELECT idDoador, nomeDoador, rgDoador, dataNascimentoDoador 
-                cpfDoador, s.idSexo, descricaoSexo, t.idTipoSanguineo, 
-                descricaoTipoSanguineo, f.idFatorRh, descricaoFatorRh,
-                logradouroDoador, bairroDoador, cepDoador, numeroEndDoador,
-                complementoEndDoador, cidadeDoador, ufDoador, u.idUsuario, 
-                emailUsuario, fotoUsuario, tipo.idTipoUsuario, descricaoTipoUsuario,
-                r.idResponsavel, nomeResponsavel, rgResponsavel, cpfResponsavel,
-                dataNascimentoResponsavel, statusUsuario  FROM tbdoador
+        $sql = "SELECT tbdoador.idDoador, nomeDoador, rgDoador, dataNascimentoDoador, 
+        cpfDoador, s.idSexo, descricaoSexo, t.idTipoSanguineo, 
+        descricaoTipoSanguineo, f.idFatorRh, descricaoFatorRh,
+        logradouroDoador, bairroDoador, cepDoador, numeroEndDoador,
+        complementoEndDoador, cidadeDoador, ufDoador, u.idUsuario, 
+        emailUsuario, fotoUsuario, tipo.idTipoUsuario, descricaoTipoUsuario,
+        r.idResponsavel, nomeResponsavel, rgResponsavel, cpfResponsavel,
+        dataNascimentoResponsavel, statusUsuario  FROM tbdoador
 
-                INNER JOIN tbsexo as s
-                on tbdoador.idSexo = s.idSexo
-                INNER JOIN tbtiposanguineo as t
-                on tbdoador.idTipoSanguineo = t.idTipoSanguineo
-                INNER JOIN tbfatorrh as f
-                on tbdoador.idFatorRh = f.idFatorRh
-                LEFT JOIN tbusuario as u
-                on tbdoador.idUsuario = u.idUsuario
-                LEFT JOIN tbresponsavel as r
-                ON tbdoador.idResponsavel = r.idResponsavel
-                left join tbtipousuario as tipo
-                on u.idTipoUsuario = tipo.idTipoUsuario
-                
-                WHERE idDoador = ?
-                AND statusUsuario != 0";
+        INNER JOIN tbsexo as s
+        on tbdoador.idSexo = s.idSexo
+        INNER JOIN tbtiposanguineo as t
+        on tbdoador.idTipoSanguineo = t.idTipoSanguineo
+        INNER JOIN tbfatorrh as f
+        on tbdoador.idFatorRh = f.idFatorRh
+        INNER JOIN tbusuario as u
+        on tbdoador.idUsuario = u.idUsuario
+        LEFT JOIN tbresponsavel as r
+        ON tbdoador.idResponsavel = r.idResponsavel
+        INNER join tbtipousuario as tipo
+        on u.idTipoUsuario = tipo.idTipoUsuario
+
+
+        WHERE tbdoador.idDoador = ?
+        AND statusUsuario != 0
+        ";
 
 
         $pstm = $conn->prepare($sql);
@@ -202,6 +204,7 @@ class DoadorDAO
         $pstm->execute();
 
         $result = $pstm->fetchAll();
+
         $doador = null;
 
         if (count($result) > 0) {
@@ -213,6 +216,7 @@ class DoadorDAO
                 $doador->setId($r['idDoador']);
                 $doador->setNome($r['nomeDoador']);
                 $doador->setRg($r['rgDoador']);
+                $doador->setDataNasc($r['dataNascimentoDoador']);
 
                 $sexo->setIdSexo($r['idSexo']);
                 $sexo->setDescricaoSexo($r['descricaoSexo']);
@@ -225,12 +229,13 @@ class DoadorDAO
                 $fatorRh->setIdFatorRh($r['idFatorRh']);
                 $fatorRh->setDescricaoFatorRh($r['descricaoFatorRh']);
                 $doador->setFatorRh($fatorRh);
-                
-                $usuario->setIdUsuario( $r['idUsuario'] );
+
+                $usuario->setIdUsuario($r['idUsuario']);
                 $usuario->setEmailUsuario($r['emailUsuario']);
                 $usuario->setFotoUsuario($r['fotoUsuario']);
                 $usuario->getTipoUsuario()->setIdTipoUsuario($r['idTipoUsuario']);
                 $usuario->getTipoUsuario()->setDescricaoTipoUsuario($r['descricaoTipoUsuario']);
+                $usuario->setStatusUsuario($r['statusUsuario']);
                 $doador->setUsuario($usuario);
 
                 $doador->setCpf($r['cpfDoador']);
@@ -249,6 +254,9 @@ class DoadorDAO
                 $responsavel->setRg($r['rgResponsavel']);
                 $doador->setResponsavel($responsavel);
             }
+
+            $doador->setTelefones($this->getDonorPhonesById($id));
+            $doador->getResponsavel()->setTelefones((new ResponsavelDAO())->getResponsiblePhonesById($doador->getResponsavel()->getId()));
 
             return $doador;
         } else {
@@ -388,4 +396,21 @@ class DoadorDAO
 
         return  $pstm->execute();
     }
+
+    public function getDonorPhonesById($id)
+    {
+
+        $conn = db::getConn();
+        $sql = "SELECT * FROM tbtelefonedoador WHERE idDoador = ?";
+
+        $pstm = $conn->prepare($sql);
+
+        $pstm->bindValue(1, $id);
+
+        $pstm->execute();
+
+        return $pstm->fetchAll();
+    }
 }
+
+
