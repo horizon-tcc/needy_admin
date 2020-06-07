@@ -3,7 +3,8 @@
     require_once __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR ."global.php";
     include_once __DIR__ . DIRECTORY_SEPARATOR . ".." .  DIRECTORY_SEPARATOR . "config.php";
     
-
+    define("LIMITE_CONSULTA_POR_PAGINA", 5);
+    
     class DB 
     {
         public static function getConn() {
@@ -18,6 +19,4 @@
             }
         }
     }
-
-?>
 

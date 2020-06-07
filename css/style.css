@@ -594,14 +594,14 @@ label#file-description span:nth-child(3) {
 .container-cards {
     padding: 40px;
     padding-bottom: 20px;
-    margin-top: 40px;
+    margin-top: 10px;
 }
 
 .font-bold {
     font-family: "Roboto-Bold";
 }
 
-.modal-body img {
+.modal-body img.img-doador {
     width: 200px;
     height: 200px;
     border-radius:100%;
@@ -623,4 +623,50 @@ label#file-description span:nth-child(3) {
     line-height: 25px;
 }
 
+
+.selection {
+
+    cursor: pointer;
+    padding: 15px;
+}
+
+.selection:hover {
+
+    background-color: rgba(0, 0, 0, .1);
+    transition: 0.5s;
+    
+}
+
+.filter-option {
+    margin-top: 20px;
+    margin-left: 20px;
+    padding:30px;
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color:white;
+    box-shadow: 0px 0px 15px gainsboro;
+    width:150px;
+    height:121px;
+    text-align: center;
+    border-bottom: solid 4px white;
+}
+
+.filter-option:first-child{
+    margin-left:0px;
+}
+.filter-option:hover {
+
+    border-bottom-color: rgba(0, 0, 0, .18);
+    transition: 0.5s;
+    cursor: pointer;
+}
+.filter-option i{
+
+    font-size: 30px;
+}
+.filter-option img{
+
+    height: 30px;
+    width: 30px;
+}
 /***** fim da página de consulta   ******/

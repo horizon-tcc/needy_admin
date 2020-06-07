@@ -33,7 +33,8 @@
 
                     <h3 class="text-center color-gray mt-4"> Seja bem vindo a versão administrativa do Needy!</h3>
 
-                    <p class="text-center color-gray">&copy; Todos os direitos reservados <p>
+                    <p class="text-center color-gray">&copy; Todos os direitos reservados
+                    <p>
                 </div>
 
             </div>

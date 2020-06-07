@@ -17,9 +17,9 @@
             
             $usuario = new UsuarioDao();
 
-            $usuario->setEmailUsuario($emailUsuario);
-            $usuario->setSenhaUsuario($senhaUsuario);
-            $usuario->setTipoUsuario($tipoUsuario);
+          //  $usuario->setEmailUsuario($emailUsuario);
+           // $usuario->setSenhaUsuario($senhaUsuario);
+          // $usuario->setTipoUsuario($tipoUsuario);
 
             echo $usuario->cadastrarUsuario($usuario);
 

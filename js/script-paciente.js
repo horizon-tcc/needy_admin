@@ -81,10 +81,12 @@ $("#scFatorRh").blur(function () {
         $('#scFatorRh').removeClass(("is-invalid"));
         $('#scFatorRh').addClass(("is-valid"));
     }
-    
+
 });
 
 function limparCamposPaciente() {
+
+    ev.preventDefault();
 
     document.getElementById("#txtCpfPaciente").value = "";
     document.getElementById("#txtNomePaciente").value = "";
@@ -94,5 +96,9 @@ function limparCamposPaciente() {
     document.getElementById("#scFatorRhPaciente").value = "";
 
 }
+
+$("#form-adicionar-paciente").submit(function (ev) {
+    ev.preventDefault();
+});
 
 $("#btnLimparCamposPaciente").click(limparCamposPaciente());

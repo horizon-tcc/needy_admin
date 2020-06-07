@@ -69,14 +69,14 @@ class DoadorDAO
         $responsavel = new Responsavel();
 
 
-        $sql = "SELECT idDoador, nomeDoador, rgDoador, dataNascimentoDoador 
+        $sql = "SELECT idDoador, nomeDoador, rgDoador, DATE_FORMAT(dataNascimentoDoador, '%d/%m/%Y') as dataNascimentoDoador, 
                 cpfDoador, s.idSexo, descricaoSexo, t.idTipoSanguineo, 
                 descricaoTipoSanguineo, f.idFatorRh, descricaoFatorRh,
                 logradouroDoador, bairroDoador, cepDoador, numeroEndDoador,
                 complementoEndDoador, cidadeDoador, ufDoador, u.idUsuario, 
                 emailUsuario, fotoUsuario, tipo.idTipoUsuario, descricaoTipoUsuario,
                 r.idResponsavel, nomeResponsavel, rgResponsavel, cpfResponsavel,
-                dataNascimentoResponsavel, statusUsuario  FROM tbdoador
+                DATE_FORMAT(dataNascimentoResponsavel, '%d/%m/%Y') as dataNascimentoResponsavel, statusUsuario  FROM tbdoador
 
                 INNER JOIN tbsexo as s
                 on tbdoador.idSexo = s.idSexo
@@ -156,6 +156,100 @@ class DoadorDAO
         }
     }
 
+    public function getDonnorsByCpf($cpf)
+    {
+        $conn = DB::getConn();
+
+        $sql = "SELECT idDoador, nomeDoador, rgDoador, DATE_FORMAT(dataNascimentoDoador, '%d/%m/%Y') as dataNascimentoDoador, 
+                cpfDoador, s.idSexo, descricaoSexo, t.idTipoSanguineo, 
+                descricaoTipoSanguineo, f.idFatorRh, descricaoFatorRh,
+                logradouroDoador, bairroDoador, cepDoador, numeroEndDoador,
+                complementoEndDoador, cidadeDoador, ufDoador, u.idUsuario, 
+                emailUsuario, fotoUsuario, tipo.idTipoUsuario, descricaoTipoUsuario,
+                r.idResponsavel, nomeResponsavel, rgResponsavel, cpfResponsavel,
+                DATE_FORMAT(dataNascimentoResponsavel, '%d/%m/%Y') as dataNascimentoResponsavel, statusUsuario  FROM tbdoador
+
+                INNER JOIN tbsexo as s
+                on tbdoador.idSexo = s.idSexo
+                INNER JOIN tbtiposanguineo as t
+                on tbdoador.idTipoSanguineo = t.idTipoSanguineo
+                INNER JOIN tbfatorrh as f
+                on tbdoador.idFatorRh = f.idFatorRh
+                LEFT JOIN tbusuario as u
+                on tbdoador.idUsuario = u.idUsuario
+                LEFT JOIN tbresponsavel as r
+                ON tbdoador.idResponsavel = r.idResponsavel
+                left join tbtipousuario as tipo
+                on u.idTipoUsuario = tipo.idTipoUsuario
+                
+                WHERE cpfDoador LIKE ?
+                AND statusUsuario != 0";
+
+
+        $pstm = $conn->prepare($sql);
+
+        $pstm->bindValue(1, $cpf . "%");
+
+        $pstm->execute();
+
+        $result = $pstm->fetchAll();
+
+        if (count($result) > 0) {
+
+            return $result;
+        } else {
+
+            return null;
+        }
+    }
+
+
+    public function getDonnorsByRg($rg)
+    {
+        $conn = DB::getConn();
+
+        $sql = "SELECT idDoador, nomeDoador, rgDoador, DATE_FORMAT(dataNascimentoDoador, '%d/%m/%Y') as dataNascimentoDoador, 
+                cpfDoador, s.idSexo, descricaoSexo, t.idTipoSanguineo, 
+                descricaoTipoSanguineo, f.idFatorRh, descricaoFatorRh,
+                logradouroDoador, bairroDoador, cepDoador, numeroEndDoador,
+                complementoEndDoador, cidadeDoador, ufDoador, u.idUsuario, 
+                emailUsuario, fotoUsuario, tipo.idTipoUsuario, descricaoTipoUsuario,
+                r.idResponsavel, nomeResponsavel, rgResponsavel, cpfResponsavel,
+                DATE_FORMAT(dataNascimentoResponsavel, '%d/%m/%Y') as dataNascimentoResponsavel, statusUsuario  FROM tbdoador
+
+                INNER JOIN tbsexo as s
+                on tbdoador.idSexo = s.idSexo
+                INNER JOIN tbtiposanguineo as t
+                on tbdoador.idTipoSanguineo = t.idTipoSanguineo
+                INNER JOIN tbfatorrh as f
+                on tbdoador.idFatorRh = f.idFatorRh
+                LEFT JOIN tbusuario as u
+                on tbdoador.idUsuario = u.idUsuario
+                LEFT JOIN tbresponsavel as r
+                ON tbdoador.idResponsavel = r.idResponsavel
+                left join tbtipousuario as tipo
+                on u.idTipoUsuario = tipo.idTipoUsuario
+                
+                WHERE rgDoador LIKE ?
+                AND statusUsuario != 0";
+
+
+        $pstm = $conn->prepare($sql);
+
+        $pstm->bindValue(1, $rg . "%");
+
+        $pstm->execute();
+
+        $result = $pstm->fetchAll();
+
+        if (count($result) > 0) {
+
+            return $result;
+        } else {
+
+            return null;
+        }
+    }
 
     public function getDoadorById($id)
     {
@@ -169,14 +263,14 @@ class DoadorDAO
         $responsavel = new Responsavel();
 
 
-        $sql = "SELECT tbdoador.idDoador, nomeDoador, rgDoador, dataNascimentoDoador, 
+        $sql = "SELECT tbdoador.idDoador, nomeDoador, rgDoador, DATE_FORMAT(dataNascimentoDoador, '%d/%m/%Y') as dataNascimentoDoador, 
         cpfDoador, s.idSexo, descricaoSexo, t.idTipoSanguineo, 
         descricaoTipoSanguineo, f.idFatorRh, descricaoFatorRh,
         logradouroDoador, bairroDoador, cepDoador, numeroEndDoador,
         complementoEndDoador, cidadeDoador, ufDoador, u.idUsuario, 
         emailUsuario, fotoUsuario, tipo.idTipoUsuario, descricaoTipoUsuario,
         r.idResponsavel, nomeResponsavel, rgResponsavel, cpfResponsavel,
-        dataNascimentoResponsavel, statusUsuario  FROM tbdoador
+        DATE_FORMAT(dataNascimentoResponsavel, '%d/%m/%Y') as dataNascimentoResponsavel, statusUsuario  FROM tbdoador
 
         INNER JOIN tbsexo as s
         on tbdoador.idSexo = s.idSexo
@@ -265,20 +359,116 @@ class DoadorDAO
         }
     }
 
-
-    public function getDoadorByName($name)
+    public function getDonnorsByBirthDate($initialDate, $finalDate)
     {
 
         $conn = DB::getConn();
 
-        $sql = "SELECT idDoador, nomeDoador, rgDoador, tbdoador.dataNascimentoDoador, 
+        $sql = "SELECT idDoador, nomeDoador, rgDoador, DATE_FORMAT(dataNascimentoDoador, '%d/%m/%Y') as dataNascimentoDoador, 
                 cpfDoador, s.idSexo, descricaoSexo, t.idTipoSanguineo, 
                 descricaoTipoSanguineo, f.idFatorRh, descricaoFatorRh,
                 logradouroDoador, bairroDoador, cepDoador, numeroEndDoador,
                 complementoEndDoador, cidadeDoador, ufDoador, u.idUsuario, 
                 emailUsuario, fotoUsuario, tipo.idTipoUsuario, descricaoTipoUsuario,
                 r.idResponsavel, nomeResponsavel, rgResponsavel, cpfResponsavel,
-                dataNascimentoResponsavel, statusUsuario FROM tbdoador
+                DATE_FORMAT(dataNascimentoResponsavel, '%d/%m/%Y') as dataNascimentoResponsavel, statusUsuario  FROM tbdoador
+
+                INNER JOIN tbsexo as s
+                on tbdoador.idSexo = s.idSexo
+                INNER JOIN tbtiposanguineo as t
+                on tbdoador.idTipoSanguineo = t.idTipoSanguineo
+                INNER JOIN tbfatorrh as f
+                on tbdoador.idFatorRh = f.idFatorRh
+                LEFT JOIN tbusuario as u
+                on tbdoador.idUsuario = u.idUsuario
+                LEFT JOIN tbresponsavel as r
+                ON tbdoador.idResponsavel = r.idResponsavel
+                left join tbtipousuario as tipo
+                on u.idTipoUsuario = tipo.idTipoUsuario
+                
+                WHERE (dataNascimentoDoador BETWEEN ? AND ?)
+                AND (statusUsuario != 0) ";
+
+
+        $pstm = $conn->prepare($sql);
+
+        $pstm->bindValue(1, $initialDate);
+        $pstm->bindValue(2, $finalDate);
+
+        $pstm->execute();
+
+        $result = $pstm->fetchAll();
+
+        if (count($result) > 0) {
+
+            return $result;
+        } else {
+
+            return null;
+        }
+    }
+
+    public function getDonnorsByEmail($email)
+    {
+
+        $conn = DB::getConn();
+
+        $sql = "SELECT idDoador, nomeDoador, rgDoador, DATE_FORMAT(dataNascimentoDoador, '%d/%m/%Y') as dataNascimentoDoador, 
+                cpfDoador, s.idSexo, descricaoSexo, t.idTipoSanguineo, 
+                descricaoTipoSanguineo, f.idFatorRh, descricaoFatorRh,
+                logradouroDoador, bairroDoador, cepDoador, numeroEndDoador,
+                complementoEndDoador, cidadeDoador, ufDoador, u.idUsuario, 
+                emailUsuario, fotoUsuario, tipo.idTipoUsuario, descricaoTipoUsuario,
+                r.idResponsavel, nomeResponsavel, rgResponsavel, cpfResponsavel,
+                DATE_FORMAT(dataNascimentoResponsavel, '%d/%m/%Y') as dataNascimentoResponsavel, statusUsuario  FROM tbdoador
+
+                INNER JOIN tbsexo as s
+                on tbdoador.idSexo = s.idSexo
+                INNER JOIN tbtiposanguineo as t
+                on tbdoador.idTipoSanguineo = t.idTipoSanguineo
+                INNER JOIN tbfatorrh as f
+                on tbdoador.idFatorRh = f.idFatorRh
+                INNER JOIN tbusuario as u
+                on tbdoador.idUsuario = u.idUsuario
+                LEFT JOIN tbresponsavel as r
+                ON tbdoador.idResponsavel = r.idResponsavel
+                left join tbtipousuario as tipo
+                on u.idTipoUsuario = tipo.idTipoUsuario
+                
+                WHERE emailUsuario LIKE ?
+                AND statusUsuario != 0";
+
+
+        $pstm = $conn->prepare($sql);
+
+        $pstm->bindValue(1, $email . "%");
+
+        $pstm->execute();
+
+        $result = $pstm->fetchAll();
+
+        if (count($result) > 0) {
+
+            return $result;
+        } else {
+
+            return null;
+        }
+    }
+
+    public function getDoadorByName($name)
+    {
+
+        $conn = DB::getConn();
+
+        $sql = "SELECT idDoador, nomeDoador, rgDoador, DATE_FORMAT(dataNascimentoDoador, '%d/%m/%Y') as dataNascimentoDoador, 
+                cpfDoador, s.idSexo, descricaoSexo, t.idTipoSanguineo, 
+                descricaoTipoSanguineo, f.idFatorRh, descricaoFatorRh,
+                logradouroDoador, bairroDoador, cepDoador, numeroEndDoador,
+                complementoEndDoador, cidadeDoador, ufDoador, u.idUsuario, 
+                emailUsuario, fotoUsuario, tipo.idTipoUsuario, descricaoTipoUsuario,
+                r.idResponsavel, nomeResponsavel, rgResponsavel, cpfResponsavel,
+                DATE_FORMAT(dataNascimentoResponsavel, '%d/%m/%Y') as dataNascimentoResponsavel, statusUsuario FROM tbdoador
 
                 INNER JOIN tbsexo as s
                 on tbdoador.idSexo = s.idSexo
@@ -321,14 +511,14 @@ class DoadorDAO
         $conn = DB::getConn();
 
 
-        $sql = "SELECT idDoador, nomeDoador, rgDoador, tbdoador.dataNascimentoDoador, 
+        $sql = "SELECT idDoador, nomeDoador, rgDoador, DATE_FORMAT(dataNascimentoDoador, '%d/%m/%Y') as dataNascimentoDoador, 
                 cpfDoador, s.idSexo, descricaoSexo, t.idTipoSanguineo, 
                 descricaoTipoSanguineo, f.idFatorRh, descricaoFatorRh,
                 logradouroDoador, bairroDoador, cepDoador, numeroEndDoador,
                 complementoEndDoador, cidadeDoador, ufDoador, u.idUsuario, 
                 emailUsuario, fotoUsuario, tipo.idTipoUsuario, descricaoTipoUsuario,
                 r.idResponsavel, nomeResponsavel, rgResponsavel, cpfResponsavel,
-                dataNascimentoResponsavel, statusUsuario  FROM tbdoador
+                DATE_FORMAT(dataNascimentoResponsavel, '%d/%m/%Y') as dataNascimentoResponsavel, statusUsuario  FROM tbdoador
 
                 INNER JOIN tbsexo as s
                 on tbdoador.idSexo = s.idSexo
@@ -411,6 +601,104 @@ class DoadorDAO
 
         return $pstm->fetchAll();
     }
+
+
+    public function getDonnorsByBloodType( $idBloodType )
+    {
+
+        $conn = DB::getConn();
+
+        $sql = "SELECT idDoador, nomeDoador, rgDoador, DATE_FORMAT(dataNascimentoDoador, '%d/%m/%Y') as dataNascimentoDoador, 
+                cpfDoador, s.idSexo, descricaoSexo, t.idTipoSanguineo, 
+                descricaoTipoSanguineo, f.idFatorRh, descricaoFatorRh,
+                logradouroDoador, bairroDoador, cepDoador, numeroEndDoador,
+                complementoEndDoador, cidadeDoador, ufDoador, u.idUsuario, 
+                emailUsuario, fotoUsuario, tipo.idTipoUsuario, descricaoTipoUsuario,
+                r.idResponsavel, nomeResponsavel, rgResponsavel, cpfResponsavel,
+                DATE_FORMAT(dataNascimentoResponsavel, '%d/%m/%Y') as dataNascimentoResponsavel, statusUsuario  FROM tbdoador
+
+                INNER JOIN tbsexo as s
+                on tbdoador.idSexo = s.idSexo
+                INNER JOIN tbtiposanguineo as t
+                on tbdoador.idTipoSanguineo = t.idTipoSanguineo
+                INNER JOIN tbfatorrh as f
+                on tbdoador.idFatorRh = f.idFatorRh
+                INNER JOIN tbusuario as u
+                on tbdoador.idUsuario = u.idUsuario
+                LEFT JOIN tbresponsavel as r
+                ON tbdoador.idResponsavel = r.idResponsavel
+                left join tbtipousuario as tipo
+                on u.idTipoUsuario = tipo.idTipoUsuario
+                
+                WHERE t.idTipoSanguineo = ?
+                AND statusUsuario != 0";
+
+
+        $pstm = $conn->prepare($sql);
+
+        $pstm->bindValue(1, $idBloodType);
+
+        $pstm->execute();
+
+        $result = $pstm->fetchAll();
+
+        if (count($result) > 0) {
+
+            return $result;
+
+        } else {
+
+            return null;
+        }
+    }
+
+
+    public function getDonnorsByRhFactor( $idRhFactor )
+    {
+
+        $conn = DB::getConn();
+
+        $sql = "SELECT idDoador, nomeDoador, rgDoador, DATE_FORMAT(dataNascimentoDoador, '%d/%m/%Y') as dataNascimentoDoador, 
+                cpfDoador, s.idSexo, descricaoSexo, t.idTipoSanguineo, 
+                descricaoTipoSanguineo, f.idFatorRh, descricaoFatorRh,
+                logradouroDoador, bairroDoador, cepDoador, numeroEndDoador,
+                complementoEndDoador, cidadeDoador, ufDoador, u.idUsuario, 
+                emailUsuario, fotoUsuario, tipo.idTipoUsuario, descricaoTipoUsuario,
+                r.idResponsavel, nomeResponsavel, rgResponsavel, cpfResponsavel,
+                DATE_FORMAT(dataNascimentoResponsavel, '%d/%m/%Y') as dataNascimentoResponsavel, statusUsuario  FROM tbdoador
+
+                INNER JOIN tbsexo as s
+                on tbdoador.idSexo = s.idSexo
+                INNER JOIN tbtiposanguineo as t
+                on tbdoador.idTipoSanguineo = t.idTipoSanguineo
+                INNER JOIN tbfatorrh as f
+                on tbdoador.idFatorRh = f.idFatorRh
+                INNER JOIN tbusuario as u
+                on tbdoador.idUsuario = u.idUsuario
+                LEFT JOIN tbresponsavel as r
+                ON tbdoador.idResponsavel = r.idResponsavel
+                left join tbtipousuario as tipo
+                on u.idTipoUsuario = tipo.idTipoUsuario
+                
+                WHERE f.idFatorRh = ?
+                AND statusUsuario != 0";
+
+
+        $pstm = $conn->prepare($sql);
+
+        $pstm->bindValue(1, $idRhFactor );
+
+        $pstm->execute();
+
+        $result = $pstm->fetchAll();
+
+        if (count($result) > 0) {
+
+            return $result;
+
+        } else {
+
+            return null;
+        }
+    }
 }
-
-

@@ -33,6 +33,8 @@ $('#psSenhaUsuario').blur(function () {
 
 function limparCamposUsuario() {
 
+    ev.preventDefault();
+
     document.getElementById("#scTipoUsuario").value = "";
     document.getElementById("#txtEmailUsuario").value = "";
     document.getElementById("#psSenhaUsuario").value = "";

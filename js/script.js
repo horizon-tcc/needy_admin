@@ -205,15 +205,24 @@ function validarNome(nome) {
 
 }
 
-function calculateAge(yearOfBirth) {
+function calculateAge(dateOfBirth) {
 
     let actualDate = new Date();
-    yearOfBirth = new Date(yearOfBirth);
+    dateOfBirth = new Date(dateOfBirth);
      
-    let age = Math.abs(actualDate.getTime() - yearOfBirth.getTime());
+    let age = Math.abs(actualDate.getTime() - dateOfBirth.getTime());
 
     age = Math.floor(age / 1000 / 60 / 60 / 24 / 365);
 
     return age;
 
 }
+
+function FormataStringData(data) {
+    var dia  = data.split("/")[0];
+    var mes  = data.split("/")[1];
+    var ano  = data.split("/")[2];
+  
+    return ano + '-' + ("0"+mes).slice(-2) + '-' + ("0"+dia).slice(-2);
+    // Utilizo o .slice(-2) para garantir o formato com 2 digitos.
+  }

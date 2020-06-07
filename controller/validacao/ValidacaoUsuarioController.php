@@ -8,7 +8,7 @@ class ValidacaoUsuarioController
         
         session_start();
 
-        if($tipoUsuario == 1 || $tipoUsuario >= 5 || empty($tipoUsuario) || !isset($tipoUsuario)) {
+        if($tipoUsuario == 1 || empty($tipoUsuario) || !isset($tipoUsuario)) {
 
             return false;
 

@@ -1,10 +1,20 @@
 <title> Consultar doadores </title>
+
 <?php
 include_once('imports/header.php');
 require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "global.php");
 
 ?>
 
+<?php
+define("PESQUISAR_POR_NOME", 1);
+define("PESQUISAR_POR_CPF", 2);
+define("PESQUISAR_POR_RG", 3);
+define("PESQUISAR_POR_DATA_NASCIMENTO", 4);
+define("PESQUISAR_POR_EMAIL", 5);
+define("PESQUISAR_POR_TIPO_SANGUINEO", 6);
+define("PESQUISAR_POR_FATOR_RH", 7);
+?>
 <main>
 
     <div class="container-fluid mt-2 py-2">
@@ -37,9 +47,16 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
                 <div class="form-group col-md-6 d-flex align-items-center justify-content-center color-gray">
 
-                    <input type="text" name="txtPesquisa" id="txtPesquisa" class="input-for-search" placeholder="Digite o nome do doador" />
+                    <input type="hidden" value="<?php echo PESQUISAR_POR_NOME; ?>" id="hdSearchType" name="hdSearchType" />
+                    <div class="container-search w-75"> <input type="text" name="txtPesquisa" id="txtPesquisa" class="input-for-search w-100" placeholder="Digite o nome do doador" /> </div>
 
-                    <i class="fas fa-search ml-2"></i>
+                    <div class="ml-3">
+
+                        <i class="fas fa-search ml-2"></i>
+
+                        <i class="fas fa-filter ml-3 selection" data-toggle="modal" data-target="#modal-filter-doador"></i>
+                    </div>
+
                 </div>
 
             </div>
@@ -107,7 +124,8 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
                             <div class="form-group col-md-12 py-2">
 
-                                <h5 id="desc-remover-doador" class="text-center"> Deseja remover o doador selecionado ? </h5>
+                                <h5 id="desc-remover-doador" class="text-center"> Deseja remover o doador selecionado ?
+                                </h5>
                                 <input type="hidden" name="hdUrlDoadorRemovido" id="hdUrlDoadorRemovido" />
                             </div>
 
@@ -125,7 +143,6 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
         </div>
     </div>
 
-
     <div class="modal fade bd-example-modal-lg" id="modal-view-doador" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -137,9 +154,9 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                 </div>
                 <div class="modal-body">
 
-                    <img src="../img/girl.jpg" alt="" class="d-block mx-auto" id="img-doador">
+                    <img src="../img/girl.jpg" alt="" class="d-block mx-auto img-doador" id="img-doador">
 
-                    <h5 class="text-center mt-3 nome-doador" id="nome-doador"> Beatriz tenório </h5>
+                    <h2 class="text-center mt-3 nome-doador" id="nome-doador"> Beatriz tenório </h2>
 
 
                     <div class="section-personal w-100 mt-5 mt-5">
@@ -304,7 +321,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                                         </tr>
                                     </thead>
                                     <tbody id="telefones-doador">
-                        
+
                                     </tbody>
                                 </table>
                             </div>
@@ -330,13 +347,13 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
                             <div class="col-md-6">
 
-                                <h6 class="font-bold"> Nome: <span id="nome-responsavel-doador"> Dalva Soares da Costa </span> </h6>
+                                <h6 class="font-bold text-center"> Nome: <span id="nome-responsavel-doador"> Dalva Soares da Costa </span> </h6>
 
                             </div>
 
                             <div class="col-md-6">
 
-                                <h6 class="font-bold"> Data de nascimento: <span id="data-nascimento-responsavel-doador"> 21/12/1985 </span> </h6>
+                                <h6 class="font-bold text-center"> Data de nascimento: <span id="data-nascimento-responsavel-doador"> 21/12/1985 </span> </h6>
 
                             </div>
 
@@ -348,11 +365,11 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
                             <div class="col-md-6">
 
-                                <h6 class="font-bold"> CPF: <span id="cpf-responsavel-doador"> 503.988.496-68 </span> </h6>
+                                <h6 class="font-bold text-center"> CPF: <span id="cpf-responsavel-doador"> 503.988.496-68 </span> </h6>
                             </div>
 
-                            
-                            <div class="col-md-6">
+
+                            <div class="col-md-6 text-center">
 
                                 <h6 class="font-bold"> RG: <span id="rg-responsavel-doador"> 23.263.782-5 </span> </h6>
                             </div>
@@ -369,7 +386,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                                         </tr>
                                     </thead>
                                     <tbody id="telefones-responsavel-doador">
-                                       
+
                                     </tbody>
                                 </table>
                             </div>
@@ -390,6 +407,67 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
         </div>
     </div>
 
+
+
+    <div class="modal fade bd-example-modal-lg" id="modal-filter-doador" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title font-bold" id="modal-title-filter-doador"> <i class="fas fa-filter ml-3"></i> Escolha a opção de filtro </h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="filter-container d-flex justify-content-center mt-5 mb-5 flex-wrap">
+
+                        <div class="filter-option d-flex justify-content-center align-items-center flex-column" id="<?php echo PESQUISAR_POR_NOME; ?>">
+                            <i class="fas fa-font d-block mx-auto text-center"></i>
+                            <h6 class="mt-2"> Nome </h6>
+                        </div>
+
+                        <div class="filter-option d-flex justify-content-center align-items-center flex-column" id="<?php echo PESQUISAR_POR_CPF; ?>">
+                            <i class="fas fa-id-card-alt d-block mx-auto text-center"></i>
+                            <h6 class="mt-2"> CPF </h6>
+                        </div>
+
+                        <div class="filter-option d-flex justify-content-center align-items-center flex-column" id="<?php echo PESQUISAR_POR_RG; ?>">
+                            <i class="fas fa-address-card d-block mx-auto text-center"></i>
+                            <h6 class="mt-2"> RG</h6>
+                        </div>
+
+                        <div class="filter-option d-flex justify-content-center align-items-center flex-column" id="<?php echo PESQUISAR_POR_DATA_NASCIMENTO; ?>">
+                            <i class="fas fa-calendar-day d-block mx-auto text-center"></i>
+                            <h6 class="mt-2"> Data de nascimento </h6>
+                        </div>
+
+                        <div class="filter-option d-flex justify-content-center align-items-center flex-column" id="<?php echo PESQUISAR_POR_EMAIL; ?>">
+                            <i class="fas fa-at d-block mx-auto text-center"></i>
+                            <h6 class="mt-2"> Email </h6>
+                        </div>
+
+
+                        <div class="filter-option d-flex justify-content-center align-items-center flex-column" id="<?php echo PESQUISAR_POR_TIPO_SANGUINEO; ?>">
+                            <i class="fas fa-tint d-block mx-auto text-center"></i>
+                            <h6 class="mt-2"> Tipo sanguíneo </h6>
+                        </div>
+
+
+                        <div class="filter-option d-flex justify-content-center align-items-center flex-column" id="<?php echo PESQUISAR_POR_FATOR_RH; ?>">
+                            <img src="../img/plus-and-minus.png" />
+                            <h6 class="mt-2"> Fator RH </h6>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </main>
 

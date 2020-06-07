@@ -37,7 +37,7 @@ $("#scCargoFuncionario").blur(function () {
         $('#scCargoFuncionario').removeClass(("is-invalid"));
         $('#scCargoFuncionario').addClass(("is-valid"));
     }
-    
+
 });
 
 $("#txtRgFuncionario").blur(function () {
