@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: 04-Abr-2020 às 22:26
--- Versão do servidor: 5.7.29-0ubuntu0.18.04.1
--- PHP Version: 7.2.24-0ubuntu0.18.04.3
+-- Generation Time: 28-Maio-2020 às 16:29
+-- Versão do servidor: 5.7.30-0ubuntu0.18.04.1
+-- PHP Version: 7.2.24-0ubuntu0.18.04.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -52,10 +52,6 @@ CREATE TABLE `tbBancoSangue` (
   `ufBancoSangue` char(2) COLLATE utf8_bin NOT NULL,
   `cidadeBancoSangue` varchar(100) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
---
--- Extraindo dados da tabela `tbBancoSangue`
---
 
 -- --------------------------------------------------------
 
@@ -110,12 +106,16 @@ CREATE TABLE `tbDoador` (
   `complementoEndDoador` varchar(70) COLLATE utf8_bin DEFAULT NULL,
   `cidadeDoador` varchar(100) COLLATE utf8_bin NOT NULL,
   `ufDoador` char(2) COLLATE utf8_bin NOT NULL,
-  `idUsuario` int(12) DEFAULT NULL 
+  `idUsuario` int(12) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Extraindo dados da tabela `tbDoador`
 --
+
+INSERT INTO `tbDoador` (`idDoador`, `nomeDoador`, `idResponsavel`, `idSexo`, `dataNascimentoDoador`, `idFatorRh`, `idTipoSanguineo`, `cpfDoador`, `rgDoador`, `logradouroDoador`, `bairroDoador`, `cepDoador`, `numeroEndDoador`, `complementoEndDoador`, `cidadeDoador`, `ufDoador`, `idUsuario`) VALUES
+(1, 'Lorena Clarice Alves', 1, 2, '2004-03-03', 2, 2, '306.528.018-38', '27.238.258-9', '1ª Travessa da BR', 'Caldeirões', '65607-190', '427', NULL, 'Caxias', 'MA', 1),
+(2, 'Oliver Pietro Oliveira', NULL, 1, '1971-11-17', 1, 2, '398.178.072-82', '27.377.437-2', 'Rua Itapuã', 'Cohafaba III Plano', '79826-281', '603', NULL, 'Dourados', 'MS', 2);
 
 -- --------------------------------------------------------
 
@@ -197,6 +197,9 @@ CREATE TABLE `tbResponsavel` (
 -- Extraindo dados da tabela `tbResponsavel`
 --
 
+INSERT INTO `tbResponsavel` (`idResponsavel`, `nomeResponsavel`, `cpfResponsavel`, `rgResponsavel`, `dataNascimentoResponsavel`) VALUES
+(1, 'Betina Laís Carvalho', '043.744.475-98', '45.565.532-7', '1976-02-21');
+
 -- --------------------------------------------------------
 
 --
@@ -251,6 +254,16 @@ CREATE TABLE `tbTelefoneDoador` (
   `idDoador` int(12) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+--
+-- Extraindo dados da tabela `tbTelefoneDoador`
+--
+
+INSERT INTO `tbTelefoneDoador` (`idTelefoneDoador`, `numeroTelefoneDoador`, `idDoador`) VALUES
+(1, '(99) 2874-1967', 1),
+(2, '(99) 99814-8175', 1),
+(3, '(67) 2540-0902', 2),
+(4, '(67) 98529-5524', 2);
+
 -- --------------------------------------------------------
 
 --
@@ -262,6 +275,13 @@ CREATE TABLE `tbTelefoneResponsavel` (
   `numeroTelefoneResponsavel` varchar(15) COLLATE utf8_bin NOT NULL,
   `idResponsavel` int(12) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Extraindo dados da tabela `tbTelefoneResponsavel`
+--
+
+INSERT INTO `tbTelefoneResponsavel` (`idTelefoneResponsavel`, `numeroTelefoneResponsavel`, `idResponsavel`) VALUES
+(1, '(11) 4002-8922', 1);
 
 -- --------------------------------------------------------
 
@@ -325,17 +345,18 @@ CREATE TABLE `tbUsuario` (
   `idUsuario` int(12) NOT NULL,
   `emailUsuario` varchar(80) COLLATE utf8_bin NOT NULL,
   `senhaUsuario` char(32) COLLATE utf8_bin NOT NULL,
-  `fotoUsuario` varchar(100) COLLATE utf8_bin,
+  `fotoUsuario` varchar(100) COLLATE utf8_bin DEFAULT NULL,
   `idTipoUsuario` int(12) NOT NULL,
-  `statusUsuario` int(12) DEFAULT 1
+  `statusUsuario` int(12) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Extraindo dados da tabela `tbUsuario`
 --
 
-INSERT INTO `tbUsuario` (`idUsuario`, `emailUsuario`, `senhaUsuario`, `idTipoUsuario`) VALUES
-(1, 'omelhorgrupodetcc007@gmail.com', 'omelhortcc@456', 1);
+INSERT INTO `tbUsuario` (`idUsuario`, `emailUsuario`, `senhaUsuario`, `fotoUsuario`, `idTipoUsuario`, `statusUsuario`) VALUES
+(1, 'admin@admin.com', 'admin', NULL, 1, 1),
+(2, 'teste@teste.com', 'teste', NULL, 3, 1);
 
 --
 -- Indexes for dumped tables
@@ -490,7 +511,7 @@ ALTER TABLE `tbAgendamento`
 -- AUTO_INCREMENT for table `tbBancoSangue`
 --
 ALTER TABLE `tbBancoSangue`
-  MODIFY `idBancoSangue` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idBancoSangue` int(12) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tbCargoFuncionario`
 --
@@ -505,7 +526,7 @@ ALTER TABLE `tbDoacao`
 -- AUTO_INCREMENT for table `tbDoador`
 --
 ALTER TABLE `tbDoador`
-  MODIFY `idDoador` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idDoador` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `tbFatorRh`
 --
@@ -550,12 +571,12 @@ ALTER TABLE `tbTelefoneBancoSangue`
 -- AUTO_INCREMENT for table `tbTelefoneDoador`
 --
 ALTER TABLE `tbTelefoneDoador`
-  MODIFY `idTelefoneDoador` int(12) NOT NULL AUTO_INCREMENT;
+  MODIFY `idTelefoneDoador` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `tbTelefoneResponsavel`
 --
 ALTER TABLE `tbTelefoneResponsavel`
-  MODIFY `idTelefoneResponsavel` int(12) NOT NULL AUTO_INCREMENT;
+  MODIFY `idTelefoneResponsavel` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `tbTipoDoacao`
 --
@@ -570,12 +591,12 @@ ALTER TABLE `tbTipoSanguineo`
 -- AUTO_INCREMENT for table `tbTipoUsuario`
 --
 ALTER TABLE `tbTipoUsuario`
-  MODIFY `idTipoUsuario` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idTipoUsuario` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `tbUsuario`
 --
 ALTER TABLE `tbUsuario`
-  MODIFY `idUsuario` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idUsuario` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- Constraints for dumped tables
 --
