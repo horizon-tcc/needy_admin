@@ -47,10 +47,6 @@
 
             <li class="menu-item d-flex justify-content-start"> <span class=""> <i class="fas fa-file-alt"></i> </span> <span> Relatórios </span> </li>
 
-            <li class="menu-item d-flex justify-content-start"> <span class=""> <i class="fas fa-clock"></i> </span> <span> Agendamentos </span> </li>
-
-
-
         </ul>
 
         <img src="../img/logo-branca.png" class="" />

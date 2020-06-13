@@ -227,7 +227,7 @@ $(document).on("change", "#seFatorRh", function () {
 
     const SUCESSO_AO_CONSULTAR_OS_DOADORES = 1;
     const NENHUM_DOADOR_ENCONTRADO = 2;
-    
+
     $.ajax({
 
         url: "../controller/doador/consultar-doadores.php",
@@ -472,42 +472,49 @@ $(".filter-option").on("click", function (ev) {
 
     if (this.id == FILTRO_NOME) {
 
-        loadNameFilter();
         $('#hdSearchType').val(FILTRO_NOME);
+        loadNameFilter();
+        
 
     }
     else if (this.id == FILTRO_CPF) {
 
-        loadCpfFilter();
         $('#hdSearchType').val(FILTRO_CPF);
+        loadCpfFilter();
+        
 
     }
     else if (this.id == FILTRO_RG) {
 
-        loadRgFilter();
         $('#hdSearchType').val(FILTRO_RG);
+        loadRgFilter();
+        
 
     }
     else if (this.id == FILTRO_DATA_NASCIMENTO) {
 
-        loadDateOfBirthFilter();
         $('#hdSearchType').val(FILTRO_DATA_NASCIMENTO);
+        loadDateOfBirthFilter();
+        
     }
 
     else if (this.id == FILTRO_EMAIL) {
 
-        loadEmailFilter();
         $('#hdSearchType').val(FILTRO_EMAIL);
+        loadEmailFilter();
+        
     }
     else if (this.id == FILTRO_TIPO_SANGUINEO) {
 
-        loadBloodTypeFilter();
         $('#hdSearchType').val(FILTRO_TIPO_SANGUINEO);
+        loadBloodTypeFilter();
+        
     }
     else if (this.id == FILTRO_FATOR_RH) {
 
-        loadRhFactorFilter();
         $('#hdSearchType').val(FILTRO_FATOR_RH);
+        loadRhFactorFilter();
+        
     }
 
     $("#modal-filter-doador").modal('hide');
@@ -552,22 +559,47 @@ function loadEmailFilter() {
 function loadBloodTypeFilter() {
 
     $(".container-search").empty();
-    $(".container-search").append("<label for='seTipoSanguineo'> Tipo sanguíneo </label> <select name='txtPesquisa' id='seTipoSanguineo' class='input-for-search w-100' placeholder='Escolha o tipo sanguíneo do doador' />");
+    
+    let containerPesquisa = document.querySelector(".container-search");
+    
+    let selectBloodType = document.createElement("select");
+    let labelSelectBloodType = document.createElement("label");
+
+    labelSelectBloodType.setAttribute("for", "seTipoSanguineo");
+    labelSelectBloodType.appendChild(document.createTextNode("Selecione o tipo sanguíneo"));
+    containerPesquisa.appendChild(labelSelectBloodType);
+    
+    selectBloodType.classList.add("input-for-search");
+    selectBloodType.classList.add("w-100");
+    selectBloodType.setAttribute("name", "seTipoSanguineo");
+    selectBloodType.setAttribute("id", "seTipoSanguineo");
+    selectBloodType.setAttribute("placeholder", "Escolha o tipo sanguíneo do doador");
+
+    containerPesquisa.appendChild(selectBloodType);
 
     $.ajax({
 
         url: "../controller/tipo-sanguineo/pegar-tipos-sanguineos.php"
         , dataType: "json"
         , method: "get"
+        , asynch: false
         , success: function (response) {
 
-            response.forEach(element => {
 
-                $("#seTipoSanguineo").append("<option value='" +
-                    element.idTipoSanguineo + "'>"
-                    + element.descricaoTipoSanguineo + "</option>");
+            response.forEach((element, index) => {
+
+                let option = document.createElement("option");
+                option.setAttribute("value", element.idTipoSanguineo);
+
+                if ( index === 0) {
+                    option.setAttribute("selected","true");
+                }
+
+                let txtOption = document.createTextNode(element.descricaoTipoSanguineo);
+                option.appendChild(txtOption);
+                selectBloodType.appendChild(option);
+
             });
-
 
         }
         , error: function (request) {
@@ -576,16 +608,70 @@ function loadBloodTypeFilter() {
 
         }
 
+    });
+
+
+    const SUCESSO_AO_CONSULTAR_OS_DOADORES = 1;
+    const NENHUM_DOADOR_ENCONTRADO = 2;
+
+    let primeiraOpcao = 1;
+
+    $.ajax({
+
+        url: "../controller/doador/consultar-doadores.php",
+        type: "post",
+        data: {
+            "txtPesquisa": primeiraOpcao
+            , "hdSearchType": $("#hdSearchType").val()
+        },
+        dataType: "json",
+        success: function (response) {
+
+            if (response.status === SUCESSO_AO_CONSULTAR_OS_DOADORES) {
+
+                $(".container-cards").empty();
+
+                response.result.forEach(element => {
+
+                    $(".container-cards").append(
+                        getCardDonnorStructure(element.idDoador, element.fotoUsuario,
+                            element.nomeDoador, element.cpfDoador, element.descricaoTipoSanguineo));
+
+
+                });
+
+
+
+            }
+            else if (response.status === NENHUM_DOADOR_ENCONTRADO) {
+
+
+                $(".container-cards").empty();
+                $(".container-cards").append("<h6 class='mt-4'> Nenhum doador encontrado </h6>");
+
+            }
+
+
+
+        },
+        error: function (request, status, error) {
+
+
+            console.log(request.responseText);
+        }
 
 
     });
+
+
+   
 }
 
 function loadRhFactorFilter() {
 
 
     $(".container-search").empty();
-    $(".container-search").append(" <label for='seFatorRh'> Fator RH </label> <select name='txtPesquisa' id='seFatorRh' class='input-for-search w-100' placeholder='Escolha o tipo sanguíneo do doador' />");
+    $(".container-search").append(" <label for='seFatorRh'> Fator RH </label> <select name='seFatorRh' id='seFatorRh' class='input-for-search w-100' placeholder='Escolha o tipo sanguíneo do doador' />");
 
     $.ajax({
 
@@ -611,6 +697,58 @@ function loadRhFactorFilter() {
 
 
     });
+
+
+    const SUCESSO_AO_CONSULTAR_OS_DOADORES = 1;
+    const NENHUM_DOADOR_ENCONTRADO = 2;
+    let primeiraOpcao = 1;
+
+    $.ajax({
+
+        url: "../controller/doador/consultar-doadores.php",
+        type: "post",
+        data: {
+            "txtPesquisa": primeiraOpcao
+          , "hdSearchType": $("#hdSearchType").val()
+        },
+        dataType: "json",
+        success: function (response) {
+
+
+            if (response.status === SUCESSO_AO_CONSULTAR_OS_DOADORES) {
+
+                $(".container-cards").empty();
+
+                response.result.forEach(element => {
+
+                    $(".container-cards").append(
+                        getCardDonnorStructure(element.idDoador, element.fotoUsuario,
+                            element.nomeDoador, element.cpfDoador, element.descricaoTipoSanguineo));
+
+
+                });
+
+            }
+            else if (response.status === NENHUM_DOADOR_ENCONTRADO) {
+
+
+                $(".container-cards").empty();
+                $(".container-cards").append("<h6 class='mt-4'> Nenhum doador encontrado </h6>");
+
+            }
+
+
+
+        },
+        error: function (request, status, error) {
+
+
+            console.log(request.responseText);
+        }
+
+
+    });
+
 
 }
 
