@@ -215,9 +215,9 @@ function validarSecaoResponsavel() {
 
     }
 
-    if ( validarCpf($("#txtCpfResponsavel").val()) && 
-    !verificarExistenciaCpfResponsavel($("#txtCpfResponsavel").val()) && 
-    $("#txtCpfDoador").val() != $("#txtCpfResponsavel").val() ) {
+    if (validarCpf($("#txtCpfResponsavel").val()) &&
+        !verificarExistenciaCpfResponsavel($("#txtCpfResponsavel").val()) &&
+        $("#txtCpfDoador").val() != $("#txtCpfResponsavel").val()) {
 
         cpfResponsavelValido = true;
 
@@ -340,9 +340,9 @@ function validarDataResponsavel(data) {
 
 $("#txtCpfResponsavel").on("blur", function () {
 
-    if ( validarCpf($("#txtCpfResponsavel").val()) && 
+    if (validarCpf($("#txtCpfResponsavel").val()) &&
         !verificarExistenciaCpfResponsavel($("#txtCpfResponsavel").val()) &&
-        $("#txtCpfDoador").val() != $("#txtCpfResponsavel").val() ) {
+        $("#txtCpfDoador").val() != $("#txtCpfResponsavel").val()) {
 
         $("#txtCpfResponsavel").addClass("is-valid");
         $("#txtCpfResponsavel").removeClass("is-invalid");
@@ -443,3 +443,233 @@ function verificarExistenciaCpfResponsavel(cpf) {
     return resultado;
 
 }
+
+$("#txtConsultarCpfResponsavel").on("keyup", (ev) => {
+
+    const SUCESSO_AO_CONSULTAR_RESPONSAVEIS = 1;
+    const NENHUM_RESPONSAVEL_ENCONTRADO = 2;
+    const PARAMETRO_DE_PESQUISA_VAZIO = 3;
+
+
+
+
+    $.ajax({
+
+        url: "../controller/responsavel/consultar-responsavel.php",
+        type: "post",
+        dataType: "json",
+        data:
+            { "txtConsultarCpfResponsavel": $("#txtConsultarCpfResponsavel").val() },
+        async: false,
+        success: function (response) {
+
+            if (response.status === SUCESSO_AO_CONSULTAR_RESPONSAVEIS) {
+
+                $("#table-responsibles-container").empty();
+
+                let tableContainer = document.querySelector("#table-responsibles-container");
+                let tableResponsibles = document.createElement("table");
+
+
+                tableResponsibles.setAttribute("id", "table-reponsibles");
+
+                tableResponsibles.classList.add("table");
+                tableResponsibles.classList.add("table-hover");
+                tableResponsibles.classList.add("mt-5");
+
+                tableContainer.appendChild(tableResponsibles);
+
+                let tableResponsiblesHeader = document.createElement("thead");
+
+                tableResponsiblesHeader.classList.add("thead-light");
+
+                tableResponsibles.appendChild(tableResponsiblesHeader);
+
+                let tableResponsiblesHeaderLine = document.createElement("tr");
+
+                tableResponsiblesHeaderLine.classList.add("text-center");
+
+                tableResponsiblesHeader.appendChild(tableResponsiblesHeaderLine);
+
+                let thId = document.createElement("th");
+                thId.appendChild(document.createTextNode("Id"));
+
+                let thNome = document.createElement("th");
+                thNome.appendChild(document.createTextNode("Nome"));
+
+                let thCpf = document.createElement("th");
+                thCpf.appendChild(document.createTextNode("CPF"));
+
+                let thRg = document.createElement("th");
+                thRg.appendChild(document.createTextNode("RG"));
+
+                let thDataNascimento = document.createElement("th");
+                thDataNascimento.appendChild(document.createTextNode("Data de nascimento"));
+
+                tableResponsiblesHeaderLine.appendChild(thId);
+                tableResponsiblesHeaderLine.appendChild(thNome);
+                tableResponsiblesHeaderLine.appendChild(thCpf);
+                tableResponsiblesHeaderLine.appendChild(thRg);
+                tableResponsiblesHeaderLine.appendChild(thDataNascimento);
+
+
+                let tableResponsiblesBody = document.createElement("tbody");
+                tableResponsiblesBody.setAttribute("id", "table-responsibles-body");
+
+                tableResponsibles.appendChild(tableResponsiblesBody);
+
+
+                response.result.forEach((element) => {
+
+                    $("#table-responsibles-body").append(
+                        "<tr class='table-line-reponsibles cursor-pointer line-responsible' data-id='" + element.idResponsavel + "'>"
+                        + "<td>" + element.idResponsavel + "</td>"
+                        + "<td>" + element.nomeResponsavel + "</td>"
+                        + "<td>" + element.cpfResponsavel + "</td>"
+                        + "<td>" + element.rgResponsavel + "</td>"
+                        + "<td>" + element.dataNascimentoResponsavel + "</td>"
+                        + "</tr>");
+                });
+
+
+            }
+            else if (response.status === NENHUM_RESPONSAVEL_ENCONTRADO) {
+
+                $('#table-responsibles-container').empty();
+                $('#table-responsibles-container').append("<h6 class ='text-center mt-5'> Nenhum responsável encontrado </h6>");
+            }
+            // else if (response.status === PARAMETRO_DE_PESQUISA_VAZIO) {
+
+
+            // }
+        },
+        error: function (request, status, error) {
+
+            console.log(request.responseText);
+        }
+
+
+    });
+
+
+
+
+
+});
+
+$(document).on("click", ".line-responsible", function () {
+
+    const ERRO_AO_PESQUISAR_PELO_RESPONSAVEL = 0;
+    const RESPONSAVEL_ENCONTRADO_COM_SUCESSO = 1;
+    const PARAMETRO_PARA_PESQUISAR_RESPONSAVEL_VAZIO = 2;
+    const NENHUM_RESPONSAVEL_ENCONTRADO = 3;
+
+    $.ajax({
+
+        url: "../controller/responsavel/pegar-responsavel-pelo-id.php"
+        , method: "post"
+        , dataType: "json"
+        , data: {
+
+            "idResponsavel": this.dataset.id
+
+        }
+        , success: function (response) {
+
+            if (response.status === RESPONSAVEL_ENCONTRADO_COM_SUCESSO) {
+
+                $("#responsible-selected-name-span").empty();
+                $("#responsible-selected-name-span").append(response.nomeResponsavel);
+                $("#container-responsible-selected").removeClass("d-none");
+                $("#hdIdSelectedResponsible").val(response.idResponsavel);
+
+            }
+            else if (response.status === ERRO_AO_PESQUISAR_PELO_RESPONSAVEL) {
+
+                console.log(response.status);
+
+            }
+            else if (response.status === PARAMETRO_PARA_PESQUISAR_RESPONSAVEL_VAZIO) {
+
+                console.log(response.status);
+            }
+            else if (response.status === NENHUM_RESPONSAVEL_ENCONTRADO) {
+
+                console.log(response.status);
+            }
+
+        }
+
+        , error: function (request) {
+
+            console.log(request.responseText);
+
+        }
+
+
+    });
+
+});
+
+$("#unselect-responsible").on("click", function () {
+
+    $("#hdIdSelectedResponsible").val("0");
+    $("#container-responsible-selected").addClass("d-none");
+
+});
+
+$("#form-selecionar-responsavel").on("submit", function (ev) {
+
+    ev.preventDefault();
+    
+    const SUCESSO_AO_CADASTRAR_O_DOADOR = 1;
+    let formularioDoador = document.querySelector("#form-insert");
+    let formData = new FormData(formularioDoador);
+
+
+    $.ajax({
+
+        url: "../controller/doador/cadastrar-doador.php",
+        type: "post",
+        dataType: "json",
+        processData: false,
+        contentType: false,
+        data: formData,
+        success: function (response) {
+
+            if (response.status === SUCESSO_AO_CADASTRAR_O_DOADOR) {
+
+
+                showToast('Sucesso', 'Doador cadastrado com sucesso', 'success', '#28a745', 'white', 2000);
+
+                setTimeout(function () {
+                    limparTodosCampos();
+                    document.location.reload(true);
+
+                }, 2000);
+
+            }
+            else {
+
+                showToast('Atenção', 'Erro cadastrar o doador', 'warning', '#dc3545', 'white', 10000);
+                console.log(response);
+
+            }
+
+        },
+        error: function (request, status, error) {
+
+            showToast('Atenção', 'Erro cadastrar o doador', 'warning', '#dc3545', 'white', 10000);
+
+
+            console.log(request.responseText);
+            console.log(request);
+        }
+
+    });
+
+
+
+
+
+});

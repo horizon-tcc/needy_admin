@@ -45,7 +45,7 @@ class DoadorDAO
 
         $pstm->bindValue(12, $doador->getEndereco()->getNumero());
 
-        $pstm->bindValue(13, $doador->getEndereco()->getComplemento());
+        $pstm->bindValue(13, ($doador->getEndereco()->getComplemento() != null) ? $doador->getEndereco()->getComplemento() : null );
 
         $pstm->bindValue(14, $doador->getEndereco()->getCidade());
 

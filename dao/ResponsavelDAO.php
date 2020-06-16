@@ -58,27 +58,24 @@ class ResponsavelDAO
 
             $result = $pstm->fetchAll();
 
-            if ( count($result) > 0 ) {
+            if (count($result) > 0) {
 
                 $responsavel = new Responsavel();
-                
-                foreach($result as $r){
-                    
+
+                foreach ($result as $r) {
+
                     $responsavel->setId($id);
                     $responsavel->setNome($r['nomeResponsavel']);
                     $responsavel->setCpf($r['cpfResponsavel']);
                     $responsavel->setRg($r['rgResponsavel']);
-                    $responsavel->setDataNasc($r['dataNascimentoResponsanvel']);
-
+                    $responsavel->setDataNasc($r['dataNascimentoResponsavel']);
                 }
 
                 return $responsavel;
-            }
-            else {
+            } else {
 
                 return null;
             }
-
         } else {
             return null;
         }
@@ -102,34 +99,67 @@ class ResponsavelDAO
 
             $result = $pstm->fetchAll();
 
-            if ( count($result) > 0 ) {
+            if (count($result) > 0) {
 
                 $responsavel = new Responsavel();
-                
-                foreach($result as $r){
-                    
+
+                foreach ($result as $r) {
+
                     $responsavel->setId($r['idResponsavel']);
                     $responsavel->setNome($r['nomeResponsavel']);
                     $responsavel->setCpf($cpf);
                     $responsavel->setRg($r['rgResponsavel']);
                     $responsavel->setDataNasc($r['dataNascimentoResponsavel']);
-
                 }
 
                 return $responsavel;
-            }
-            else {
+            } else {
 
                 return null;
             }
-
         } else {
             return null;
         }
-    }  
+    }
 
 
-    public function getResponsiblePhonesById($id) {
+    public function getResponsiblesByCpf($cpf)
+    {
+
+
+        if ($cpf != null) {
+
+
+            $conn = DB::getConn();
+
+            $sql = "SELECT idResponsavel, nomeResponsavel, cpfResponsavel, rgResponsavel, 
+                    DATE_FORMAT(dataNascimentoResponsavel, '%d/%m/%Y') as dataNascimentoResponsavel 
+                    FROM tbresponsavel WHERE cpfResponsavel LIKE ?";
+
+            $pstm = $conn->prepare($sql);
+
+            $pstm->bindValue(1, $cpf . "%");
+
+            $pstm->execute();
+
+            $result = $pstm->fetchAll();
+
+            if ($pstm->rowCount() > 0) {
+
+                return $result;
+
+            } else {
+
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
+
+    public function getResponsiblePhonesById($id)
+    {
 
         $conn = db::getConn();
         $sql = "SELECT * FROM tbtelefoneresponsavel WHERE idResponsavel = ?";
@@ -141,9 +171,5 @@ class ResponsavelDAO
         $pstm->execute();
 
         return $pstm->fetchAll();
-
     }
-    
-
-    
 }

@@ -670,3 +670,14 @@ label#file-description span:nth-child(3) {
     width: 30px;
 }
 /***** fim da página de consulta   ******/
+
+
+
+/**** classes usadas em todas as páginas *****/
+
+.cursor-pointer {
+
+    cursor: pointer;
+}
+
+/**** classes usadas em todas as páginas *****/

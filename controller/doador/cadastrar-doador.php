@@ -343,128 +343,165 @@ try {
         $responsavelDao = new ResponsavelDAO();
 
         if (
-            isset($_POST['txtNomeResponsavel'])
-            && !empty($_POST['txtNomeResponsavel'])
-            && ValidacaoController::validarNome($_POST['txtNomeResponsavel'])
-
+            isset($_POST['hdIdSelectedResponsible']) && !empty($_POST['hdIdSelectedResponsible'])
+            && (int) $_POST['hdIdSelectedResponsible'] > 0
         ) {
 
-            $responsavel->setNome($_POST['txtNomeResponsavel']);
-        } else {
 
-            $erro = array(
-                "status" => NOME_RESPONSAVEL_INVALIDO,
-                "msg" => "O nome do responsável está inválido, por favor passe um nome válido"
-            );
+            if (count($vetErros) == 0) {
 
-            array_push($vetErros, $erro);
-        }
+                $doador->setResponsavel($responsavelDao->getResponsavelById($_POST['hdIdSelectedResponsible']));
 
-        if (
-            isset($_POST['txtDataNascimentoResponsavel']) &&
-            !empty($_POST['txtDataNascimentoResponsavel']) &&
-            ValidacaoResponsavelController::validarDataResponsavel($_POST['txtDataNascimentoResponsavel'])
-        ) {
+                $usuarioDao->cadastrarUsuario($doador->getUsuario());
 
-            $responsavel->setDataNasc($_POST['txtDataNascimentoResponsavel']);
-        } else {
+                $doador->setUsuario($usuarioDao->getUsuarioByEmail($doador->getUsuario()->getEmailUsuario()));
+                $doadorDao->cadastrar($doador);
 
-            $erro = array(
-                "status" => DATA_NASCIMENTO_RESPONSAVEL_INVALIDA,
-                "msg" => "A data de nascimento do responsável está inválida, por favor passe uma data válida"
-            );
+                $doador = $doadorDao->getDoadorByCpf($doador->getCpf());
 
-            array_push($vetErros, $erro);
-        }
+                $doador->setTelefones($_SESSION['telefonesDoador']);
 
-        if (
-            isset($_POST['txtCpfResponsavel'])
-            && !empty($_POST['txtCpfResponsavel'])
-            && ValidacaoController::validarCpf($_POST['txtCpfResponsavel']) &&
-            !$responsavelDao->verificarExistenciaCpfResponsavel($_POST['txtCpfResponsavel'])
-        ) {
-
-            $responsavel->setCpf($_POST['txtCpfResponsavel']);
-        } else {
-
-            $erro = array(
-                "status" => CPF_RESPONSAVEL_INVALIDO,
-                "msg" => "O CPF do responsável está inválido, por favor passe um CPF válido"
-            );
-
-            array_push($vetErros, $erro);
-        }
+                $telefoneDoadorDao = new TelefoneDoadorDAO();
+                $telefoneDoadorDao->cadastrar($doador);
 
 
-        if (isset($_POST['txtRgResponsavel']) && !empty($_POST['txtRgResponsavel'])) {
+                $resposta = array("status" => DOADOR_CADASTRADO_COM_SUCESSO);
 
-            $responsavel->setRg($_POST['txtRgResponsavel']);
+                echo json_encode($resposta);
+            } else {
+
+                $resposta = array("status" => ERRO_AO_CADASTRAR_O_DOADOR);
+                array_push($vetErros, $resposta);
+                echo json_encode($vetErros);
+            }
         } else {
 
 
-            $erro = array(
-                "status" => RG_RESPONSAVEL_INVALIDO,
-                "msg" => "O RG do responsável está inválido, por favor passe um RG válido"
-            );
 
-            array_push($vetErros, $erro);
-        }
+            if (
+                isset($_POST['txtNomeResponsavel'])
+                && !empty($_POST['txtNomeResponsavel'])
+                && ValidacaoController::validarNome($_POST['txtNomeResponsavel'])
 
-        if (isset($_SESSION['telefonesResponsavel']) && !empty($_SESSION['telefonesResponsavel'])) {
+            ) {
 
-            $responsavel->setTelefones($_SESSION['telefonesResponsavel']);
-        } else {
+                $responsavel->setNome($_POST['txtNomeResponsavel']);
+            } else {
 
-            $erro = array(
-                "status" => TELEFONE_RESPONSAVEL_INVALIDO,
-                "msg" => "A lista de telefones do responsável está inválida, por favor passe pelo menos um telefone válido válido"
-            );
+                $erro = array(
+                    "status" => NOME_RESPONSAVEL_INVALIDO,
+                    "msg" => "O nome do responsável está inválido, por favor passe um nome válido"
+                );
 
-            array_push($vetErros, $erro);
-        }
+                array_push($vetErros, $erro);
+            }
 
-        $doador->setResponsavel($responsavel);
+            if (
+                isset($_POST['txtDataNascimentoResponsavel']) &&
+                !empty($_POST['txtDataNascimentoResponsavel']) &&
+                ValidacaoResponsavelController::validarDataResponsavel($_POST['txtDataNascimentoResponsavel'])
+            ) {
 
-        if ($doador->getCpf() == $doador->getResponsavel()->getCpf()) {
+                $responsavel->setDataNasc($_POST['txtDataNascimentoResponsavel']);
+            } else {
 
-            $erro = array(
-                "status" => CPF_DOADOR_IGUAL_CPF_RESPONSAVEL,
-                "msg" => "O CPF do doador não pode ser igual ao CPF do responsável"
-            );
+                $erro = array(
+                    "status" => DATA_NASCIMENTO_RESPONSAVEL_INVALIDA,
+                    "msg" => "A data de nascimento do responsável está inválida, por favor passe uma data válida"
+                );
 
-            array_push($vetErros, $erro);
-        }
+                array_push($vetErros, $erro);
+            }
 
-        if (count($vetErros) == 0) {
+            if (
+                isset($_POST['txtCpfResponsavel'])
+                && !empty($_POST['txtCpfResponsavel'])
+                && ValidacaoController::validarCpf($_POST['txtCpfResponsavel']) &&
+                !$responsavelDao->verificarExistenciaCpfResponsavel($_POST['txtCpfResponsavel'])
+            ) {
 
-            $responsavelDao->cadastrar($doador->getResponsavel());
-            $doador->setResponsavel($responsavelDao->getResponsavelByCpf($doador->getResponsavel()->getCpf()));
+                $responsavel->setCpf($_POST['txtCpfResponsavel']);
+            } else {
 
-            $usuarioDao->cadastrarUsuario($doador->getUsuario());
+                $erro = array(
+                    "status" => CPF_RESPONSAVEL_INVALIDO,
+                    "msg" => "O CPF do responsável está inválido, por favor passe um CPF válido"
+                );
 
-            $doador->setUsuario($usuarioDao->getUsuarioByEmail($doador->getUsuario()->getEmailUsuario()));
-            $doadorDao->cadastrar($doador);
-
-            $doador = $doadorDao->getDoadorByCpf($doador->getCpf());
-
-            $doador->getResponsavel()->setTelefones($_SESSION['telefonesResponsavel']);
-            $doador->setTelefones($_SESSION['telefonesDoador']);
-
-            $telefoneDoadorDao = new TelefoneDoadorDAO();
-            $telefoneResponsavelDao = new TelefoneResponsavelDAO();
-
-            $telefoneDoadorDao->cadastrar($doador);
-            $telefoneResponsavelDao->cadastrar($doador->getResponsavel());
+                array_push($vetErros, $erro);
+            }
 
 
-            $resposta = array("status" => DOADOR_CADASTRADO_COM_SUCESSO);
+            if (isset($_POST['txtRgResponsavel']) && !empty($_POST['txtRgResponsavel'])) {
 
-            echo json_encode($resposta);
-        } else {
+                $responsavel->setRg($_POST['txtRgResponsavel']);
+            } else {
 
-            $resposta = array("status" => ERRO_AO_CADASTRAR_O_DOADOR);
-            array_push($vetErros, $resposta);
-            echo json_encode($vetErros);
+
+                $erro = array(
+                    "status" => RG_RESPONSAVEL_INVALIDO,
+                    "msg" => "O RG do responsável está inválido, por favor passe um RG válido"
+                );
+
+                array_push($vetErros, $erro);
+            }
+
+            if (isset($_SESSION['telefonesResponsavel']) && !empty($_SESSION['telefonesResponsavel'])) {
+
+                $responsavel->setTelefones($_SESSION['telefonesResponsavel']);
+            } else {
+
+                $erro = array(
+                    "status" => TELEFONE_RESPONSAVEL_INVALIDO,
+                    "msg" => "A lista de telefones do responsável está inválida, por favor passe pelo menos um telefone válido válido"
+                );
+
+                array_push($vetErros, $erro);
+            }
+
+            $doador->setResponsavel($responsavel);
+
+            if ($doador->getCpf() == $doador->getResponsavel()->getCpf()) {
+
+                $erro = array(
+                    "status" => CPF_DOADOR_IGUAL_CPF_RESPONSAVEL,
+                    "msg" => "O CPF do doador não pode ser igual ao CPF do responsável"
+                );
+
+                array_push($vetErros, $erro);
+            }
+
+            if (count($vetErros) == 0) {
+
+                $responsavelDao->cadastrar($doador->getResponsavel());
+                $doador->setResponsavel($responsavelDao->getResponsavelByCpf($doador->getResponsavel()->getCpf()));
+
+                $usuarioDao->cadastrarUsuario($doador->getUsuario());
+
+                $doador->setUsuario($usuarioDao->getUsuarioByEmail($doador->getUsuario()->getEmailUsuario()));
+                $doadorDao->cadastrar($doador);
+
+                $doador = $doadorDao->getDoadorByCpf($doador->getCpf());
+
+                $doador->getResponsavel()->setTelefones($_SESSION['telefonesResponsavel']);
+                $doador->setTelefones($_SESSION['telefonesDoador']);
+
+                $telefoneDoadorDao = new TelefoneDoadorDAO();
+                $telefoneResponsavelDao = new TelefoneResponsavelDAO();
+
+                $telefoneDoadorDao->cadastrar($doador);
+                $telefoneResponsavelDao->cadastrar($doador->getResponsavel());
+
+
+                $resposta = array("status" => DOADOR_CADASTRADO_COM_SUCESSO);
+
+                echo json_encode($resposta);
+            } else {
+
+                $resposta = array("status" => ERRO_AO_CADASTRAR_O_DOADOR);
+                array_push($vetErros, $resposta);
+                echo json_encode($vetErros);
+            }
         }
     } else {
 
