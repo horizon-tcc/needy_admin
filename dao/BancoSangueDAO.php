@@ -1,111 +1,112 @@
 <?php
 
-require_once(__DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."global.php");
-// require_once '../model/BancoSangueModel.php';
+    require_once(__DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."global.php");
 
-class BancoSangueDAO
-{
-    public static function listar($id = null)
+
+    class BancoSangueDAO
     {
-        $Conn = DB::getConn();
-        $query = '';
 
-        if ($id)
-            $query = "SELECT * FROM tbBancoSangue
-                    WHERE idBancoSangue = $id;";
-        else
-            $query = "SELECT * FROM tbBancoSangue;";
+        public function getAll()
+        {
+            $Conn = DB::getConn();
+            $query = '';
 
-        $result = $Conn->query($query);
-        $result = $result->fetchAll(PDO::FETCH_OBJ);
+            if(!empty($id)){
+                $query = "SELECT * FROM tbBancoSangue
+                        WHERE idBancoSangue = $id";
+            }else{
+                $query = "SELECT * FROM tbBancoSangue";
+            }
 
-        return $result;
-    }
+            $result = $Conn->query($query);
+            $result = $result->fetchAll();
 
-    public static function atualizar($bancoSangue)
-    {
-        $Conn = DB::getConn();
+            return $result;
+        }
 
-        $query = "UPDATE tbBancoSangue
-                    
-                    SET nomeBancoSangue = :nome,
-                        logradouroBancoSangue = :logradouro,
-                        bairroBancoSangue = :bairro,
-                        numeroEndBancoSangue = :numero,
-                        complementoEndBancoSangue = :complemento,
-                        cepBancoSangue = :cep,
-                        ufBancoSangue = :uf,
-                        cidadeBancoSangue = :cidade
+        public static function atualizar($bancoSangue)
+        {
+            $Conn = DB::getConn();
+
+            $query = "UPDATE tbBancoSangue
                         
-                        WHERE idBancoSangue = :id;
-                 ";
+                        SET nomeBancoSangue = :nome,
+                            logradouroBancoSangue = :logradouro,
+                            bairroBancoSangue = :bairro,
+                            numeroEndBancoSangue = :numero,
+                            complementoEndBancoSangue = :complemento,
+                            cepBancoSangue = :cep,
+                            ufBancoSangue = :uf,
+                            cidadeBancoSangue = :cidade
+                            
+                            WHERE idBancoSangue = :id ";
 
-        $query = $Conn->prepare($query);
+            $query = $Conn->prepare($query);
 
-        $query->bindValue(':nome', $bancoSangue->getNome());
-        $query->bindValue(':logradouro', $bancoSangue->getEndereco()->getLogradouro());
-        $query->bindValue(':bairro', $bancoSangue->getEndereco()->getBairro());
-        $query->bindValue(':numero', $bancoSangue->getEndereco()->getNumero());
-        $query->bindValue(':complemento', $bancoSangue->getEndereco()->getComplemento());
-        $query->bindValue(':cep', $bancoSangue->getEndereco()->getCEP());
-        $query->bindValue(':uf', $bancoSangue->getEndereco()->getUF());
-        $query->bindValue(':cidade', $bancoSangue->getEndereco()->getCidade());
-        $query->bindValue(':id', $bancoSangue->getId());
+            $query->bindValue(':nome', $bancoSangue->getNome());
+            $query->bindValue(':logradouro', $bancoSangue->getEndereco()->getLogradouro());
+            $query->bindValue(':bairro', $bancoSangue->getEndereco()->getBairro());
+            $query->bindValue(':numero', $bancoSangue->getEndereco()->getNumero());
+            $query->bindValue(':complemento', $bancoSangue->getEndereco()->getComplemento());
+            $query->bindValue(':cep', $bancoSangue->getEndereco()->getCEP());
+            $query->bindValue(':uf', $bancoSangue->getEndereco()->getUF());
+            $query->bindValue(':cidade', $bancoSangue->getEndereco()->getCidade());
+            $query->bindValue(':id', $bancoSangue->getId());
 
-        if ($query->execute())
-            return true;
-        else
-            return false;
+            if ($query->execute())
+                return true;
+            else
+                return false;
+        }
+
+        public static function inserir($bancoSangue)
+        {
+            $Conn = DB::getConn();
+
+            $query = "INSERT INTO tbBancoSangue(nomeBancoSangue,
+                                                logradouroBancoSangue,
+                                                bairroBancoSangue,
+                                                numeroEndBancoSangue,
+                                                complementoEndBancoSangue,
+                                                cepBancoSangue,
+                                                ufBancoSangue,
+                                                cidadeBancoSangue)
+                    VALUES (:nome,
+                            :logradouro,
+                            :bairro,
+                            :numero,
+                            :complemento,
+                            :cep,
+                            :uf,
+                            :cidade)";
+            
+            $query = $Conn->prepare($query);
+
+            $query->bindValue(':nome', $bancoSangue->getNome());
+            $query->bindValue(':logradouro', $bancoSangue->getEndereco()->getLogradouro());
+            $query->bindValue(':bairro', $bancoSangue->getEndereco()->getBairro());
+            $query->bindValue(':numero', $bancoSangue->getEndereco()->getNumero());
+            $query->bindValue(':complemento', $bancoSangue->getEndereco()->getComplemento());
+            $query->bindValue(':cep', $bancoSangue->getEndereco()->getCEP());
+            $query->bindValue(':uf', $bancoSangue->getEndereco()->getUF());
+            $query->bindValue(':cidade', $bancoSangue->getEndereco()->getCidade());
+
+            if ($query->execute())
+                return true;
+            else
+                return false;
+        }
+
+        public static function deletar($id)
+        {
+            $Conn = DB::getConn();
+
+            $query = "DELETE FROM tbBancoSangue
+                        WHERE idBancoSangue = $id";
+
+            if ($Conn->exec($query))
+                return true;
+            else
+                return false;
+        }
     }
-
-     public static function inserir($bancoSangue)
-    {
-        $Conn = DB::getConn();
-
-        $query = "INSERT INTO tbBancoSangue(nomeBancoSangue,
-                                            logradouroBancoSangue,
-                                            bairroBancoSangue,
-                                            numeroEndBancoSangue,
-                                            complementoEndBancoSangue,
-                                            cepBancoSangue,
-                                            ufBancoSangue,
-                                            cidadeBancoSangue)
-                VALUES (:nome,
-                        :logradouro,
-                        :bairro,
-                        :numero,
-                        :complemento,
-                        :cep,
-                        :uf,
-                        :cidade);";
-        
-        $query = $Conn->prepare($query);
-
-        $query->bindValue(':nome', $bancoSangue->getNome());
-        $query->bindValue(':logradouro', $bancoSangue->getEndereco()->getLogradouro());
-        $query->bindValue(':bairro', $bancoSangue->getEndereco()->getBairro());
-        $query->bindValue(':numero', $bancoSangue->getEndereco()->getNumero());
-        $query->bindValue(':complemento', $bancoSangue->getEndereco()->getComplemento());
-        $query->bindValue(':cep', $bancoSangue->getEndereco()->getCEP());
-        $query->bindValue(':uf', $bancoSangue->getEndereco()->getUF());
-        $query->bindValue(':cidade', $bancoSangue->getEndereco()->getCidade());
-
-        if ($query->execute())
-            return true;
-        else
-            return false;
-    }
-
-    public static function deletar($id)
-    {
-        $Conn = DB::getConn();
-
-        $query = "DELETE FROM tbBancoSangue
-                    WHERE idBancoSangue = $id;";
-
-        if ($Conn->exec($query))
-            return true;
-        else
-            return false;
-    }
-}

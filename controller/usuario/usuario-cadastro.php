@@ -15,13 +15,15 @@
 
         if($statusEmailUsuario && $statusSenhaUsuario && $statusTipoUsuario){
             
-            $usuario = new UsuarioDao();
+            $usuario = new UsuarioModel();
 
-          //  $usuario->setEmailUsuario($emailUsuario);
-           // $usuario->setSenhaUsuario($senhaUsuario);
-          // $usuario->setTipoUsuario($tipoUsuario);
+            $cadastro = new UsuarioDao();
 
-            echo $usuario->cadastrarUsuario($usuario);
+            $usuario->setEmailUsuario($emailUsuario);
+            $usuario->setSenhaUsuario($senhaUsuario);
+            $usuario->setTipoUsuario($tipoUsuario);
+
+            echo $cadastro->cadastrarUsuario($usuario);
 
             echo '<script> window.location.replace("../../view/funcionario.php"); </script>';
 

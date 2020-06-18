@@ -3,16 +3,16 @@
     require_once (__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR ."global.php");
 
 
-    class FuncionarioDAO extends FuncionarioModel
+    class FuncionarioDAO 
     {
         
         public function cadastrarFuncionario($funcionario)
         {
             $conexao = DB::getConn();
 
-            $insert = "insert into tbFuncionario(nomeFuncionario, cpfFuncionario, rgFuncionario, 
-                    idBancoSangue, idUsuario, idCargoFuncionario)
-            values(?,?,?,?,?,?)";
+            $insert = "INSERT INTO tbFuncionario(nomeFuncionario, cpfFuncionario, rgFuncionario, 
+                        idBancoSangue, idUsuario, idCargoFuncionario)
+                    VALUES(?,?,?,?,?,?)";
 
             $pstm = $conexao->prepare($insert);
 
@@ -30,16 +30,17 @@
 
         public static function listarFuncionario()
         {
+            
             $conexao = DB::getConn();
 
-            $select = "select idFuncionario, nomeFuncionario, cpfFuncionario, rgFuncionario, 
+            $select = "SELECT idFuncionario, nomeFuncionario, cpfFuncionario, rgFuncionario, 
                         nomeBancoSangue, emailUsuario, descricaoCargoFuncionario FROM tbFuncionario
-                        inner join tbBancoSangue
-                            on tbFuncionario.idBancoSangue = tbBancoSangue.idBancoSangue
-                                inner join tbUsuario
-                                    on tbFuncionario.idUsuario = tbUsuario.idUsuario
-                                        inner join tbCargoFuncionario
-                                            on tbFuncionario.idCargoFuncionario = tbCargoFuncionario.idCargoFuncionario";
+                        INNER JOIN tbBancoSangue
+                            ON tbFuncionario.idBancoSangue = tbBancoSangue.idBancoSangue
+                                INNER JOIN tbUsuario
+                                    ON tbFuncionario.idUsuario = tbUsuario.idUsuario
+                                        INNER JOIN tbCargoFuncionario
+                                            ON tbFuncionario.idCargoFuncionario = tbCargoFuncionario.idCargoFuncionario";
 
             $putm = $conexao->prepare($select);
 
@@ -54,8 +55,8 @@
         {
             $conexao = DB::getConn();
 
-            $select = "select * FROM tbFuncionario
-                       where =".(int)$id;
+            $select = "SELECT * FROM tbFuncionario
+                       WHERE =".(int)$id;
 
             $putm = $conexao->prepare($select);
 
@@ -67,14 +68,14 @@
         public function editarFuncionario($funcionario)
         {
             $conexao = DB::getConn();
-            $update = "update tbFuncionario
-                        set nomeFuncionario = '?',
+            $update = "UPDATE tbFuncionario
+                        SET nomeFuncionario = '?',
                             cpfFuncionario = '?',
                             rgFuncionario = '?', 
                             idBancoSangue = ?,
                             idUsuario = ?,
                             idCargoFuncionario = ?
-                        where idPaciente = ?";
+                        WHERE idPaciente = ?";
 
             $pstm= $conexao->prepare($update);
 

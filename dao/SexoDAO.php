@@ -2,10 +2,11 @@
 
     require_once __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR."global.php";
 
-    class SexoDAO{
+    class SexoDAO 
+    {
 
-
-        public function getAll(){
+        public function getAll()
+        {
 
             $conn = DB::getConn();
 
@@ -18,7 +19,8 @@
 
         }
 
-        public function verificaExistenciaPeloId($id){
+        public function verificaExistenciaPeloId($id)
+        {
 
             $conn = DB::getConn();
             $sql = "SELECT * FROM tbsexo WHERE idSexo = ?";
@@ -33,7 +35,8 @@
         }
 
 
-        public function getSexoById($id){
+        public function getSexoById($id)
+        {
 
             $conn = DB::getConn();
 

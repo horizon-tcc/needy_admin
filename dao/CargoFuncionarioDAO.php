@@ -1,43 +1,53 @@
 <?php
+
     require_once(__DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."global.php");
 
-    class CargoFuncionarioDAO extends CargoFuncionarioModel
+    class CargoFuncionarioDAO
     {
         public function cadastrarCargoFunc($cargoFunc)
         {
             $conexao = DB::getConn();
-            $insert = "insert into tbCargoFuncionario(descricaoCargoFuncionario)
-                       values('".$cargoFunc->getDescricaoCargoFunc()."')";
+            $insert = "INSERT INTO tbCargoFuncionario(descricaoCargoFuncionario)
+                       VALUES('".$cargoFunc->getDescricaoCargoFunc()."')";
             $conexao->exec($insert);
             return 'Cadastro Realizado com sucesso';
         }
 
-        public static function listarCargoFunc()
+        public function getAll()
         {
             $conexao = DB::getConn();
-            $select = "select idCargoFuncionario, descricaoCargoFuncionario FROM tbCargoFuncionario";
-            $rCargo = $conexao->query($select);
-            $rCargo->execute();
-            $lista = $rCargo->fetchAll();
+            $select = "SELECT idCargoFuncionario, descricaoCargoFuncionario FROM tbCargoFuncionario";
+
+            $putm = $conexao->prepare($select);
+
+            $putm->execute();
+
+            $lista = $putm->fetchAll();
+
             return $lista;
+
         }
 
-        public static function selecEditarCargoFunc($id)
+        public function selecEditarCargoFunc($id)
         {
             $conexao = DB::getConn();
-            $select = "select idCargoFuncionario, descricaoCargoFuncionario FROM tbCargoFuncionario
-                       where =".((int)$id);
+            $select = "SELECT idCargoFuncionario, descricaoCargoFuncionario FROM tbCargoFuncionario
+                       WHERE =".((int)$id);
+                       
             $rCargo = $conexao->query($select);
+
             $selec= $rCargo->fetch();
+
             return $selec;
         }
 
         public function editarCargoFuncionario($cargoFunc)
         {
             $conexao = DB::getConn();
-            $update = "update tbCargoFuncionario
-                        set descricaoCargoFuncionario ='".$cargoFunc->getDescricaoCargoFunc()."'
-                        where idCargoFuncionario =".$cargoFunc->getIdCargoFunc();
+            $update = "UPDATE tbCargoFuncionario
+                        SET descricaoCargoFuncionario ='".$cargoFunc->getDescricaoCargoFunc()."'
+                        WHERE idCargoFuncionario =".$cargoFunc->getIdCargoFunc();
+                        
             $conexao->exec($update);
             return 'Update realizado com sucesso';
         }
@@ -45,9 +55,10 @@
         public function excluirCargoFuncionario($cargoFunc)
         {
             $conexao = DB::getConn();
-            $delete = "delete from tbCargoFuncionario
-                       where idCargoFuncionario = ".$cargoFunc->getIdCargoFunc();
+            $delete = "DELETE from tbCargoFuncionario
+                       WHERE idCargoFuncionario = ".$cargoFunc->getIdCargoFunc();
             $conexao->exec($delete);
             return 'Exclusão bem sucedida';
         }
+
     }

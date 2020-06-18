@@ -3,7 +3,7 @@
     require_once (__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR ."global.php");
 
 
-    class PacienteDAO extends PacienteModel
+    class PacienteDAO
     {
         
         public function cadastrarPaciente($paciente)

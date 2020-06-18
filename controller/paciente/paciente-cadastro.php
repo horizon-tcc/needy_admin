@@ -2,6 +2,8 @@
 
     require_once(__DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."global.php");
 
+    session_start();
+
     try{
 
         $nomePaciente = $_POST['txtNomePaciente'];
@@ -21,7 +23,9 @@
         if($statusCpfPaciente && $statusNomePaciente && $statusSexoPaciente && $statusFatorRhPaciente 
            && $statusTipoSanguineoPaciente && isset($rgPaciente) && !empty($rgPaciente)) {
 
-            $paciente = new PacienteDAO();
+            $paciente = new PacienteModel();
+
+            $cadastro = new PacienteDAO();
 
             $paciente->setNomePaciente($nomePaciente);
             $paciente->setSexoPaciente($sexoPaciente);
@@ -30,7 +34,7 @@
             $paciente->setCpfPaciente($fatorRhPaciente);
             $paciente->setRgPaciente($rgPaciente);
             
-            echo $paciente->cadastrarPaciente($paciente);
+            echo $cadastro->cadastrarPaciente($paciente);
 
             echo '<script> window.location.replace("../../view/paciente.php"); </script>';
 
