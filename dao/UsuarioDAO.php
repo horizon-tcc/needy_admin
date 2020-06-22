@@ -34,31 +34,19 @@ class UsuarioDAO
     }
 
 
-    // public static function selecEditarUsuario(int $id)
-    // {
-    //     $conexao = DB::getConn();
+    public function selecEditarUsuario($sessao)
+    {
+        $conexao = DB::getConn();
 
-    //     $select = "SELECT idUsuario, emailUsuario, senhaUsuario, idTipoUsuario FROM tbUsuario
-    //             WHERE =".((int)$id);
+    $select = "SELECT COUNT(idUsuario) as 'resultado', idTipoUsuario FROM tbUsuario
+                WHERE = ? AND ? ";
 
-    //     $rCargo = $conexao->query($select);
+        $pstm = $conexao->prepare($select);
+        $pstm->bindValue(1, $usuario->getEmailUsuario());
+        $pstm->bindValue(2, $usuario->getSenhaUsuario());
 
-    //     return $rCargo->fetch();
-    // }
-
-    // public function selecEditarUsuario($sessao)
-    // {
-    //     $conexao = DB::getConn();
-
-    //     $select = "SELECT COUNT(idUsuario) as 'resultado', idTipoUsuario FROM tbUsuario
-    //             WHERE = ? AND ? ";
-
-    //     $pstm = $conexao->prepare($select);
-    //     $pstm->bindValue(1, $usuario->getEmailUsuario());
-    //     $pstm->bindValue(2, $usuario->getSenhaUsuario());
-
-    //     return $pstm->fetch();
-    // }
+        return $pstm->fetch();
+    }
 
     public function editarUsuario($usuario)
     {
