@@ -2,7 +2,7 @@
 
     require_once(__DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."global.php");
 
-    try{
+    try {
 
         $nomePaciente = $_POST['txtNomePaciente'];
         $sexoPaciente = $_POST['seSexoPaciente'];

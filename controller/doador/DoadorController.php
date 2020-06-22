@@ -13,8 +13,11 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." .
             return $dDao->getAll();
         }
 
-        public function getDoadorById() {
+        public function getDoadorById($id) {
 
+            $dDao = new DoadorDAO();
+
+            return $dDao->getDoadorById($id);
             
         }
 

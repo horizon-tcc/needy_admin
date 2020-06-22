@@ -425,8 +425,8 @@ ul.list-telefone h5 {
     height: 91.4%;
 }
 
-#form-insert fieldset:not(:first-of-type) {
-    display: none;
+.form-donnor fieldset:not(:first-of-type) {
+    /* display: none; */
 }
 
 ul#progress {
@@ -493,21 +493,16 @@ input[type=file] {
 
 label#file-description {
     color: white;
-    width: 250px;
+    min-width: 250px; 
     height: auto;
     background-color: #dc3545;
-    position: absolute;
     margin: auto;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
     font-size: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding: 10px;
+    
 }
 
 strong.red {

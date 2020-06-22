@@ -25,4 +25,17 @@ class TelefoneDoadorDAO{
         
                 
     }
+
+    public function removeAllPhonesByDonnorId($idDoador){
+
+
+        $conn = DB::getConn();
+        $sql = "DELETE FROM tbtelefonedoador WHERE idDoador = ?";
+
+        $pstm = $conn->prepare($sql);
+
+        $pstm->bindValue(1, $idDoador);
+
+        return $pstm->execute();
+    }
 }

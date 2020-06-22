@@ -76,9 +76,9 @@ class UsuarioDAO
         $pstm->bindValue(3, $usuario->getIdTipoUsuario());
         $pstm->bindValue(4, $usuario->getIdUsuario());
 
-        $pstm->execute();
+        return $pstm->execute();
 
-        return '<script> alert("Update realizado com sucesso"); </script>';
+        // return '<script> alert("Update realizado com sucesso"); </script>';
     }
 
     public function excluirUsuario(int $id)
@@ -157,6 +157,46 @@ class UsuarioDAO
         return (count($result) > 0) ? true : false;
     }
 
+    public function verificaExistenciaEmailUsuarioParaEdicao($usuario){
+
+        $conn = DB::getConn();
+        $sql = "SELECT * FROM tbusuario WHERE emailUsuario = ? AND statusUsuario != 0";
+
+        $pstm = $conn->prepare( $sql );
+        $pstm->bindValue(1, $usuario->getEmailUsuario());
+
+        $pstm->execute();
+
+        $result = $pstm->fetchAll();
+
+        if ( count($result) === 0) {
+
+            return false;
+
+        } else {
+
+            $idUsuarioRetornado = 0;
+
+            foreach($result as $r) {
+
+                $idUsuarioRetornado = (int) $r['idUsuario'];
+            }
+
+            if ( $idUsuarioRetornado == $usuario->getIdUsuario() ) {
+
+                return false;
+            }
+            else {
+
+                return true;
+            }
+        }
+
+
+        
+
+    }
+
 
     public function logar($usuario)
     {
@@ -178,4 +218,104 @@ class UsuarioDAO
         } else {
         }
     }
+
+    public function editEmailOnly($usuario)
+    {
+
+        $conexao = DB::getConn();
+        $update = "UPDATE tbusuario SET emailUsuario = ?
+                   WHERE idUsuario = ? AND statusUsuario != 0";
+
+        $pstm = $conexao->prepare($update);
+
+        $pstm->bindValue(1, $usuario->getEmailUsuario());
+        $pstm->bindValue(2, $usuario->getIdUsuario());
+
+        return $pstm->execute();
+    }
+
+    public function getUserByIdDonnor($idDonnor){
+
+        $conn = DB::getConn();
+        $sql = "SELECT idDoador, tbdoador.idUsuario as idUser FROM tbdoador 
+                INNER JOIN tbusuario
+                ON tbdoador.idUsuario = tbusuario.idUsuario
+                WHERE idDoador = ? AND statusUsuario != 0";
+
+        $pstm = $conn->prepare($sql);
+        
+        $pstm->bindValue(1, $idDonnor);
+        
+        $pstm->execute();
+
+        $result = $pstm->fetchAll();
+
+        if (count($result) > 0){
+
+            foreach ( $result as $r ) {
+
+                $idRetornado = $r['idUser']; 
+            }
+
+            $usuario = $this->getUserById($idRetornado);
+
+            return $usuario;
+        }
+
+        return null;
+        
+        
+    }
+
+    public function getUserById($idUser) {
+
+        $conn = DB::getConn();
+        $sql = "SELECT * FROM tbusuario 
+                INNER JOIN tbtipousuario
+                ON tbusuario.idTipoUsuario = tbtipousuario.idTipoUsuario
+                WHERE idUsuario = ? AND statusUsuario != 0";
+
+        $pstm = $conn->prepare($sql);
+        
+        $pstm->bindValue(1, $idUser);
+        
+        $pstm->execute();
+
+        $result = $pstm->fetchAll();
+        
+        if ( count($result) > 0) {
+
+            $usuario = new UsuarioModel();
+
+            foreach ($result as $r) {
+
+                $usuario->setIdUsuario($r['idUsuario']);
+                $usuario->setEmailUsuario($r['emailUsuario']);
+                $usuario->setSenhaUsuario($r['senhaUsuario']);
+                $usuario->getTipoUsuario()->setIdTipoUsuario($r['idTipoUsuario']);
+                $usuario->getTipoUsuario()->setDescricaoTipoUsuario($r['descricaoTipoUsuario']);
+                $usuario->setFotoUsuario($r['fotoUsuario']);
+            }
+
+            return $usuario;
+
+        } else {
+
+            return null;
+        }
+
+    }
+
+
+
 }
+
+// $usuarioDao = new UsuarioDao();
+// $user = new UsuarioModel();
+// $user->setIdUsuario(3);
+// $user->setEmailUsuario("nunesgustavo668@gmail.com");
+
+// var_dump( $usuarioDao->verificaExistenciaEmailUsuarioParaEdicao($user));
+
+// $usuarioDao = new UsuarioDAO();
+// var_dump($usuarioDao->getUserByIdDonnor(2));

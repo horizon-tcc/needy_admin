@@ -9,15 +9,36 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
 TelefoneDoadorController::limparSessaoDoadorTelefone();
 TelefoneResponsavelController::limparSessaoResponsavelTelefone();
+
+?>
+
+<?php
+
+define("FORMULARIO_PARA_CADASTRO", 0);
+define("FORMULARIO_PARA_EDICAO", 1);
+
+$doador = null;
+
+if (isset($_GET['idDoador']) && !empty($_GET['idDoador'])) {
+
+    $doadorController = new DoadorController();
+    $doador = $doadorController->getDoadorById($_GET['idDoador']);
+}
+
+
 ?>
 
 <main>
 
     <div class="container-fluid d-flex justify-content-center align-items-center mt-2">
 
-        <form action="../controller/doador/cadastrar-doador.php" method="post" class="w-100" id="form-insert" enctype="multipart/form-data">
+        <form action="../controller/doador/cadastrar-doador.php" method="post" class="form-donnor w-100" id="<?php echo ($doador != null) ? "form-edit" : "form-insert"; ?>" enctype="multipart/form-data">
 
-            <h2 class="text-center mt-4"> Cadastro de doadores </h2>
+            <input type="hidden" value="<?php echo ($doador != null) ? FORMULARIO_PARA_EDICAO : FORMULARIO_PARA_CADASTRO; ?>" name="hdFormType" id="hdFormType" />
+            <input type="hidden" value="<?php echo ($doador != null) ? $doador->getId() : 0; ?>" name="hdIdDonnor" id="hdIdDonnor" />
+            <input type="hidden" value="<?php echo ($doador != null) ? "../img/img_doadores/" . $doador->getUsuario()->getFotoUsuario() : ""; ?>" name="hdImgDonnor" id="hdImgDonnor" />
+
+            <h2 class="text-center mt-4"> <?php echo ($doador != null) ? "Edição de doadores" : "Cadastro de doadores" ?> </h2>
             <ul id="progress" class="text-center d-flex mt-2 pt-3">
 
                 <li class="flex-fill activated-section"> Pessoal </li>
@@ -34,19 +55,19 @@ TelefoneResponsavelController::limparSessaoResponsavelTelefone();
                 <h6 class="text-center mt-2"> Digite algumas informações sobre o doador </h6>
                 <hr />
                 <div class="form-row w-100 mt-5">
-                    <img src="../img/camera.png" class="form-img d-block mx-auto" id="imgPreview" name="imgPreview" />
+                    <img src="<?php echo ($doador != null) ? "../img/img_doadores/" . $doador->getUsuario()->getFotoUsuario() : "../img/camera.png" ?>" class="<?php echo ($doador != null) ? "img-preview d-block mx-auto" : "form-img d-block mx-auto"; ?>" id="imgPreview" name="imgPreview" />
                 </div>
                 <div class="form-row w-100 d-flex justify-content-center">
 
                     <div class="input-group mb-3 col-md-5">
 
-                        <div class="custom-file">
+                        <div class="custom-file w-100">
 
-                            <input type="file" class="custom-file-input img-input" name="imgDoador" id="imgDoador" accept="image/*">
+                            <input type="file" class="custom-file-input img-input" name="imgDoador" id="imgDoador" accept="image/*"/>
                             <label class="" for="imgDoador" id="file-description">
                                 <span> <strong> * </strong> </span>
                                 <span> <i class="far fa-file-image"></i> </span>
-                                <span> Escolha uma imagem </span>
+                                <span><?php echo ($doador != null) ? $doador->getUsuario()->getFotoUsuario() : "Escolha uma imagem"; ?></span>
                             </label>
 
                         </div>
@@ -64,7 +85,7 @@ TelefoneResponsavelController::limparSessaoResponsavelTelefone();
                 <div class="form-row w-100">
                     <div class="form-group col-md-12 pb-2">
                         <label for="txtNomeDoador"> <strong class="red"> * </strong> Nome </label>
-                        <input type="text" class="form-control flat" name="txtNomeDoador" id="txtNomeDoador" placeholder="Digite o nome" maxlength="100" />
+                        <input type="text" class="form-control flat" name="txtNomeDoador" id="txtNomeDoador" placeholder="Digite o nome" maxlength="100" value="<?php echo ($doador != null) ? $doador->getNome() : "" ?>" />
 
                         <div id="feedback-valid-nome-Doador" class="valid-feedback">
                             Nome válido!
@@ -85,11 +106,22 @@ TelefoneResponsavelController::limparSessaoResponsavelTelefone();
                             $sexoController = new SexoController();
                             $listSexo = $sexoController->getAll();
 
-                            foreach ($listSexo as $s) {
-                                echo "<option value='" . $s["idSexo"] . "'>"
-                                    . $s["descricaoSexo"]
-                                    . "</option>";
+                            if ($doador != null) {
+
+                                foreach ($listSexo as $s) {
+                                    echo "<option value='" . $s["idSexo"] . "'" . (($doador->getSexo()->getIdSexo() == $s['idSexo']) ? "selected" : "") . ">"
+                                        . $s["descricaoSexo"]
+                                        . "</option>";
+                                }
+                            } else {
+
+                                foreach ($listSexo as $s) {
+                                    echo "<option value='" . $s["idSexo"] . "'>"
+                                        . $s["descricaoSexo"]
+                                        . "</option>";
+                                }
                             }
+
 
                             ?>
 
@@ -107,7 +139,7 @@ TelefoneResponsavelController::limparSessaoResponsavelTelefone();
 
                     <div class="form-group col-md-6 pb-2">
                         <label for="txtDataNascimento"> <strong class="red"> * </strong> Data de nascimento</label>
-                        <input type="date" class="form-control input-date flat" id="txtDataNascimento" name="txtDataNascimento" placeholder="Escolha a data de nascimento" />
+                        <input type="date" class="form-control input-date flat" id="txtDataNascimento" name="txtDataNascimento" placeholder="Escolha a data de nascimento" value="<?php echo ($doador != null) ? date("Y-m-d", strtotime(str_replace('/', '-', $doador->getDataNasc())))  : "" ?>" />
 
                         <div id="feedback-valid-data-nascimento" class="valid-feedback">
                             Data de nascimento válida!
@@ -128,10 +160,21 @@ TelefoneResponsavelController::limparSessaoResponsavelTelefone();
                             $tipoSanguineoController = new TipoSanguineoController();
                             $listTipoSanguineo = $tipoSanguineoController->getAll();
 
-                            foreach ($listTipoSanguineo as $t) {
-                                echo "<option value='" . $t["idTipoSanguineo"] . "'>"
-                                    . $t["descricaoTipoSanguineo"]
-                                    . "</option>";
+                            if ($doador != null) {
+
+                                foreach ($listTipoSanguineo as $t) {
+                                    echo "<option value='" . $t["idTipoSanguineo"] . "' " . (($doador->getTipoSanguineo()->getIdTipoSanguineo() == $t['idTipoSanguineo']) ? "selected" : "") . ">"
+                                        . $t["descricaoTipoSanguineo"]
+                                        . "</option>";
+                                }
+                            } else {
+
+
+                                foreach ($listTipoSanguineo as $t) {
+                                    echo "<option value='" . $t["idTipoSanguineo"] . "'>"
+                                        . $t["descricaoTipoSanguineo"]
+                                        . "</option>";
+                                }
                             }
 
                             ?>
@@ -153,11 +196,23 @@ TelefoneResponsavelController::limparSessaoResponsavelTelefone();
 
                             $fatorRhController = new FatorRhController();
                             $listFatorRh = $fatorRhController->getAll();
-                            foreach ($listFatorRh as $f) {
-                                echo "<option value='" . $f["idFatorRh"] . "'>"
-                                    . $f["descricaoFatorRh"]
-                                    . "</option>";
+
+                            if ($doador != null) {
+
+                                foreach ($listFatorRh as $f) {
+                                    echo "<option value='" . $f["idFatorRh"] . "'" . (($doador->getFatorRh()->getIdFatorRh() == $f['idFatorRh']) ? "selected" : "") . ">"
+                                        . $f["descricaoFatorRh"]
+                                        . "</option>";
+                                }
+                            } else {
+
+                                foreach ($listFatorRh as $f) {
+                                    echo "<option value='" . $f["idFatorRh"] . "'>"
+                                        . $f["descricaoFatorRh"]
+                                        . "</option>";
+                                }
                             }
+
 
                             ?>
 
@@ -179,7 +234,7 @@ TelefoneResponsavelController::limparSessaoResponsavelTelefone();
                     <div class="form-group col-md-6 pb-2">
 
                         <label for="txtCpfDoador"> <strong class="red"> * </strong> CPF</label>
-                        <input type="text" class="form-control txtCpf flat" id="txtCpfDoador" name="txtCpfDoador" placeholder="Digite o CPF" />
+                        <input type="text" class="form-control txtCpf flat" id="txtCpfDoador" name="txtCpfDoador" placeholder="Digite o CPF" value="<?php echo ($doador != null) ? $doador->getCpf() : ""; ?>" />
                         <div id="feedback-valid-cpf-Doador" class="valid-feedback">
                             CPF válido!
                         </div>
@@ -190,7 +245,7 @@ TelefoneResponsavelController::limparSessaoResponsavelTelefone();
 
                     <div class="form-group col-md-6 pb-2">
                         <label for="txtRgDoador"> <strong class="red"> * </strong> RG</label>
-                        <input type="text" class="form-control txtRg flat" id="txtRgDoador" name="txtRgDoador" placeholder="Digite o RG" />
+                        <input type="text" class="form-control txtRg flat" id="txtRgDoador" name="txtRgDoador" placeholder="Digite o RG" value="<?php echo ($doador != null) ? $doador->getRg() : ""; ?>" />
 
                         <div id="feedback-valid-rg-Doador" class="valid-feedback">
                             RG válido!
@@ -215,8 +270,6 @@ TelefoneResponsavelController::limparSessaoResponsavelTelefone();
                         <button type="button" class="btn btn-outline-danger w-100 flat" data-toggle="modal" data-target="#limpar-campos-pessoais">
                             <i class="far fa-window-close"></i> Limpar
                         </button>
-
-                        <!-- <input type="button" class="btn btn-outline-danger w-100" value="Adicionar responsável" data-toggle="modal" data-target="#exampleModal" /> -->
 
                     </div>
 
@@ -246,7 +299,7 @@ TelefoneResponsavelController::limparSessaoResponsavelTelefone();
                     <div class="form-group col-md-12 pb-2">
 
                         <label for="txtCep"> <strong class="red"> * </strong> CEP</label>
-                        <input type="text" class="form-control txtCep flat" id="txtCep" name="txtCep" placeholder="Digite o CEP" />
+                        <input type="text" class="form-control txtCep flat" id="txtCep" name="txtCep" placeholder="Digite o CEP" value="<?php echo ($doador != null) ? $doador->getEndereco()->getCEP() : ""; ?>" />
 
                         <div id="feedback-valid-cep-Doador" class="valid-feedback">
                             CEP válido!
@@ -263,7 +316,7 @@ TelefoneResponsavelController::limparSessaoResponsavelTelefone();
                     <div class="form-group col-md-4 pb-2">
 
                         <label for="txtLogradouro"> <strong class="red"> * </strong> Logradouro</label>
-                        <input type="text" class="form-control flat" id="txtLogradouro" name="txtLogradouro" placeholder="Digite o logradouro" maxlength="100" />
+                        <input type="text" class="form-control flat" id="txtLogradouro" name="txtLogradouro" placeholder="Digite o logradouro" maxlength="100" value="<?php echo ($doador != null) ? $doador->getEndereco()->getLogradouro() : ""; ?>" />
 
                         <div id="feedback-valid-logradouro-Doador" class="valid-feedback">
                             Logradouro válido!
@@ -277,7 +330,7 @@ TelefoneResponsavelController::limparSessaoResponsavelTelefone();
                     <div class="form-group col-md-4 pb-2">
 
                         <label for="txtBairro"> <strong class="red"> * </strong> Bairro</label>
-                        <input type="text" class="form-control flat" id="txtBairro" name="txtBairro" placeholder="Digite o bairro" maxlength="100" />
+                        <input type="text" class="form-control flat" id="txtBairro" name="txtBairro" placeholder="Digite o bairro" maxlength="100" value="<?php echo ($doador != null) ? $doador->getEndereco()->getBairro() : ""; ?>" />
 
 
                         <div id="feedback-valid-bairro-Doador" class="valid-feedback">
@@ -292,7 +345,7 @@ TelefoneResponsavelController::limparSessaoResponsavelTelefone();
                     <div class="form-group col-md-4 pb-2">
 
                         <label for="txtCidade"> <strong class="red"> * </strong> Cidade</label>
-                        <input type="text" class="form-control flat" id="txtCidade" name="txtCidade" placeholder="Digite a cidade" maxlength="100" />
+                        <input type="text" class="form-control flat" id="txtCidade" name="txtCidade" placeholder="Digite a cidade" maxlength="100" value="<?php echo ($doador != null) ? $doador->getEndereco()->getCidade() : ""; ?>" />
 
 
                         <div id="feedback-valid-cidade-Doador" class="valid-feedback">
@@ -313,7 +366,7 @@ TelefoneResponsavelController::limparSessaoResponsavelTelefone();
                     <div class="form-group col-md-4 pb-2">
 
                         <label for="txtUf"> <strong class="red"> * </strong> UF</label>
-                        <input type="text" class="form-control flat" id="txtUf" name="txtUf" placeholder="Digite o estado" maxlength="2" />
+                        <input type="text" class="form-control flat" id="txtUf" name="txtUf" placeholder="Digite o estado" maxlength="2" value="<?php echo ($doador != null) ? $doador->getEndereco()->getUF() : ""; ?>" />
 
 
                         <div id="feedback-valid-uf-Doador" class="valid-feedback">
@@ -329,7 +382,7 @@ TelefoneResponsavelController::limparSessaoResponsavelTelefone();
                     <div class="form-group col-md-4 pb-2">
 
                         <label for="txtNumero"> <strong class="red"> * </strong> Número</label>
-                        <input type="text" class="form-control flat" id="txtNumero" name="txtNumero" placeholder="Digite o número residencial" maxlength="5" />
+                        <input type="text" class="form-control flat" id="txtNumero" name="txtNumero" placeholder="Digite o número residencial" maxlength="5" value="<?php echo ($doador != null) ? $doador->getEndereco()->getNumero() : ""; ?>" />
 
                         <div id="feedback-valid-numero-Doador" class="valid-feedback">
                             Número válido!
@@ -343,7 +396,7 @@ TelefoneResponsavelController::limparSessaoResponsavelTelefone();
                     <div class="form-group col-md-4 pb-2">
 
                         <label for="txtComplemento">Complemento</label>
-                        <input type="text" class="form-control flat" id="txtComplemento" name="txtComplemento" placeholder="Digite o complemento do endereço" maxlength="70" />
+                        <input type="text" class="form-control flat" id="txtComplemento" name="txtComplemento" placeholder="Digite o complemento do endereço" maxlength="70" value="<?php echo ($doador != null) ? $doador->getEndereco()->getComplemento() : ""; ?>" />
                     </div>
 
                 </div>
@@ -399,7 +452,7 @@ TelefoneResponsavelController::limparSessaoResponsavelTelefone();
 
                     <div class="form-group col-md-6 pb-2">
                         <label for="txtEmail"> <strong class="red"> * </strong> E-mail</label>
-                        <input type="email" class="form-control flat" name="txtEmail" id="txtEmail" placeholder="Digite o e-mail" maxlength="80" />
+                        <input type="email" class="form-control flat" name="txtEmail" id="txtEmail" placeholder="Digite o e-mail" maxlength="80" value="<?php echo ($doador != null) ? $doador->getUsuario()->getEmailUsuario() : ""; ?>" />
 
                         <div id="feedback-valid-nome-Doador" class="valid-feedback">
                             Email válido!
@@ -421,23 +474,47 @@ TelefoneResponsavelController::limparSessaoResponsavelTelefone();
                                 <div class="container-item-telefone" id="container-item-telefone-doador">
                                     <?php
 
-                                    if (isset($_SESSION['telefonesDoador']) && !empty($_SESSION["telefonesDoador"])) {
+                                    if ($doador != null) {
 
-                                        $vetTelefones = $_SESSION["telefonesDoador"];
+                                        if (!empty($doador->getTelefones())) {
 
-                                        foreach ($vetTelefones as $telefone) {
+                                            foreach ($doador->getTelefones() as $telefone) {
 
-                                            echo ("<li class='item-telefone d-flex bd-highlight align-items-center'>"
-                                                . "<i class='fas fa-phone-alt flex-fill bd-highlight'></i>"
-                                                . "<div class='h-100 flex-fill bd-highlight container-span-telefone'>"
-                                                . "<span class='h-100 d-flex justify-content-center align-items-center desc-telefone'>" . $telefone . "</span>"
-                                                . "</div>"
-                                                . "<i class='fas fa-times flex-fill bd-highlight remover-telefone-doador'></i>"
-                                                . "</li>");
+                                                echo ("<li class='item-telefone d-flex bd-highlight align-items-center'>"
+                                                    . "<i class='fas fa-phone-alt flex-fill bd-highlight'></i>"
+                                                    . "<div class='h-100 flex-fill bd-highlight container-span-telefone'>"
+                                                    . "<span class='h-100 d-flex justify-content-center align-items-center desc-telefone'>" . $telefone['numeroTelefoneDoador'] . "</span>"
+                                                    . "</div>"
+                                                    . "<i class='fas fa-times flex-fill bd-highlight remover-telefone-doador'></i>"
+                                                    . "</li>");
+                                            }
+
+                                            $_SESSION['telefonesDoador'] = $doador->getTelefones();
+                                        } else {
+
+                                            echo ("<div id='msg-list-telefone-doador'> <h5 class='text-center mt-3'> Nenhum telefone adicionado </h5> </div>");
                                         }
                                     } else {
-                                        echo ("<div id='msg-list-telefone-doador'> <h5 class='text-center mt-3'> Nenhum telefone adicionado </h5> </div>");
+
+                                        if (isset($_SESSION['telefonesDoador']) && !empty($_SESSION["telefonesDoador"])) {
+
+                                            $vetTelefones = $_SESSION["telefonesDoador"];
+
+                                            foreach ($vetTelefones as $telefone) {
+
+                                                echo ("<li class='item-telefone d-flex bd-highlight align-items-center'>"
+                                                    . "<i class='fas fa-phone-alt flex-fill bd-highlight'></i>"
+                                                    . "<div class='h-100 flex-fill bd-highlight container-span-telefone'>"
+                                                    . "<span class='h-100 d-flex justify-content-center align-items-center desc-telefone'>" . $telefone . "</span>"
+                                                    . "</div>"
+                                                    . "<i class='fas fa-times flex-fill bd-highlight remover-telefone-doador'></i>"
+                                                    . "</li>");
+                                            }
+                                        } else {
+                                            echo ("<div id='msg-list-telefone-doador'> <h5 class='text-center mt-3'> Nenhum telefone adicionado </h5> </div>");
+                                        }
                                     }
+
 
                                     ?>
 
@@ -621,7 +698,7 @@ TelefoneResponsavelController::limparSessaoResponsavelTelefone();
 
                 </div>
 
-                <input type="hidden" name="hdIdSelectedResponsible" id="hdIdSelectedResponsible" value="0" />
+                <input type="hidden" name="hdIdSelectedResponsible" id="hdIdSelectedResponsible" value="<?php echo ($doador != null && $doador->getResponsavel()->getId() != null) ? $doador->getResponsavel()->getId() : "0"; ?>" />
 
                 <div class="form-row w-100 mt-2 d-flex justify-content-end">
                     <h6 class="text-center mt-2"> Dados obrigatórios <strong class="red"> * </strong> </h6>
@@ -955,9 +1032,23 @@ TelefoneResponsavelController::limparSessaoResponsavelTelefone();
                             <div class="form-row">
 
                                 <div class="form-group col-md-12">
-                                    <div class="d-none w-100" id="container-responsible-selected">
-                                        <h6 id='responsible-selected-name'> <span class="font-bold"> Responsável selecionado: </span>  <span id="responsible-selected-name-span" class="pl-2"></span> <i class="fas fa-times cursor-pointer selection" id="unselect-responsible"></i> </h6>
-                                    </div>
+                                    <?php
+
+                                    if ($doador != null) {
+
+                                        echo '<div class="w-100 mt-5" id="container-responsible-selected">'
+                                            .'<h6 id="responsible-selected-name"> <span class="font-bold"> Responsável selecionado: </span> <span id="responsible-selected-name-span" class="pl-2">'. $doador->getResponsavel()->getNome() .'</span> <i class="fas fa-times cursor-pointer selection" id="unselect-responsible"></i> </h6>'
+                                            .'</div>';
+
+                                    } else {
+                                        echo '<div class="d-none w-100" id="container-responsible-selected">'
+                                            .'<h6 id="responsible-selected-name"> <span class="font-bold"> Responsável selecionado: </span> <span id="responsible-selected-name-span" class="pl-2"></span> <i class="fas fa-times cursor-pointer selection" id="unselect-responsible"></i> </h6>'
+                                            .'</div>';
+                                    }
+
+
+                                    ?>
+
                                 </div>
                             </div>
 

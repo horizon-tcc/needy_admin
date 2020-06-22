@@ -45,7 +45,7 @@ class DoadorDAO
 
         $pstm->bindValue(12, $doador->getEndereco()->getNumero());
 
-        $pstm->bindValue(13, ($doador->getEndereco()->getComplemento() != null) ? $doador->getEndereco()->getComplemento() : null );
+        $pstm->bindValue(13, ($doador->getEndereco()->getComplemento() != null) ? $doador->getEndereco()->getComplemento() : null);
 
         $pstm->bindValue(14, $doador->getEndereco()->getCidade());
 
@@ -571,6 +571,47 @@ class DoadorDAO
         return (count($pstm->fetchAll()) > 0) ? true : false;
     }
 
+    public function verificarExistenciaCpfDoadorParaEdicao( $doador ){
+
+        $conn = DB::getConn();
+        $sql = "SELECT * FROM tbdoador 
+                INNER JOIN tbusuario
+                ON tbdoador.idUsuario = tbusuario.idUsuario 
+                WHERE cpfDoador = ? AND statusUsuario != 0";
+
+        $pstm = $conn->prepare( $sql );
+        $pstm->bindValue(1, $doador->getCpf());
+
+        $pstm->execute();
+
+        $result = $pstm->fetchAll();
+        
+        
+        if ( count($result) === 0) {
+
+            return false;
+
+        } else {
+
+            $idDoadorRetornado = 0;
+            
+            foreach($result as $r) {
+                
+                $idDoadorRetornado = (int) $r['idDoador'];
+            }
+
+            if ( $idDoadorRetornado == $doador->getId() ) {
+
+                return false;
+            }
+            else {
+
+                return true;
+            }
+        }
+
+    }
+
 
     public function remover($idUsuario)
     {
@@ -603,7 +644,7 @@ class DoadorDAO
     }
 
 
-    public function getDonnorsByBloodType( $idBloodType )
+    public function getDonnorsByBloodType($idBloodType)
     {
 
         $conn = DB::getConn();
@@ -645,7 +686,6 @@ class DoadorDAO
         if (count($result) > 0) {
 
             return $result;
-
         } else {
 
             return null;
@@ -653,7 +693,7 @@ class DoadorDAO
     }
 
 
-    public function getDonnorsByRhFactor( $idRhFactor )
+    public function getDonnorsByRhFactor($idRhFactor)
     {
 
         $conn = DB::getConn();
@@ -686,7 +726,7 @@ class DoadorDAO
 
         $pstm = $conn->prepare($sql);
 
-        $pstm->bindValue(1, $idRhFactor );
+        $pstm->bindValue(1, $idRhFactor);
 
         $pstm->execute();
 
@@ -695,10 +735,53 @@ class DoadorDAO
         if (count($result) > 0) {
 
             return $result;
-
         } else {
 
             return null;
         }
     }
+
+    public function editar($doador)
+    {
+        
+        $conn = DB::getConn();
+
+        $sql = "UPDATE tbdoador SET nomeDoador = ?, idResponsavel = ?, idSexo = ?, dataNascimentoDoador = ?, 
+                idFatorRh = ?, idTipoSanguineo = ?, cpfDoador = ?, rgDoador = ?, logradouroDoador = ?, 
+                bairroDoador = ?, cepDoador = ?, numeroEndDoador = ?, complementoEndDoador = ?, cidadeDoador = ?, 
+                ufDoador = ? WHERE idDoador = ?";
+
+        $pstm = $conn->prepare($sql);
+
+        $pstm->bindValue( 1, $doador->getNome() );
+        $pstm->bindValue( 2, $doador->getResponsavel()->getId() );
+        $pstm->bindValue( 3, $doador->getSexo()->getIdSexo() );
+        $pstm->bindValue( 4, $doador->getDataNasc());
+        $pstm->bindValue( 5, $doador->getFatorRh()->getIdFatorRh());
+        $pstm->bindValue( 6, $doador->getTipoSanguineo()->getIdTipoSanguineo);
+        $pstm->bindValue( 7, $doador->getCpf());
+        $pstm->bindValue( 8, $doador->getRg());
+        $pstm->bindValue( 9, $doador->getEndereco()->getLogradouro());
+        $pstm->bindValue( 10, $doador->getEndereco()->getBairro());
+        $pstm->bindValue( 11, $doador->getEndereco()->getCEP());
+        $pstm->bindValue( 12, $doador->getEndereco()->getNumero());
+        $pstm->bindValue( 13, $doador->getEndereco()->getComplemento());
+        $pstm->bindValue( 14, $doador->getEndereco()->getCidade());
+        $pstm->bindValue( 15, $doador->getEndereco()->getUF());
+        $pstm->bindValue( 16, $doador->getId());
+
+
+        return $pstm->execute();
+        
+    }
+
+
 }
+
+// $doadorDao = new DoadorDAO();
+// $doador = new Doador();
+
+// $doador->setId(6);
+// $doador->setCpf("325.905.410-31");
+
+// echo (int) $doadorDao->verificarExistenciaCpfDoadorParaEdicao($doador);

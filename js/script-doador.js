@@ -200,10 +200,16 @@ function validarSecaoPessoal() {
     if (imgDoador.value != "") {
 
         imgValida = true;
-
         $("#imgDoador").removeClass("is-invalid");
         $("#imgDoador").addClass("is-valid");
 
+    }
+    else if ( $("#hdImgDonnor").val() != "" ){
+
+        imgValida = true;
+        $("#imgDoador").removeClass("is-invalid");
+        $("#imgDoador").addClass("is-valid");
+            
     }
     else {
 
@@ -611,7 +617,13 @@ $(document).ready(function () {
         const segundaEtapa = 2;
         const terceiraEtapa = 3;
         const quartaEtapa = 4;
+
         const SUCESSO_AO_CADASTRAR_O_DOADOR = 1;
+        const SUCESSO_AO_EDITAR_O_DOADOR = 1;
+
+        const FORMULARIO_PARA_EDITAR = 1;
+        const FORMULARIO_PARA_CADASTRO = 0;
+
 
         let fsPrev, fsAtual, fsNext;
         let etapa = primeiraEtapa;
@@ -662,47 +674,93 @@ $(document).ready(function () {
 
                     if (age >= 18) {
 
-                        let formularioDoador = document.querySelector("#form-insert");
+                        let formularioDoador = document.querySelector(".form-donnor");
                         let formData = new FormData(formularioDoador);
 
-                        $.ajax({
+                        if ($("#hdFormType").val() == FORMULARIO_PARA_CADASTRO) {
 
-                            url: "../controller/doador/cadastrar-doador.php",
-                            type: "post",
-                            dataType: "json",
-                            processData: false,
-                            contentType: false,
-                            data: formData,
-                            success: function (response) {
+                            $.ajax({
 
-                                if (response.status === SUCESSO_AO_CADASTRAR_O_DOADOR) {
+                                url: "../controller/doador/cadastrar-doador.php",
+                                type: "post",
+                                dataType: "json",
+                                processData: false,
+                                contentType: false,
+                                data: formData,
+                                success: function (response) {
 
-                                    
-                                    
-                                    showToast('Sucesso', 'Doador cadastrado com sucesso', 'success', '#28a745', 'white', 2000);
-                                    
-                                    setTimeout(function() {
-                                        limparTodosCampos();
-                                        document.location.reload(true);
-                                        
-                                    }, 2000);
+                                    if (response.status === SUCESSO_AO_CADASTRAR_O_DOADOR) {
 
-                                    
+
+
+                                        showToast('Sucesso', 'Doador cadastrado com sucesso', 'success', '#28a745', 'white', 2000);
+
+                                        setTimeout(function () {
+                                            limparTodosCampos();
+                                            document.location.reload(true);
+
+                                        }, 2000);
+
+
+                                    }
+                                    else {
+
+                                        console.log(response);
+
+                                    }
+
+                                },
+                                error: function (request, status, error) {
+
+                                    console.log(request.responseText);
+                                    console.log(request);
                                 }
-                                else {
 
-                                    console.log(response);
+                            });
 
+
+                        }
+                        else {
+
+                            $.ajax({
+
+                                url: "../controller/doador/editar-doador.php",
+                                type: "post",
+                                dataType: "json",
+                                processData: false,
+                                contentType: false,
+                                data: formData,
+                                success: function (response) {
+
+                                    if (response.status === SUCESSO_AO_EDITAR_O_DOADOR) {
+
+
+                                        showToast('Sucesso', 'Doador editado com sucesso', 'success', '#28a745', 'white', 2000);
+
+                                        setTimeout(function () {
+                                            limparTodosCampos();
+                                            document.location.reload(true);
+
+                                        }, 2000);
+
+                                    }
+                                    else {
+
+                                        console.log(response);
+
+                                    }
+
+                                },
+                                error: function (request, status, error) {
+
+                                    console.log(request.responseText);
+                                    console.log(request);
                                 }
 
-                            },
-                            error: function (request, status, error) {
+                            });
 
-                                console.log(request.responseText);
-                                console.log(request);
-                            }
+                        }
 
-                        });
 
                     }
 
@@ -726,54 +784,248 @@ $(document).ready(function () {
             }
             else if (etapa == quartaEtapa) {
 
-                let formularioDoador = document.querySelector("#form-insert");
-                let formData = new FormData(formularioDoador);
+                const NENHUM_RESPONSAVEL_SELECIONADO = 0;
+
+                if ($("#hdIdSelectedResponsible").val() == NENHUM_RESPONSAVEL_SELECIONADO) {
+
+                    let formularioDoador = document.querySelector(".form-donnor");
+                    let formData = new FormData(formularioDoador);
 
 
-                if (validarSecaoResponsavel()) {
+                    if (validarSecaoResponsavel()) {
+
+                        if ($("#hdFormType").val() == FORMULARIO_PARA_CADASTRO) {
+
+                            $.ajax({
+
+                                url: "../controller/doador/cadastrar-doador.php",
+                                type: "post",
+                                dataType: "json",
+                                processData: false,
+                                contentType: false,
+                                data: formData,
+                                success: function (response) {
+
+                                    if (response.status === SUCESSO_AO_CADASTRAR_O_DOADOR) {
+
+
+                                        showToast('Sucesso', 'Doador cadastrado com sucesso', 'success', '#28a745', 'white', 2000);
+
+                                        setTimeout(function () {
+                                            limparTodosCampos();
+                                            document.location.reload(true);
+
+                                        }, 2000);
+
+                                    }
+                                    else {
+
+                                        showToast('Atenção', 'Erro cadastrar o doador', 'warning', '#dc3545', 'white', 10000);
+                                        console.log(response);
+
+                                    }
+
+                                },
+                                error: function (request, status, error) {
+
+                                    showToast('Atenção', 'Erro cadastrar o doador', 'warning', '#dc3545', 'white', 10000);
+
+
+                                    console.log(request.responseText);
+                                    console.log(request);
+                                }
+
+                            });
+
+
+                        } else {
+
+
+                            $.ajax({
+
+                                url: "../controller/doador/editar-doador.php",
+                                type: "post",
+                                dataType: "json",
+                                processData: false,
+                                contentType: false,
+                                data: formData,
+                                success: function (response) {
+
+                                    if (response.status === SUCESSO_AO_CADASTRAR_O_DOADOR) {
+
+
+                                        showToast('Sucesso', 'Doador cadastrado com sucesso', 'success', '#28a745', 'white', 2000);
+
+                                        setTimeout(function () {
+                                            limparTodosCampos();
+                                            document.location.reload(true);
+
+                                        }, 2000);
+
+                                    }
+                                    else {
+
+                                        showToast('Atenção', 'Erro cadastrar o doador', 'warning', '#dc3545', 'white', 10000);
+                                        console.log(response);
+
+                                    }
+
+                                },
+                                error: function (request, status, error) {
+
+                                    showToast('Atenção', 'Erro cadastrar o doador', 'warning', '#dc3545', 'white', 10000);
+
+
+                                    console.log(request.responseText);
+                                    console.log(request);
+                                }
+
+                            });
+
+
+                        }
+
+                    }
+
+                } else {
+
+                    const SUCESSO_AO_VERIFICAR_A_SESSAO_DE_TELEFONES = true;
+                    let telefonePreenchido = false;
 
                     $.ajax({
 
-                        url: "../controller/doador/cadastrar-doador.php",
-                        type: "post",
-                        dataType: "json",
-                        processData: false,
-                        contentType: false,
-                        data: formData,
-                        success: function (response) {
+                          url: "../controller/doador/verificar-tamanho-sessao-telefone.php"
+                        , dataType: "json"
+                        , method: "get"
+                        , async: false
+                        , success: function (response) {
 
-                            if (response.status === SUCESSO_AO_CADASTRAR_O_DOADOR) {
+                            if (response.status === SUCESSO_AO_VERIFICAR_A_SESSAO_DE_TELEFONES) {
 
-                                
-                                showToast('Sucesso', 'Doador cadastrado com sucesso', 'success', '#28a745', 'white', 2000);
-                                    
-                                setTimeout(function() {
-                                    limparTodosCampos();
-                                    document.location.reload(true);
-                                    
-                                }, 2000);
+
+                                telefonePreenchido = (response.size > 0);
+
 
                             }
                             else {
 
-                                showToast('Atenção', 'Erro cadastrar o doador', 'warning', '#dc3545', 'white', 10000);
-                                console.log(response);
-
+                                console.log(response.status);
                             }
-
-                        },
-                        error: function (request, status, error) {
-
-                            showToast('Atenção', 'Erro cadastrar o doador', 'warning', '#dc3545', 'white', 10000);
-
+                        }
+                        , error: function (request) {
 
                             console.log(request.responseText);
-                            console.log(request);
                         }
 
                     });
 
+                    if ($("#txtNomeResponsavel").val().length > 0
+                        || $("#txtDataNascimento").val().length > 0
+                        || $("#txtCpfResponsavel").val().length > 0
+                        || $("#txtRgResponsavel").val().length > 0
+                        || telefonePreenchido) {
 
+
+                        showToast('Atenção', 'Um responsavél está selecionado, portanto não é possível cadastrar um novo', 'warning', '#dc3545', 'white', 10000);
+                    }
+
+                    else {
+
+                        let formularioDoador = document.querySelector(".form-donnor");
+                        let formData = new FormData(formularioDoador);
+
+                        if ($("#hdFormType").val() == FORMULARIO_PARA_CADASTRO) {
+
+                            $.ajax({
+
+                                url: "../controller/doador/cadastrar-doador.php",
+                                type: "post",
+                                dataType: "json",
+                                processData: false,
+                                contentType: false,
+                                data: formData,
+
+                                success: function (response) {
+
+                                    if (response.status === SUCESSO_AO_CADASTRAR_O_DOADOR) {
+
+
+                                        showToast('Sucesso', 'Doador cadastrado com sucesso', 'success', '#28a745', 'white', 2000);
+
+                                        setTimeout(function () {
+                                            limparTodosCampos();
+                                            document.location.reload(true);
+
+                                        }, 2000);
+
+                                    }
+                                    else {
+                                        showToast('Atenção', 'Erro cadastrar o doador', 'warning', '#dc3545', 'white', 10000);
+                                        console.log(response);
+                                    }
+
+                                },
+                                error: function (request, status, error) {
+
+                                    showToast('Atenção', 'Erro cadastrar o doador', 'warning', '#dc3545', 'white', 10000);
+
+
+                                    console.log(request.responseText);
+                                    console.log(request);
+                                }
+
+                            });
+
+
+                        }
+                        else {
+
+                            $.ajax({
+
+                                url: "../controller/doador/editar-doador.php",
+                                type: "post",
+                                dataType: "json",
+                                processData: false,
+                                contentType: false,
+                                data: formData,
+                                success: function (response) {
+
+                                    if (response.status === SUCESSO_AO_EDITAR_O_DOADOR) {
+
+
+                                        showToast('Sucesso', 'Doador editado com sucesso', 'success', '#28a745', 'white', 2000);
+
+                                        setTimeout(function () {
+                                            limparTodosCampos();
+                                            document.location.reload(true);
+
+                                        }, 2000);
+
+                                    }
+                                    else {
+
+                                        showToast('Atenção', 'Erro ao editar o doador', 'warning', '#dc3545', 'white', 10000);
+                                        console.log(response);
+
+                                    }
+
+                                },
+                                error: function (request, status, error) {
+
+                                    showToast('Atenção', 'Erro ao editar o doador', 'warning', '#dc3545', 'white', 10000);
+
+
+                                    console.log(request.responseText);
+                                    console.log(request);
+                                }
+
+                            });
+
+
+
+                        }
+
+                    }
                 }
 
             }
@@ -980,10 +1232,10 @@ window.addEventListener('beforeunload', (event) => {
         || $("#txtDataNascimentoResponsavel").val().length > 0 || $("#txtCpfResponsavel").val().length > 0 || $("#txtRgResponsavel").val().length > 0) {
 
 
-      
+
         event.returnValue = `Tem certeza que deseja sair ?`;
 
-        
+
     }
 
 });
@@ -1104,10 +1356,15 @@ function verificarExistenciaCpfDoador(cpf) {
         url: "../controller/doador/verifica-existencia-cpf-doador.php",
         type: "post",
         data:
-            { "txtCpfDoador": cpf },
+            {  "txtCpfDoador": cpf
+             , "hdIdDonnor": $("#hdIdDonnor").val()  
+             , "hdFormType": $("#hdFormType").val() 
+            },
         dataType: "json",
         async: false,
         success: function (response) {
+
+            console.log(response.status);
 
             if (response.status === CPF_VALIDO) {
 
@@ -1140,7 +1397,11 @@ function verificarExistenciaEmailUsuario(email) {
         url: "../controller/usuario/verifica-existencia-email-usuario.php",
         type: "post",
         data:
-            { "txtEmail": email },
+            { "txtEmail": email 
+             ,"hdFormType" : $("#hdFormType").val()
+             ,"hdIdDonnor": $("#hdIdDonnor").val()
+            },
+
         dataType: "json",
         async: false,
         success: function (response) {

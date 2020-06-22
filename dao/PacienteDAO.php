@@ -58,7 +58,7 @@
             
             $pstm->execute();
 
-            return $rCargo->fetch();
+            //return $rCargo->fetch();
         }
 
         public function editarPaciente($paciente)
@@ -74,17 +74,17 @@
                             rgPaciente = ?
                         WHERE idPaciente = ?";
                         
-            $pstm = $conexao->prepare();
+          //  $pstm = $conexao->prepare();
 
-            $pstm->bindValue(1, $paciente->getNomePaciente());
-            $pstm->bindValue(2, $paciente->getSexoPaciente());
-            $pstm->bindValue(3, $paciente->getTipoSanguineoPaciente());
-            $pstm->bindValue(4, $paciente->getFatorRhPaciente());
-            $pstm->bindValue(5, $paciente->getCpfPaciente());
-            $pstm->bindValue(6, $paciente->getRgPaciente());
-            $pstm->bindValue(7, $paciente->getIdPaciente());
+            // $pstm->bindValue(1, $paciente->getNomePaciente());
+            // $pstm->bindValue(2, $paciente->getSexoPaciente());
+            // $pstm->bindValue(3, $paciente->getTipoSanguineoPaciente());
+            // $pstm->bindValue(4, $paciente->getFatorRhPaciente());
+            // $pstm->bindValue(5, $paciente->getCpfPaciente());
+            // $pstm->bindValue(6, $paciente->getRgPaciente());
+            // $pstm->bindValue(7, $paciente->getIdPaciente());
 
-            $conexao->execute($update);
+            // $conexao->execute($update);
 
             return '<script>
                         alert("Update realizado com sucesso");
