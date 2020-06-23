@@ -538,10 +538,7 @@ $("#txtConsultarCpfResponsavel").on("keyup", (ev) => {
                 $('#table-responsibles-container').empty();
                 $('#table-responsibles-container').append("<h6 class ='text-center mt-5'> Nenhum responsável encontrado </h6>");
             }
-            // else if (response.status === PARAMETRO_DE_PESQUISA_VAZIO) {
-
-
-            // }
+          
         },
         error: function (request, status, error) {
 

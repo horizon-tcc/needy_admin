@@ -426,7 +426,7 @@ ul.list-telefone h5 {
 }
 
 .form-donnor fieldset:not(:first-of-type) {
-    /* display: none; */
+    display: none;
 }
 
 ul#progress {

@@ -204,12 +204,12 @@ function validarSecaoPessoal() {
         $("#imgDoador").addClass("is-valid");
 
     }
-    else if ( $("#hdImgDonnor").val() != "" ){
+    else if ($("#hdImgDonnor").val() != "") {
 
         imgValida = true;
         $("#imgDoador").removeClass("is-invalid");
         $("#imgDoador").addClass("is-valid");
-            
+
     }
     else {
 
@@ -851,10 +851,10 @@ $(document).ready(function () {
                                 data: formData,
                                 success: function (response) {
 
-                                    if (response.status === SUCESSO_AO_CADASTRAR_O_DOADOR) {
+                                    if (response.status === SUCESSO_AO_EDITAR_O_DOADOR) {
 
 
-                                        showToast('Sucesso', 'Doador cadastrado com sucesso', 'success', '#28a745', 'white', 2000);
+                                        showToast('Sucesso', 'Doador editado com sucesso', 'success', '#28a745', 'white', 2000);
 
                                         setTimeout(function () {
                                             limparTodosCampos();
@@ -865,7 +865,7 @@ $(document).ready(function () {
                                     }
                                     else {
 
-                                        showToast('Atenção', 'Erro cadastrar o doador', 'warning', '#dc3545', 'white', 10000);
+                                        showToast('Atenção', 'Erro ao editar o doador', 'warning', '#dc3545', 'white', 10000);
                                         console.log(response);
 
                                     }
@@ -873,7 +873,7 @@ $(document).ready(function () {
                                 },
                                 error: function (request, status, error) {
 
-                                    showToast('Atenção', 'Erro cadastrar o doador', 'warning', '#dc3545', 'white', 10000);
+                                    showToast('Atenção', 'Erro ao editar o doador', 'warning', '#dc3545', 'white', 10000);
 
 
                                     console.log(request.responseText);
@@ -894,7 +894,7 @@ $(document).ready(function () {
 
                     $.ajax({
 
-                          url: "../controller/doador/verificar-tamanho-sessao-telefone.php"
+                        url: "../controller/responsavel/verificar-tamanho-sessao-telefone.php"
                         , dataType: "json"
                         , method: "get"
                         , async: false
@@ -920,11 +920,10 @@ $(document).ready(function () {
                     });
 
                     if ($("#txtNomeResponsavel").val().length > 0
-                        || $("#txtDataNascimento").val().length > 0
+                        || $("#txtDataNascimentoResponsavel").val().length > 0
                         || $("#txtCpfResponsavel").val().length > 0
                         || $("#txtRgResponsavel").val().length > 0
                         || telefonePreenchido) {
-
 
                         showToast('Atenção', 'Um responsavél está selecionado, portanto não é possível cadastrar um novo', 'warning', '#dc3545', 'white', 10000);
                     }
@@ -1356,15 +1355,15 @@ function verificarExistenciaCpfDoador(cpf) {
         url: "../controller/doador/verifica-existencia-cpf-doador.php",
         type: "post",
         data:
-            {  "txtCpfDoador": cpf
-             , "hdIdDonnor": $("#hdIdDonnor").val()  
-             , "hdFormType": $("#hdFormType").val() 
-            },
+        {
+            "txtCpfDoador": cpf
+            , "hdIdDonnor": $("#hdIdDonnor").val()
+            , "hdFormType": $("#hdFormType").val()
+        },
         dataType: "json",
         async: false,
         success: function (response) {
 
-            console.log(response.status);
 
             if (response.status === CPF_VALIDO) {
 
@@ -1397,10 +1396,11 @@ function verificarExistenciaEmailUsuario(email) {
         url: "../controller/usuario/verifica-existencia-email-usuario.php",
         type: "post",
         data:
-            { "txtEmail": email 
-             ,"hdFormType" : $("#hdFormType").val()
-             ,"hdIdDonnor": $("#hdIdDonnor").val()
-            },
+        {
+            "txtEmail": email
+            , "hdFormType": $("#hdFormType").val()
+            , "hdIdDonnor": $("#hdIdDonnor").val()
+        },
 
         dataType: "json",
         async: false,

@@ -228,7 +228,7 @@ define("PESQUISAR_POR_FATOR_RH", 7);
 
                             <div class="col-md-12">
 
-                                <h6 class="font-bold"> Logradouro: <span class="logradouro-doador"> Rua Travessa estrada do sol </span> </h6>
+                                <h6 class="font-bold"> Logradouro: <span id="logradouro-doador"> Rua Travessa estrada do sol </span> </h6>
 
                             </div>
 

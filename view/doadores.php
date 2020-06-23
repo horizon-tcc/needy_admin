@@ -23,8 +23,16 @@ if (isset($_GET['idDoador']) && !empty($_GET['idDoador'])) {
 
     $doadorController = new DoadorController();
     $doador = $doadorController->getDoadorById($_GET['idDoador']);
-}
+    $doador->setTelefones($doadorController->getDonorPhonesById($doador->getId()));
+    
+    $_SESSION['telefonesDoador'] = array();
 
+    foreach($doador->getTelefones() as $t){
+
+        array_push( $_SESSION['telefonesDoador'], $t['numeroTelefoneDoador']);
+    }
+    
+}  
 
 ?>
 
@@ -489,7 +497,6 @@ if (isset($_GET['idDoador']) && !empty($_GET['idDoador'])) {
                                                     . "</li>");
                                             }
 
-                                            $_SESSION['telefonesDoador'] = $doador->getTelefones();
                                         } else {
 
                                             echo ("<div id='msg-list-telefone-doador'> <h5 class='text-center mt-3'> Nenhum telefone adicionado </h5> </div>");
@@ -727,7 +734,7 @@ if (isset($_GET['idDoador']) && !empty($_GET['idDoador'])) {
                     <div class="form-group col-md-4 d-flex align-items-end justify-content-end pb-2 pt-2">
 
                         <button type="button" class="btn btn-danger w-100 flat action next" name="next">
-                            <i class="far fa-paper-plane"></i> Finalizar Cadastro
+                            <i class="far fa-paper-plane"></i> Finalizar <?php echo ($doador != null) ? "edição" : "cadastro" ?>
                         </button>
 
                     </div>
@@ -1034,7 +1041,7 @@ if (isset($_GET['idDoador']) && !empty($_GET['idDoador'])) {
                                 <div class="form-group col-md-12">
                                     <?php
 
-                                    if ($doador != null) {
+                                    if ($doador != null && $doador->getResponsavel()->getNome() != null ) {
 
                                         echo '<div class="w-100 mt-5" id="container-responsible-selected">'
                                             .'<h6 id="responsible-selected-name"> <span class="font-bold"> Responsável selecionado: </span> <span id="responsible-selected-name-span" class="pl-2">'. $doador->getResponsavel()->getNome() .'</span> <i class="fas fa-times cursor-pointer selection" id="unselect-responsible"></i> </h6>'

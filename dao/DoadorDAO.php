@@ -754,11 +754,11 @@ class DoadorDAO
         $pstm = $conn->prepare($sql);
 
         $pstm->bindValue( 1, $doador->getNome() );
-        $pstm->bindValue( 2, $doador->getResponsavel()->getId() );
+        $pstm->bindValue( 2, ($doador->getResponsavel() != null) ? $doador->getResponsavel()->getId() : null );
         $pstm->bindValue( 3, $doador->getSexo()->getIdSexo() );
         $pstm->bindValue( 4, $doador->getDataNasc());
         $pstm->bindValue( 5, $doador->getFatorRh()->getIdFatorRh());
-        $pstm->bindValue( 6, $doador->getTipoSanguineo()->getIdTipoSanguineo);
+        $pstm->bindValue( 6, $doador->getTipoSanguineo()->getIdTipoSanguineo());
         $pstm->bindValue( 7, $doador->getCpf());
         $pstm->bindValue( 8, $doador->getRg());
         $pstm->bindValue( 9, $doador->getEndereco()->getLogradouro());

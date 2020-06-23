@@ -21,5 +21,11 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." .
             
         }
 
+        public function getDonorPhonesById($idDoador) {
+            
+            $dDao = new DoadorDAO();
+            return $dDao->getDonorPhonesById($idDoador);
+        }
+
 
     }

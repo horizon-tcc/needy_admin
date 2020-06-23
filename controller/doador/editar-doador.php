@@ -377,8 +377,11 @@ try {
 
                 $doador->setResponsavel($responsavelDao->getResponsavelById($_POST['hdIdSelectedResponsible']));
 
+                $emailAux = $doador->getUsuario()->getEmailUsuario();
                 $doador->setUsuario($usuarioDao->getUserByIdDonnor($doador->getId()));
-
+                
+                $doador->getUsuario()->setEmailUsuario($emailAux);
+    
                 $usuarioDao->editEmailOnly($doador->getUsuario());
                 $doadorDao->editar($doador);
 
@@ -497,10 +500,15 @@ try {
             if (count($vetErros) == 0) {
 
                 $responsavelDao->cadastrar($doador->getResponsavel());
+                
                 $doador->setResponsavel($responsavelDao->getResponsavelByCpf($doador->getResponsavel()->getCpf()));
+                $doador->getResponsavel()->setTelefones($_SESSION['telefonesResponsavel']);
 
+                $emailAux = $doador->getUsuario()->getEmailUsuario();
                 $doador->setUsuario($usuarioDao->getUserByIdDonnor($doador->getId()));
-
+                
+                $doador->getUsuario()->setEmailUsuario($emailAux);
+    
                 $usuarioDao->editEmailOnly($doador->getUsuario());
                 $doadorDao->editar($doador);
 
@@ -526,10 +534,10 @@ try {
 
         if (count($vetErros) == 0) {
 
-
-
-
+            $emailAux = $doador->getUsuario()->getEmailUsuario();
             $doador->setUsuario($usuarioDao->getUserByIdDonnor($doador->getId()));
+
+            $doador->getUsuario()->setEmailUsuario($emailAux);
 
             $usuarioDao->editEmailOnly($doador->getUsuario());
             $doadorDao->editar($doador);

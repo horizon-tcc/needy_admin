@@ -34,19 +34,19 @@ class UsuarioDAO
     }
 
 
-    public function selecEditarUsuario($sessao)
-    {
-        $conexao = DB::getConn();
+    // public function selecEditarUsuario($sessao)
+    // {
+    //     $conexao = DB::getConn();
 
-    $select = "SELECT COUNT(idUsuario) as 'resultado', idTipoUsuario FROM tbUsuario
-                WHERE = ? AND ? ";
+    // $select = "SELECT COUNT(idUsuario) as 'resultado', idTipoUsuario FROM tbUsuario
+    //             WHERE = ? AND ? ";
 
-        $pstm = $conexao->prepare($select);
-        $pstm->bindValue(1, $usuario->getEmailUsuario());
-        $pstm->bindValue(2, $usuario->getSenhaUsuario());
+    //     $pstm = $conexao->prepare($select);
+    //     $pstm->bindValue(1, $usuario->getEmailUsuario());
+    //     $pstm->bindValue(2, $usuario->getSenhaUsuario());
 
-        return $pstm->fetch();
-    }
+    //     return $pstm->fetch();
+    // }
 
     public function editarUsuario($usuario)
     {
@@ -298,10 +298,12 @@ class UsuarioDAO
 
 }
 
-// $usuarioDao = new UsuarioDao();
-// $user = new UsuarioModel();
-// $user->setIdUsuario(3);
-// $user->setEmailUsuario("nunesgustavo668@gmail.com");
+$usuarioDao = new UsuarioDao();
+$user = new UsuarioModel();
+$user->setIdUsuario(3);
+$user->setEmailUsuario("nunesgustavo668@gmail.com");
+
+
 
 // var_dump( $usuarioDao->verificaExistenciaEmailUsuarioParaEdicao($user));
 
