@@ -209,7 +209,6 @@ function validarSecaoPessoal() {
         imgValida = true;
         $("#imgDoador").removeClass("is-invalid");
         $("#imgDoador").addClass("is-valid");
-
     }
     else {
 
