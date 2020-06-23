@@ -7,9 +7,8 @@ class BancoSangueModel
     private $id;
     private $nome;
     private $endereco;
-    private $telefones = [];
-    private $pacientes = [];
-
+    private $telefones;
+    private $foto;
 
     # Getters
 
@@ -38,6 +37,11 @@ class BancoSangueModel
         return $this->pacientes;
     }
 
+    public function getFoto()
+    {
+        return $this->foto;
+    }
+
 
     # Setters
 
@@ -63,8 +67,8 @@ class BancoSangueModel
         $this->telefones = $telefones;
     }
 
-    public function setPacientes($pacientes)
+    public function setFoto($ft)
     {
-        $this->pacientes = $pacientes;
+        $this->foto = $ft;
     }
 }
