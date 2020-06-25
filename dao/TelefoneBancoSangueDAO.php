@@ -26,9 +26,8 @@ class TelefoneBancoSangueDAO
         return true;
     }
 
-    public function deletar($id)
+    public static function deletar($id)
     {
-
         $conn = DB::getConn();
 
         $sql = "DELETE FROM tbTelefoneBancoSangue WHERE idBancoSangue = ?";

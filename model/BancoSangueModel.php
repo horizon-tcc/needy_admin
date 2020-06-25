@@ -37,12 +37,6 @@ class BancoSangueModel
         return $this->pacientes;
     }
 
-    public function getFoto()
-    {
-        return $this->foto;
-    }
-
-
     # Setters
 
     public function setId($id)
@@ -65,10 +59,5 @@ class BancoSangueModel
     public function setTelefones($telefones)
     {
         $this->telefones = $telefones;
-    }
-
-    public function setFoto($ft)
-    {
-        $this->foto = $ft;
     }
 }
