@@ -10,7 +10,7 @@
 
             $conn = DB::getConn();
 
-            $sql = "SELECT * FROM tbsexo";
+            $sql = "SELECT * FROM tbSexo";
 
             $pstm = $conn->prepare($sql);
 
@@ -23,7 +23,7 @@
         {
 
             $conn = DB::getConn();
-            $sql = "SELECT * FROM tbsexo WHERE idSexo = ?";
+            $sql = "SELECT * FROM tbSexo WHERE idSexo = ?";
 
             $pstm = $conn->prepare($sql);
 

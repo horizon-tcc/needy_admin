@@ -10,7 +10,7 @@ class TipoSanguineoDAO
 
         $conn = DB::getConn();
 
-        $sql = "SELECT * FROM tbtiposanguineo";
+        $sql = "SELECT * FROM tbTipoSanguineo";
 
         $pstm = $conn->prepare($sql);
 
@@ -23,7 +23,7 @@ class TipoSanguineoDAO
 
         $conn = DB::getConn();
 
-        $sql = "SELECT * FROM tbtiposanguineo WHERE idTipoSanguineo = ?";
+        $sql = "SELECT * FROM tbTipoSanguineo WHERE idTipoSanguineo = ?";
 
         $pstm = $conn->prepare($sql);
         $pstm->bindValue(1, $id);

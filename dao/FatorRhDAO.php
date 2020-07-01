@@ -6,11 +6,10 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 class FatorRhDAO
 {
 
-
     public function getAll()
     {
         $conn = DB::getConn();
-        $sql = "SELECT * FROM tbfatorrh";
+        $sql = "SELECT * FROM tbFatorRh";
 
         $pstm = $conn->prepare($sql);
 
@@ -19,11 +18,12 @@ class FatorRhDAO
         return $pstm->fetchAll();
     }
 
-    public function verificarExistenciaPeloId($id){
+    public function verificarExistenciaPeloId($id)
+    {
 
         $conn = DB::getConn();
 
-        $sql = "SELECT * FROM tbfatorrh WHERE idFatorRh = ?";
+        $sql = "SELECT * FROM tbFatorRh WHERE idFatorRh = ?";
 
         $pstm = $conn->prepare($sql);
 
@@ -31,16 +31,15 @@ class FatorRhDAO
 
         $pstm->execute();
 
-        return ( count( $pstm->fetchAll() ) > 0) ? true : false;
-
-
+        return (count($pstm->fetchAll()) > 0) ? true : false;
     }
 
-    public function getFatorRhById($id){
+    public function getFatorRhById($id)
+    {
 
         $conn = DB::getConn();
 
-        $sql = "SELECT idFatorRh, descricaoFatorRh FROM tbfatorh WHERE idFatorRh = ?";
+        $sql = "SELECT idFatorRh, descricaoFatorRh FROM tbFatorh WHERE idFatorRh = ?";
 
         $pstm = $conn->prepare($sql);
 
@@ -50,23 +49,20 @@ class FatorRhDAO
 
         $result = $pstm->fetchAll();
 
-        if ( count($result) > 0 ){
+        if (count($result) > 0) {
 
             $fatorRh = new FatorRh();
 
-            foreach( $result as $r ){
+            foreach ($result as $r) {
 
                 $fatorRh->setIdFatorRh($r['idFatorRh']);
                 $fatorRh->setDescricaoFatorRh($r['descricaoFatorRh']);
-
             }
 
             return $fatorRh;
-
-        } else  {
+        } else {
 
             return null;
         }
-
     }
 }

@@ -81,7 +81,6 @@ function validarCpf(cpf) {
 }
 
 
-
 function checkNumber(valor) {
     var regra = /^[0-9]+$/;
     if (valor.match(regra)) {

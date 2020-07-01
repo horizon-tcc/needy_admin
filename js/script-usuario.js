@@ -31,7 +31,7 @@ $('#psSenhaUsuario').blur(function () {
 
 });
 
-function limparCamposUsuario() {
+/*function limparCamposUsuario() {
 
     ev.preventDefault();
 
@@ -41,4 +41,4 @@ function limparCamposUsuario() {
 
 }
 
-$("#btnLimparCamposUsuario").click(limparCamposUsuario());
+$("#btnLimparCamposUsuario").click(limparCamposUsuario());*/
