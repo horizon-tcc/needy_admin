@@ -33,7 +33,7 @@
                 <li class="menu-item d-flex justify-content-start"> <span class=""><i class="fas fa-users ali"></i> </span> <span> Doadores </span> </li>
             </a>
 
-            <a href="#" class="menuBtn">
+            <a href="doacao.php" class="menuBtn">
                 <li class="menu-item d-flex justify-content-start"> <span class=""><i class="fas fa-tint"></i> </span> <span> Doação </span> </li>
             </a>
 

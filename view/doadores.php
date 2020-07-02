@@ -24,15 +24,14 @@ if (isset($_GET['idDoador']) && !empty($_GET['idDoador'])) {
     $doadorController = new DoadorController();
     $doador = $doadorController->getDoadorById($_GET['idDoador']);
     $doador->setTelefones($doadorController->getDonorPhonesById($doador->getId()));
-    
+
     $_SESSION['telefonesDoador'] = array();
 
-    foreach($doador->getTelefones() as $t){
+    foreach ($doador->getTelefones() as $t) {
 
-        array_push( $_SESSION['telefonesDoador'], $t['numeroTelefoneDoador']);
+        array_push($_SESSION['telefonesDoador'], $t['numeroTelefoneDoador']);
     }
-    
-}  
+}
 
 ?>
 
@@ -71,7 +70,7 @@ if (isset($_GET['idDoador']) && !empty($_GET['idDoador'])) {
 
                         <div class="custom-file w-100">
 
-                            <input type="file" class="custom-file-input img-input" name="imgDoador" id="imgDoador" accept="image/*"/>
+                            <input type="file" class="custom-file-input img-input" name="imgDoador" id="imgDoador" accept="image/*" />
                             <label class="" for="imgDoador" id="file-description">
                                 <span> <strong> * </strong> </span>
                                 <span> <i class="far fa-file-image"></i> </span>
@@ -496,7 +495,6 @@ if (isset($_GET['idDoador']) && !empty($_GET['idDoador'])) {
                                                     . "<i class='fas fa-times flex-fill bd-highlight remover-telefone-doador'></i>"
                                                     . "</li>");
                                             }
-
                                         } else {
 
                                             echo ("<div id='msg-list-telefone-doador'> <h5 class='text-center mt-3'> Nenhum telefone adicionado </h5> </div>");
@@ -1023,7 +1021,7 @@ if (isset($_GET['idDoador']) && !empty($_GET['idDoador'])) {
 
                             <div class="form-row">
                                 <div class="form-group col-md-12">
-                                    <label for="txtConsultaCpfResponsavel"> Pesquisar por CPF </label>
+                                    <label for="txtConsultarCpfResponsavel"> Pesquisar por CPF </label>
                                     <input type="text" class="input-for-search w-100 txtCpf" name="txtConsultarCpfResponsavel" id="txtConsultarCpfResponsavel" />
                                 </div>
                             </div>
@@ -1041,16 +1039,15 @@ if (isset($_GET['idDoador']) && !empty($_GET['idDoador'])) {
                                 <div class="form-group col-md-12">
                                     <?php
 
-                                    if ($doador != null && $doador->getResponsavel()->getNome() != null ) {
+                                    if ($doador != null && $doador->getResponsavel()->getNome() != null) {
 
                                         echo '<div class="w-100 mt-5" id="container-responsible-selected">'
-                                            .'<h6 id="responsible-selected-name"> <span class="font-bold"> Responsável selecionado: </span> <span id="responsible-selected-name-span" class="pl-2">'. $doador->getResponsavel()->getNome() .'</span> <i class="fas fa-times cursor-pointer selection" id="unselect-responsible"></i> </h6>'
-                                            .'</div>';
-
+                                            . '<h6 id="responsible-selected-name"> <span class="font-bold"> Responsável selecionado: </span> <span id="responsible-selected-name-span" class="pl-2">' . $doador->getResponsavel()->getNome() . '</span> <i class="fas fa-times cursor-pointer selection" id="unselect-responsible"></i> </h6>'
+                                            . '</div>';
                                     } else {
                                         echo '<div class="d-none w-100" id="container-responsible-selected">'
-                                            .'<h6 id="responsible-selected-name"> <span class="font-bold"> Responsável selecionado: </span> <span id="responsible-selected-name-span" class="pl-2"></span> <i class="fas fa-times cursor-pointer selection" id="unselect-responsible"></i> </h6>'
-                                            .'</div>';
+                                            . '<h6 id="responsible-selected-name"> <span class="font-bold"> Responsável selecionado: </span> <span id="responsible-selected-name-span" class="pl-2"></span> <i class="fas fa-times cursor-pointer selection" id="unselect-responsible"></i> </h6>'
+                                            . '</div>';
                                     }
 
 
