@@ -7,10 +7,8 @@
 
     <?php
     include_once("imports/imports-css.php");
-    ?>
-
-    <?php
-        session_start();
+    
+    session_start();
     ?>
 
 </head>
@@ -41,7 +39,7 @@
                 <li class="menu-item d-flex justify-content-start"> <span class=""> <i class="fas fa-stethoscope"></i> </span> <span> Funcionários </span> </li>
             </a>
 
-            <a href="paciente.php" class="menuBtn">
+            <a href="consulta-pacientes.php" class="menuBtn">
                 <li class="menu-item d-flex justify-content-start"> <span class=""> <i class="fas fa-user-injured"></i> </span> <span> Pacientes </span> </li>
             </a>
 
@@ -54,7 +52,7 @@
 
     </nav>
 
-    
+
     <nav class="top-menu shadow p-1 bg-white rounded d-block">
 
         <div class="d-flex bd-highlight align-items-center">
