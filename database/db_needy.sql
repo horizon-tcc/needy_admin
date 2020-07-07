@@ -35,6 +35,25 @@ CREATE TABLE `tbBancoSangue` (
   `fotoBancoSangue` varchar(150) NOT NULL,
   `statusBancoSangue` int(12) DEFAULT 1
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
+
+CREATE TABLE tbDiaSemana(
+
+  `idDiaSemana` int(12) AUTO_INCREMENT 
+  ,primary key(`idDiaSemana`)
+  , `descricaoDiaSemana` VARCHAR(50) NOT NULL
+
+) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
+
+CREATE TABLE tbHorarioFuncionamentoBancoSangue (
+
+  `idHorarioFuncionamentoBancoSangue` int(12) AUTO_INCREMENT
+  ,PRIMARY KEY(`idHorarioFuncionamentoBancoSangue`)
+  ,`idBancoSangue` int(12)
+  , FOREIGN KEY()
+
+
+
+)ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 -- --------------------------------------------------------
 --
 -- Estrutura da tabela `tbCargoFuncionario`

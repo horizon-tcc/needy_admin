@@ -60,4 +60,16 @@ class BancoSangueModel
     {
         $this->telefones = $telefones;
     }
+
+    public function getFoto()
+    {
+        return $this->foto;
+    }
+
+    public function setFoto($foto)
+    {
+        $this->foto = $foto;
+
+        return $this;
+    }
 }

@@ -43,7 +43,12 @@
                 <li class="menu-item d-flex justify-content-start"> <span class=""> <i class="fas fa-user-injured"></i> </span> <span> Pacientes </span> </li>
             </a>
 
+            <a href="banco-sangue.php" class="menuBtn">
+                <li class="menu-item d-flex justify-content-start"> <span class=""> <i class="fas fa-hospital"></i> </span> <span> Bancos de sangue </span> </li>
+            </a>
+
             <li class="menu-item d-flex justify-content-start"> <span class=""> <i class="fas fa-file-alt"></i> </span> <span> Relatórios </span> </li>
+
 
         </ul>
 
