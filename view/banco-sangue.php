@@ -88,8 +88,80 @@ $bancoSangue = null;
             </div>
 
 
+            <div class="form-row">
+
+                <div class="col-md-12 py-3 form-group text-center">
+
+                    <button type="button" class="btn btn-danger flat" data-toggle="modal" data-target="#modal-adicionar-horarios"> * <i class="far fa-clock mx-1"> </i> Adicionar Horários </button>
+                </div>
+            </div>
+
+
         </form>
 
+
+        <div class="modal fade" id="modal-adicionar-horarios" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h6 class="modal-title font-bold" id="modal-title-adicionar-horarios"> <i class="far fa-clock mx-1"> </i> Adicione horários de funcionamento para o banco de sangue </h6>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="../controller/banco-sangue/adicionar-horarios-banco-sangue.php" method="post">
+
+                            <h6 class="font-bold mb-2 text-center"> Selecione os dias da semana: </h6>
+                            <div class="d-flex flex-wrap justify-content-center">
+
+                                <?php
+
+                                $diaSemanaController = new DiaSemanaController();
+                                $diasDaSemana = $diaSemanaController->getAll();
+
+
+                                foreach ($diasDaSemana as $diaSemana) {
+
+                                    echo "<div class='custom-control custom-checkbox ml-2 mt-2'>"
+                                        . "<input type='checkbox' class='custom-control-input' id='" . $diaSemana['descricaoDiaSemana'] . "' value='" . $diaSemana['idDiaSemana'] . "' name='" . "cb" . $diaSemana['idDiaSemana'] . "'/>"
+                                        . "<label class='custom-control-label' for='" . $diaSemana['descricaoDiaSemana'] . "'> " . $diaSemana['descricaoDiaSemana'] . " </label>"
+                                        . "</div>";
+                                }
+
+                                ?>
+
+
+                            </div>
+
+
+                            <div class="form-row">
+
+                                <div class="col-md-12 py-3 form-group">
+                                    <label for="txtHorarioAbertura"> Horário de abertura </label>
+                                    <input type="time" class='form-control' name="txtHorarioAbertura" id="txtHorarioAbertura" />
+                                </div>
+                            </div>
+
+
+                            <div class="form-row">
+
+                                <div class="col-md-12 py-3 form-group">
+                                    <label for="txtHorarioFechamento"> Horário de fechamento </label>
+                                    <input type="time" class='form-control' name="txtHorarioFechamento" id="txtHorarioFechamento" />
+                                </div>
+                            </div>
+
+                            <input type="submit" />
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal"> Cancelar </button>
+                        <button type="button" class="btn btn-danger"> Adicionar </button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 </main>

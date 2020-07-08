@@ -26,6 +26,7 @@ function carregarPagina($nomeClasse)
         PATH_CONTROLLER . "unidade-medida" . DIRECTORY_SEPARATOR,
         PATH_CONTROLLER. "material-doado". DIRECTORY_SEPARATOR,
         PATH_CONTROLLER . "paciente". DIRECTORY_SEPARATOR,
+        PATH_CONTROLLER . "dia-semana" . DIRECTORY_SEPARATOR,
         PATH_DAO,
          __DIR__ . DIRECTORY_SEPARATOR
     ];

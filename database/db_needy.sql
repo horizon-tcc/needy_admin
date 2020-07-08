@@ -35,25 +35,25 @@ CREATE TABLE `tbBancoSangue` (
   `fotoBancoSangue` varchar(150) NOT NULL,
   `statusBancoSangue` int(12) DEFAULT 1
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
-
+-- --------------------------------------------------------
+--
+-- Estrutura da tabela `tbDiaSemana`
+--
 CREATE TABLE tbDiaSemana(
-
-  `idDiaSemana` int(12) AUTO_INCREMENT 
-  ,primary key(`idDiaSemana`)
-  , `descricaoDiaSemana` VARCHAR(50) NOT NULL
-
+  `idDiaSemana` int(12),
+  `descricaoDiaSemana` VARCHAR(50) NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
-
+-- --------------------------------------------------------
+--
+-- Estrutura da tabela `tbHorarioFuncionamentoBancoSangue`
+--
 CREATE TABLE tbHorarioFuncionamentoBancoSangue (
-
-  `idHorarioFuncionamentoBancoSangue` int(12) AUTO_INCREMENT
-  ,PRIMARY KEY(`idHorarioFuncionamentoBancoSangue`)
-  ,`idBancoSangue` int(12)
-  , FOREIGN KEY()
-
-
-
-)ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
+  `idHorarioFuncionamentoBancoSangue` int(12),
+  `idBancoSangue` int(12),
+  `idDiaSemana` int(12),
+  horarioAbertura TIME,
+  horarioFechamento TIME
+) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 -- --------------------------------------------------------
 --
 -- Estrutura da tabela `tbCargoFuncionario`
@@ -492,8 +492,27 @@ ADD PRIMARY KEY (`idTipoUsuario`);
 ALTER TABLE `tbUsuario`
 ADD PRIMARY KEY (`idUsuario`),
   ADD KEY `idTipoUsuario` (`idTipoUsuario`);
+
+ --
+-- Indexes for table `tbUnidadeMedida`
+-- 
 ALTER TABLE `tbUnidadeMedida`
 ADD PRIMARY KEY (`idUnidadeMedida`);
+
+ --
+-- Indexes for table `tbDiaSemana`
+-- 
+ALTER TABLE `tbDiaSemana`
+ADD PRIMARY KEY (`idDiaSemana`);
+
+
+ --
+-- Indexes for table `tbHorarioFuncionamentoBancoSangue`
+-- 
+ALTER TABLE `tbHorarioFuncionamentoBancoSangue`
+ADD PRIMARY KEY (`idHorarioFuncionamentoBancoSangue`);
+
+
 --
 -- AUTO_INCREMENT for dumped tables
 --
@@ -596,8 +615,22 @@ MODIFY `idTipoUsuario` int(12) NOT NULL AUTO_INCREMENT,
 ALTER TABLE `tbUsuario`
 MODIFY `idUsuario` int(12) NOT NULL AUTO_INCREMENT,
   AUTO_INCREMENT = 4;
+
+
 ALTER TABLE `tbUnidadeMedida`
 MODIFY `idUnidadeMedida` int(12) NOT NULL AUTO_INCREMENT;
+
+
+ALTER TABLE `tbDiaSemana`
+MODIFY `idDiaSemana` int(12) NOT NULL AUTO_INCREMENT;
+
+
+
+ALTER TABLE `tbHorarioFuncionamentoBancoSangue`
+MODIFY `idHorarioFuncionamentoBancoSangue` int(12) NOT NULL AUTO_INCREMENT;
+
+
+
 --
 -- Constraints for dumped tables
 --
@@ -654,6 +687,17 @@ ADD CONSTRAINT `tbTelefoneResponsavel_ibfk_1` FOREIGN KEY (`idResponsavel`) REFE
 --
 ALTER TABLE `tbUsuario`
 ADD CONSTRAINT `tbUsuario_ibfk_1` FOREIGN KEY (`idTipoUsuario`) REFERENCES `tbTipoUsuario` (`idTipoUsuario`);
+
+
+--
+-- Limitadores para a tabela `tbHorarioFuncionamentoBancoSangue`
+--
+ALTER TABLE `tbHorarioFuncionamentoBancoSangue`
+ADD CONSTRAINT `tbHorarioFuncionamentoBancoSangue_ibfk_1` FOREIGN KEY (`idBancoSangue`) REFERENCES `tbBancoSangue` (`idBancoSangue`),
+ADD CONSTRAINT `tbHorarioFuncionamentoBancoSangue_ibfk_2` FOREIGN KEY (`idDiaSemana`) REFERENCES `tbDiaSemana` (`idDiaSemana`);
+
+
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */
 ;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */
@@ -699,7 +743,14 @@ VALUES ('Convocatória'),
 INSERT INTO `tbUnidadeMedida` (`descricaoUnidadeMedida`)
 VALUES ('Mililitro (ml)'),
   ('Litro (l)');
-
 INSERT INTO `tbMaterialDoado` (`descricaoMaterialDoado`)
 VALUES ('Sangue'),
   ('Plaqueta');
+INSERT INTO tbDiaSemana(`descricaoDiaSemana`)
+VALUES ('Domingo'),
+('Segunda-feira'),
+('Terça-feira'),
+('Quarta-feira'),
+('Quinta-feira'),
+('Sexta-feira'),
+('Sábado');
