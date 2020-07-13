@@ -2,35 +2,7 @@
 
 class ValidacaoUsuarioController
 {
-    
-    public static function validacaoTipoUsuario($tipoUsuario)
-    {
-        
-        session_start();
 
-        if($tipoUsuario == 1 || empty($tipoUsuario) || !isset($tipoUsuario)) {
-
-            return false;
-
-        } else if($_SESSION["idTipoUsuario"] != 1 && $tipoUsuario == 2) {
-
-            return false;
-
-        } else if($_SESSION["idTipoUsuario"] < 2 && $tipoUsuario == 3) {
-
-            return false;
-
-        } else if($_SESSION["idTipoUsuario"] < 2 && $tipoUsuario >= 2) {
-
-            return false;
-            
-        } else {
-
-            return true;
-
-        }
-
-    }
 
     public static function validacaoEmailUsuario($email) 
     {

@@ -35,7 +35,7 @@
                 <li class="menu-item d-flex justify-content-start"> <span class=""><i class="fas fa-tint"></i> </span> <span> Doação </span> </li>
             </a>
 
-            <a href="#" class="menuBtn">
+            <a href="consulta-funcionarios.php" class="menuBtn">
                 <li class="menu-item d-flex justify-content-start"> <span class=""> <i class="fas fa-stethoscope"></i> </span> <span> Funcionários </span> </li>
             </a>
 

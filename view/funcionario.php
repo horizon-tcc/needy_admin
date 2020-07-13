@@ -10,7 +10,11 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 <main>
 
     <div class="container-fluid d-flex justify-content-center align-items-center mt-2">
-        <form action="../controller/doador/cadastrar-doador.php" method="post" class="form-donnor w-100" id="form-insert" enctype="multipart/form-data">
+        <form action="../controller/funcionario/cadastrar-funcionario.php" method="post" class="form-donnor w-100" id="form-insert" enctype="multipart/form-data">
+
+            <input type="hidden" value="<?php echo ($_GET['idFuncionario']); ?>" name="hdIdFuncionario" id="hdIdFuncionario" />
+            <input type="hidden" value=0 name="hdIdUsuarioFunc" id="hdIdUsuarioFunc" />
+            <input type="hidden" value=0 name="hdImgStatus" id="hdImgStatus" />
 
             <h2 class="text-center mt-4"> Cadastro de Funcionarios </h2>
             <ul id="progress" class="text-center d-flex mt-2 pt-3">
@@ -27,30 +31,30 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                 <div class="form-row w-100 mt-5">
                     <img src="../img/camera.png" class="form-img d-block mx-auto" id="imgPreview" name="imgPreview" />
                 </div>
-
                 <div class="form-row w-100 d-flex justify-content-center">
+
                     <div class="input-group mb-3 col-md-5">
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input img-input" name="imgFuncionario" id="imgFuncionario" accept="image/*">
+                        <div class="custom-file w-100">
+                            <input type="file" class="custom-file-input img-input" name="imgFuncionario" id="imgFuncionario" accept="image/*" />
                             <label class="" for="imgFuncionario" id="file-description">
                                 <span> <strong> * </strong> </span>
                                 <span> <i class="far fa-file-image"></i> </span>
-                                <span> Escolha uma imagem </span>
+                                <span>Escolha uma imagem</span>
                             </label>
                         </div>
                     </div>
 
-                    <div id="feedback-valid-img-Funcionario" class="valid-feedback">
+                    <div id="feedback-valid-img-Doador" class="valid-feedback">
                         Imagem válida!
                     </div>
-                    <div id="feedback-invalid-img-Funcionario" class="invalid-feedback">
+                    <div id="feedback-invalid-img-Doador" class="invalid-feedback">
                         Imagem inválida!
                     </div>
                 </div>
 
                 <div class="form-row w-100">
                     <div class="form-group col-md-12 pb-2">
-                        <label for="txtNomeDoador"> <strong class="red"> * </strong> Nome </label>
+                        <label for="txtNomeFuncionario"> <strong class="red"> * </strong> Nome </label>
                         <input type="text" class="form-control flat" name="txtNomeFuncionario" id="txtNomeFuncionario" placeholder="Digite o nome" maxlength="100" />
 
                         <div id="feedback-valid-nome-Funcionario" class="valid-feedback">
@@ -70,7 +74,9 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                             <?php
 
                             $bancoSangue = new BancoSangueDAO();
-                            $listaBanco = BancoSangueDAO::listar();
+                            $listaBanco = $bancoSangue->listar();
+
+                            json_decode($listaBanco);
 
                             foreach ($listaBanco as $linha) {
                                 echo "<option value=" . $linha["idBancoSangue"] . ">"
@@ -79,9 +85,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                             }
 
                             ?>
-
                         </select>
-
                         <div id="feedback-valid-banco-Funcionario" class="valid-feedback">
                             Banco válido!
                         </div>
@@ -91,13 +95,12 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                     </div>
 
                     <div class="form-group col-md-6 pb-2">
-
                         <label for="seCargoFuncionario"> <strong class="red"> * </strong> Cargo Funcionario </label>
                         <select class="form-control flat" name="seCargoFuncionario" id="seCargoFuncionario">
                             <option value=0 selected disabled> Selecione uma opção </option>
                             <?php
 
-                            $cargoFuncionario = new CargoFuncionarioDAO();
+                            $cargoFuncionario = new CargoFuncionarioController();
                             $listaCargo = $cargoFuncionario->getAll();
 
                             foreach ($listaCargo as $linha) {
@@ -107,7 +110,6 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                             }
 
                             ?>
-
                         </select>
 
                         <div id="feedback-valid-cargo-Funcionario" class="valid-feedback">
@@ -118,58 +120,56 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                         </div>
 
                     </div>
+                </div>
+                <div class="form-row w-100">
+                    <div class="form-group col-md-6 pb-2">
+                        <label for="txtCpfFuncionario"> <strong class="red"> * </strong> CPF</label>
+                        <input type="text" class="form-control txtCpf flat" id="txtCpfFuncionario" name="txtCpfFuncionario" placeholder="Digite o CPF" />
 
-                    <div class="form-row w-100">
-                        <div class="form-group col-md-6 pb-2">
-                            <label for="txtCpfFuncionario"> <strong class="red"> * </strong> CPF</label>
-                            <input type="text" class="form-control txtCpf flat" id="txtCpfFuncionario" name="txtCpfFuncionario" placeholder="Digite o CPF" />
-
-                            <div id="feedback-valid-cpf-Funcionario" class="valid-feedback">
-                                CPF válido!
-                            </div>
-                            <div id="feedback-invalid-cpf-Funcionario" class="invalid-feedback">
-                                CPF inválido!
-                            </div>
+                        <div id="feedback-valid-cpf-Funcionario" class="valid-feedback">
+                            CPF válido!
                         </div>
-
-                        <div class="form-group col-md-6 pb-2">
-                            <label for="txtRgFuncionario"> <strong class="red"> * </strong> RG</label>
-                            <input type="text" class="form-control txtRg flat" id="txtRgFuncionario" name="txtRgFuncionario" placeholder="Digite o RG" />
-
-                            <div id="feedback-valid-rg-Funcionario" class="valid-feedback">
-                                RG válido!
-                            </div>
-                            <div id="feedback-invalid-rg-Funcionario" class="invalid-feedback">
-                                RG inválido!
-                            </div>
+                        <div id="feedback-invalid-cpf-Funcionario" class="invalid-feedback">
+                            CPF inválido!
                         </div>
                     </div>
 
-                    <div class="form-row w-100 mt-2 d-flex justify-content-end">
-                        <h6 class="text-center mt-2"> Dados obrigatórios <strong class="red"> * </strong> </h6>
-                    </div>
+                    <div class="form-group col-md-6 pb-2">
+                        <label for="txtRgFuncionario"> <strong class="red"> * </strong> RG</label>
+                        <input type="text" class="form-control txtRg flat" id="txtRgFuncionario" name="txtRgFuncionario" placeholder="Digite o RG" />
 
-                    <div class="form-row w-100 mt-5 d-flex justify-content-center">
-                        <div class="form-group col-md-4 d-flex align-items-end justify-content-end pb-2 pt-2">
-                            <button type="button" class="btn btn-outline-danger w-100 flat" data-toggle="modal" data-target="#limpar-campos-pessoais-funcionario">
-                                <i class="far fa-window-close"></i> Limpar
-                            </button>
-                            <!-- <input type="button" class="btn btn-outline-danger w-100" value="Adicionar responsável" data-toggle="modal" data-target="#exampleModal" /> -->
+                        <div id="feedback-valid-rg-Funcionario" class="valid-feedback">
+                            RG válido!
                         </div>
-
-                        <div class="form-group col-md-4 d-flex align-items-end justify-content-end pb-2">
-                            <button type="button" class="btn btn-danger w-100 flat next action" name="next" id="btn-pessoal">
-                                <i class="far fa-paper-plane"></i> Próxima etapa
-                            </button>
+                        <div id="feedback-invalid-rg-Funcionario" class="invalid-feedback">
+                            RG inválido!
                         </div>
                     </div>
+                </div>
+
+                <div class="form-row w-100 mt-2 d-flex justify-content-end">
+                    <h6 class="text-center mt-2"> Dados obrigatórios <strong class="red"> * </strong> </h6>
+                </div>
+
+                <div class="form-row w-100 mt-5 d-flex justify-content-center">
+                    <div class="form-group col-md-4 d-flex align-items-end justify-content-end pb-2 pt-2">
+                        <button type="button" class="btn btn-outline-danger w-100 flat" data-toggle="modal" data-target="#limpar-campos-pessoais-funcionario">
+                            <i class="far fa-window-close"></i> Limpar
+                        </button>
+                    </div>
+
+                    <div class="form-group col-md-4 d-flex align-items-end justify-content-end pb-2">
+                        <button type="button" class="btn btn-danger w-100 flat next action" name="next" id="btn-pessoal">
+                            <i class="far fa-paper-plane"></i> Próxima etapa
+                        </button>
+                    </div>
+                </div>
             </fieldset>
 
             <fieldset class="mt-5 pb-4" id="secao-Conta-Funcionario">
                 <i class="fas fa-phone-alt text-center d-block mx-auto small-icon"></i>
                 <h2 class="text-center mt-2"> Informações para contato </h2>
-                <h6 class="text-center"> Digite algumas informações para que o hemocentro possa entrar em contato com o
-                    doador </h6>
+                <h6 class="text-center"> Digite algumas informações para que o hemocentro possa entrar em contato com o funcionario </h6>
                 <hr />
 
                 <div class="form-row w-100 mt-5 d-flex justify-content-center">
@@ -186,14 +186,28 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                     </div>
 
                     <div class="form-group col-md-6 pb-2">
-                        <label for="txtSenhaFuncionario"> <strong class="red"> * </strong> E-mail</label>
-                        <input type="password" class="form-control flat" name="psSenhaFuncionario" id="psSenhaFuncionario" placeholder="Digite uma senha" maxlength="30" />
+                        <label for="seTipoUsuarioFuncionario"> <strong class="red"> * </strong> Tipo de Usuario </label>
+                        <select class="form-control flat" name="seTipoUsuarioFuncionario" id="seTipoUsuarioFuncionario">
+                            <option value=0 selected disabled> Selecione uma opção </option>
 
+                            <?php
+
+                            $tipoUsuario = new TipoUsuarioController();
+                            $listaTipo = $tipoUsuario->getAll();
+
+                            foreach ($listaTipo as $linha) {
+                                echo "<option value=" . $linha["idTipoUsuario"] . ">"
+                                    . $linha["descricaoTipoUsuario"]
+                                    . "</option>";
+                            }
+
+                            ?>
+                        </select>
                         <div id="feedback-valid-email-Funcionario" class="valid-feedback">
-                            Senha válida!
+                            Tipo de Usuario válido!
                         </div>
                         <div id="feedback-invalid-email-Funcionario" class="invalid-feedback">
-                            Senha inválida!
+                            Tipo de Usuario inválido!
                         </div>
                     </div>
                 </div>
@@ -212,12 +226,6 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                     <div class="form-group col-md-4 d-flex align-items-end justify-content-end pb-2 pt-2">
                         <button type="button" class="btn btn-outline-danger w-100 flat" data-toggle="modal" data-target="#limpar-campos-conta-funcionario">
                             <i class="far fa-window-close"></i> Limpar
-                        </button>
-                    </div>
-
-                    <div class="form-group col-md-4 d-flex align-items-end justify-content-end pb-2 pt-2">
-                        <button type="button" class="btn btn-danger w-100 flat next action" name="next">
-                            <i class="far fa-paper-plane"></i> Próxima etapa
                         </button>
                     </div>
 
@@ -269,7 +277,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-danger" data-dismiss="modal"> Cancelar </button>
-                        <button type="button" class="btn btn-danger" id="btn-limpar-campos-conta-funcionario" data-dismiss="modal">Limpar</button>
+                        <button type="button" class="btn btn-danger" id="btnLimparCamposContaFuncionario" data-dismiss="modal">Limpar</button>
                     </div>
                 </div>
             </div>
@@ -284,8 +292,8 @@ include_once("imports/imports-js.php");
 
 ?>
 
-<script src="../js/script-funcionario.js"></script>
 <script src="../js/script-usuario.js"></script>
+<script src="../js/script-funcionario.js"></script>
 
 </body>
 

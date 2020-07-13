@@ -1,16 +1,14 @@
-
 <?php
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "global.php";
 
-class FatorRhController
+class CargoFuncionarioController
 {
-
 
     public function getAll()
     {
 
-        $fatorRhDao =  new FatorRhDAO();
-        return $fatorRhDao->getAll();
+        $cargoFuncionario =  new CargoFuncionarioDAO();
+        return $cargoFuncionario->getAll();
     }
 }

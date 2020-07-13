@@ -49,18 +49,17 @@ class TipoSanguineoDAO
         $result = $pstm->fetchAll();
 
         if (count($result) > 0) {
-            
+
             $tipoSanguineo = new TipoSanguineo();
-            
-            foreach($result as $r){
+
+            foreach ($result as $r) {
 
                 $tipoSanguineo->setIdTipoSanguineo($r['idTipoSanguineo']);
                 $tipoSanguineo->setDescricaoTipoSanguineo($r['descricaoTipoSanguineo']);
-
             }
             return $tipoSanguineo;
-        } else {    
-            
+        } else {
+
             return null;
         }
     }
