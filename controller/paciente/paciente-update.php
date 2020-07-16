@@ -13,7 +13,7 @@ try {
     $fatorRhPaciente = $_POST['seFatorRhPaciente'];
     $cpfPaciente = $_POST['txtCpfPaciente'];
     $rgPaciente = $_POST['txtRgPaciente'];
-    
+
     $statusNomePaciente = ValidacaoController::validarNome($nomePaciente);
     $statusSexoPaciente = ValidacaoController::validarSexo($sexoPaciente);
     $statusTipoSanguineoPaciente = ValidacaoController::validarTipoSanguineo($tipoSanguineoPaciente);
@@ -23,10 +23,12 @@ try {
     $statusExistenciaPaciente = $update->verificarPacienteId($idPaciente);
 
 
-    if ($statusCpfPaciente && $statusNomePaciente && $statusSexoPaciente && $statusFatorRhPaciente
-        && $statusTipoSanguineoPaciente && $statusExistenciaPaciente && isset($rgPaciente) 
-        && !empty($rgPaciente) && isset($idPaciente) && !empty($idPaciente)) {
-            
+    if (
+        $statusCpfPaciente && $statusNomePaciente && $statusSexoPaciente && $statusFatorRhPaciente
+        && $statusTipoSanguineoPaciente && $statusExistenciaPaciente && isset($rgPaciente)
+        && !empty($rgPaciente)
+    ) {
+
         $paciente = new PacienteModel();
 
         $paciente->setIdPaciente($idPaciente);

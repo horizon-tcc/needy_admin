@@ -4,6 +4,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
 
 class CargoFuncionarioDAO
 {
+
     public function cadastrarCargoFunc($cargoFunc)
     {
         $conexao = DB::getConn();
@@ -12,6 +13,7 @@ class CargoFuncionarioDAO
         $conexao->exec($insert);
         return 'Cadastro Realizado com sucesso';
     }
+
 
     public function getAll()
     {
@@ -27,6 +29,7 @@ class CargoFuncionarioDAO
         return $lista;
     }
 
+
     public function selecEditarCargoFunc($id)
     {
         $conexao = DB::getConn();
@@ -40,6 +43,7 @@ class CargoFuncionarioDAO
         return $selec;
     }
 
+
     public function editarCargoFuncionario($cargoFunc)
     {
         $conexao = DB::getConn();
@@ -51,6 +55,7 @@ class CargoFuncionarioDAO
         return 'Update realizado com sucesso';
     }
 
+
     public function excluirCargoFuncionario($cargoFunc)
     {
         $conexao = DB::getConn();
@@ -59,4 +64,29 @@ class CargoFuncionarioDAO
         $conexao->exec($delete);
         return 'Exclusão bem sucedida';
     }
+
+
+    public static function verificarExistenciaCargo($id)
+    {
+
+        $Conn = DB::getConn();
+
+        $selec = "SELECT idCargoFuncionario FROM tbCargoFuncionario
+                  WHERE idCargoFuncionario = ?";
+
+        $pstm = $Conn->prepare($selec);
+
+        $pstm->bindValue(1, $id);
+
+        $pstm->execute();
+
+        $resultado = $pstm->fetchAll();
+
+        if (count($resultado) > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

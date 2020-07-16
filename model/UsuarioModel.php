@@ -52,12 +52,12 @@ class UsuarioModel
 
     public function getIdTipoUsuario()
     {
-        return $this->idTipoUsuario;
+        return $this->tipoUsuario;
     }
 
     public function setIdTipoUsuario($id)
     {
-        $this->idTipoUsuario = $id;
+        $this->tipoUsuario = $id;
     }
 
 
@@ -78,22 +78,21 @@ class UsuarioModel
         return $this->tipoUsuario;
     }
 
-   
+
     public function setTipoUsuario($tipoUsuario)
     {
         $this->tipoUsuario = $tipoUsuario;
     }
 
-    
+
     public function getStatusUsuario()
     {
         return $this->statusUsuario;
     }
 
-   
+
     public function setStatusUsuario($statusUsuario)
     {
         $this->statusUsuario = $statusUsuario;
-
     }
 }

@@ -4,4 +4,4 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." .
 
 $fatorRhController =  new FatorRhController();
 
-echo json_encode( $fatorRhController->getAll() );
+echo json_encode($fatorRhController->getAll());

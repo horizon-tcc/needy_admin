@@ -2,6 +2,6 @@
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "global.php";
 
-$tipoSanguineoController =  new TipoSanguineoController();
+$bancoSangue =  new BancoSangueDAO;
 
-echo json_encode($tipoSanguineoController->getAll());
+echo json_encode($bancoSangue->listar());

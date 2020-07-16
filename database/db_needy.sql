@@ -754,3 +754,8 @@ VALUES ('Domingo'),
 ('Quinta-feira'),
 ('Sexta-feira'),
 ('Sábado');
+
+INSERT INTO tbCargoFuncionario(`descricaoCargoFuncionario`)
+VALUES ('Administrador'),
+('Auxiliar'),
+('Enfermeiro');

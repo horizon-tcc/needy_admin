@@ -14,7 +14,7 @@ class UsuarioDAO
 
         $pstm->bindValue(1, $usuario->getEmailUsuario());
         $pstm->bindValue(2, $usuario->getSenhaUsuario());
-        $pstm->bindValue(3, $usuario->getTipoUsuario()->getIdTipoUsuario());
+        $pstm->bindValue(3, $usuario->getTipoUsuario());
         $pstm->bindValue(4, $usuario->getFotoUsuario());
 
         return $pstm->execute();
@@ -53,20 +53,35 @@ class UsuarioDAO
         $conexao = DB::getConn();
         $update = "UPDATE tbUsuario
                         SET emailUsuario =?, 
-                            senhaUsuario =?, 
+                            idTipoUsuario = ?,
+                            fotoUsuario = ?
+                        WHERE idUsuario = ?";
+
+        $pstm = $conexao->prepare($update);
+
+        $pstm->bindValue(1, $usuario->getEmailUsuario());
+        $pstm->bindValue(2, $usuario->getTipoUsuario());
+        $pstm->bindValue(3, $usuario->getFotoUsuario());
+        $pstm->bindValue(4, $usuario->getIdUsuario());
+
+        $pstm->execute();
+    }
+
+    public function editarUsuarioSemFoto($usuario)
+    {
+        $conexao = DB::getConn();
+        $update = "UPDATE tbUsuario
+                        SET emailUsuario =?,
                             idTipoUsuario = ?
                         WHERE idUsuario = ?";
 
         $pstm = $conexao->prepare($update);
 
         $pstm->bindValue(1, $usuario->getEmailUsuario());
-        $pstm->bindValue(2, $usuario->getSenhaUsuario());
-        $pstm->bindValue(3, $usuario->getIdTipoUsuario());
-        $pstm->bindValue(4, $usuario->getIdUsuario());
+        $pstm->bindValue(2, $usuario->getTipoUsuario());
+        $pstm->bindValue(3, $usuario->getIdUsuario());
 
-        return $pstm->execute();
-
-        // return '<script> alert("Update realizado com sucesso"); </script>';
+        $pstm->execute();
     }
 
     public function excluirUsuario(int $id)
@@ -145,44 +160,39 @@ class UsuarioDAO
         return (count($result) > 0) ? true : false;
     }
 
-    public function verificaExistenciaEmailUsuarioParaEdicao($usuario){
+    public function verificaExistenciaEmailUsuarioParaEdicao($usuario)
+    {
 
         $conn = DB::getConn();
         $sql = "SELECT * FROM tbusuario WHERE emailUsuario = ? AND statusUsuario != 0";
 
-        $pstm = $conn->prepare( $sql );
+        $pstm = $conn->prepare($sql);
         $pstm->bindValue(1, $usuario->getEmailUsuario());
 
         $pstm->execute();
 
         $result = $pstm->fetchAll();
 
-        if ( count($result) === 0) {
+        if (count($result) === 0) {
 
             return false;
-
         } else {
 
             $idUsuarioRetornado = 0;
 
-            foreach($result as $r) {
+            foreach ($result as $r) {
 
                 $idUsuarioRetornado = (int) $r['idUsuario'];
             }
 
-            if ( $idUsuarioRetornado == $usuario->getIdUsuario() ) {
+            if ($idUsuarioRetornado == $usuario->getIdUsuario()) {
 
                 return false;
-            }
-            else {
+            } else {
 
                 return true;
             }
         }
-
-
-        
-
     }
 
 
@@ -222,7 +232,8 @@ class UsuarioDAO
         return $pstm->execute();
     }
 
-    public function getUserByIdDonnor($idDonnor){
+    public function getUserByIdDonnor($idDonnor)
+    {
 
         $conn = DB::getConn();
         $sql = "SELECT idDoador, tbdoador.idUsuario as idUser FROM tbdoador 
@@ -231,18 +242,18 @@ class UsuarioDAO
                 WHERE idDoador = ? AND statusUsuario != 0";
 
         $pstm = $conn->prepare($sql);
-        
+
         $pstm->bindValue(1, $idDonnor);
-        
+
         $pstm->execute();
 
         $result = $pstm->fetchAll();
 
-        if (count($result) > 0){
+        if (count($result) > 0) {
 
-            foreach ( $result as $r ) {
+            foreach ($result as $r) {
 
-                $idRetornado = $r['idUser']; 
+                $idRetornado = $r['idUser'];
             }
 
             $usuario = $this->getUserById($idRetornado);
@@ -251,11 +262,10 @@ class UsuarioDAO
         }
 
         return null;
-        
-        
     }
 
-    public function getUserById($idUser) {
+    public function getUserById($idUser)
+    {
 
         $conn = DB::getConn();
         $sql = "SELECT * FROM tbusuario 
@@ -264,14 +274,14 @@ class UsuarioDAO
                 WHERE idUsuario = ? AND statusUsuario != 0";
 
         $pstm = $conn->prepare($sql);
-        
+
         $pstm->bindValue(1, $idUser);
-        
+
         $pstm->execute();
 
         $result = $pstm->fetchAll();
-        
-        if ( count($result) > 0) {
+
+        if (count($result) > 0) {
 
             $usuario = new UsuarioModel();
 
@@ -286,16 +296,11 @@ class UsuarioDAO
             }
 
             return $usuario;
-
         } else {
 
             return null;
         }
-
     }
-
-
-
 }
 
 // $usuarioDao = new UsuarioDao();

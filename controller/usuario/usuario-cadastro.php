@@ -1,43 +1,40 @@
-<?php 
+<?php
 
-    require_once(__DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."global.php");
+require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "global.php");
 
-    try{
-        
-        $emailUsuario = $_POST['#txtEmailUsuario'];
-        $senhaUsuario = $_POST['psSenhaUsuario'];
-        $tipoUsuario = intval($_POST['#scTipoUsuario']);
+try {
 
-        $statusEmailUsuario = ValidacaoUsuarioController::validacaoEmailUsuario($emailUsuario);
-        $statusSenhaUsuario = ValidacaoUsuarioController::validacaoSenhaUsuario($senhaUsuario);
-        $statusTipoUsuario = ValidacaoUsuarioController::validacaoTipoUsuario($tipoUsuario);
+    $cadastro = new UsuarioDao();
 
+    $emailUsuario = $_POST['txtEmailUsuario'];
+    $tipoUsuario = intval($_POST['seTipoUsuario']);
+    $senhaUsuario = UsuarioUtil::gerarSenhaUsuario(true, true, true, true, true);
 
-        if($statusEmailUsuario && $statusSenhaUsuario && $statusTipoUsuario){
-            
-            $usuario = new UsuarioModel();
+    $statusEmailUsuario = ValidacaoUsuarioController::validacaoEmailUsuario($emailUsuario);
+    $statusSenhaUsuario = ValidacaoUsuarioController::validacaoSenhaUsuario($senhaUsuario);
+    $statusTipoUsuario = TipoUsuarioDAO::verificarExistenciaTipoUsuario($tipoUsuario);
+    $statusExistenciaEmail = $cadastro->verificaExistenciaEmailUsuario($emailUsuario);
 
-            $cadastro = new UsuarioDao();
+    if ($statusEmailUsuario && $statusSenhaUsuario && $statusTipoUsuario
+        && !$statusExistenciaEmail && isset($_FILES['imgUsuario']) && !empty($_FILES['imgUsuario'])) {
 
-            $usuario->setEmailUsuario($emailUsuario);
-            $usuario->setSenhaUsuario($senhaUsuario);
-            $usuario->setTipoUsuario($tipoUsuario);
+        $usuario = new UsuarioModel();
 
-            echo $cadastro->cadastrarUsuario($usuario);
+        $usuario->setEmailUsuario($emailUsuario);
+        $usuario->setSenhaUsuario($senhaUsuario);
+        $usuario->setTipoUsuario($tipoUsuario);
+        $usuario->setFotoUsuario($imgUsuario);
 
-            echo '<script> window.location.replace("../../view/funcionario.php"); </script>';
+        echo $cadastro->cadastrarUsuario($usuario);
 
-        } else {
+        echo json_encode(true);
+    } else {
 
-            echo 'Tentativa de Inserção de dados comprometidos';
-
-        }
-        
-
+        echo json_encode(false);
     }
-    catch(Exception $e){
-        echo '<pre>';
-            print_r($e);
-        echo '</pre>';
-        echo $e->getMessage();
-    }
+} catch (Exception $e) {
+    echo '<pre>';
+    print_r($e);
+    echo '</pre>';
+    echo $e->getMessage();
+}

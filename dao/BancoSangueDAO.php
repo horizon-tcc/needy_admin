@@ -19,7 +19,7 @@ class BancoSangueDAO
         }
 
         $result = $Conn->query($query);
-        $result = $result->fetchAll(PDO::FETCH_OBJ);
+        $result = $result->fetchAll(PDO::FETCH_ASSOC);
 
         return $result;
     }
@@ -132,5 +132,29 @@ class BancoSangueDAO
         }
 
         return $retorno;
+    }
+
+    
+    public static function verificarExistenciaBanco($id)
+    {
+
+        $Conn = DB::getConn();
+
+        $query = "SELECT idBancoSangue FROM tbBancoSangue
+                  WHERE idBancoSangue = ?";
+
+        $pstm = $Conn->prepare($query);
+
+        $pstm->bindValue(1, $id);
+
+        $pstm->execute();
+
+        $resultado = $pstm->fetchAll();
+
+        if (count($resultado) > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

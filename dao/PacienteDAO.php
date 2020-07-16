@@ -25,6 +25,7 @@ class PacienteDAO
         $pstm->execute();
     }
 
+    
     public function listarPaciente()
     {
         $conexao = DB::getConn();
@@ -56,8 +57,8 @@ class PacienteDAO
                                 INNER JOIN tbTipoSanguineo
                                     ON tbPaciente.idTipoSanguineo = tbTipoSanguineo.idTipoSanguineo
                                         INNER JOIN tbFatorRh
-                                            ON tbPaciente.idFatorRh = tbFatorRh.idFatorRh;
-                   WHERE =?";
+                                            ON tbPaciente.idFatorRh = tbFatorRh.idFatorRh
+                   WHERE idPaciente = ?";
 
         $pstm = $conexao->prepare($select);
 
@@ -76,6 +77,7 @@ class PacienteDAO
         }
     }
 
+
     public function verificarPacienteId($id)
     {
         $conexao = DB::getConn();
@@ -90,18 +92,17 @@ class PacienteDAO
         $pstm->execute();
 
         $resultado = $pstm->fetch();
-        
 
-        if($resultado['Resultado'] < 1) {
-    
+
+        if ($resultado['Resultado'] < 1) {
+
             return false;
-        
         } else {
-        
+
             return true;
-        
         }
     }
+
 
     public function editarPaciente($paciente)
     {
@@ -129,6 +130,7 @@ class PacienteDAO
         $pstm->execute();
     }
 
+
     public function excluirPaciente(int $id)
     {
         $conexao = DB::getConn();
@@ -142,6 +144,7 @@ class PacienteDAO
 
         $pstm->execute();
     }
+
 
     public function verificarExistenciaCpfPaciente($cpf)
     {
@@ -168,6 +171,7 @@ class PacienteDAO
             return true;
         }
     }
+
 
     public function verificarExistenciaCpfPacienteUpdate($cpf, $id)
     {
@@ -197,6 +201,163 @@ class PacienteDAO
         } else {
 
             return true;
+        }
+    }
+
+
+    public function listarPacientePorNome($nome)
+    {
+        $conexao = DB::getConn();
+
+        $select = "SELECT idPaciente, nomePaciente, descricaoSexo, descricaoTipoSanguineo, 
+                        descricaoFatorRh, cpfPaciente, rgPaciente FROM tbPaciente
+                        INNER JOIN tbSexo
+                            ON tbPaciente.idSexo = tbSexo.idSexo
+                                INNER JOIN tbTipoSanguineo
+                                    ON tbPaciente.idTipoSanguineo = tbTipoSanguineo.idTipoSanguineo
+                                        INNER JOIN tbFatorRh
+                                            ON tbPaciente.idFatorRh = tbFatorRh.idFatorRh
+                   WHERE LOWER(nomePaciente) LIKE ?";
+
+        $pstm = $conexao->prepare($select);
+
+        $pstm->bindValue(1, '%'.$nome.'%');
+
+        $pstm->execute();
+
+        $resposta = $pstm->fetchAll();
+
+        if (count($resposta) > 0) {
+
+            return $resposta;
+        } else {
+
+            return false;
+        }
+    }
+
+
+    public function listarPacientePorRg($rg)
+    {
+        $conexao = DB::getConn();
+
+        $select = "SELECT idPaciente, nomePaciente, descricaoSexo, descricaoTipoSanguineo, 
+                     descricaoFatorRh, cpfPaciente, rgPaciente FROM tbPaciente
+                        INNER JOIN tbSexo
+                            ON tbPaciente.idSexo = tbSexo.idSexo
+                                INNER JOIN tbTipoSanguineo
+                                    ON tbPaciente.idTipoSanguineo = tbTipoSanguineo.idTipoSanguineo
+                                        INNER JOIN tbFatorRh
+                                            ON tbPaciente.idFatorRh = tbFatorRh.idFatorRh
+                   WHERE rgPaciente LIKE ?";
+
+        $pstm = $conexao->prepare($select);
+
+        $pstm->bindValue(1, $rg.'%');
+
+        $pstm->execute();
+
+        $resposta = $pstm->fetchAll();
+
+        if (count($resposta) > 0) {
+
+            return $resposta;
+        } else {
+
+            return false;
+        }
+    }
+
+    public function listarPacientePorCpf($cpf)
+    {
+        $conexao = DB::getConn();
+
+        $select = "SELECT idPaciente, nomePaciente, descricaoSexo, descricaoTipoSanguineo, 
+                     descricaoFatorRh, cpfPaciente, rgPaciente FROM tbPaciente
+                        INNER JOIN tbSexo
+                            ON tbPaciente.idSexo = tbSexo.idSexo
+                                INNER JOIN tbTipoSanguineo
+                                    ON tbPaciente.idTipoSanguineo = tbTipoSanguineo.idTipoSanguineo
+                                        INNER JOIN tbFatorRh
+                                            ON tbPaciente.idFatorRh = tbFatorRh.idFatorRh
+                   WHERE cpfPaciente LIKE ?";
+
+        $pstm = $conexao->prepare($select);
+
+        $pstm->bindValue(1, $cpf.'%');
+
+        $pstm->execute();
+
+        $resposta = $pstm->fetchAll();
+
+        if (count($resposta) > 0) {
+
+            return $resposta;
+        } else {
+
+            return false;
+        }
+    }
+
+    public function listarPacientePorFatorRh($id)
+    {
+        $conexao = DB::getConn();
+
+        $select = "SELECT idPaciente, nomePaciente, descricaoSexo, descricaoTipoSanguineo, 
+                     descricaoFatorRh, cpfPaciente, rgPaciente FROM tbPaciente
+                        INNER JOIN tbSexo
+                            ON tbPaciente.idSexo = tbSexo.idSexo
+                                INNER JOIN tbTipoSanguineo
+                                    ON tbPaciente.idTipoSanguineo = tbTipoSanguineo.idTipoSanguineo
+                                        INNER JOIN tbFatorRh
+                                            ON tbPaciente.idFatorRh = tbFatorRh.idFatorRh
+                   WHERE tbPaciente.idFatorRh = ?";
+
+        $pstm = $conexao->prepare($select);
+
+        $pstm->bindValue(1, $id);
+
+        $pstm->execute();
+
+        $resposta = $pstm->fetchAll();
+
+        if (count($resposta) > 0) {
+
+            return $resposta;
+        } else {
+
+            return false;
+        }
+    }
+
+    public function listarPacienteTipoSanguineo($id)
+    {
+        $conexao = DB::getConn();
+
+        $select = "SELECT idPaciente, nomePaciente, descricaoSexo, descricaoTipoSanguineo, 
+                     descricaoFatorRh, cpfPaciente, rgPaciente FROM tbPaciente
+                        INNER JOIN tbSexo
+                            ON tbPaciente.idSexo = tbSexo.idSexo
+                                INNER JOIN tbTipoSanguineo
+                                    ON tbPaciente.idTipoSanguineo = tbTipoSanguineo.idTipoSanguineo
+                                        INNER JOIN tbFatorRh
+                                            ON tbPaciente.idFatorRh = tbFatorRh.idFatorRh
+                   WHERE tbPaciente.idTipoSanguineo = ?";
+
+        $pstm = $conexao->prepare($select);
+
+        $pstm->bindValue(1, $id);
+
+        $pstm->execute();
+
+        $resposta = $pstm->fetchAll();
+
+        if (count($resposta) > 0) {
+
+            return $resposta;
+        } else {
+
+            return false;
         }
     }
 }

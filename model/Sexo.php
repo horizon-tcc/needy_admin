@@ -17,7 +17,6 @@ class Sexo
     public function setDescricaoSexo($descricaoSexo)
     {
         $this->descricaoSexo = $descricaoSexo;
-
     }
 
     public function getIdSexo()
@@ -25,7 +24,7 @@ class Sexo
         return $this->idSexo;
     }
 
-    
+
     public function setIdSexo($idSexo)
     {
         $this->idSexo = $idSexo;

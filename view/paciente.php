@@ -15,7 +15,6 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
             <input type="hidden" value="<?php echo ($_GET['idPaciente']); ?>" name="hdIdPaciente" id="hdIdPaciente" />
 
             <h2 class="text-center mt-4"> Cadastro de Pacientes </h2>
-
             <fieldset class="mt-5 pb-4">
                 <i class="fas fa-user text-center d-block mx-auto small-icon"></i>
                 <h2 class="text-center mt-2"> Informações pessoais </h2>
@@ -23,7 +22,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                 <hr />
 
                 <div class="form-row w-100">
-                    <div class="form-group col-md-12 pb-2">
+                    <div class="form-group col-md-6 pb-2">
                         <label for="txtNomePaciente"> <strong class="red"> * </strong> Nome </label>
                         <input type="text" class="form-control flat" name="txtNomePaciente" id="txtNomePaciente" placeholder="Digite o nome" maxlength="100" />
 
@@ -34,9 +33,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                             Nome inválido!
                         </div>
                     </div>
-                </div>
 
-                <div class="form-row w-100">
                     <div class="form-group col-md-6 pb-2">
                         <label for="seSexoPaciente"> <strong class="red"> * </strong> Sexo </label>
                         <select class="form-control flat" name="seSexoPaciente" id="seSexoPaciente">
@@ -161,8 +158,7 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "globa
                 </div>
             </fieldset>
         </form>
-
-
+    
         <div class="modal fade" id="limpar-campos-paciente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -193,7 +189,6 @@ include_once("imports/imports-js.php");
 ?>
 
 <script src="../js/script-paciente.js"></script>
-<script src="../js/script-usuario.js"></script>
 
 </body>
 

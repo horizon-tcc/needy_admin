@@ -20,7 +20,7 @@ function validarPreExistenciaCpf(cpf, id) {
 
     $.ajax({
 
-        url: "../controller/paciente/paciente-verificar-cpf-paciente.php",
+        url: "../controller/paciente/paciente-verificar-cpf.php",
         type: "post",
         data:
         {
@@ -218,7 +218,7 @@ function validarPaciente() {
 
 $(document).ready(function () {
 
-    idPaciente = document.getElementById("hdIdPaciente");
+    let idPaciente = document.getElementById("hdIdPaciente");
 
     if (idPaciente.value == 0) {
 
@@ -232,7 +232,7 @@ $(document).ready(function () {
             type: "post",
             dataType: "json",
             data: {
-                "idPaciente": idPaciente.value
+                "id": idPaciente.value
             },
             success: function (resposta) {
                 if (resposta.statusPaciente) {
@@ -240,7 +240,7 @@ $(document).ready(function () {
                     $("#txtNomePaciente").val(resposta.nomePaciente);
                     $("#txtCpfPaciente").val(resposta.cpfPaciente);
                     $("#txtRgPaciente").val(resposta.rgPaciente);
-                    $("#seSexoPaciente").prop('selectedIndex', resposta.idSexoPaciente);
+                    $("#seBancoSangueFuncionario").prop('selectedIndex', resposta.idSexoPaciente);
                     $("#seTipoSanguineoPaciente").prop('selectedIndex', resposta.idTipoSanguineoPaciente);
                     $("#seFatorRhPaciente").prop('selectedIndex', resposta.idFatorRhPaciente);
 
@@ -329,7 +329,7 @@ $(document).ready(function () {
                                 limparCamposPaciente();
                                 window.location.replace("consulta-pacientes.php");
 
-                            }, 3000);
+                            }, 2000);
 
                         } else {
 

@@ -27,7 +27,7 @@ try {
         && $statusTipoSanguineoPaciente && isset($rgPaciente) && !empty($rgPaciente)) {
 
         $paciente = new PacienteModel();
-        
+
         $paciente->setNomePaciente($nomePaciente);
         $paciente->setSexoPaciente($sexoPaciente);
         $paciente->setTipoSanguineoPaciente($tipoSanguineoPaciente);

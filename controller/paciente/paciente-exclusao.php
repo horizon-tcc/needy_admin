@@ -2,9 +2,10 @@
 require_once(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "global.php");
 
 try {
+    
     $idPaciente = intval($_GET['idPaciente']);
 
-    if(is_int($idPaciente) && isset($idPaciente) && !empty($idPaciente )){
+    if (isset($idPaciente) && !empty($idPaciente)) {
         $paciente = new PacienteDAO();
 
         echo $paciente->excluirPaciente($idPaciente);
