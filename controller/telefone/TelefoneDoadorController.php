@@ -10,7 +10,6 @@
 
                 session_start();
             }
-            
 
             
             if ( isset($_SESSION['telefonesDoador']) && !empty( $_SESSION['telefonesDoador'] ) ) {

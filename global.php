@@ -24,9 +24,10 @@ function carregarPagina($nomeClasse)
         PATH_CONTROLLER . "telefone" . DIRECTORY_SEPARATOR,
         PATH_CONTROLLER . "tipo-doacao" . DIRECTORY_SEPARATOR,
         PATH_CONTROLLER . "unidade-medida" . DIRECTORY_SEPARATOR,
-        PATH_CONTROLLER. "material-doado". DIRECTORY_SEPARATOR,
+        PATH_CONTROLLER . "material-doado" . DIRECTORY_SEPARATOR,
         PATH_CONTROLLER . "paciente". DIRECTORY_SEPARATOR,
         PATH_CONTROLLER . "dia-semana" . DIRECTORY_SEPARATOR,
+        PATH_CONTROLLER . "banco-sangue" . DIRECTORY_SEPARATOR,
         PATH_DAO,
          __DIR__ . DIRECTORY_SEPARATOR
     ];
@@ -36,10 +37,8 @@ function carregarPagina($nomeClasse)
         if (file_exists($p . $nomeClasse . ".php")) {
 
             require_once($p . $nomeClasse . ".php");
-           // echo("<b> Encontrei aqui -> </b> ". $p . $nomeClasse . ".php"."<br/>");
             break;
         }
 
-        //echo ($p . $nomeClasse . ".php" . "<br/>");
     }
 }

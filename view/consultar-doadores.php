@@ -23,12 +23,11 @@ define("PESQUISAR_POR_FATOR_RH", 7);
 
             <div class="row">
 
-                <div class="col-md-12">
-
+                <div class="col-md-12 py-2">
+        
                     <h2 class="text-center"> <i class="fas fa-search"></i> </h2>
                     <h2 class="text-center"> Consultar doadores </h2>
 
-                    
 
                 </div>
 

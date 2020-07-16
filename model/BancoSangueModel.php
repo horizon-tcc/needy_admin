@@ -9,6 +9,7 @@ class BancoSangueModel
     private $endereco;
     private $telefones;
     private $foto;
+    private $horarios;
 
     # Getters
 
@@ -71,5 +72,18 @@ class BancoSangueModel
         $this->foto = $foto;
 
         return $this;
+    }
+
+    
+    public function getHorarios()
+    {
+        return $this->horarios;
+    }
+
+  
+    public function setHorarios($horarios)
+    {
+        $this->horarios = $horarios;
+
     }
 }

@@ -76,7 +76,7 @@ CREATE TABLE `tbDoacao` (
   `idResultadoDoacao` int(12),
   `idTipoDoacao` int(12) NOT NULL,
   `idUnidadeMedida` int(12) NOT NULL,
-  `pesoDoadorDoacao` decimal(3, 2) NOT NULL,
+  `pesoDoadorDoacao` decimal(5, 2) NOT NULL,
   `totalDoacao` int(5) NOT NULL,
   `statusDoacao` int(100) DEFAULT 1 NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_bin;

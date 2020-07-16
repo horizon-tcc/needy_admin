@@ -109,4 +109,28 @@ class BancoSangueDAO
         else
             return false;
     }
+
+
+    public static function pegarUltimoIdBancoSangue()
+    {
+
+        $conn = DB::getConn();
+
+        $sql = "SELECT MAX(idBancoSangue) AS 'ultimoId'  FROM tbbancosangue";
+
+        $prepare = $conn->prepare($sql);
+
+        $prepare->execute();
+
+        $result = $prepare->fetchAll();
+
+        $retorno = null;
+
+        foreach( $result as $r ){
+
+           $retorno = $r['ultimoId'];
+        }
+
+        return $retorno;
+    }
 }
